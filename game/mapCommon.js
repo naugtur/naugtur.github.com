@@ -179,8 +179,8 @@ var D = document;
 		    food=[],
 		    runSpeed=80, 
 		    board={
-		      w:Math.min(window.innerWidth-10,800),
-		      h:Math.min(window.innerHeight-10,600)
+		      w:Math.min(window.innerWidth-10),
+		      h:Math.min(window.innerHeight-10)
 		      },
 		    boost=~~(board.w/(3*(1000/runSpeed))),
 		    time=0,dead=false;
