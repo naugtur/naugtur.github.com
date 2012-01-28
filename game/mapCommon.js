@@ -182,7 +182,7 @@ var D = document;
 		      w:Math.min(window.innerWidth-10),
 		      h:Math.min(window.innerHeight-10)
 		      },
-		    boost=~~(board.w/(3*(1000/runSpeed))),
+		    boost=~~(((board.w+board.h)/2)/(3*(1000/runSpeed))),
 		    time=0,dead=false;
 		
 		
