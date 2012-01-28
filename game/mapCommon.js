@@ -367,7 +367,7 @@ var D = document;
 		
 		 
 		initFood();
-		setInterval(addFood,runSpeed*100);
+		setInterval(addFood,runSpeed*30);
 		
 		var last= +new Date();
 		(function animloop(){
