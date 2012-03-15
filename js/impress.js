@@ -84,7 +84,7 @@
     };
     
     var scale = function ( s ) {
-        return " scaleX(" + s.x + ") scaleY(" + s.y + ") scaleZ(" + s.z + ") ";
+        return " scale(" + s + ") ";
     }
     
     // CHECK SUPPORT
@@ -127,7 +127,7 @@
     var props = {
         position: "absolute",
         transformOrigin: "top left",
-        transition: "all 1s ease-in-out",
+        transition: "all 0s ease-in-out",
         transformStyle: "preserve-3d"
     }
     
@@ -142,10 +142,11 @@
     var current = {
         translate: { x: 0, y: 0, z: 0 },
         rotate:    { x: 0, y: 0, z: 0 },
-        scale:     { x: 1, y: 1, z: 1 }
+        scale:     1
     };
 
-    var drawSlide=function ( el, idx ) {
+
+    var doSlide=function ( el, idx ) {
         var data = el.dataset,
             step = {
                 translate: {
@@ -158,11 +159,7 @@
                     y: data.rotateY || 0,
                     z: data.rotateZ || data.rotate || 0
                 },
-                scale: {
-                    x: data.scaleX || data.scale || 1,
-                    y: data.scaleY || data.scale || 1,
-                    z: data.scaleZ || 1
-                }
+                scale: data.scale || 1
             };
         
         el.stepData = step;
@@ -180,20 +177,20 @@
             transformStyle: "preserve-3d"
         });
         
-    }
+    };
     
-    //all API I needed. This should not work like that I guess ;)
-    window['--drawSlideGlobalHandler']=drawSlide;
+    steps.forEach(doSlide);
+    window['--drawSlideGlobalHandler']=doSlide;
     
-    steps.forEach(drawSlide);
 
     // making given step active
 
     var active = null;
+    var hashTimeout = null;
     
     var select = function ( el ) {
-        if ( !el || !el.stepData ) {
-            // selected element is not defined as step
+        if ( !el || !el.stepData || el == active) {
+            // selected element is not defined as step or is already active
             return false;
         }
         
@@ -218,7 +215,13 @@
         
         // `#/step-id` is used instead of `#step-id` to prevent default browser
         // scrolling to element in hash
-        window.location.hash = "#/" + el.id;
+        //
+        // and it has to be set after animation finishes, because in chrome it
+        // causes transtion being laggy
+        window.clearTimeout( hashTimeout );
+        hashTimeout = window.setTimeout(function () {
+            window.location.hash = "#/" + el.id;
+        }, 1000);
         
         var target = {
             rotate: {
@@ -226,30 +229,33 @@
                 y: -parseInt(step.rotate.y, 10),
                 z: -parseInt(step.rotate.z, 10)
             },
-            scale: {
-                x: 1 / parseFloat(step.scale.x),
-                y: 1 / parseFloat(step.scale.y),
-                z: 1 / parseFloat(step.scale.z)
-            },
             translate: {
                 x: -step.translate.x,
                 y: -step.translate.y,
                 z: -step.translate.z
-            }
+            },
+            scale: 1 / parseFloat(step.scale)
         };
         
-        var zoomin = target.scale.x >= current.scale.x;
+        // check if the transition is zooming in or not
+        var zoomin = target.scale >= current.scale;
+        
+        // if presentation starts (nothing is active yet)
+        // don't animate (set duration to 0)
+        var duration = (active) ? "1s" : "0";
         
         css(impress, {
             // to keep the perspective look similar for different scales
             // we need to 'scale' the perspective, too
-            perspective: step.scale.x * 1000 + "px",
+            perspective: step.scale * 1000 + "px",
             transform: scale(target.scale),
+            transitionDuration: duration,
             transitionDelay: (zoomin ? "500ms" : "0ms")
         });
         
         css(canvas, {
             transform: rotate(target.rotate, true) + translate(target.translate),
+            transitionDuration: duration,
             transitionDelay: (zoomin ? "0ms" : "500ms")
         });
         
@@ -257,31 +263,40 @@
         active = el;
         
         return el;
-    }
+    };
+    
+    var selectPrev = function () {
+        var prev = steps.indexOf( active ) - 1;
+        prev = prev >= 0 ? steps[ prev ] : steps[ steps.length-1 ];
+        
+        return select(prev);
+    };
+    
+    var selectNext = function () {
+        var next = steps.indexOf( active ) + 1;
+        next = next < steps.length ? steps[ next ] : steps[ 0 ];
+        
+        return select(next);
+    };
     
     // EVENTS
     
     document.addEventListener("keydown", function ( event ) {
         if ( event.keyCode == 9 || ( event.keyCode >= 32 && event.keyCode <= 34 ) || (event.keyCode >= 37 && event.keyCode <= 40) ) {
-            var next = active;
             switch( event.keyCode ) {
                 case 33: ; // pg up
                 case 37: ; // left
                 case 38:   // up
-                         next = steps.indexOf( active ) - 1;
-                         next = next >= 0 ? steps[ next ] : steps[ steps.length-1 ];
+                         selectPrev();
                          break;
                 case 9:  ; // tab
                 case 32: ; // space
                 case 34: ; // pg down
                 case 39: ; // right
                 case 40:   // down
-                         next = steps.indexOf( active ) + 1;
-                         next = next < steps.length ? steps[ next ] : steps[ 0 ];
-                         break; 
+                         selectNext();
+                         break;
             }
-            
-            select(next);
             
             event.preventDefault();
         }
@@ -309,7 +324,7 @@
         if ( select(target) ) {
             event.preventDefault();
         }
-    });
+    }, false);
     
     var getElementFromUrl = function () {
         // get id from url # by removing `#` or `#/` from the beginning,
