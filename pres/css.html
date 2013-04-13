@@ -1,0 +1,317 @@
+<!doctype html>  
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="../reveal.js/css/reset.css">
+    <link rel="stylesheet" href="../reveal.js/css/main.css">
+    <link rel="stylesheet" href="../reveal.js/lib/github.css">
+    <script src="../reveal.js/lib/jquery-1.7.min.js"></script>
+    <script src="../reveal.js/lib/underscore.js"></script>
+    <style>
+
+    </style>
+  </head>
+  <body><div id="reveal">
+      <div class="slides">
+        <!-- Any section element inside of this container is displayed as a slide -->
+
+
+        <section>
+        <br>
+        <h1>CSS</h1><br>
+        <p class="center"> in a serious webapp project</p>
+        <small>@naugtur, meet.js 02.2013</small>
+        </section>
+
+
+        <section>
+        <h3>Why so serious?</h3>
+        <br>
+        <ul>
+          <li>new rendering model
+          <br> and why googling isn't helpful</li>
+          <li>CSS architecture</li>
+          <li>styleguide first</li>
+          <li>we defeated Flash, but it's <br> still way ahead (css transforms)</li>
+
+        </ul>
+
+        </section>
+
+        <section>
+        <section>
+        <h3>Flexible layouts</h3>
+        <small>W3C says:</small>
+        <blockquote> An element with ‘<code class="css">display:flex</code>’ or ‘<code class="css">display:inline-flex</code>’ is a <a href="http://www.w3.org/TR/css3-flexbox/#flex-container"><i>flex container</i></a>. Children of a flex
+          container are called <a href="http://www.w3.org/TR/css3-flexbox/#flex-item"><i>flex items</i></a> and are
+          laid out using the flex layout model.
+
+        </blockquote>
+
+        </section>
+        <section>
+        <h3>Flex dimensions</h3>
+        <p>main, cross, <a href="http://www.w3.org/TR/css3-flexbox/#box-model">all the specs</a></p>
+        <img alt="" height="277" src="http://www.w3.org/TR/css3-flexbox/images/flex-direction-terms.svg" width="665">
+        <p>Tons of things to use:
+
+        <a href="https://developer.mozilla.org/en-US/docs/CSS/Using_CSS_flexible_boxes">overview on MDN</a>
+        </p>
+
+        <a href="http://demo.agektmr.com/flexbox/">>>Live DEMO<<</a>
+        </section>
+        <section>
+        <h3>Too much flexibility makes you sloppy</h3>
+        <ul style="margin-top: 50px">
+          <li>There has been 3 flexible layout <br>specifications so far</li>
+          <li>All implemented...</li>
+          <li>with tutorials online and stuff</li>
+          <li> <a href="http://css-tricks.com/old-flexbox-and-new-flexbox/">Learn to recognize the implementations</a> </li>
+        </ul>
+        </section>  
+        <section>
+        <h3>Cool, I want to use it</h3>
+        <ul style="margin-top: 50px">
+          <dd>Browser support is a mess</dd>
+          <dd>&nbsp;</dd>
+          <li style="font-weight: bold">Old 2009 version partial:</li>
+          <dd> Chrome, Firefox 2+, Safari 3.1+</dd>
+          <dd>IE10 - something in between <br>(the "we almost nailed it" spec version)</dd>
+          <li  style="font-weight: bold">New syntax: </li>
+          <dd>Firefox 20+, Chrome 21+, Opera (&Mobile) 12.1+, Blackberry 10+</dd>
+          <li> <a href="http://caniuse.com/flexbox"> Current state - caniuse.com </a></li>
+          <li> <a href="http://html5please.com/#flex"> html5please says avoid</a> </li>
+        </ul>
+        </section>
+        </section>
+        <section>
+        <h3 style="margin-top: 250px">Just don't use it yet...</h3>
+        
+
+        </section>
+        <section>
+          
+          <section>
+	          <h3 style="margin-top: 150px">
+	          - so you're a clientside architect</h3>
+          </section>
+          <section>
+	          <h3 style="margin-top: 150px">
+	          - that's right!</h3>
+          </section>
+          <section>
+	          <h3 style="margin-top: 150px">- and how is your CSS structured?</h3>
+	          
+          </section>
+          <section>
+          <img style="margin-top: 150px" src="dontcare.gif" />
+          
+          </section>
+          
+          <section>
+            <h3>Structure tips</h3>
+            <ul>
+	            <li>#namespace in front of everything at least</li>
+	            <li>sort it, comment it (describe hacks!)</li>
+	            <li>future proof <br><del><code>.yellowthing .firstSection .top .center</code></del></li>
+	            <li>meaningful classes <br><code>.role-{role name} .bt-{action name} <br> .box-{what it does}</code> </li>
+	            <li>split to multiple files</li>
+	            <li>separate functionality from looks</li>
+	            <li>start using LESS/SASS while you can</li>
+	            <li>STYLEGUIDE!!!!11one</li>
+            </ul>
+          </section>
+        
+        </section>
+        
+        <section>
+        
+        <section>
+        <h3>Style guide</h3>
+        <p>Reusable CSS bits to aid UI development. Good practices are strong in this one.</p>
+<pre><code class="css">
+.button {  }
+.button:hover {  }
+.button.active {  }
+
+.icon-duck {  }
+
+.navbar {  }
+
+.notification {  }
+.notification.error {  }
+.notification.success {  }
+
+.item {  }
+</code></pre>
+        </section>
+        <section>
+        <h3>Style guide</h3>
+        <p>It has a demo page too. Easy to work with, easy to demo. Saves the hassle of running the app</p>
+<pre><code class="html">
+&lt;section&gt;
+  &lt;p&gt;Test all markup elements you want to turn into buttons&lt;/p&gt;
+
+  &lt;div class="button"&gt;div button&lt;/div&gt;
+  &lt;a href="" class="button"&gt;a button&lt;/a&gt;
+  &lt;span class="button"&gt;span button&lt;/span&gt;
+  &lt;input type="button" class="button" value="input button" /&gt;
+
+  &lt;div class="button active icon-duck"&gt;active button with duck icon&lt;/div&gt;
+  &lt;div class="button icon-duck" title="empty icon button"&gt;&lt;/div&gt;
+
+&lt;/section&gt;
+
+</code></pre>
+        </section>
+
+        <section>
+        <h3>Style guide <br> howto</h3>
+        <ul>
+          <li>Start your project from making a styleguide</li>
+          <li>LESS/SASS are the best for that!</li>
+          <li>You can start small</li>
+          <li>Did you know that designers are learning to CSS now?</li>
+          <li style="margin-top: 20px; zoom:0.7">You can use <code>twitter bootstrap</code> and alikes <br/>if you don't have a designer :)</li>
+        </ul>
+
+        </section>
+
+
+        <section>
+        <h3>What's in it for me?</h3>
+        <ul>
+          <li>You might have to clean it up</li>
+          <li>...but it's still better than a drawing</li>
+          <li>Build structure, forget pixel perfection</li>
+          <li>Now merge it in - once and for all</li>
+        </ul>
+
+        <h3>The setup</h3>
+        <ul>
+          <li><code>less.js</code> for development</li>
+          <li>Styleguide as a part of your app</li>
+          <li>Single optimized css file on production</li>
+          <li>How about I show you some? (live demo)</li>
+        </ul>
+
+        </section>
+</section>
+<section>
+  <h3 style="margin-top: 50px">&lt;rant&gt;</h3>
+  
+</section>
+<section>
+        <section>
+        <h3>CSS transforms</h3>
+        <p style="text-align: center">So you're writing an app... <br/> well, good luck with that.</p>
+        <ul>
+          <li>Want to know how the object was transformed? <br>No problem, you just need a parser</li>
+          <li>Fix: don't store variables in CSS, ok?</li>
+          <li style="margin-top: 50px">Forget mouse interactions</li>
+          <li>jQueryUI <em>*able</em> is a solid piece of code <br>with all the options you'd need. <strong>not</strong>. </li>
+          <li>Fix: ... doh</li>
+        </ul>
+        </section>
+
+        <section>
+        <h3>CSS transforms</h3>
+        <p style="text-align: center"><em>I'm going on an adventure!</em></p>
+        <ul>
+          <li>drag, drop, select, zoom, pan, scroll and don't forget the fingers</li>
+          <li>controls for transformed elements are hard. <a href="http://naugtur.github.com/builder4impress/" title="see how it works scaled, in overview">You know it when you try</a></li>
+          <li>libraries are full of assumptions</li>
+          <li>I've recently patched jQuery UI draggable and selectable to work <br> with scale</li>
+        </ul>
+        <p style="margin-top: 50px">Flash had it all figured out over a decade ago! <br>[I checked]</p>
+        </section>
+        <section>
+        <h3>There's hope</h3>
+        <a href="http://famo.us">famo.us might solve all the problems. Now we wait.</a>
+        </section>
+
+</section>
+
+<section>
+  <h3 style="margin-top: 50px">&lt;/rant&gt;</h3>
+  
+</section>
+<section>
+  <h3 style="margin-top: 50px">JSHacks</h3>
+  <p style="margin-top: 50px; text-align: center"> <a href="https://github.com/jshacks/command-center">https://github.com/<strong>jshacks</strong>/command-center</a> </p>
+  <h4>connecting</h4>
+  <div style="width:44%; float:left; border: 2px dashed #eee; height: 270px; padding-top: 20px;">Beginner JS developers who want to learn from working with experienced developers on open-source projects</div>
+  
+  <div style="width:44%; float:right; border: 2px dashed #eee; height: 270px; padding-top: 20px;">
+Experienced JS developers who want to learn how to manage a team, create conventions and or just have cool pet projects.</div>
+  
+  
+  
+</section>
+
+
+
+        <!-- Any section element inside of this container is displayed as a slide -->		
+      </div>
+
+
+
+      <!-- The navigational controls UI -->
+      <aside class="controls">
+      <a class="left" href="#">&#x25C4;</a>
+      <a class="right" href="#">&#x25BA;</a>
+      <a class="up" href="#">&#x25B2;</a>
+      <a class="down" href="#">&#x25BC;</a>
+      </aside>
+
+      <!-- Displays presentation progress, max value changes via JS to reflect # of slides -->
+      <div class="progress"><span></span></div>
+
+
+    </div>
+
+
+    <script src="../reveal.js/js/reveal.js"></script>
+    <script src="../reveal.js/lib/highlight.js"></script>
+    <script>
+      // Parse the query string into a key/value object
+      var query = {};
+      location.search.replace( /[A-Z0-9]+?=(\w*)/gi, function(a) {
+        query[ a.split( '=' ).shift() ] = a.split( '=' ).pop();
+      } );
+
+      Reveal.initialize({
+        // Display controls in the bottom right corner
+        controls: true,
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // If true; each slide will be pushed to the browser history
+        history: true,
+
+        // Flags if mouse wheel navigation should be enabled
+        mouseWheel: true,
+
+        // Apply a 3D roll to links on hover
+        rollingLinks: true,
+
+        // UI style
+        theme: query.theme || 'neon', // default/neon
+
+        // Transition style
+        transition: query.transition || 'default' // default/cube/page/concave/linear(2d)
+      });
+
+      hljs.initHighlightingOnLoad();
+    </script>
+  </body>
+</html>
+
+
+
+
+
+
+

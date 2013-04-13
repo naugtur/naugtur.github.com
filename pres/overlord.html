@@ -1,0 +1,409 @@
+<!doctype html>  
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<link rel="stylesheet" href="../reveal.js/css/reset.css">
+	<link rel="stylesheet" href="../reveal.js/css/main.css">
+	<link rel="stylesheet" href="../reveal.js/lib/github.css">
+	<script src="../reveal.js/lib/jquery-1.7.min.js"></script>
+	<script src="../reveal.js/lib/underscore.js"></script>
+	<style>
+.z3col {
+position: relative;
+top: 0;
+left: -30px;
+width: 1030px;
+padding:0 !important;
+margin:0 !important;
+}
+.z3col>div{
+float:left !important;
+width: 31%;
+padding:0 !important;
+margin:0 !important;
+
+}
+.z3col>div:last-child{
+width: 34% !important;
+}
+.z3col pre,.z3col code{
+padding:2px !important;
+margin:0 !important;
+}
+	</style>
+</head>
+<body><div id="reveal">
+<div class="slides">
+<!-- Any section element inside of this container is displayed as a slide -->
+
+
+<section>
+
+<h1>Communication architecture</h1><br>
+<p class="center">Pub/Sub and Mediator pattern taken to the limits</p>
+<small>@naugtur, meet.js 06.2012</small>
+</section>
+
+
+  <section>
+		<h3>Today's menu:</h3>
+		<ul>
+			<li>Who's communicating?</li>
+			<li>Why communicate?</li>
+			<li>Publisher/Subscriber</li>
+			<li>Mediator</li>
+			<li>Overlord</li>
+			<li>Bits of code</li>
+			<li>And some intermissions you could take<br> and turn to a full-blown presentation</li>
+		</ul>
+
+	</section>
+
+  <section>
+	  <h3>Who's communicating?</h3>
+	  <p>You should not need this slide because you know what a module is. Right?</p>
+	  <strong>Revealing module pattern</strong>
+	  <pre><code class="javascript">(function(){
+  var privateVariable;
+  function privateMethod(){ /*...*/ }
+  function publicMethod(){ /*...*/ }
+  
+  return {
+    public:publicMethod
+  }	  
+})()</code></pre>
+	  <strong>AMD module pattern (like in RequireJS)</strong>
+	  <pre><code class="javascript">define(['dependency1','dependency2'],function(Dep1,Dep2){
+  var privateVariable;
+  function privateMethod(){ /*...*/ }
+  function publicMethod(){ /*...*/ }
+  
+  return {
+    public:publicMethod
+  }	  
+})()</code></pre>
+  </section>
+  
+  
+  <section>
+	  <h3>Why communicate?</h3>
+	  <ul>
+	    <li>All modules visible to all modules? No. </li>
+	    <li>Decoupling </li>
+	    <li>No pollution of global scope 	    </li>
+	    <li>Easy to extend existing behaviour    </li>
+	  </ul>
+
+  </section>
+  <section>
+	  <h3>It's a good practice</h3>
+	  <img src="architecture.jpg">
+	</section>
+  <section>
+	  <h3>Publisher/Subscriber pattern</h3>
+	  <img src="pubsub.png" style="float:left">
+	  <div  style="float:left; width: 60%">
+	  <pre><code class="javascript">subscribe('newsTopic',function(){
+  console.log('hello1');  
+  });
+  
+subscribe('newsTopic',function(){
+  console.log('hello2');  
+  });
+  
+subscribe('otherTopic',function(){
+  console.log('good evening');  
+  });</code></pre>
+  	<pre><code class="javascript">publish('newsTopic');</code></pre>
+  	<pre><code class="javascript">> hello1
+> hello2</code></pre>
+  	</div>
+  </section>
+  <section>
+	  <h3>Publisher/Subscriber</h3>
+	  <h4>The awesome</h4>
+    <ul>
+	    <li>Great for implementing any cooperation </li>
+	    <li>Decoupling, one publisher calls all subscribers without knowing them. <br>
+	    Extend functionality without touching the old code!</li>
+	  </ul>
+  </section>
+  <section>
+	  <h3>Publisher/Subscriber</h3>
+	  <h4>The lame</h4>
+	  <img src="return.png" style="float:right">
+    <ul>
+	    <li>No feedback</li>
+	    <li>No built-in returning information. <br>Makes you want to create globals</li>
+	  </ul>
+
+  </section>
+  <section>
+	  <hr>
+	  <h2>Intermission</h2>
+	  <a href="http://jquerymobile.com/themeroller/">http://jquerymobile.com/themeroller/</a>
+	  <p>Did you know that jQuery Mobile Framework finally has a themeroller? </p>
+	  <p>Lots of new stuff is going on. And it's production quality.</p>
+	  <hr>
+  </section>
+  <section>
+	  <h3>Mediator pattern</h3>
+	  <img src="mediator.png" style="float:right">
+  
+	  <ul>
+	    <li>Creates an interface for peers to communicate</li>
+	    <li>Serves as an abstraction layer for communication</li>
+	    <li>Allows communication between multiple peers without them knowing about any of the other</li>
+	  </ul>
+  </section>
+  <section>
+	  <h3>Implementation</h3>
+	  <p>When looking for mediator implementations in JS I only found Pub/Sub with minor improvements.</p>
+	  <p>And JavaScript can do so much more!</p>
+	  <p><strong>Introducing Overlord.js</strong></p>
+	  <ul>
+	    <li>Subscribe with multiple methods</li>
+	    <li>The publisher gets a single object to call methods from</li>
+	    <li>All modules get their methods called transparently</li>
+	    <li>The caller gets all the results</li>
+	  </ul>
+  </section>
+  <section>
+	  <h3>Overlord.js</h3>
+	  <h4>The flow</h4>
+	  <p class="center">register, getFacade, call</p>
+<div class="z3col">
+<div>
+<strong>peer A</strong>
+ <pre><code class="javascript">var doSomething=function(){
+  return 'hello from A' 
+  };
+
+//Expose API to my
+//  functionalities
+Overlord.register('myAPI',{
+  hello:doSomething
+});    
+
+
+
+
+ ...
+
+
+
+</code></pre>
+</div>
+<div><strong>peer B</strong>
+ <pre><code class="javascript">var doSomething=function(){
+  return 'hello from B' 
+  };
+
+//Expose API to my 
+//  functionalities
+Overlord.register('myAPI',{
+  hello:doSomething
+});    
+
+
+
+
+ ...
+
+
+
+</code></pre>
+</div>
+<div><strong>peer C</strong>
+ <pre><code class="javascript">
+
+
+ ...
+
+
+
+//choose an API to use
+var facade = 
+  Overlord.getFacade('myAPI');  
+
+//Call a method
+facade.hello();
+> [ "hello from A",
+    "hello from B" ]
+
+</code></pre>
+</div>
+</div>
+	</section>
+  <section>
+	  <h3>Overlord.js</h3>
+	  <p>Loose API interface</p>
+	  <pre><code class="javascript">Overlord.register('myAPIName',{
+  inc:function(a){return a+1;},
+  dec:function(a){return a-1;}
+});
+
+Overlord.register('myAPIName',{
+  inc:function(a){return a+10;}
+});     </code></pre>
+	  <pre><code class="javascript">var facade=Overlord.getFacade('myAPIName'); 
+facade.inc(3); 
+> [ 4, 13 ]
+
+facade.dec(3); 
+> [ 2 ]
+	  </code></pre>
+  </section>
+  <section>
+	  <h3>Overlord.js</h3>
+	  <p>Strict API interface - define first</p>
+	  <pre><code class="javascript">Overlord.defineInterface('myAPIName',['inc','dec']); 
+Overlord.register('myAPIName',{
+  inc:function(a){return a+1;},
+  dec:function(a){return a-1;}
+});
+
+Overlord.register('myAPIName',{
+  inc:function(a){return a+10;}
+});
+> exception:
+"Given object is not an implementation for API:myAPIName. Method dec is missing"   </code></pre>
+  </section>
+  <section>
+	  <h3>Overlord.js</h3>
+	  <p>Facade always up to date</p>
+	  <pre><code class="javascript">Overlord.register('myAPIName',{
+  inc:function(a){return a+1;},
+  dec:function(a){return a-1;}
+});
+
+var facade=Overlord.getFacade('myAPIName');
+
+Overlord.register('myAPIName',{
+  inc:function(a){return a+10;}
+});
+
+facade.inc(3); 
+> [ 4, 13 ]   </code></pre>
+  </section>
+  <section>
+	  <hr>
+	  <h2>Intermission</h2>
+	  
+	  <a href="http://unhosted.org">unhosted.org</a>
+	  <p>Separate applications from user data. And don't write back-end for html5 apps anymore :)</p>
+	  <hr>
+  </section>
+  <section>
+	  <h3>Overlord.js</h3>
+	  <p>Safe to call anything, errors are being caught</p>
+	  <pre><code class="javascript">Overlord.register('myAPIName',{
+  inc:function(a){return a+1;},
+});
+Overlord.register('myAPIName',{
+  inc:function(a){return a.misspeledPropName.something;}
+});
+var facade=Overlord.getFacade('myAPIName');
+
+facade.inc(3); 
+> [ 4 ]
+
+Overlord.getDebugInfo('myAPIName')
+> {
+  errors: 
+   [ { stack: [Getter/Setter],
+       arguments: [Object],
+       type: 'non_object_property_load',
+       message: [Getter/Setter] } ],
+  method: 'inc',
+  apiObject: 
+   { definition: { inc: true },
+     stronglyTypedInterface: false,
+     implementations: [ [Object], [Object] ],
+     lastErrors: [ [Object] ],
+     lastCall: 'inc',
+     facade: { inc: [Function] } } }
+   </code></pre>
+  </section>
+    
+  <section>
+	  <hr>
+	  <h2>Shameless plug</h2>
+	  
+	  <a href="http://cogision.com/kontakt/">http://cogision.com/kontakt
+</a>
+	  <p>Cogision is having a summer internship for students and fresh graduates.</p>
+	  <hr>
+  </section>
+  
+<section>
+	<h3>( meet.js ).publish( 'end' );</h3>
+	<small>You can find me on twitter, github and stackoverflow. Just look for <code>naugtur</code></small>
+	
+	<p style="margin-top:250px">
+	  <small>graphics from The Noun Project</small>
+	</p>
+	
+	
+</section>
+
+ 
+
+
+	<!-- Any section element inside of this container is displayed as a slide -->		
+</div>
+
+
+
+			<!-- The navigational controls UI -->
+			<aside class="controls">
+				<a class="left" href="#">&#x25C4;</a>
+				<a class="right" href="#">&#x25BA;</a>
+				<a class="up" href="#">&#x25B2;</a>
+				<a class="down" href="#">&#x25BC;</a>
+			</aside>
+
+			<!-- Displays presentation progress, max value changes via JS to reflect # of slides -->
+			<div class="progress"><span></span></div>
+			
+
+</div>
+
+
+<script src="../reveal.js/js/reveal.js"></script>
+<script src="../reveal.js/lib/highlight.js"></script>
+<script>
+			// Parse the query string into a key/value object
+			var query = {};
+			location.search.replace( /[A-Z0-9]+?=(\w*)/gi, function(a) {
+				query[ a.split( '=' ).shift() ] = a.split( '=' ).pop();
+			} );
+
+			Reveal.initialize({
+				// Display controls in the bottom right corner
+				controls: true,
+
+				// Display a presentation progress bar
+				progress: true,
+
+				// If true; each slide will be pushed to the browser history
+				history: true,
+
+				// Flags if mouse wheel navigation should be enabled
+				mouseWheel: true,
+
+				// Apply a 3D roll to links on hover
+				rollingLinks: true,
+
+				// UI style
+				theme: query.theme || 'neon', // default/neon
+
+				// Transition style
+				transition: query.transition || 'default' // default/cube/page/concave/linear(2d)
+			});
+
+			hljs.initHighlightingOnLoad();
+		</script>
+</body>
+</html>

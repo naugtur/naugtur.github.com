@@ -1,0 +1,174 @@
+<!doctype html>  
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<link rel="stylesheet" href="../reveal.js/css/reset.css">
+	<link rel="stylesheet" href="../reveal.js/css/main.css">
+	<link rel="stylesheet" href="../reveal.js/lib/github.css">
+	<script src="../reveal.js/lib/jquery-1.7.min.js"></script>
+	<script src="../reveal.js/lib/underscore.js"></script>
+	<style>
+
+	</style>
+</head>
+<body><div id="reveal">
+<div class="slides">
+<!-- Any section element inside of this container is displayed as a slide -->
+
+
+<section>
+<br>
+<h1>WebAudio API</h1><br>
+<p class="center">DIY equalizer for youtube ;)</p>
+<small>@naugtur, meet.js 09.2012</small>
+</section>
+
+
+  <section>
+		<h3>On the playlist:</h3>
+		<ul>
+			<li>basic idea</li>
+			<li>browser support</li>
+			<li>demo</li>
+ 			<li>your first f_ck-up</li>
+			<li>moar stuff!</li>
+
+		</ul>
+
+	</section>
+
+  <section>
+	  <h3>WebAudio</h3>
+	  <p>W3C says:
+	  <blockquote>The primary paradigm is of an audio routing graph, where a number of AudioNode objects are connected together to define the overall audio rendering</blockquote>
+	  </p>
+	  <p>But what concerns you is that there is a source and a destination and you can put stuff between them</p>
+    <p><a href="http://www.w3.org/TR/webaudio/">doc</a></p>         
+  </section>
+  
+  <section>
+	  <h3>Browser support</h3>
+	  <p style="text-align: center">incomplete or deprecated</p>
+	  <ul>
+	    <li>chrome stable</li>
+	    <li>safari nightly</li>
+	    <li style="color: #ffffee">firefox - Audio Data API,<br> <em>now deprecated</em></li>
+    </ul>	 
+  </section>
+  
+  <section>
+	  <h3>Browser support</h3>
+	  <p style="text-align: center">We'll have to wait a bit more...</p>
+	  <img src="wait.jpg"/>
+  </section>
+  
+  <section>
+	  <h3 style="margin-top:250px">Demo</h3>
+	  <p>Sound from thepianoguys.com channel on youtube</p>
+	  
+  </section>
+  
+  <section>
+	  <h3>Your first f_ck-up</h3>
+	  <p style="text-align: center">it's easy to break it :)</p>
+	  <pre><code class="javascript">
+source.connect(bass);
+source.connect(treble);
+
+bass.connect(context.destination);
+treble.connect(context.destination);
+
+     _,_
+..._/   \_...
+    \_,_/
+	  </code></pre>
+    <h3>kaboom</h3>
+  </section>
+  
+  
+  <section>
+	  <h3 style="margin-top:250px">Ok, where's the youtube?</h3>
+	  
+  </section>
+  
+  <section>
+	  
+	  <h4 style="margin-top:250px">pedalboard!</h4>
+	  <a href="http://dashersw.github.com/pedalboard.js/demo/">http://dashersw.github.com/pedalboard.js/demo/</a>
+	  <p>It wasn't my machine, the demo seems broken at the moment</p>
+  </section>
+  
+  
+  
+  
+<section>
+	<h3>Thanks!</h3>
+	<small>You can find me on twitter, github and stackoverflow. Just look for <code>naugtur</code></small>
+	
+	<p style="margin-top:250px">
+	  <small></small>
+	</p>
+	
+	
+</section>
+
+ 
+
+
+	<!-- Any section element inside of this container is displayed as a slide -->		
+</div>
+
+
+
+			<!-- The navigational controls UI -->
+			<aside class="controls">
+				<a class="left" href="#">&#x25C4;</a>
+				<a class="right" href="#">&#x25BA;</a>
+				<a class="up" href="#">&#x25B2;</a>
+				<a class="down" href="#">&#x25BC;</a>
+			</aside>
+
+			<!-- Displays presentation progress, max value changes via JS to reflect # of slides -->
+			<div class="progress"><span></span></div>
+			
+
+</div>
+
+
+<script src="../reveal.js/js/reveal.js"></script>
+<script src="../reveal.js/lib/highlight.js"></script>
+<script>
+			// Parse the query string into a key/value object
+			var query = {};
+			location.search.replace( /[A-Z0-9]+?=(\w*)/gi, function(a) {
+				query[ a.split( '=' ).shift() ] = a.split( '=' ).pop();
+			} );
+
+			Reveal.initialize({
+				// Display controls in the bottom right corner
+				controls: true,
+
+				// Display a presentation progress bar
+				progress: true,
+
+				// If true; each slide will be pushed to the browser history
+				history: true,
+
+				// Flags if mouse wheel navigation should be enabled
+				mouseWheel: true,
+
+				// Apply a 3D roll to links on hover
+				rollingLinks: true,
+
+				// UI style
+				theme: query.theme || 'neon', // default/neon
+
+				// Transition style
+				transition: query.transition || 'default' // default/cube/page/concave/linear(2d)
+			});
+
+			hljs.initHighlightingOnLoad();
+		</script>
+</body>
+</html>

@@ -1,0 +1,121 @@
+
+@font-face {
+	font-family: 'nicefont';
+  src: url('reveal.js/fonts/KOMIKAX_-webfont.ttf') format('truetype');
+  font-weight: normal;
+	font-style: normal;
+}
+
+
+body{
+font-family: sans-serif;
+font-size: 100%;
+background-color: #222;
+color:#fff;
+text-shadow:3px 3px 0px #000000;
+margin:0 auto;
+}
+
+small{
+font-size: 0.7em;
+}
+
+.posterous div div{
+font-family: sans-serif;
+font-size: 0.8rem;
+padding:5px 0 0 0;
+margin:0;
+list-style-type: none;
+}
+
+section{
+font-family: 'nicefont', sans-serif;
+width: 16em;
+margin: 1em auto;
+padding:1em;
+border-left: 1px solid #333;
+}
+
+section:hover{
+border-color: #a93;
+}
+
+div{
+padding-top: 3px;
+-webkit-transition: all 1s ease-in-out;
+	 -moz-transition: all 1s ease-in-out;
+	  -ms-transition: all 1s ease-in-out;
+	   -o-transition: all 1s ease-in-out;
+	      transition: all 1s ease-in-out;
+}
+
+section div div{
+opacity: 0.9;
+
+-webkit-transform-origin: 3em 0%;
+   -moz-transform-origin: 3em 0%;
+    -ms-transform-origin: 3em 0%;
+     -o-transform-origin: 3em 0%;
+        transform-origin: 3em 0%;
+
+-webkit-transform: rotate(8deg) scale(0.8) translate(1em);
+   -moz-transform: rotate(8deg) scale(0.8) translate(1em);
+    -ms-transform: rotate(8deg) scale(0.8) translate(1em);
+     -o-transform: rotate(8deg) scale(0.8) translate(1em);
+        transform: rotate(8deg) scale(0.8) translate(1em);
+
+}
+
+section:hover div, li:hover li{
+
+-webkit-transform: rotate(0deg) scale(1) translate(0);
+   -moz-transform: rotate(0deg) scale(1) translate(0);
+    -ms-transform: rotate(0deg) scale(1) translate(0);
+     -o-transform: rotate(0deg) scale(1) translate(0);
+        transform: rotate(0deg) scale(1) translate(0);
+}
+
+
+h1{
+text-align: center;
+}
+
+em{
+font-size: 1.1em;
+}
+
+a,span{
+color: #feffff;
+white-space:nowrap;
+padding: 2px;
+margin: 5px;
+}
+
+a{
+text-decoration: none;
+border-bottom: 1px solid #333;
+}
+
+a:hover{
+text-decoration: none;
+border-bottom: 1px solid #a93;
+}
+
+
+[title=unavaliable] {
+opacity: 0.5;
+}
+[title=unavaliable]:before{
+content: 'x';
+position: absolute;
+top:0.1em;
+left:0;
+font-size: 10px;
+font-family: sans-serif;
+}
+
+/* lol */
+script {
+display:none;
+}
+

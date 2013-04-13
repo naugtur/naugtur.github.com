@@ -1,0 +1,367 @@
+<!doctype html>  
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<link rel="stylesheet" href="../reveal.js/css/reset.css">
+	<link rel="stylesheet" href="../reveal.js/css/main.css">
+	<link rel="stylesheet" href="../reveal.js/lib/github.css">
+	<script src="../reveal.js/lib/jquery-1.7.min.js"></script>
+	<script src="../reveal.js/lib/underscore.js"></script>
+	<style>
+  .sp{
+  padding-top: 3em !important;
+  display:block;
+  }
+  
+  .example{
+	border:1px solid orange;
+	margin: 10px;
+	padding: 20px;
+	
+	}
+	</style>
+</head>
+<body><div id="reveal">
+<div class="slides">
+<!-- Any section element inside of this container is displayed as a slide -->
+
+
+<section>
+
+<h1>JavaScript</h1><h3> from builder to architect</h3><br>
+<p class="center">Introducing structure and maintainability</p>
+<small>@naugtur, careercon 06.2012</small>
+</section>
+
+
+  <section>
+    <h3 class="sp">FAQ</h3>
+    <ul class="sp">
+	    <li>Czemu treść prezentacji jest po angielsku?</li>
+	    <li>Jak to o architekturze w 30 minut?</li>
+    </ul>
+	</section>
+
+<section>
+
+  <section>
+	<h3>Maintainability and costs of operation</h3>
+	<ul class="sp">
+	  <li>Application is never finished</li>
+	  <li>Maintaining your application is not investment</li>
+		<li>Bad code is not any faster to write<br> (but it seems cheaper)</li>
+		<li>Bad quality of solutions will hurt sooner or later</li>
+		<li>Touching old code when adding functionalities is risky</li>
+	</ul>
+	</section>
+  
+  <section>
+  <h3 class="sp">Most problems can be avoided with some structure</h3><h4 class="sp">but it makes the initial cost estimate more acurate too</h4>
+  </section>
+  
+  <section>
+    <h4>Or you can leave it for later </h4>
+    <h4>and</h4>
+    <img src="hop.jpg">
+  </section> 
+  
+</section>
+
+  
+<section>  
+  <section>
+    <h3 class="sp">JavaScript</h3>
+    <h4 class="sp">Making a mess has never been easier</h4>
+  </section> 
+  
+  <section>
+	<h3>Popular bad practises (the obvious)</h3>
+	<ul>
+	  <li>Pieces of javascript inside HTML or other languages</li>
+	  <li>Everything in global scope</li>
+		<li>Everything in one file</li>
+		<li>Application functionality as jQuery plugins</li>
+		<li>Forcing classical inheritance</li>
+		<li>No time for planning the application structure at all</li>
+	</ul>
+  </section>
+  
+  
+  
+</section>
+
+<section>
+  
+  <section>
+    <h3>Structure</h3>
+    <ul class="sp">
+			<li>Object can become anything</li>
+			<li>Function is an object</li>
+			<li>Scope</li>
+			<li>Privacy issues</li>
+			<li>Closure</li>
+		</ul>
+  </section>
+  
+  <section>
+	  <h3>Module</h3>
+	  <strong>Revealing module pattern</strong>
+	  <pre><code class="javascript">(function(){
+  var privateVariable;
+  function privateMethod(){ /*...*/ }
+  function publicMethod(){ /*...*/ }
+  
+  return {
+    public:publicMethod
+  }	  
+})()</code></pre>
+	  <strong>AMD module pattern (like in RequireJS)</strong>
+	  <pre><code class="javascript">define(['dependency1','dependency2'],function(Dep1,Dep2){
+  var privateVariable;
+  function privateMethod(){ 
+    Dep1.someMethod();    // use dependencies
+    }
+  function publicMethod(){ /*...*/ }
+  
+  return {
+    public:publicMethod
+  }	  
+})()</code></pre>
+  </section>
+  
+  <section>
+	  <h3>Module dependency management</h3>
+	  <ul class="sp">
+		  <li>require.js - heavy but good</li>
+		  <li>yepnope.js - works great with Modernizr</li>
+		  <li>lab.js - lighter alternative to require.js</li>
+	  </ul>
+  </section>
+  
+  
+</section> 
+
+
+
+
+<section>
+  <section>
+		<h3>Templates</h3>
+		<ul class="sp">
+			<li>Writing HTML used to be nice</li>
+			<li>But now I have to generate it with JS and put data in</li>
+			<li>Let's make it nice again...</li>
+			<li>With microtemplates</li>
+		</ul>
+		<p class="sp">Implementation example: Underscore.js</p>
+	</section>
+	
+  <section>
+	  <h4>_.template</h4>
+	  <br>
+	  <pre><code class="javascript">var data={
+foo:'123',
+bar:{
+  a:'knock knock',
+  b:"who's there?"
+  }
+}
+
+//this creates a function
+var precompiledTemplate = _.template('&lt;p class="&lt;%= foo %>">&lt;%= bar.a %>&lt;/p>&lt;p>&lt;%= bar.b %>&lt;/p>');
+
+$('#content').html(precompiledTemplate(data));	  </code></pre>
+	  <div id="content" class="example"></div>
+	  <script>
+	  $('#content').click(function(){
+	  var data={
+	  foo:'123',
+	  bar:{
+	    a:'knock knock',
+	    b:"who's there?"
+	    }
+	  }
+	  
+	  //this creates a function
+	  var precompiledTemplate = _.template('<p class="<%= foo %>"><%= bar.a %></p><p><%= bar.b %></p>');
+	  
+	  $('#content').html(precompiledTemplate(data));
+	  });
+	  </script>
+  </section>	
+  <section>
+	  <h4>Now the cool part</h4>
+	  <pre><code class="html">&lt;script type="text/template" id="Texample">
+  &lt;p class="&lt;%= foo %>">&lt;%= bar.a %>&lt;/p>
+  &lt;p>&lt;%= bar.b %>&lt;/p>
+&lt;/script> </code></pre>
+	  <pre><code class="javascript">//this creates a function
+var precompiledTemplate = _.template($('#Texample').html());
+
+$('#content').html(precompiledTemplate(data));	  </code></pre>
+	  <h4>Ok, one more - mustache notation</h4>
+	  <pre><code class="html">&lt;script type="text/template" id="Texample">
+  &lt;p class="{{ foo }}">{{ bar.a }}&lt;/p>
+  &lt;p>{{ bar.b }}&lt;/p>
+&lt;/script> </code></pre>
+	  <pre><code class="javascript">_.templateSettings = {
+    interpolate : /\{\{(.+?)\}\}/g  //sets up the notation
+  };
+//this creates a function
+var precompiledTemplate = _.template($('#Texample').html());
+$('#content').html(precompiledTemplate(data));	  </code></pre>
+    
+  </section>
+	
+</section>
+
+  
+  
+<section> 
+  <section>
+	  <h3>Communication </h3>
+	  <ul class="sp">
+	    <li>All modules visible to all modules? No. </li>
+	    <li>Decoupling </li>
+	    <li>No pollution of global scope 	    </li>
+	    <li>Easy to extend existing behaviour    </li>
+	  </ul>
+
+  </section>
+  
+  <section>
+	  <h3>Publisher/Subscriber</h3>
+	  <h4>AKA Observer pattern</h4>
+	  <img src="pubsub.png" style="float:left">
+	  <div  style="float:left; width: 60%">
+	  <pre><code class="javascript">subscribe('newsTopic',function(){
+  console.log('hello1');  
+  });
+  
+subscribe('newsTopic',function(){
+  console.log('hello2');  
+  });
+  
+subscribe('otherTopic',function(){
+  console.log('good evening');  
+  });</code></pre>
+  	<pre><code class="javascript">publish('newsTopic');</code></pre>
+  	<pre><code class="javascript">> hello1
+> hello2</code></pre>
+  	</div>
+  </section>
+ 
+  <section>
+	  <h3>Mediator pattern</h3>
+	  <img src="mediator.png" style="float:right">
+  
+	  <ul>
+	    <li>Creates an interface for peers to communicate</li>
+	    <li>Serves as an abstraction layer for communication</li>
+	    <li>Allows communication between multiple peers without them knowing about any of the other</li>
+	  </ul>
+  <br>
+	  <p>There is no popular mediator pattern implementation. Look for overlord.js on github
+	  </p><p>
+	  <a href="https://github.com/naugtur/overlord.js">https://github.com/naugtur/overlord.js</a>
+	  </p>
+  </section>
+</section> 
+
+<section>
+  <section>
+		<h3>Architecture frameworks</h3>
+			<h4>MVC?  MV*!</h4>
+		<ul>
+			      <li> Backbone </li>
+			      <li> Angular.js </li>
+			      <li> KnockoutJS</li>
+			      <li> Spine.js</li>
+			      <li> Ember.js, JavaScriptMVC, Sammy.js ...</li>
+				    
+			  <li>That's too much already...</li>
+		</ul>
+	</section>
+	<section>	
+		<h3 class="sp">Best summary</h3> <br>
+		<h4>Addy Osmani - todomvc </h4><br><a href="https://github.com/addyosmani/todomvc">https://github.com/addyosmani/todomvc</a>
+  </section>
+
+</section> 
+
+  
+  
+  
+<section>
+	<h3>Thanks!</h3>
+	<h6>
+	<small>You can find me on twitter, github and stackoverflow. Just look for <code>naugtur</code></small>
+	</h6><h6>
+	<small>or visit <a href="http://naugtur.pl"><code>naugtur.pl</code></a></small>
+	</h6><h6>
+	<small>or meet me at</small><br>
+	<img src="meet.js.jpg"/>
+	</h6>
+
+</section>
+
+ 
+
+
+	<!-- Any section element inside of this container is displayed as a slide -->		
+</div>
+
+
+
+			<!-- The navigational controls UI -->
+			<aside class="controls">
+				<a class="left" href="#">&#x25C4;</a>
+				<a class="right" href="#">&#x25BA;</a>
+				<a class="up" href="#">&#x25B2;</a>
+				<a class="down" href="#">&#x25BC;</a>
+			</aside>
+
+			<!-- Displays presentation progress, max value changes via JS to reflect # of slides -->
+			<div class="progress"><span></span></div>
+			
+
+</div>
+
+
+<script src="../reveal.js/js/reveal.js"></script>
+<script src="../reveal.js/lib/highlight.js"></script>
+<script>
+			// Parse the query string into a key/value object
+			var query = {};
+			location.search.replace( /[A-Z0-9]+?=(\w*)/gi, function(a) {
+				query[ a.split( '=' ).shift() ] = a.split( '=' ).pop();
+			} );
+
+			Reveal.initialize({
+				// Display controls in the bottom right corner
+				controls: true,
+
+				// Display a presentation progress bar
+				progress: true,
+
+				// If true; each slide will be pushed to the browser history
+				history: true,
+
+				// Flags if mouse wheel navigation should be enabled
+				mouseWheel: true,
+
+				// Apply a 3D roll to links on hover
+				rollingLinks: true,
+
+				// UI style
+				theme: query.theme || 'neon', // default/neon
+
+				// Transition style
+				transition: query.transition || 'default' // default/cube/page/concave/linear(2d)
+			});
+
+			hljs.initHighlightingOnLoad();
+		</script>
+</body>
+</html>

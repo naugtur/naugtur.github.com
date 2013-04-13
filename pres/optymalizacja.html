@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+
+<!--
+  Google HTML5 slide template
+
+  Authors: Luke Mahé (code)
+           Marcin Wichary (code and design)
+           
+           Dominic Mazzoni (browser compatibility)
+           Charles Chen (ChromeVox support)
+
+  URL: http://code.google.com/p/html5slides/
+-->
+
+<html>
+  <head>
+    <title>Optymalizacja JS</title>
+
+    <meta charset='utf-8'>
+    <script
+      src='http://html5slides.googlecode.com/svn/trunk/slides.js'></script>
+  </head>
+  
+  <style>
+        
+    .slides.template-default > article{
+    background: url("logo.png") no-repeat scroll bottom right white !important;
+		}
+    
+  </style>
+
+  <body style='display: none'>
+
+    <section class='slides layout-regular template-default'>
+      
+        
+      <article>
+        <h1>
+          Optymalizacja JS
+          
+        </h1>
+        <p>
+          Zbyszek Tenerowicz
+          <br>
+          meet.js 12.10.2011
+        </p>
+      </article>
+   
+
+      <article>
+        <h3>
+          Agenda
+        </h3>
+        <ul>
+          <li>
+            <em>Na szybko:</em> dla początkujących - optymalizacja w jQuery 
+          </li>
+          <li>
+        		<em>Na szybko:</em> DOM <strong>API</strong>
+          </li>
+          <li>
+            Szybkość pure JS
+          </li>
+          <li>
+            typedArray
+          </li>
+          <li>
+           	JIT, JIT hacking
+          </li>
+          <li>
+            UI queue, runaway timer, czyli "aplikacja przestała odpowiadać"
+          </li>
+          <li>
+          	Testowanie wydajności
+          </li>
+        </ul>
+        
+      </article>
+
+      
+
+      <article>
+        <h3>
+          optymalizacja w jQuery 
+        </h3>
+        
+        <p>     Znaj swoje selektory </p>
+				
+<pre><del>$('.klasa');</del>   $('#id .klasa');
+<del>$('div#id');</del>  $('#id'); 
+     $('ul>li'); //li w tym ul, ale żadne poniżej</pre>
+        
+        <ul>
+        <li>od prawej do lewej</li>
+        <li>optymalizacja selektorów z #id</li>
+        <li>nie wybieraj za dużo</li>
+        </ul>
+        
+      </article>
+
+      
+
+      <article>
+        <h3>
+          optymalizacja w jQuery 
+        </h3>
+            <p>Ceń swoje selektory</p>
+<pre><del>$('a.klasa').attr('src','http://html5rocks.com');
+$('a.klasa').show();</del> 
+
+//chaining
+$('a.klasa').attr('src','http://html5rocks.com').show();
+
+//zachowanie selektora na później
+var $klasa=$('a.klasa');
+$klasa.attr('src','http://html5rocks.com');
+...
+$klasa.show();</pre>            
+           </article>
+
+      
+
+      <article>
+        <h3>
+          optymalizacja w jQuery 
+        </h3>
+           <p> $(this) nie jest za darmo</p>
+<pre>
+$('whatever').click(function(){
+	this.id="noweid"; //można tak!
+	<strong>var $t=$(this);</strong> //keszuj $(this)
+	$t.children().hide();
+	$t.addClass('small');	
+	});
+
+</pre>            
+          
+            <p><del>.live() jest fajne.</del></p>
+            <p><del>.delegate() jest fajne.</del></p>
+            <p>.on() jest fajne.</p>
+          
+      </article>
+
+      <article>
+        <h3>
+          DOM API
+        </h3>
+        
+        <ul class="build">
+          <li>
+            Pamiętaj, że to API. <br>(tu obowiązkowa metafora o moście)
+          </li>
+          <li>
+           	Nigdy nie modyfikuj DOM w pętli
+          </li>
+          <li>
+            Klasa zamiast stylowania
+          </li>
+          <li>
+            Węzły DOM poza dokumentem i <br>DOM DocumentFragment <br>(wait for it...)
+          </li>
+        </ul>
+
+       
+      </article>
+
+      <article>
+        <h3>
+          DOM poza dokumentem - przykład
+        </h3>
+        <div class="build">
+<pre>var node=document.createElement('div');
+var p=document.createElement('p');
+node.appendChild( p );
+var tam=document.getELementById('#tu');
+tam.insertBefore( node, tam.firstChild );</pre> 
+<p>jQuery też to umie, jeśli nie piszesz od razu po dokumencie</p>
+<pre>var p=$('&lt;p>');
+var div=$('&lt;div>');
+for(var i=0;i&lt;100;i+=1){
+	div.append(p);
+}
+div.prependTo($('#tu'));</pre>       
+        </div>
+      </article>
+      
+  		<article>
+        <h3>
+          DOM DocumentFragment - przykład
+        </h3>
+         
+      <pre>//pożyczone z http://ejohn.org/blog/dom-documentfragments/
+//elems zawiera kilka węzłów DOM
+var div = document.getElementsByTagName("div");
+
+var fragment = document.createDocumentFragment();
+for ( var e = 0; e &lt; elems.length; e++ ) {
+  fragment.appendChild( elems[e] );
+}
+
+for ( var i = 0; i &lt; div.length; i++ ) {
+  div[i].appendChild( fragment.cloneNode(true) );
+}</pre> 
+      </article>
+      <article>
+        <h3>
+          Wydajność składników języka
+        </h3>
+         <ul class="build">
+          <li>
+            <code>a.push(x) > a[]=x > a[a.length]=x</code>
+          </li>
+          <li>
+           	<code>[].join()</code> zamiast iterowania, gdy tylko się da
+          </li>
+          <li>
+            rozwijanie pętli i przeliczanie długości<br>
+						<a href="http://jsperf.com/unrolledtest/5">http://jsperf.com/unrolledtest/5</a>
+						<pre>for(var i=0,l=dane.length;i&lt;l;i+=10){
+dane[i];
+dane[i+1];
+...						
+dane[i+9];
+}
+//tu jeszcze trzeba zrobić coś z resztką</pre>
+          </li>
+          <li>
+            Przekraczanie scope kosztuje<br>
+            <a href="http://jsperf.com/scope-crossing">http://jsperf.com/scope-crossing</a>
+            
+          </li>
+          
+          
+        </ul>
+      </article>
+      
+      <article>
+        <h3>
+          Niespodzianka
+        </h3>
+        
+        <ul>
+          <li>
+        	Warto robić testy cross-browser
+        	<li>
+        	Nie tylko, żeby odkryć, że IE jest najwolniejszy :)
+        	IE ma swoje mocne strony
+        	<li>
+        	Przykład: Odczytanie body.innerHTML jest w IE nieporównywalnie szybsze niż w innych
+        </ul>
+        
+      </article>
+      
+      <article>
+        <h3>
+          typedArray - szybkie przetwarzanie danych
+        </h3>
+        <ul class="build">
+          <li>
+          	Źródła do poczytania:<br>
+          	<a href="http://hacks.mozilla.org/2010/08/fun-with-fast-javascript/">http://hacks.mozilla.org/2010/08/fun-with-fast-javascript/</a><br>
+						<a href="http://www.khronos.org/registry/typedarray/specs/latest/">http://www.khronos.org/registry/typedarray/specs/latest/</a>
+          <li>
+          	Gwarantujemy przeglądarce typ danych
+          	        <pre>var int8 = new Uint8Array(length);
+var int32 = new Uint32Array(length);
+var float32 = new Float32Array(length);
+var float64 = new Float64Array(length);</pre>
+					</li>
+          <li>
+          	Nie musicie mi wierzyć ;)
+          <br>
+          	<a href="http://jsperf.com/float32array/2">http://jsperf.com/float32array/2</a><br>
+          	<a href="http://jsperf.com/typed-array-iteration/13">http://jsperf.com/typed-array-iteration/13</a>
+          </li>
+        </ul>
+      </article>
+      
+      <article>
+        <h3>
+          JIT
+        </h3>
+
+        <ul class="build">
+          <li>Method JIT
+          <li>Tracing JIT (FF only!)
+          <!--<li>Darmowe wywołania funkcji w prezencie od Mozilli?<br>
+          		<a href="http://jsperf.com/function-loops/4">http://jsperf.com/function-loops/4</a>-->
+          <li>Deklarujesz czy nie, zmienna ma typ<br>
+							<a href="http://jsperf.com/variable-data-types/2">http://jsperf.com/variable-data-types/2</a>
+				</ul>
+      </article>
+
+      <article>
+        <h3>
+          Abusing method JIT 
+        </h3>
+        <p>A zaczęło się na Falsy Values...</p>
+        <ul class="build">
+          <li><em>Hot or not</em> - podgrzewanie funkcji
+          <li><em>Pinky, are you pondering what I'm pondering?</em>
+          <li><pre>function a(preheat){
+	if(preheat){return}
+	//heavy stuff
+	}
+for(var i=0;i&lt;10000;i+=1){ a(true) }
+</pre></li>
+					<li>Czy opłaca się wyłączyć zawartość długiej pętli do osobnej metody?
+					<li>jsperf.com na wiele się tu nie zda.
+					<li>Ciąg dalszy nastąpi...
+				</ul>
+      </article>
+
+      <article>
+        <h3>
+          UI queue, runaway timer
+        </h3>
+        <ul class="build">
+          <li>UI queue - zadania dla jednego wątku
+          <li><a href="http://yuilibrary.com/theater/nicholas-zakas-stoyan-stefanov-ross-harmes-julien-lecomte-matt-sweeney/zakas-hpjs/">Świetny talk od ludzi z Yahoo (nie to co moje takietam)</a>
+          <li>Runaway timer - ten javascript jest dla cierpliwych
+          <li>Duża praca w małych porcjach, czyli tniemy iterację na kawałki
+          <pre>function aaa(){
+	zrobKawalek();
+	setTimeout(aaa,0); //no ale zero, nie?
+	}</pre></li>
+					<li>No właśnie nie zero
+					<li><strong>WebWorkers</strong>, ale to zupełnie inna historia
+				</ul>
+      </article>
+
+      <article>
+        <h3>
+          Jak testować
+        </h3>
+        <ul>
+          <li><a href="http://jsperf.com">jsperf.com</a>
+          <li>Dlaczego [jeszcze] nie umiesz tego zrobić sam: <br>
+          <a href="http://ejohn.org/blog/accuracy-of-javascript-time/">accuracy-of-javascript-time by John R.</a> <br> ziarnistość czasu w przeglądarce (mniej problematyczna dla UNIX/LINUX)
+          <li>Navigation timing - <a href="http://www.html5rocks.com/en/tutorials/webperformance/basics/">Tutorial</a>
+          <pre style="height: 280px; font-size:0.7em; overflow:scroll">window.performance={
+	"memory":{"totalJSHeapSize":0,"usedJSHeapSize":0,"jsHeapSizeLimit":0},
+	"timing":{
+		"connectStart":1318196180004,
+		"responseStart":1318196180108,
+		"domLoading":1318196180119,
+		"connectEnd":1318196180004,
+		"domInteractive":1318196180758,
+		"fetchStart":1318196180000,
+		"secureConnectionStart":0,
+		"domainLookupStart":1318196180000,
+		"responseEnd":1318196180420,
+		"requestStart":1318196180005,
+		"loadEventEnd":1318196181001,
+		"domComplete":1318196181000,
+		"redirectStart":0,
+		"unloadEventEnd":0,
+		"domContentLoadedEventStart":1318196180758,
+		"domContentLoadedEventEnd":1318196180758,
+		"domainLookupEnd":1318196180000,
+		"navigationStart":1318196180000,
+		"unloadEventStart":0,
+		"loadEventStart":1318196181001,
+		"redirectEnd":0
+		},
+	"navigation":{"redirectCount":0,"type":0}
+}</pre>
+				</ul>
+      </article>
+     
+      
+      <article>
+        <h2>
+          Pobudka, to już koniec!
+        </h2>
+        
+      </article>
+
+    </section>
+
+  </body>
+</html>
