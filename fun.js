@@ -17,7 +17,7 @@
   }
 
 
-  var data=window.blag,row,target=D.querySelectorAll('.blag>div')[0];
+  var data=window.blag,row,target=D.querySelectorAll('.blag')[0];
   if(target){
     for (var i = 0, l = Math.min(10,data.length); i < l; i += 1) {
       row=document.createElement('div');
