@@ -16,17 +16,9 @@
     }
   }
 
-  function gs(nme) {
-    var sc = D.createElement("script");
-    sc.setAttribute('async', 'async');
-    sc.src = nme;
-    var head = D.head || D.getElementsByTagName("head")[0] || ddE;
-    head.insertBefore(sc, head.firstChild);
-  }
 
-  window.posterousCB = function(data) {
-    var row,target=D.querySelectorAll('.posterous>div')[0];
-    if(target){
+  var data=window.blag,row,target=D.querySelectorAll('.blag>div')[0];
+  if(target){
     for (var i = 0, l = Math.min(10,data.length); i < l; i += 1) {
       row=document.createElement('div');
       row.innerHTML=data[i].title +'<br>'+ data[i].text;
@@ -35,11 +27,9 @@
     }
     
     
-    }
-    
   }
 
+
   recur();
-  gs('http://zbyszek.posterous.com');
 
 })(document)
