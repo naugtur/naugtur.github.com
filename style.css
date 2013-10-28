@@ -20,12 +20,19 @@ small{
 font-size: 0.7em;
 }
 
-.blag div div{
-font-family: sans-serif;
+#blag div+div{
 font-size: 0.8rem;
 padding:5px 0 0 0;
 margin:0;
 list-style-type: none;
+}
+
+#blag div>a{
+    display: block;
+    font-family: sans-serif;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow:hidden;
 }
 
 section{
@@ -82,6 +89,12 @@ text-align: center;
 
 em{
 font-size: 1.1em;
+}
+
+em>a{
+font-size: 0.8em;
+text-align: right;
+display:block;
 }
 
 a,span{
