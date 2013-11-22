@@ -104,7 +104,7 @@
                                     if(c<limit){
                                     c++;
                                     m1.appendChild(document.createElement('div'));
-                                    m2.firstElementChild && (m2.removeChild(m2.firstElementChild));
+                                    m2.firstElementChild && m2.firstElementChild.nextElementSibling && (m2.removeChild(m2.firstElementChild));
                                     }else{
                                     if(limit!==7){
                                         m2.innerHTML=m1.innerHTML;
@@ -121,12 +121,25 @@
                 </section>
                 <section>
                     <section>
+                        <h3>Popular misconceptions</h3>
+                        
+                        <ul style="width:70%; margin-top: 40px">
+                            <li>no, <code>delete</code> keyword does not free memory</li>
+                            <li>seriously, <code>delete</code> just slows you down (changes hidden class)</li>
+                            <li>no, setting object to <code>null</code> doesn't remove the object, it changes the reference</li>
+                        </ul>
+                    </section>
+                    
+                </section>
+                <section>
+                    <section>
                         <h3>Tools!</h3>
                         <p>GMail was leaking so bad that Google is now pioneering in memory leaks debugging tools.
                             <a href="http://www.html5rocks.com/en/tutorials/memory/effectivemanagement/">True story :)</a>
                         </p>
                         <h4 style="margin-top:250px">Demo time!</h4>
                     </section>
+                    
                 </section>
                 <section>
                     <section>
