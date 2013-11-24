@@ -129,6 +129,24 @@
                             <li>no, setting object to <code>null</code> doesn't remove the object, it changes the reference</li>
                         </ul>
                     </section>
+                    <section>
+                        <h3>How it works</h3>
+                        <small>NEW SLIDE!</small>
+                        
+                        <pre><code class="javascript">
+    var aBoy = { name: "Johny" },
+        aGirl = { name: "Sue" },
+        anAnimal={ name: "Garfield" };
+                
+    aBoy = null; //Johny can now be garbage-collected
+    aGirl = { name: "Lucy" }; //Sue can now be garbage-collected
+    
+    aGirl.ownsAnimal = anAnimal //we have a new reference to Garfield
+    anAnimal = null; //a reference is removed, but it was not the only one
+                     //Garfield can't be garbage-collected
+                            
+                        </code></pre>
+                    </section>
                     
                 </section>
                 <section>
@@ -159,11 +177,16 @@
                     } 
                 } 
             })();
-                            </code></pre></section>
+                            </code></pre>
+                    </section>
                     <section>
                         <h3>Method 2</h3>
                         <h4>DOM leftovers</h4>
-                        <p style="margin:2em">A single DOM node is referenced from somewhere and the whole tree cannot be collected (element.parentNode, remember?)</p>//demos</section>
+                        <p style="margin:2em">A single DOM node is referenced from somewhere and the whole tree cannot be collected (element.parentNode, remember?)</p>
+                        <p>
+                            <a href="mem/index.html">Examples</a>    
+                        </p>
+                    </section>
                     <section>
                         <h3>Method 3</h3>
                         <h4>Nobody's perfect</h4>
