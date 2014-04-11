@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="../reveal.js/css/reset.css">
+    <link rel="stylesheet" href="../reveal.js/css/main.css">
+    <link rel="stylesheet" href="../reveal.js/lib/github.css">
+    <style>
+        .spacing{
+            
+           padding-top: 3em;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="reveal">
+        <div class="slides">
+            <section>
+                <br>
+                <h1>Follow up on memory</h1>
+                <br>
+                <p class="center">less warnings, more good practises</p>
+                <small>@naugtur, meet.js 04.2014</small>
+            </section>
+
+            <section>
+                <h3>Cool story</h3>
+                <p>Visitor Recording app started at ~4GB RAM, went to ~200MB</p>
+                <ul style="margin-top: 50px">
+                    <li>Changed canvases to SVGs
+                        <br>(canvas allocates memory for every pixel)</li>
+                    <li>Added
+                        <code>destroy</code>methods everywhere</li>
+                    <li>Assigned null to all collections after use, etc.</li>
+                    <li>Tracked down memory leak in V8 engine</li>
+                </ul>
+            </section>
+
+            <section>
+                <section>
+                    <h3 class="spacing">Good memory management</h3>
+                    <p>Some constructive tips</p>
+                </section>
+                <section>
+                    <h3 class="spacing">Identify what's big</h3>
+
+                    <h3 class="spacing">Maybe you can live without it</h3>
+
+                </section>
+                <section>
+                    <h3 class="spacing">
+                        <code>destroy()</code>stuff once you stop using it</h3>
+
+                    <p class="center">Frameworks help, but it's easy to do yourself too.</p>
+
+                </section>
+                <section>
+                    <h3 class="spacing">
+                        drop references to DOMnodes</h3>
+
+                    <p class="center">If you keep a reference to a node, removing any of its parents will create a detached DOM tree.</p>
+
+                </section>
+                <section>
+                    <h3 class="spacing">What if I don't know when?</h3>
+
+                    <p class="center">Destroy old instances before you create new.
+                        <br>That's good enough.</p>
+
+                </section>
+                <section>
+                    <h3 class="spacing">If you're using
+
+                        <code>
+                            <del>delete</del>
+                        </code>
+                        to free memory</h3>
+                    <br>
+                    <h3 class="">You're doing it wrong</h3>
+                </section>
+
+
+            </section>
+            <section>
+                <h3>Helpful tools</h3>
+                <ul>
+                    <li>Run V8 with GC access enabled
+                        <pre><code>node --expose-gc app.js 
+chrome --js-flags="--expose-gc"</code></pre>
+                        <pre><code language="javascript">global.gc();
+window.gc();</code></pre>
+                    </li>
+                    <li>New node profiling toy: <br><a href="https://github.com/thanpolas/profy">https://github.com/thanpolas/profy</a></li>
+                    <li>Firefox triggers GC when you <code>alert()</code></li>
+                </ul>
+            </section>
+            <section>
+                <h3 class="spacing">Demooo</h3>
+                <a href="https://github.com/naugtur/js-memory-demo">https://github.com/naugtur/js-memory-demo</a>
+            </section>
+
+            <section>
+                <h2 style="padding: 50px 0">this.destroy();</h2>
+                <small>@naugtur,
+                    <a href="http://naugtur.pl">naugtur.pl</a>
+                </small>
+            </section>
+            <!-- Any section element inside of this container is displayed as a slide -->
+        </div>
+        <!-- The navigational controls UI -->
+        <aside class="controls">
+            <a class="left" href="#">&#x25C4;</a>
+            <a class="right" href="#">&#x25BA;</a>
+            <a class="up" href="#">&#x25B2;</a>
+            <a class="down" href="#">&#x25BC;</a>
+        </aside>
+        <!-- Displays presentation progress, max value changes via JS to reflect # of slides -->
+        <div class="progress">
+            <span></span>
+        </div>
+    </div>
+    <script src="../reveal.js/js/reveal.js"></script>
+    <script src="../reveal.js/lib/highlight.js"></script>
+    <script>
+        // Parse the query string into a key/value object
+            var query = {};
+            location.search.replace(/[A-Z0-9]+?=(\w*)/gi, function(a) {
+                query[a.split('=').shift()] = a.split('=').pop();
+            });
+
+            Reveal.initialize({
+                // Display controls in the bottom right corner
+                controls: true,
+
+                // Display a presentation progress bar
+                progress: true,
+
+                // If true; each slide will be pushed to the browser history
+                history: true,
+
+                // Flags if mouse wheel navigation should be enabled
+                mouseWheel: true,
+
+                // Apply a 3D roll to links on hover
+                rollingLinks: true,
+
+                // UI style
+                theme: query.theme || 'neon', // default/neon
+
+                // Transition style
+                transition: query.transition || 'default' // default/cube/page/concave/linear(2d)
+            });
+
+            hljs.initHighlightingOnLoad();
+    </script>
+</body>
+
+</html>
