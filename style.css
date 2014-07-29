@@ -35,7 +35,7 @@ list-style-type: none;
     overflow:hidden;
 }
 
-section{
+section, header, body>div{
 font-family: 'nicefont', sans-serif;
 width: 16em;
 margin: 1em auto;
