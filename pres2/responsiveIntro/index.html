@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>Responsive Design</title>
+
+    <meta name="author" content="naugtur">
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="../reveal.js/css/reveal.min.css">
+    <link rel="stylesheet" href="../reveal.js/css/theme/default.css" id="theme">
+    <link rel="stylesheet" href="../branding/style.css" id="branding">
+
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="../reveal.js/lib/css/zenburn.css">
+
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+        if (window.location.search.match(/print-pdf/gi)) {
+            var link = document.createElement('link');
+            link.rel = 'stylesheet';
+            link.type = 'text/css';
+            link.href = 'reveal.js/css/print/pdf.css';
+            document.getElementsByTagName('head')[0].appendChild(link);
+        }
+    </script>
+
+
+    <!--[if lt IE 9]>
+<script src="../reveal.js/lib/js/html5shiv.js"></script>
+<![endif]-->
+</head>
+
+<body>
+
+    <div class="reveal" id="naugtur">
+
+        <!-- Any section element inside of this container is displayed as a slide -->
+        <div class="slides">
+            <section>
+                <br>
+                <h1>Responsive Design</h1>
+                <br>
+                <p class="center">Mikro szkolenie</p>
+                <small>@naugtur</small>
+            </section>
+
+
+            <section>
+                <h3>Plan:</h3>
+                <ul>
+                    <li>Podstawy, pojęcia, ideologia</li>
+                    <li>Browsing</li>
+                    <li>Proces</li>
+                    <li>Narzędzia</li>
+                    <li>Praktyka!</li>
+                    <li>CSS i Media Queries</li>
+                </ul>
+
+            </section>
+
+            <section>
+                <h3 style="margin-top:250px">Responsive Design</h3> 
+                <h4>One site to rule them all</h4>
+            </section>
+
+            <section>
+                <h3>DCD :)</h3>
+                <p>Czy to Device Centered Design?</p>
+                <q>Mobile is a user state, not a device.</q>
+                <p style="text-align:right">~ Cennydd Bowles</p>
+                <br />
+                <br />
+                <ul>
+                    <li>Czego chce mobilny użytkownik?</li>
+                    <li>Mniejsze okno na świat</li>
+                    <li>Web to nie plakat</li>
+                    <li>Przeglądarki są wszędzie</li>
+                </ul>
+            </section>
+
+            <section>
+                <h3>Palce i ich konsekwencje</h3>
+                <ul style="width: 80%;">
+                    <li class="noli">co robi mysz</li>
+                    <li>Hover</li>
+                    <li>Daje się wykryć podczas przemieszczania</li>
+                    <li>Przyciski, scroll</li>
+                    <li class="noli">co robią palce</li>
+                    <li>Tap, brak informacji o ruchu palca gdy nie dotyka ekranu
+                        <br> <small>[nie wiadomo kiedy użytkownik się zastanawia czy coś kliknąć]</small>
+                    </li>
+                    <li>Palce nie są przezroczyste</li>
+                    <li>Swipe</li>
+                    <li>Pinch (in & out)</li>
+                    <li>3 palce też mają co robić</li>
+                </ul>
+            </section>
+
+            <section>
+                <section>
+                    <h3>Skoro web to nie plakat, to co?</h3>
+                    <img src="is.png" />
+                </section>
+                <section>
+                    <h3>Skoro web to nie plakat, to co?</h3>
+                    <img src="will.png" />
+                </section>
+                <section>
+                    <h3>Skoro web to nie plakat, to co?</h3>
+                    <img src="yourhands.jpg" />
+                </section>
+                <section>
+                    <h1>Experience</h1>
+                    <h3>.</h3>
+                    <h1>Interaction</h1>
+                    <h3>.</h3>
+                    <h1>Response</h1>
+
+                </section>
+
+
+            </section>
+
+            <section>
+                <p style="margin-top:300px">Elastyczny layout i dostosowany content</p>
+            </section>
+
+            <section>
+                <h3>Browsing</h3>
+                <ul style="width: 80%;">
+                    <li class="noli">good</li>
+                    <li>
+                        <a href="http://trentwalton.com/">trentwalton.com </a> |
+                        <a href="https://www.fundraise.com/">fundraise.com </a> |
+                        <a href="http://cafeevoke.com/">cafeevoke.com</a>
+                        <a href="http://forefathersgroup.com/">forefathersgroup.com </a> |
+                        <a href="http://allegro.pl/">allegro.pl</a>
+                        <a href="http://otomoto.pl/">otomoto.pl</a>
+                    </li>
+                    <li class="noli">great</li>
+                    <li>
+                        <a href="http://www.lancs.ac.uk/">lancs.ac.uk </a> |
+                        <a href="http://foodsense.is/">foodsense.is </a> |
+                        <a href="http://clearairchallenge.com/">clearairchallenge.com </a> |
+                        <a href="http://www.smashingmagazine.com/">smashingmagazine.com </a> |
+                    </li>
+                    <p>Firefox: Ctrl+Shift+M</p>
+                </ul>
+            </section>
+
+            <section>
+                <h3 style="margin-top:250px">One site to rule them all</h3>
+                <h3>---</h3>
+                <h3>Mobile First</h3>
+            </section>
+            <section>
+                <h3>Responsive Design -proces tradycyjny</h3>
+                <ul>
+                    <li class="noli">Content</li>
+                    <li>Content inventory - responsywność zaczyna się od architektury informacji</li>
+                    <li>Zacznij z "czystą kartką", dodawaj według potrzeb użytkownika.
+                        <br><small>Mobilny użytkownik nie ma miejsca na dystraktory.</small> 
+                    </li>
+                    <li class="noli">Design</li>
+                    <li>Układ, grafika, inerakcja - w każdym kroku</li>
+                    <li>Najpierw (Mobile First) na najmniejszy ekran</li>
+                    <li>Breakpointy
+                        <ul style="padding:10px 20px;">
+                            <li>Device agnostic</li>
+                            <li>Content decyduje sam
+                                <br><q>Start with the small screen first, then expand until it looks like shit. TIME FOR A BREAKPOINT!</q>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </section>
+            <section>
+                <h3>Responsive Design -proces tradycyjny</h3>
+                <ul style="width:80%">
+                    <li class="noli">Rezultaty procesu?</li>
+                    <li>Wireframe dla każdego układu</li>
+                    <li>Wersja graficzna dla każdego układu</li>
+                    <li>Sporo rysowania, ale nikt nie zobaczy jak to działa.</li>
+                </ul>
+                <h4>Bo web to nie plakat</h4>
+            </section>
+            <section>
+                <h3>Designing in the browser</h3>
+                <ul>
+                    <li class="noli">Design/Prototyp</li>
+                    <li>Style Guide zamiast fotoszopki. Na początku.</li>
+                    <li>Jeśli cokolwiek ma prawo ograniczać Twoją kreatywność to tylko przeglądarka</li>
+                    <li>Przejdź od rysunków prosto do prototypu</li>
+                    <li>Design wizualny można zrobić od razu na prototypie</li>
+                    <li>Iteracje z IT</li>
+                </ul>
+            </section>
+
+            <section>
+                <h3>Fluid grid</h3>
+                <ul>
+                    <li>Gotowy framework strukturalny</li>
+                    <li>Może ograniczać, może prowadzić</li>
+                    <li>Duży wybór frameworków</li>
+                    <li>Wymagana dodatkowa wiedza techniczna</li>
+                </ul>
+                <dl class="pad1">
+                    <dd>
+                        <a href="http://getbootstrap.com">Bootstrap na przykład</a>
+                    </dd>
+                    <dd>
+                        <a href="http://www.alistapart.com/articles/fluidgrids/">Artykuł o Fluid grids z A List Apart (klasyka, 2012)</a>
+                    </dd>
+                </dl>
+            </section>
+
+            <section>
+                <h3>3G, a i tak wolno</h3>
+                <ul>
+                    <li class="noli">Projektowanie pod szybkość łącza</li>
+                    <li>Ukryty content też się ściąga</li>
+                    <li>Dylemat z obrazkami (rozwiązany przez Mobile First?)</li>
+                    <li>Progressive Enhancement może dotyczyć też zawartości</li>
+                    <li>Szybkość odpowiedzi</li>
+                </ul>
+                <small> Ekran dotykowy nie robi <code>click</code> , skąd mam wiedzieć czy to kliknąłem?</small>
+            </section>
+
+
+            <section> 
+            <h3>CSS Media Queries</h3>
+            <pre class="pad1"><code language="css">
+                @media (max-width: 800px){
+                    .sidebar {
+                        display:none;
+                    }              
+                }
+            </code></pre>
+            <a href="https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Media_queries">Wszystko na ten temat</a>
+            </section>
+
+
+            <section>
+                <section>
+
+                    <h3 style="margin-top:250px">Practise!</h3>
+
+
+                </section>
+
+                <section style="background: url(rainbow.gif) no-repeat center">
+                    <h3 style="margin-top:350px">Awesome!</h3>
+
+
+                </section>
+            </section>
+
+
+
+
+        </div>
+    </div>
+
+    <script src="../reveal.js/lib/js/head.min.js"></script>
+    <script src="../reveal.js/js/reveal.min.js"></script>
+
+    <script>
+        // Full list of configuration options available here:
+         // https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+            mouseWheel: true,
+
+            theme: 'night',
+            transition: Reveal.getQueryHash().transition || 'concave', // default/cube/page/concave/zoom/linear/fade/none
+
+            // Parallax scrolling
+            // parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+            // parallaxBackgroundSize: '2100px 900px',
+
+            // Optional libraries used to extend on reveal.js
+            dependencies: [{
+                src: 'reveal.js/lib/js/classList.js',
+                condition: function () {
+                    return !document.body.classList;
+                }
+                }, {
+                src: 'reveal.js/plugin/markdown/marked.js',
+                condition: function () {
+                    return !!document.querySelector('[data-markdown]');
+                }
+                }, {
+                src: 'reveal.js/plugin/markdown/markdown.js',
+                condition: function () {
+                    return !!document.querySelector('[data-markdown]');
+                }
+                }, {
+                src: 'reveal.js/plugin/highlight/highlight.js',
+                async: true,
+                callback: function () {
+                    hljs.initHighlightingOnLoad();
+                }
+                }, {
+                src: 'reveal.js/plugin/zoom-js/zoom.js',
+                async: true,
+                condition: function () {
+                    return !!document.body.classList;
+                }
+                }, {
+                src: 'reveal.js/plugin/notes/notes.js',
+                async: true,
+                condition: function () {
+                    return !!document.body.classList;
+                }
+                }]
+        });
+    </script>
+
+</body>
+
+</html>
