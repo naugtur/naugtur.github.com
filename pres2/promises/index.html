@@ -104,7 +104,8 @@ app.on("needToRedrawThatOtherThing",function(){
                 </section>
                 <section>
                     <h3>Some theory</h3>
-                    <p>A promise is basically a function that is going to <br>tell you the result some time soon.</p>
+                    <p>A promise is basically a function that is going to
+                        <br>tell you the result some time soon.</p>
                     <p>But the important stuff is chaining and error propagation.</p>
                     <ul class="pad1">
                         <li>Promises/A - the initial spec</li>
@@ -448,7 +449,9 @@ fetchSomeList().fail(function(err){
                         </li>
                         <li><code>.fail()</code> is almost always better than <code>.then(success, error)</code>
                         </li>
-                        <li>jQuery has a broken implementation of promises. Really. <br>Don't use, wrap: <code>Q.when($.get(...))</code><br><a href="https://blog.domenic.me/youre-missing-the-point-of-promises/">[mentioned here]</a>
+                        <li>jQuery has a broken implementation of promises. Really.
+                            <br>Don't use, wrap: <code>Q.when($.get(...))</code>
+                            <br><a href="https://blog.domenic.me/youre-missing-the-point-of-promises/">[mentioned here]</a>
                         </li>
                     </ul>
 
@@ -461,10 +464,15 @@ fetchSomeList().fail(function(err){
                 <ul>
 
                     <li>
-                        <a href="https://github.com/getify/You-Dont-Know-JS/blob/master/async%20&%20performance/ch3.md">You Don't Know JS, Chapter 3: Promises</a>
+                        <a href="https://promisesaplus.com">The Promises/A+ spec</a>
+                        <br> it's short, read it, no excuses
                     </li>
                     <li>
-                        <a href="https://blog.domenic.me/youre-missing-the-point-of-promises/">You're Missing the Point of Promises </a><br> (read all this till you understand, seriously)
+                        <a href="https://blog.domenic.me/youre-missing-the-point-of-promises/">You're Missing the Point of Promises </a>
+                        <br> the reason why A+ happened
+                    </li>
+                    <li>
+                        <a href="https://github.com/getify/You-Dont-Know-JS/blob/master/async%20&%20performance/ch3.md">You Don't Know JS, Chapter 3: Promises</a><br> good learning material
                     </li>
                 </ul>
             </section>
