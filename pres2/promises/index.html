@@ -1,0 +1,544 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>Promises</title>
+
+    <meta name="author" content="naugtur">
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="../reveal.js/css/reveal.min.css">
+    <link rel="stylesheet" href="../reveal.js/css/theme/default.css" id="theme">
+    <link rel="stylesheet" href="../branding/style.css" id="branding">
+
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="../reveal.js/lib/css/zenburn.css">
+
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+        if (window.location.search.match(/print-pdf/gi)) {
+            var link = document.createElement('link');
+            link.rel = 'stylesheet';
+            link.type = 'text/css';
+            link.href = '../reveal.js/css/print/pdf.css';
+            document.getElementsByTagName('head')[0].appendChild(link);
+        }
+    </script>
+
+
+    <!--[if lt IE 9]>
+<script src="../reveal.js/lib/js/html5shiv.js"></script>
+<![endif]-->
+</head>
+
+<body>
+
+    <div class="reveal" id="naugtur">
+
+        <!-- Any section element inside of this container is displayed as a slide -->
+        <div class="slides">
+            <section>
+                <h1>Promises</h1>
+                <h3 class="pad1">who to trust in the asynchronous world</h3>
+
+                <small>@naugtur, meet.js 01/2015</small>
+            </section>
+
+            <section>
+                <section>
+                    <h3 class="pad2">Do I really have to tell you about the callback hell?</h3>
+
+                </section>
+                <section>
+                    <h3>Ok, there you go</h3>
+                    <pre><code data-trim contenteditable  class="javascript" >
+db.set('key1', 'value1', function(err) {
+    if(err) throw err;
+
+    db.set('key2', 'value2', function(err) {
+        if(err) throw err;
+
+        db.set('key3', 'value3', function(err) {
+            if(err) throw err;
+
+            //...
+        });
+    });
+});
+
+                        </code></pre>
+
+                    <p>And now imagine you need error recovery too</p>
+                </section>
+                <section>
+                    <h3 class="pad2">Never had that kind of problem.</h3>
+                    <p>Maybe you called it a race condition or used a network of custom events?</p>
+                </section>
+                <section>
+                    <h3>A well hidden callback hell</h3>
+                    <pre><code data-trim contenteditable  class="javascript" >
+someModel.on("fetch",function(){
+    app.trigger("needToRedrawThatOtherThing")
+})                        </code></pre>
+                    <pre><code data-trim contenteditable  class="javascript" >
+app.on("needToRedrawThatOtherThing",function(){
+    someOtherModel.reload()
+    someOtherModel.on("error",function(){
+        app.someModel.goBack()
+    });
+})                        </code></pre>
+
+                    <p>Looks more familiar? This has more than one problem in it.</p>
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h3 class="pad1">What's a promise?</h3>
+                    <img src="doge.jpg">
+                </section>
+                <section>
+                    <h3>Some theory</h3>
+                    <p>A promise is basically a function that is going to <br>tell you the result some time soon.</p>
+                    <p>But the important stuff is chaining and error propagation.</p>
+                    <ul class="pad1">
+                        <li>Promises/A - the initial spec</li>
+                        <li>Promises/A+ - the same spec, but more words</li>
+                        <li>All they define is some terminology</li>
+                        <li>... and a <code>.then</code> method</li>
+                    </ul>
+                    <p>
+                        <a href="https://promisesaplus.com/">Spec: Promises/A+ [promisesaplus.com]</a>
+
+                    </p>
+                </section>
+                <section>
+                    <h3>Important words</h3>
+                    <ul class="pad1">
+                        <li>Resolve</li>
+                        <li>Fulfilled</li>
+                        <li>Rejected</li>
+                        <li>Thenable</li>
+                    </ul>
+                </section>
+
+            </section>
+            <section>
+                <section>
+                    <h3 class="pad2">Ok, enough already</h3>
+                    <h3>Time for code samples</h3>
+                </section>
+                <section>
+                    <h3>What <code>.then()</code> does</h3>
+                    <p>It returns a new promise that is fulfilled by the functions in arguments</p>
+                    <pre><code data-trim contenteditable  class="javascript" >
+var newPromise = initialPromise.then(function(value){
+    return 42 //value or another promise
+}, function(){
+    //initialPromise rejected       
+})
+
+newPromise.then(function(value){
+   //value === 42
+})                                         
+                        </code></pre>
+                </section>
+                <section>
+                    <pre><code data-trim contenteditable  class="text" >
+.__.     One promise with functions called on resolution
+ \_.
+                    </code></pre>
+                    <pre><code data-trim contenteditable  class="javascript" >
+fetchSomething().then(fulfill, reject)                       
+                        </code></pre>
+                    <pre><code data-trim contenteditable  class="javascript" >
+fetchSomething().then(function(theThing){
+    use(theThing)
+}, function(error){
+    console.log('oh crap...')           
+})                       
+                        </code></pre>
+                </section>
+
+                <section>
+                    <h3 class="pad1">Some syntactic sugar</h3>
+                    <pre><code data-trim contenteditable  class="javascript" >
+.then(null, function(){})
+                  </code></pre>
+                    <p>==</p>
+                    <pre><code data-trim contenteditable  class="javascript" >
+.catch(function(){})                    
+.fail(function(){})
+                  </code></pre>
+
+                </section>
+
+                <section>
+                    <pre><code data-trim contenteditable  class="text" >
+.__.__.     A chain with no error handling
+ \  \
+                  </code></pre>
+                    <pre><code data-trim contenteditable  class="javascript" >
+a().then(b).then(c)                      
+                        </code></pre>
+                    <p>This example is bad for your error handling</p>
+                </section>
+                <section>
+                    <pre><code data-trim contenteditable  class="text" >
+.__.__.     A chain with error handling, but not for c()  
+ \__\_.
+                  </code></pre>
+                    <pre><code data-trim contenteditable  class="javascript" >
+a().then(b).then(c,errorHandling)                      
+                        </code></pre>
+                    <p>This example is bad for your error handling</p>
+                </section>
+                <section>
+                    <pre><code data-trim contenteditable  class="text" >
+.__.__.     A chain with all errors handled
+ \__\__\_.
+                  </code></pre>
+                    <pre><code data-trim contenteditable  class="javascript" >
+a().then(b).then(c).fail(errorHandling)                      
+                        </code></pre>
+                    <pre><code data-trim contenteditable  class="javascript" >
+fetchSomething().then(function(theThing){
+    return use(theThing)
+}).then(function(){
+    throw new Error("trololo")
+}).fail(function(error){
+    console.log('oh crap...')           
+})                       
+                        </code></pre>
+                </section>
+                <section>
+                    <h3>Important debugging tip</h3>
+                    <p>Always return the promise to some code that has error handling or finish it</p>
+                    <pre><code data-trim contenteditable  class="javascript" >
+function promiseStuff(){                    
+    return fetchSomething().then(function(theThing){
+        return use(theThing)
+    })
+}
+a().then(promiseStuff).fail(...)
+                        </code></pre>
+                    <p>or</p>
+                    <pre><code data-trim contenteditable  class="javascript" >
+fetchSomething().then(function(theThing){
+    return use(theThing)
+}).done() //ends a chain and throws errors if not yet handled                      
+                        </code></pre>
+                </section>
+                <section>
+                    <pre><code data-trim contenteditable  class="text" >
+.__.__.     A chain with error recovery
+ \_._/
+                  </code></pre>
+                    <pre><code data-trim contenteditable  class="javascript" >
+a().then(b, errorRecovery).then(recoveredFromError)                    
+                        </code></pre>
+                    <pre><code data-trim contenteditable  class="javascript" >
+fetchSomething().then(function(theThing){
+    return parse(theThing)
+},function(error){
+    return backupValue
+}).then(function(value){
+    use(value)
+})                      
+                        </code></pre>
+                </section>
+                <section>
+                    <pre><code data-trim contenteditable  class="text" >
+.__(if)__.     A chain with a conditional invocation
+ 
+                  </code></pre>
+                    <pre><code data-trim contenteditable  class="javascript" >
+a().then(conditionally).then(b)                    
+                        </code></pre>
+                    <pre><code data-trim contenteditable  class="javascript" >
+fetchSomething().then(function(theThing){
+    if(!theThing){
+        return fetchSomethingElse() //also a promise
+    }
+    return theThing //just a value
+}).then(function(value){
+    use(value)
+})                      
+                        </code></pre>
+                </section>
+            </section>
+
+            <section>
+                <section>
+                    <h3>Reference implementation</h3>
+                    <p>Some examples will now use Q</p>
+                    <a href="https://github.com/kriskowal/q">https://github.com/kriskowal/q</a>
+                    <p>which is the go-to implementation of promises</p>
+                </section>
+                <section>
+                    <h3>Scoping</h3>
+
+                    <pre><code data-trim contenteditable  class="javascript" >
+fetchSomething().then(function(ignoredValue){
+    return fetchSomethingElse()
+}).then(function(value){
+    use(value)
+}).fail(function(err){
+    console.error(err);                       
+})                      
+                    </code></pre>
+                    <pre><code data-trim contenteditable  class="javascript" >
+fetchSomething().then(function(theThing){
+    return fetchSomethingElse().then(function(anotherThing){
+        if(theThing === anotherThing){
+            return theThing
+        }else{
+            throw new Error("No match")
+        }
+    })
+}).then(function(value){
+    use(value)
+}).fail(function(err){
+    console.error(err);                       
+})                      
+                    </code></pre>
+                </section>
+                <section>
+                    <h3>Making promises</h3>
+                    <p>bad</p>
+                    <pre><code data-trim contenteditable  class="javascript" >
+fetchSomething = function(){
+    var url = createPath()    //what if it throws?
+    return promiseFetch(url)  //a promise for http req
+}       
+                    </code></pre>
+                    <p>good</p>
+                    <pre><code data-trim contenteditable  class="javascript" >
+fetchSomething = function(){
+   // Q(value) creates a fulfilled promise
+   // just to start with
+   return Q("whatever").then(function(){
+       //now an error thrown here will propagate
+        return createPath()
+    }).then(function(url){
+        return promiseFetch(url)  
+    })
+}       
+                    </code></pre>
+
+                </section>
+                <section>
+                    <h3>Making promises 2</h3>
+                    <pre><code data-trim contenteditable  class="javascript" >
+fetchSomething = function(){
+    var defer = Q.defer();
+
+    //do asynchronous stuff and call one of:
+    defer.resolve(value)
+    defer.reject(error)
+
+    return defer.promise
+}       
+                    </code></pre>
+
+                </section>
+                <section>
+                    <h3>Timing</h3>
+                    <pre><code data-trim contenteditable  class="javascript" >
+var guessWho = "";
+Q("resolvedPromise").then(function(){
+    guessWho = "in"
+})
+guessWho = "out"    
+                    </code></pre>
+                    <p>The final value is "in" because then callback is always asynchronous, even if the promise is already resolved when .then is called. No stackoverflows if you make an infinite loop</p>
+                </section>
+                <section>
+                    <h3>Simultaneous stuff</h3>
+
+                    <p>Let's add two numbers that you have to fetch separately in unknown order</p>
+                    <pre><code data-trim contenteditable  class="javascript" >
+function add(getX,getY,cb) {
+    var x, y;
+    getX( function(xVal){
+        x = xVal;
+        // both are ready?
+        if (y != undefined) {
+            cb( x + y );    // send along sum
+        }
+    } );
+    getY( function(yVal){
+        y = yVal;
+        // both are ready?
+        if (x != undefined) {
+            cb( x + y );    // send along sum
+        }
+    } );
+}
+                    </code></pre>
+                    <p>Isn't that painful</p>
+
+                </section>
+                <section>
+                    <h3>Simultaneous stuff</h3>
+                    <pre><code data-trim contenteditable  class="javascript" >
+Q.all([fetchX(),fetchY()]).then(function(results){
+    return results[0]+results[1]                   
+})      
+                    </code></pre>
+                    <p>or</p>
+                    <pre><code data-trim contenteditable  class="javascript" >
+Q.all([fetchX(),fetchY()]).spread(function(x,y){
+    return x+y                 
+})      
+                    </code></pre>
+                </section>
+            </section>
+
+            <section>
+                <section>
+                    <h3>Advanced</h3>
+                    <img src="rgmachine.gif">
+                    <p>Feel free to stop understanding at any point</p>
+                </section>
+                <section>
+                    <h3>Chaining a lot</h3>
+                    <pre><code data-trim contenteditable  class="javascript" >
+var queue = Q(initialValue)
+for(var i=0; i&lt;todos.length; i++){
+    queue = queue.then(todos[i])                         
+}
+                    </code></pre>
+                    <p>Still a little ugly, let's try again</p>
+                    <pre><code data-trim contenteditable  class="javascript" >
+var queue = todos.reduce(function(qu,todo){
+    return qu.then(todo)
+},Q(initialValue))
+                    </code></pre>
+                    <a href="https://github.com/kriskowal/q#sequences">There's a oneliner for showoffs in the docs</a>
+                </section>
+                <section>
+                    <h3>Conditional error recovery</h3>
+                    <pre><code data-trim contenteditable  class="javascript" >
+fetchSomeList().fail(function(err){
+    if (err.statusCode==404){
+        return []
+    } else {
+       //rethrow all other errors
+        throw err
+    }                     
+}).then(function(list){
+    return use(list)                   
+}).fail(...)
+                    </code></pre>
+
+                </section>
+            </section>
+
+            <section>
+                <section>
+                    <h3>Traps:</h3>
+                    <ul>
+                        <li>Avoid deferreds if possible - one thing returning a promise is enough, you can even start a chain with <code>Q()</code>
+                        </li>
+                        <li><code>.fail()</code> is almost always better than <code>.then(success, error)</code>
+                        </li>
+                        <li>jQuery has a broken implementation of promises. Really. <br>Don't use, wrap: <code>Q.when($.get(...))</code><br><a href="https://blog.domenic.me/youre-missing-the-point-of-promises/">[mentioned here]</a>
+                        </li>
+                    </ul>
+
+                </section>
+
+            </section>
+
+            <section>
+                <h3>Recommended reading:</h3>
+                <ul>
+
+                    <li>
+                        <a href="https://github.com/getify/You-Dont-Know-JS/blob/master/async%20&%20performance/ch3.md">You Don't Know JS, Chapter 3: Promises</a>
+                    </li>
+                    <li>
+                        <a href="https://blog.domenic.me/youre-missing-the-point-of-promises/">You're Missing the Point of Promises </a><br> (read all this till you understand, seriously)
+                    </li>
+                </ul>
+            </section>
+
+            <section>
+
+                <h3>Promise me you'll use it</h3>
+                <p>@naugtur
+                    <br>http://naugtur.pl
+                </p>
+            </section>
+
+        </div>
+
+    </div>
+
+    <script src="../reveal.js/lib/js/head.min.js"></script>
+    <script src="../reveal.js/js/reveal.min.js"></script>
+
+    <script>
+        // Full list of configuration options available here:
+         // https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+            mouseWheel: true,
+
+            theme: 'night',
+            transition: Reveal.getQueryHash().transition || 'concave', // default/cube/page/concave/zoom/linear/fade/none
+
+            // Parallax scrolling
+            // parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+            // parallaxBackgroundSize: '2100px 900px',
+
+            // Optional libraries used to extend on reveal.js
+            dependencies: [{
+                src: '../reveal.js/lib/js/classList.js',
+                condition: function () {
+                    return !document.body.classList;
+                }
+                }, {
+                src: '../reveal.js/plugin/markdown/marked.js',
+                condition: function () {
+                    return !!document.querySelector('[data-markdown]');
+                }
+                }, {
+                src: '../reveal.js/plugin/markdown/markdown.js',
+                condition: function () {
+                    return !!document.querySelector('[data-markdown]');
+                }
+                }, {
+                src: '../reveal.js/plugin/highlight/highlight.js',
+                async: true,
+                callback: function () {
+                    hljs.initHighlightingOnLoad();
+                }
+                }, {
+                src: '../reveal.js/plugin/zoom-js/zoom.js',
+                async: true,
+                condition: function () {
+                    return !!document.body.classList;
+                }
+                }, {
+                src: '../reveal.js/plugin/notes/notes.js',
+                async: true,
+                condition: function () {
+                    return !!document.body.classList;
+                }
+                }]
+        });
+    </script>
+
+</body>
+
+</html>
