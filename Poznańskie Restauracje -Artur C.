@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Bootstrap3</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="main.css" rel="stylesheet" >
+</head>
+<body>
+    
+   
+    
+    
+<div class="navbar navbar-inverse navbar-fixed-bottom">
+<div class="container">
+<div class="navbar-header">
+       <a href="#" class="navbar-brand ">Poznanskie Restauracje</a>
+       <button class="navbar-toggle" data-toggle="collapse" data-target = ".navHeaderCollapse">
+       <span class="icon-bar"></span>
+       <span class="icon-bar"></span>
+       <span class="icon-bar"></span>
+       </button>
+</div>
+<div class="collapse navbar-collapse navHeaderCollapse">
+<ul class="nav navbar-nav navbar-right">
+<li class="active"><a href="#">MENU</a></li>
+<li><a href="#">BLOG</a></li>
+<li class="dropdown">
+<a href ="#" class="dropdown-toggle" data-toggle ="dropdown">O NAS <b class="caret"></b></a>
+    <ul class="dropdown-menu">
+    <li><a href="#">Twitter</a>
+    <li><a href="#">Facebook</a>
+    <li><a href="#">Google+</a>
+    <li><a href="#">Instagram</a>
+        
+    
+        
+    </li>
+    
+    </ul>
+
+<li><a href="#contact" data-toggle="modal">KONTAKT<b class="caret"></b></a></li>
+</ul>
+    
+
+    
+    </div>
+</div>
+</div>
+
+<div class="container">
+<div class="jumbotron">
+<center><h1>Poznanskie Resturacje </h1>
+<p>Miejsce spotkan prywatnych i tych biznesowych.</p>
+<a class="btn btn-default">Like it!</a>
+<a class="btn btn-default">Tweet it!</a></center>
+</div>
+</div>
+
+<br/>
+    
+<div class="container">
+<div class="row">
+
+<div class="col-md-3"   
+<h3><a href="#">ZUPY</a></h3>
+<p>ZUPA CEBULOWA.....15zl</p>
+<p>ZUPA CEBULOWA.....15zl</p>
+<p>ZUPA CEBULOWA.....15zl</p>
+
+
+<a href="#" class="btn btn-default">Read More</a>
+</div>    
+    
+
+<div class="col-md-3"   
+<h3><a href="#">KANAPKI</a></h3>
+<p>KANAPKA MIEJSKA.....17zl</p>
+<p>KANAPKA MIEJSKA.....17zl</p>
+<p>KANAPKA MIEJSKA.....17zl</p>
+<a href="#" class="btn btn-default">Read More</a>
+</div>
+
+
+
+<div class="col-md-3"   
+<h3><a href="#">SALATKI</a></h3>
+<p>SALATKA GRECKA.....12zl</p>
+<p>SALATKA GRECKA.....12zl</p>
+<p>SALATKA GRECKA.....12zl</p>
+<a href="#" class="btn btn-default">Read More</a>
+</div>
+
+
+
+<div class="col-md-3"   
+<h3><a href="#">DESERY</a></h3>
+<p>DESER MALINOWY.....20zl</p>
+<p>DESER MALINOWY.....20zl</p>
+<p>DESER MALINOWY.....20zl</p>
+<a href="#" class="btn btn-default">Read More</a>
+</div>
+</div>  
+
+<br/><br/>
+    
+
+<div class="container">
+<div class="row">
+    
+<div class="col-md-2"> 
+<p>SNIADANIA</p>
+<p>OBIADY</p>
+<p>KOLACJE</p>
+</div>
+
+    
+<div class="col-md-2"> 
+<p>DANIA</p>
+<p>GLOWNE</p>
+</div>  
+    
+
+<div class="col-md-2"> 
+<p>ZUPY</p>    
+</div>
+    
+
+<div class="col-md-2"> 
+<p>KANAPKI</p>    
+</div>   
+    
+<div class="col-md-2"> 
+<p>SALATKI</p>    
+</div> 
+    
+    
+<div class="col-md-2"> 
+<p>DESERY</p>    
+</div>
+
+
+
+    
+    
+    
+<div class= "navbar navbar-default navbar-fixed-top">
+<div class="container">
+<p id="font-size 5px" class="navbar-text pull-left">Site by CINCIO</p>
+<a href="http://youtube.com" class="navbar-btn btn-danger btn pull-right">Subscribe on YT</a>
+    
+
+    
+</div>
+</div>   
+
+<div class="modal fade" id="contact" role="dialog">
+<div class="modal- dialog">
+<div class="modal-content">
+<div class="modal-header">
+<h4>Kontakt</h4>
+</div>
+<div class="modal-body">
+<p class="text-center">ul. Ignacego Paderewskiego 0
+00-000 Poznan
+tel.: 00 000 00 00 info@poznanskierestauracje.pl
+GODZINY OTWARCIA:
+10.00 - 24.00</p>
+</div>
+<div class="modal-footer">
+<a class="btn btn-default" data-dismiss="modal">Zamknij</a>
+
+    
+    
+</div>
+</div>
+</div>   
+</div>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="js/bootstrap.js"></script>
+
+</body>
+</html>
