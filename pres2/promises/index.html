@@ -440,6 +440,28 @@ fetchSomeList().fail(function(err){
                     </code></pre>
 
                 </section>
+                <section>
+                    <h3>Adapters</h3>
+                    <p>If you need to use a standard node-style asymchronous function, no need to manually wrap it with deferreds</p>
+                    <pre><code data-trim contenteditable  class="javascript" >
+return Q.nfcall(FS.readFile, "foo.txt", "utf-8");
+return Q.nfapply(FS.readFile, ["foo.txt", "utf-8"]);
+                    </code></pre>
+                    <p>And there's a converter, for a cleaner look</p>
+                    <pre><code data-trim contenteditable  class="javascript" >
+var readFile = Q.denodeify(FS.readFile);
+return readFile("foo.txt", "utf-8");
+                    </code></pre>
+                    <a href="https://github.com/kriskowal/q#sequences">There's a oneliner for showoffs in the docs</a>
+                </section>
+                <section>
+                    <h3>Retrying</h3>
+                    <p>Reminder: a promise cannot be resolved multiple times. If someone wants it to, please call them an idiot.
+                    <h4>But what if I need to retry an asynchronous action in a chain?</h4>
+                    Take this as a reference for your implementation: <br><a href="https://github.com/SkPhilipp/Retry/blob/cceccc0253c1c7e0f40b58bf35fe3caa62bdc847/retry.js">https://github.com/SkPhilipp/Retry</a></p>
+                    <p>Worth mentioning - every retry is a new promise for an identical action. But if one failed, it cannot be repurposed.</p>
+                
+                </section>
             </section>
 
             <section>
@@ -473,7 +495,8 @@ fetchSomeList().fail(function(err){
                         <br> the reason why A+ happened
                     </li>
                     <li>
-                        <a href="https://github.com/getify/You-Dont-Know-JS/blob/master/async%20&%20performance/ch3.md">You Don't Know JS, Chapter 3: Promises</a><br> good learning material
+                        <a href="https://github.com/getify/You-Dont-Know-JS/blob/master/async%20&%20performance/ch3.md">You Don't Know JS, Chapter 3: Promises</a>
+                        <br> good learning material
                     </li>
                 </ul>
             </section>
@@ -495,7 +518,7 @@ fetchSomeList().fail(function(err){
 
     <script>
         // Full list of configuration options available here:
-         // https://github.com/hakimel/reveal.js#configuration
+        // https://github.com/hakimel/reveal.js#configuration
         Reveal.initialize({
             controls: true,
             progress: true,
