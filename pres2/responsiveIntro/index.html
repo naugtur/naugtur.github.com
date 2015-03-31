@@ -45,9 +45,8 @@
         <div class="slides">
             <section>
                 <br>
-                <h1>Responsive Design</h1>
+                <h1>Responsive Design 101</h1>
                 <br>
-                <p class="center">Mikro szkolenie</p>
                 <small>@naugtur</small>
             </section>
 
@@ -55,12 +54,12 @@
             <section>
                 <h3>Plan:</h3>
                 <ul>
-                    <li>Podstawy, pojęcia, ideologia</li>
+                    <li>Basics, terms, idea</li>
                     <li>Browsing</li>
-                    <li>Proces</li>
-                    <li>Narzędzia</li>
-                    <li>Praktyka!</li>
-                    <li>CSS i Media Queries</li>
+                    <li>Process</li>
+                    <li>Tools</li>
+                    <li>Practise!</li>
+                    <li>CSS &amp; Media Queries</li>
                 </ul>
 
             </section>
@@ -72,48 +71,48 @@
 
             <section>
                 <h3>DCD :)</h3>
-                <p>Czy to Device Centered Design?</p>
+                <p>Is this Device Centered Design?</p>
                 <q>Mobile is a user state, not a device.</q>
                 <p style="text-align:right">~ Cennydd Bowles</p>
                 <br />
                 <br />
                 <ul>
-                    <li>Czego chce mobilny użytkownik?</li>
-                    <li>Mniejsze okno na świat</li>
-                    <li>Web to nie plakat</li>
-                    <li>Przeglądarki są wszędzie</li>
+                    <li>What is it that the mobile user wants?</li>
+                    <li>Smaller viewport</li>
+                    <li>Web is not a poster</li>
+                    <li>Browsers are everywhere</li>
                 </ul>
             </section>
 
             <section>
-                <h3>Palce i ich konsekwencje</h3>
+                <h3>You've got fingers, so what?</h3>
                 <ul style="width: 80%;">
-                    <li class="noli">co robi mysz</li>
-                    <li>Hover</li>
-                    <li>Daje się wykryć podczas przemieszczania</li>
-                    <li>Przyciski, scroll</li>
-                    <li class="noli">co robią palce</li>
-                    <li>Tap, brak informacji o ruchu palca gdy nie dotyka ekranu
-                        <br> <small>[nie wiadomo kiedy użytkownik się zastanawia czy coś kliknąć]</small>
+                    <li class="noli">Mouse cursor<li>
+                    <li>Hovers</li>
+                    <li>Can be detected during movement</li>
+                    <li>Button press, scoll</li>
+                    <li class="noli">Fingers</li>
+                    <li>Tap, no position when it moves above the screen
+                        <br> <small>[can't detect hesitation]</small>
                     </li>
-                    <li>Palce nie są przezroczyste</li>
+                    <li>Fingers are not transparent</li>
                     <li>Swipe</li>
                     <li>Pinch (in & out)</li>
-                    <li>3 palce też mają co robić</li>
+                    <li>3 and more finger gestures</li>
                 </ul>
             </section>
 
             <section>
                 <section>
-                    <h3>Skoro web to nie plakat, to co?</h3>
+                    <h3>If web is not a poster, then what?</h3>
                     <img src="is.png" />
                 </section>
                 <section>
-                    <h3>Skoro web to nie plakat, to co?</h3>
+                    <h3>If web is not a poster, then what?</h3>
                     <img src="will.png" />
                 </section>
                 <section>
-                    <h3>Skoro web to nie plakat, to co?</h3>
+                    <h3>If web is not a poster, then what?</h3>
                     <img src="yourhands.jpg" />
                 </section>
                 <section>
@@ -129,7 +128,7 @@
             </section>
 
             <section>
-                <p style="margin-top:300px">Elastyczny layout i dostosowany content</p>
+                <p style="margin-top:300px">Flexible layout and adaptive content</p>
             </section>
 
             <section>
@@ -162,20 +161,20 @@
                 <h3>Mobile First</h3>
             </section>
             <section>
-                <h3>Responsive Design -proces tradycyjny</h3>
+                <h3>Responsive Design -traditional process</h3>
                 <ul>
                     <li class="noli">Content</li>
-                    <li>Content inventory - responsywność zaczyna się od architektury informacji</li>
-                    <li>Zacznij z "czystą kartką", dodawaj według potrzeb użytkownika.
-                        <br><small>Mobilny użytkownik nie ma miejsca na dystraktory.</small> 
+                    <li>Content inventory - responsiveness starts with Information Architecture</li>
+                    <li>Start empty, add things based on user needs
+                        <br><small>Mobile user doesn't have much room for distractions.</small> 
                     </li>
                     <li class="noli">Design</li>
-                    <li>Układ, grafika, inerakcja - w każdym kroku</li>
-                    <li>Najpierw (Mobile First) na najmniejszy ekran</li>
-                    <li>Breakpointy
+                    <li>Layout, graphics, interaction -in every step</li>
+                    <li>Start with the smallest screen (Mobile First)</li>
+                    <li>Breakpoints
                         <ul style="padding:10px 20px;">
                             <li>Device agnostic</li>
-                            <li>Content decyduje sam
+                            <li>Content decides
                                 <br><q>Start with the small screen first, then expand until it looks like shit. TIME FOR A BREAKPOINT!</q>
                             </li>
                         </ul>
@@ -183,55 +182,54 @@
                 </ul>
             </section>
             <section>
-                <h3>Responsive Design -proces tradycyjny</h3>
+                <h3>Responsive Design -traditional process</h3>
                 <ul style="width:80%">
-                    <li class="noli">Rezultaty procesu?</li>
-                    <li>Wireframe dla każdego układu</li>
-                    <li>Wersja graficzna dla każdego układu</li>
-                    <li>Sporo rysowania, ale nikt nie zobaczy jak to działa.</li>
+                    <li class="noli">Results</li>
+                    <li>Wireframe for every size involved</li>
+                    <li>Graphics for every size</li>
+                    <li>Lots of drawing, no live prototype</li>
                 </ul>
-                <h4>Bo web to nie plakat</h4>
+                <h4>Because web is not a poster</h4>
             </section>
             <section>
                 <h3>Designing in the browser</h3>
                 <ul>
-                    <li class="noli">Design/Prototyp</li>
-                    <li>Style Guide zamiast fotoszopki. Na początku.</li>
-                    <li>Jeśli cokolwiek ma prawo ograniczać Twoją kreatywność to tylko przeglądarka</li>
-                    <li>Przejdź od rysunków prosto do prototypu</li>
-                    <li>Design wizualny można zrobić od razu na prototypie</li>
-                    <li>Iteracje z IT</li>
+                    <li class="noli">Design/Prototype</li>
+                    <li>Style Guide instead of photoshop</li>
+                    <li>If anything should be allowed constraining your creativity, it's the browser</li>
+                    <li>From simple drawings straight to a prototype</li>
+                    <li>Graphics design can be done straight in CSS</li>
+                    <li>Easy to iterate with developers</li>
                 </ul>
             </section>
 
             <section>
-                <h3>Fluid grid</h3>
+                <h3>Grids, frameworks</h3>
                 <ul>
-                    <li>Gotowy framework strukturalny</li>
-                    <li>Może ograniczać, może prowadzić</li>
-                    <li>Duży wybór frameworków</li>
-                    <li>Wymagana dodatkowa wiedza techniczna</li>
+                    <li>Easier to build layouts</li>
+                    <li>Can help, can block your ideas</li>
+                    <li>One more thing to learn</li>
                 </ul>
                 <dl class="pad1">
                     <dd>
-                        <a href="http://getbootstrap.com">Bootstrap na przykład</a>
+                        <a href="http://getbootstrap.com">well known example: Bootstrap</a>
                     </dd>
                     <dd>
-                        <a href="http://www.alistapart.com/articles/fluidgrids/">Artykuł o Fluid grids z A List Apart (klasyka, 2012)</a>
+                        <a href="http://www.alistapart.com/articles/fluidgrids/">Fluid grids article at A List Apart (old!, 2012)</a>
                     </dd>
                 </dl>
             </section>
 
             <section>
-                <h3>3G, a i tak wolno</h3>
+                <h3>3G, but still slow</h3>
                 <ul>
-                    <li class="noli">Projektowanie pod szybkość łącza</li>
-                    <li>Ukryty content też się ściąga</li>
-                    <li>Dylemat z obrazkami (rozwiązany przez Mobile First?)</li>
-                    <li>Progressive Enhancement może dotyczyć też zawartości</li>
-                    <li>Szybkość odpowiedzi</li>
+                    <li class="noli">Design for limited connectivity</li>
+                    <li>Hidden content will download</li>
+                    <li>Image problem (fixed by Mobile First?)</li>
+                    <li>Progressive Enhancement for features and content</li>
+                    <li>Take response time into account (loaders, spinners)</li>
                 </ul>
-                <small> Ekran dotykowy nie robi <code>click</code> , skąd mam wiedzieć czy to kliknąłem?</small>
+                <small> Touchscreen doesn't make the click sound, let the user know they clicked immediately</small>
             </section>
 
 
@@ -244,17 +242,17 @@
                     }              
                 }
                 </code></pre>
-                <a href="https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Media_queries">Wszystko na ten temat</a>
+                <a href="https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Media_queries">Read all about it on MDN</a>
             </section>
             
             
             <section>
-                <h3>I jeszcze jedna linijka</h3>
+                <h3>And remember about this oneliner</h3>
                 <pre class="pad1"><code language="html">
 &lt;meta name="viewport" 
     content="width=device-width, initial-scale=1.0"&gt;
                 </code></pre>
-                <p>Ważne, bez tego telefon udaje, że ma większy ekran ;)</p>
+                <p>Without this, the phone will pretend to have a bigger screen.</p>
             </section>
 
 
