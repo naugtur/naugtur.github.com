@@ -40,7 +40,7 @@
     }
 
         var sc = D.createElement('script');
-        sc.src = 'https://api.github.com/repos/naugtur/naugtur.github.com/issues/1/comments?callback=blag&page=1&per_page=10&sort=updated&direction=desc';
+        sc.src = 'https://api.github.com/repos/naugtur/naugtur.github.com/issues/comments?callback=blag&page=1&per_page=10&sort=updated&direction=desc';
         D.head.appendChild(sc);
 
 
