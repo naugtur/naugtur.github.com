@@ -227,10 +227,11 @@
             <section data-markdown>
                 ## maintenance endpoint
 
-                Create a separate espress app listening on `localhost:1337` that will handle:
+                Create a separate express app listening on `localhost:1337` that will handle:
 
                 * Switching log level without restart
                 * Generating a heapdump
+                * Healthcheck endpoint
                 * Runing scripts for diagnostics or data migration
                 * Returning basic stats for monitoring (unless you're using tools that integrate directly into node)
             </section>
