@@ -142,12 +142,12 @@ app.on("needToRedrawThatOtherThing",function(){
 var newPromise = initialPromise.then(function(value){
     return 42 //value or another promise
 }, function(){
-    //initialPromise rejected       
+    //initialPromise rejected
 })
 
 newPromise.then(function(value){
    //value === 42
-})                                         
+})
                         </code></pre>
                 </section>
                 <section>
@@ -156,14 +156,14 @@ newPromise.then(function(value){
  \_.
                     </code></pre>
                     <pre><code data-trim contenteditable  class="javascript" >
-fetchSomething().then(fulfill, reject)                       
+fetchSomething().then(fulfill, reject)
                         </code></pre>
                     <pre><code data-trim contenteditable  class="javascript" >
 fetchSomething().then(function(theThing){
     use(theThing)
 }, function(error){
-    console.log('oh crap...')           
-})                       
+    console.log('oh crap...')
+})
                         </code></pre>
                 </section>
 
@@ -174,8 +174,8 @@ fetchSomething().then(function(theThing){
                   </code></pre>
                     <p>==</p>
                     <pre><code data-trim contenteditable  class="javascript" >
-.catch(function(){})                    
-.fail(function(){})
+.catch(function(){})
+.fail(function(){}) //for old browsers
                   </code></pre>
 
                 </section>
@@ -186,17 +186,17 @@ fetchSomething().then(function(theThing){
  \  \
                   </code></pre>
                     <pre><code data-trim contenteditable  class="javascript" >
-a().then(b).then(c)                      
+a().then(b).then(c)
                         </code></pre>
                     <p>This example is bad for your error handling</p>
                 </section>
                 <section>
                     <pre><code data-trim contenteditable  class="text" >
-.__.__.     A chain with error handling, but not for c()  
+.__.__.     A chain with error handling, but not for c()
  \__\_.
                   </code></pre>
                     <pre><code data-trim contenteditable  class="javascript" >
-a().then(b).then(c,errorHandling)                      
+a().then(b).then(c,errorHandling)
                         </code></pre>
                     <p>This example is bad for your error handling</p>
                 </section>
@@ -206,35 +206,36 @@ a().then(b).then(c,errorHandling)
  \__\__\_.
                   </code></pre>
                     <pre><code data-trim contenteditable  class="javascript" >
-a().then(b).then(c).fail(errorHandling)                      
+a().then(b).then(c).catch(errorHandling)
                         </code></pre>
                     <pre><code data-trim contenteditable  class="javascript" >
 fetchSomething().then(function(theThing){
     return use(theThing)
 }).then(function(){
     throw new Error("trololo")
-}).fail(function(error){
-    console.log('oh crap...')           
-})                       
+}).catch(function(error){
+    console.log('oh crap...')
+})
                         </code></pre>
                 </section>
                 <section>
                     <h3>Important debugging tip</h3>
                     <p>Always return the promise to some code that has error handling or finish it</p>
                     <pre><code data-trim contenteditable  class="javascript" >
-function promiseStuff(){                    
+function promiseStuff(){
     return fetchSomething().then(function(theThing){
         return use(theThing)
     })
 }
-a().then(promiseStuff).fail(...)
+a().then(promiseStuff).catch(...)
                         </code></pre>
                     <p>or</p>
                     <pre><code data-trim contenteditable  class="javascript" >
 fetchSomething().then(function(theThing){
     return use(theThing)
-}).done() //ends a chain and throws errors if not yet handled                      
+}).done() //ends a chain and throws errors if not yet handled
                         </code></pre>
+                        <p>some promise implementations will throw unhandled errors, but that's not in the standard</p>
                 </section>
                 <section>
                     <pre><code data-trim contenteditable  class="text" >
@@ -242,7 +243,7 @@ fetchSomething().then(function(theThing){
  \_._/
                   </code></pre>
                     <pre><code data-trim contenteditable  class="javascript" >
-a().then(b, errorRecovery).then(recoveredFromError)                    
+a().then(b, errorRecovery).then(recoveredFromError)
                         </code></pre>
                     <pre><code data-trim contenteditable  class="javascript" >
 fetchSomething().then(function(theThing){
@@ -251,16 +252,16 @@ fetchSomething().then(function(theThing){
     return backupValue
 }).then(function(value){
     use(value)
-})                      
+})
                         </code></pre>
                 </section>
                 <section>
                     <pre><code data-trim contenteditable  class="text" >
 .__(if)__.     A chain with a conditional invocation
- 
+
                   </code></pre>
                     <pre><code data-trim contenteditable  class="javascript" >
-a().then(conditionally).then(b)                    
+a().then(conditionally).then(b)
                         </code></pre>
                     <pre><code data-trim contenteditable  class="javascript" >
 fetchSomething().then(function(theThing){
@@ -270,17 +271,14 @@ fetchSomething().then(function(theThing){
     return theThing //just a value
 }).then(function(value){
     use(value)
-})                      
+})
                         </code></pre>
                 </section>
             </section>
 
             <section>
                 <section>
-                    <h3>Reference implementation</h3>
-                    <p>Some examples will now use Q</p>
-                    <a href="https://github.com/kriskowal/q">https://github.com/kriskowal/q</a>
-                    <p>which is the go-to implementation of promises</p>
+                    <h3>Examples with standard promises</h3>
                 </section>
                 <section>
                     <h3>Scoping</h3>
@@ -290,9 +288,9 @@ fetchSomething().then(function(ignoredValue){
     return fetchSomethingElse()
 }).then(function(value){
     use(value)
-}).fail(function(err){
-    console.error(err);                       
-})                      
+}).catch(function(err){
+    console.error(err);
+})
                     </code></pre>
                     <pre><code data-trim contenteditable  class="javascript" >
 fetchSomething().then(function(theThing){
@@ -305,9 +303,9 @@ fetchSomething().then(function(theThing){
     })
 }).then(function(value){
     use(value)
-}).fail(function(err){
-    console.error(err);                       
-})                      
+}).catch(function(err){
+    console.error(err);
+})
                     </code></pre>
                 </section>
                 <section>
@@ -317,35 +315,31 @@ fetchSomething().then(function(theThing){
 fetchSomething = function(){
     var url = createPath()    //what if it throws?
     return promiseFetch(url)  //a promise for http req
-}       
+}
                     </code></pre>
                     <p>good</p>
                     <pre><code data-trim contenteditable  class="javascript" >
 fetchSomething = function(){
-   // Q(value) creates a fulfilled promise
    // just to start with
-   return Q("whatever").then(function(){
+   return Promise.resolve("whatever").then(function(){
        //now an error thrown here will propagate
         return createPath()
     }).then(function(url){
-        return promiseFetch(url)  
+        return promiseFetch(url)
     })
-}       
+}
                     </code></pre>
 
                 </section>
                 <section>
                     <h3>Making promises 2</h3>
+                    <p>Do not use `.defer()` available in some implementations</p>
                     <pre><code data-trim contenteditable  class="javascript" >
-fetchSomething = function(){
-    var defer = Q.defer();
-
-    //do asynchronous stuff and call one of:
-    defer.resolve(value)
-    defer.reject(error)
-
-    return defer.promise
-}       
+fetchSomething = new Promise(function(resolve, reject){
+    resolve("it's ok")
+    //in case of failure
+    reject(Error("it went bad"))
+})
                     </code></pre>
 
                 </section>
@@ -353,10 +347,10 @@ fetchSomething = function(){
                     <h3>Timing</h3>
                     <pre><code data-trim contenteditable  class="javascript" >
 var guessWho = "";
-Q("resolvedPromise").then(function(){
+Promise.resolve("resolvedPromise").then(function(){
     guessWho = "in"
 })
-guessWho = "out"    
+guessWho = "out"
                     </code></pre>
                     <p>The final value is "in" because then callback is always asynchronous, even if the promise is already resolved when .then is called. No stackoverflows if you make an infinite loop</p>
                 </section>
@@ -389,15 +383,15 @@ function add(getX,getY,cb) {
                 <section>
                     <h3>Simultaneous stuff</h3>
                     <pre><code data-trim contenteditable  class="javascript" >
-Q.all([fetchX(),fetchY()]).then(function(results){
-    return results[0]+results[1]                   
-})      
+Promise.all([fetchX(),fetchY()]).then(function(results){
+    return results[0]+results[1]
+})
                     </code></pre>
                     <p>or</p>
                     <pre><code data-trim contenteditable  class="javascript" >
-Q.all([fetchX(),fetchY()]).spread(function(x,y){
-    return x+y                 
-})      
+Promise.all([fetchX(),fetchY()]).spread(function(x,y){
+    return x+y
+})
                     </code></pre>
                 </section>
             </section>
@@ -411,48 +405,45 @@ Q.all([fetchX(),fetchY()]).spread(function(x,y){
                 <section>
                     <h3>Chaining a lot</h3>
                     <pre><code data-trim contenteditable  class="javascript" >
-var queue = Q(initialValue)
+var queue = Promise.resolve(initialValue)
 for(var i=0; i&lt;todos.length; i++){
-    queue = queue.then(todos[i])                         
+    queue = queue.then(todos[i])
 }
                     </code></pre>
                     <p>Still a little ugly, let's try again</p>
                     <pre><code data-trim contenteditable  class="javascript" >
 var queue = todos.reduce(function(qu,todo){
     return qu.then(todo)
-},Q(initialValue))
+},Promise.resolve(initialValue))
                     </code></pre>
-                    <a href="https://github.com/kriskowal/q#sequences">There's a oneliner for showoffs in the docs</a>
+                    <a href="https://github.com/kriskowal/q#sequences">There's a oneliner for showoffs in Q's docs</a>
                 </section>
                 <section>
                     <h3>Conditional error recovery</h3>
                     <pre><code data-trim contenteditable  class="javascript" >
-fetchSomeList().fail(function(err){
+fetchSomeList().catch(function(err){
     if (err.statusCode==404){
         return []
     } else {
        //rethrow all other errors
         throw err
-    }                     
+    }
 }).then(function(list){
-    return use(list)                   
-}).fail(...)
+    return use(list)
+}).catch(...)
                     </code></pre>
 
                 </section>
                 <section>
                     <h3>Adapters</h3>
-                    <p>If you need to use a standard node-style asymchronous function, no need to manually wrap it with deferreds</p>
+                    <p>If you need to use a standard node-style asymchronous function, no need to manually wrap it with promise constructors. All popular promise implementations have helpers for that</p>
                     <pre><code data-trim contenteditable  class="javascript" >
-return Q.nfcall(FS.readFile, "foo.txt", "utf-8");
-return Q.nfapply(FS.readFile, ["foo.txt", "utf-8"]);
+var readFile = Bluebird.promisify(require("fs").readFile);
                     </code></pre>
                     <p>And there's a converter, for a cleaner look</p>
                     <pre><code data-trim contenteditable  class="javascript" >
-var readFile = Q.denodeify(FS.readFile);
-return readFile("foo.txt", "utf-8");
+var readFile = Q.denodeify(require("fs").readFile);
                     </code></pre>
-                    <a href="https://github.com/kriskowal/q#sequences">There's a oneliner for showoffs in the docs</a>
                 </section>
                 <section>
                     <h3>Retrying</h3>
@@ -460,7 +451,7 @@ return readFile("foo.txt", "utf-8");
                     <h4>But what if I need to retry an asynchronous action in a chain?</h4>
                     Take this as a reference for your implementation: <br><a href="https://github.com/SkPhilipp/Retry/blob/cceccc0253c1c7e0f40b58bf35fe3caa62bdc847/retry.js">https://github.com/SkPhilipp/Retry</a></p>
                     <p>Worth mentioning - every retry is a new promise for an identical action. But if one failed, it cannot be repurposed.</p>
-                
+
                 </section>
             </section>
 
@@ -468,12 +459,12 @@ return readFile("foo.txt", "utf-8");
                 <section>
                     <h3>Traps:</h3>
                     <ul>
-                        <li>Avoid deferreds if possible - one thing returning a promise is enough, you can even start a chain with <code>Q()</code>
+                        <li>Avoid deferreds and promise constructors if possible - one thing returning a promise is enough, you can even start a chain with <code>Promise.resolve()</code>
                         </li>
-                        <li><code>.fail()</code> is almost always better than <code>.then(success, error)</code>
+                        <li>Always put <code>.catch()</code> at the end of a chain</code>
                         </li>
                         <li>jQuery has a broken implementation of promises. Really.
-                            <br>Don't use, wrap: <code>Q.when($.get(...))</code>
+                            <br>Don't use them, wrap: <code>Q.when($.get(...)) or Promise.resolve($.get(...))</code>
                             <br><a href="https://blog.domenic.me/youre-missing-the-point-of-promises/">[mentioned here]</a>
                         </li>
                     </ul>
