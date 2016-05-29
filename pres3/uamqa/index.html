@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="pl">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>QA</title>
+
+    <meta name="author" content="naugtur">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/css/reveal.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/css/theme/black.css" id="theme">
+
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/lib/css/zenburn.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/css/print/pdf.css' : 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/css/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+
+    <link rel="stylesheet" href="../branding/style.css" id="branding">
+
+</head>
+
+<body>
+
+    <div class="reveal" id="naugtur">
+
+        <!-- Any section element inside of this container is displayed as a slide -->
+        <div class="slides">
+            <section>
+                <h1>Software Quality Assurance</h1>
+                <p class="pad1">#umniedziała<p>
+
+                        <small>@naugtur, Egnyte@UAM 2016</small>
+            </section>
+
+            <section data-markdown>
+                ## Cykl życia oprogramowania (studenckiego)
+
+                * start projektu, wymagania, architektura
+                * implementacja
+                * ostatnie dni implementacji (tzw. dopychanie)
+                * oddanie klientowi
+                * ewakuacja
+
+            </section>
+
+            <section data-markdown>
+                ![nsp check](hop.jpg)
+            </section>
+
+            <section>
+
+                <section data-markdown>
+                    ## Jakość
+                    Jakość czego właściwie?
+                </section>
+                <section data-markdown>
+                    ## Jakość kodu
+                    Software craftmanship itp.
+                </section>
+                <section data-markdown>
+                    ## Jakość Interfejsu
+                    User Experience, Usability
+                </section>
+                <section data-markdown>
+                    ## Jakość produktu
+                    Quality Assurance
+                </section>
+            </section>
+            <section data-markdown>
+                ## Cykl życia oprogramowania
+                Taki na serio
+
+                - Agile, Scrum
+                - Red/Green/Refactor
+                - Implement > Test > Maintain
+
+                Jakość projektu bierze się z prac nad tym, co już istnieje i jakoś działa.
+            </section>
+            <section data-markdown>
+                ## To jak dbać o jakość oprogramowania?
+
+                > Quality Assurance is not Quality Control
+
+                ![nope](nope.gif)
+            </section>
+            <section data-markdown>
+                ## QA oprogramowania (studenckiego)
+
+                * start projektu, wymagania, architektura
+                * implementacja
+                * QA
+                * `if` nie ma jakości `then` ewakuacja
+                * oddanie
+
+                Nikogo innego nie stać na wywalenie ~skończonego projektu
+
+            </section>
+            <section data-markdown>
+                ## O jakość trzeba dbać przez cały czas trwania projektu
+
+            </section>
+            <section data-markdown>
+                ## Jak?
+
+            </section>
+
+            <section>
+                <section data-markdown>
+                    ### Coś co znacie - unit testing
+
+                    Zadanie domowe:
+                    Jeśli nie znasz, poznaj definicje
+                    - Unit of work (w kontekście unit testów)
+                    - TDD
+                    - Test First
+
+                </section>
+                <section data-markdown>
+                    - Unit !== plik
+                    - Test First to kontrowersyjny temat
+                    - Dobre testowanie jednostkowe jest trudniejsze niż myślisz
+                </section>
+                <section data-markdown>
+                    ### Jak nie zabetonować projektu
+
+                    - nie testuj szczegółów implementacji tylko funkcjonalność
+                    > Funkcja sort ma poprawnie sortować, a nie przestawiać elementy po kolei według określonego w teście algorytmu.
+                    - nie testuj czy kod wywołuje metodę, ale czy korzysta z jej efektów
+                    - rób asercje tylko na prawdziwe rezultaty, nie stan całego świata
+
+                </section>
+            </section>
+            <section data-markdown>
+                ## Pisanie testowalnego kodu
+
+                ![complication](rgmachine.gif)
+            </section>
+            <section data-markdown>
+                ## Pisanie testowalnego kodu
+
+                - O tym jest TDD
+                - mądra enkapsulacja
+                - Co z tego, że działa skoro przed deployem nie udowodnisz?
+
+                >Test First przy naprawianiu bugów, ale mało realne przy budowaniu projektu od zera
+                >(wspominałem o betonowaniu?)
+            </section>
+            <section data-markdown>
+                ### Kilka definicji
+
+                - Mock
+                - Stub
+                - Fixture
+            </section>
+            <section data-markdown>
+                ### Myśleliście że to wszystko?
+
+                - Happy path
+                - Negative test
+                - Coverage
+                - Branch coverage
+
+            </section>
+            <section data-markdown>
+                ## Typy testów według "jak"
+
+                - unit test
+                - integration test
+                - functional test
+                - systemic / end-to-end
+                - stress test
+
+                > Różne zastosowania, różny koszt utrzymania
+            </section>
+            <section data-markdown>
+                ### Typy testów według "dlaczego"
+
+                - Regression test
+                - Acceptance test
+                - Exploratory test
+                - Smoke test
+            </section>
+
+            <section data-markdown>
+                ### Continous Integration
+
+                Jeśli nie chcesz używać CI, zmień branżę już teraz.
+
+            </section>
+
+            <section data-markdown>
+                ### Automatyzacja
+
+                - API
+                - UI (Selenium/OS)
+                - Ogórki [Given/When/Then](https://github.com/cucumber/cucumber/wiki/Gherkin)
+
+            </section>
+
+
+
+            <section data-markdown>
+                ```
+                Feature: Serve coffee
+                    Coffee should not be served until paid for
+                    Coffee should not be served until the button has been pressed
+                    If there is no coffee left then money should be refunded
+
+                  Scenario: Buy last coffee
+                    Given there are 1 coffees left in the machine
+                    And I have deposited 1$
+                    When I press the coffee button
+                    Then I should be served a coffee
+                ```
+            </section>
+
+        </div>
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/lib/js/head.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/js/reveal.js"></script>
+
+    <script>
+        // Full list of configuration options available at:
+        // https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+            mouseWheel: true,
+
+            transition: 'concave', // none/fade/slide/convex/concave/zoom
+
+
+            // Optional reveal.js plugins
+            dependencies: [{
+                src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/plugin/markdown/marked.js',
+                condition: function() {
+                    return !!document.querySelector('[data-markdown]');
+                }
+            }, {
+                src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/plugin/markdown/markdown.js',
+                condition: function() {
+                    return !!document.querySelector('[data-markdown]');
+                }
+            }, {
+                src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/plugin/highlight/highlight.js',
+                async: true,
+                callback: function() {
+                    hljs.initHighlightingOnLoad();
+                }
+            }, {
+                src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/plugin/zoom-js/zoom.js',
+                async: true
+            }, {
+                src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/plugin/notes/notes.js',
+                async: true
+            }]
+        });
+    </script>
+
+</body>
+
+</html>

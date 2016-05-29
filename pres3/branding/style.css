@@ -4,6 +4,12 @@
     font-weight: normal;
     font-style: normal;
 }
+@font-face {
+    font-family: 'nicefontpl';
+    src: url('fonts/Audiowide-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
 
 
 
@@ -31,6 +37,13 @@
 #naugtur h3,
 #naugtur h4 {
     letter-spacing: 0.07em;
+}
+
+[lang=pl] #naugtur h1,
+[lang=pl] #naugtur h2,
+[lang=pl] #naugtur h3,
+[lang=pl] #naugtur h4 {
+    font-family: 'nicefontpl', sans-serif;
 }
 
 #naugtur h1 {
