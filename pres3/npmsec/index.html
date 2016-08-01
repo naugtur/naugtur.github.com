@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>In NPM we trust</title>
+
+    <meta name="author" content="naugtur">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/css/reveal.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/css/theme/black.css" id="theme">
+
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/lib/css/zenburn.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/css/print/pdf.css' : 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/css/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+
+    <link rel="stylesheet" href="../branding/style.css" id="branding">
+
+</head>
+
+<body>
+
+    <div class="reveal" id="naugtur">
+
+        <!-- Any section element inside of this container is displayed as a slide -->
+        <div class="slides">
+            <section>
+                <h1>In NPM we trust</h1>
+                <p class="pad1">About npm install and all its consequences<p>
+
+                        <small>@naugtur, Meet.js Poznań 08/2016</small>
+            </section>
+
+            <section data-markdown>
+                ## NPM is mostly about trust.
+
+                You trust the packages are there and do what you expect
+            </section>
+
+            <section data-markdown>
+                ## left-pad story
+
+                [on The Register](http://www.theregister.co.uk/2016/03/23/npm_left_pad_chaos/)
+            </section>
+
+            <section data-markdown>
+                ## npm install
+
+                - reads package.json or npm-shrinkwrap.json
+                - downloads packages and put in place
+                - runs builds and install scripts
+
+                https://docs.npmjs.com/misc/scripts
+            </section>
+            <section data-markdown>
+                Find a definition of remote code execution vulnerability that wouldn't fit running npm install...
+            </section>
+            <section data-markdown>
+                ## NPM worm
+
+                How to make code spread on npm?
+
+                Add a postinstall to a popular package with steps:
+
+                - look for package.json files
+                - go into the folders
+                - add your postinstall there
+                - run `npm version patch`
+                - run `npm publish`
+                - watch it burn
+
+                *not my idea btw. published 2 years ago*
+            </section>
+            <section data-markdown>
+                ## Still, noone did that!
+
+                Or at least noone succeeded
+            </section>
+            <section data-background-image="dontk.jpg">
+                <h2 style="text-align:right">Don't know if proud</h2>
+                <h2 style="text-align:right;margin-top:4em">or scared</h2>
+            </section>
+            <section data-markdown>
+                ## Node Security Platform
+
+                [https://nodesecurity.io/](https://nodesecurity.io/)
+
+                ```
+                nsp check
+                (+) No known vulnerabilities found
+                ```
+            </section>
+            <section data-markdown>
+                ## All in git?
+
+                Some teams suggest committing node_modules to git.
+
+                That helps with security, but...
+
+                - bigger repo
+                - have to `npm rebuild` anyway
+                - a bit ugly ;)
+
+            </section>
+
+            <section data-markdown>
+                ## Artifacts bundling!
+            </section>
+            <section data-markdown>
+                ## secure dependencies
+
+                *never run npm install in production again!*
+                [https://github.com/naugtur/secure-dependencies](https://github.com/naugtur/secure-dependencies)
+
+                ```
+npm install secure-dependencies --save-dev
+                ```
+
+                ```js
+"scripts": {
+  "bundle": "secure-dependencies"
+},
+                ```
+
+                `npm run bundle` --> myapp-1.0.0.tgz
+            </section>
+            <section data-markdown>
+                ## How to deploy
+
+                - create bundle
+                - upload it to artifacts repository
+                - deploy app
+                - instead of installing, download and untar based on package.json name and version fields
+            </section>
+            <section data-markdown>
+                ## Artifacts repository sounds scary
+
+                - your company probably has one
+                - check out Nexus Repository (well known in Java world)
+                - or just use `scp` with ssh keys to a server (very secure!)
+
+            </section>
+            <section data-markdown>
+                ## Production ready?
+
+                - It just creates a bundle, if it fails, you get a red CI build
+                - All you do in production is `untar` - can't get more stable than that
+                - Extracting is faster than installing
+                - The bundle is deduplicated
+
+                >I'm putting it in production this week and it's been 4 days since I started it
+
+            </section>
+
+            <section>
+                <h4>Play safe!</h4>
+                <p>@naugtur
+                    <br>http://naugtur.pl
+                </p>
+                <blockquote>
+                    <p>Subscribe to my newsletter <a href="http://naugtur.pl/news">http://naugtur.pl/news</a> and get:</p>
+                        <ul>
+                            <li>notifications about events I organize before everyone else (think tickets)
+                            <li>access to learning resources I produce
+                            <li>no spam, less than 1 email a month on average
+                        </ul>
+                </blockquote>
+            </section>
+
+        </div>
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/lib/js/head.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/js/reveal.js"></script>
+
+    <script>
+        // Full list of configuration options available at:
+        // https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+            mouseWheel: true,
+
+            transition: 'concave', // none/fade/slide/convex/concave/zoom
+
+
+            // Optional reveal.js plugins
+            dependencies: [{
+                src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/plugin/markdown/marked.js',
+                condition: function() {
+                    return !!document.querySelector('[data-markdown]');
+                }
+            }, {
+                src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/plugin/markdown/markdown.js',
+                condition: function() {
+                    return !!document.querySelector('[data-markdown]');
+                }
+            }, {
+                src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/plugin/highlight/highlight.js',
+                async: true,
+                callback: function() {
+                    hljs.initHighlightingOnLoad();
+                }
+            }, {
+                src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/plugin/zoom-js/zoom.js',
+                async: true
+            }, {
+                src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/plugin/notes/notes.js',
+                async: true
+            }]
+        });
+    </script>
+
+</body>
+
+</html>
