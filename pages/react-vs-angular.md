@@ -12,7 +12,6 @@ Nagranie podzielone na rozdziały | Całe nagranie w jendym pliku
  --- | ---
 [Otwórz folder](https://naugtur.egnyte.com/fl/eSdMCRoEOs/React-vs-Angular) | [Pobierz plik](https://naugtur.egnyte.com/dl/LSFvNmx0B6/React-vs-Angular.mp3)
 
-
 ## Linki
 
 - [Event z lutego](https://www.facebook.com/events/160251467665280)
@@ -20,3 +19,11 @@ Nagranie podzielone na rozdziały | Całe nagranie w jendym pliku
 - [Autor nagrania](http://events.pozoga.eu)
 
 - [Zapisz się do newslettera po więcej](http://naugtur.pl/news)
+
+## Licencja
+
+Creative Commons Attribution Non-commercial
+
+https://creativecommons.org/licenses/by-nc/3.0/
+
+Czyli jeśli podajesz dalej, to napisz skąd masz i nie zarabiaj na tym.
