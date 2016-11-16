@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>Memory Management</title>
+
+    <meta name="author" content="naugtur">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/css/reveal.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/css/theme/black.css" id="theme">
+
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/lib/css/zenburn.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/css/print/pdf.css' : 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/css/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+
+    <link rel="stylesheet" href="../branding/style.css" id="branding">
+
+</head>
+
+<body>
+
+    <div class="reveal" id="naugtur">
+
+        <!-- Any section element inside of this container is displayed as a slide -->
+        <div class="slides">
+
+            <section>
+                <h1>JS<br> memory management</h1>
+                <p class="pad1">and hunting memory leaks</p>
+                <small class="pad1">@naugtur, meet.js 2016</small>
+            </section>
+
+            <section>
+                <section id="garbage">
+                    <h3>Garbage collection</h3>
+
+                    <style>
+                    .mem{
+                        margin: 20px calc(50% - 300px);
+                        width: 500px;
+                        height: 40px;
+                        background: rgba(200,150,0,0.4);
+                    }
+                    .mem.memA{
+                        border: 5px dashed orange;
+                    }
+                    .mem.memB{
+                        border: 5px dashed #222;
+                    }
+                    .mem>div{
+                        width: 90px;
+                        background-color: yellow;
+                        opacity: 0.5;
+                        height: 100%;
+                        margin: 1px;
+                        float: left;
+                    }
+                    </style>
+
+
+                    <ol style="margin-top: 50px">
+                        <li>New allocation triggers GC</li>
+                        <li>Cleanup is done by not saving unreachable references</li>
+                    </ol>
+
+                    <div class="mem memA">
+                    </div>
+                    <div class="mem memB">
+                    </div>
+
+                    <p>Objects and structures referenced from global root are copied back in.</p>
+
+                    <script>
+                        (function(){
+                            var m1 = document.querySelector('.memA'),
+                            m2 = document.querySelector('.memB'),
+                            c=0,limit=5;
+                            document.getElementById('garbage')
+                            .addEventListener('click',function(e){
+                                if(c<limit){
+                                c++;
+                                m1.appendChild(document.createElement('div'));
+                                m2.firstElementChild && m2.firstElementChild.nextElementSibling && (m2.removeChild(m2.firstElementChild));
+                                }else{
+                                if(limit!==7){
+                                    m2.innerHTML=m1.innerHTML;
+                                    m1.innerHTML='';
+                                    m1.style.width='800px';
+                                    c=0;
+                                    limit=7;
+                                    }
+                                }
+                            });
+                        })();
+                    </script>
+                </section>
+                <section data-markdown>
+                    ## It's more complicated than that
+
+                    - Incremental GC (FF16)
+                    - Generational GC (FF32)  https://hacks.mozilla.org/2014/09/generational-garbage-collection-in-firefox/
+                    - Scheduling GC (Chrome45)
+                    - Compacting GC (FF38)  https://hacks.mozilla.org/2015/07/compacting-garbage-collection-in-spidermonkey/
+                </section>
+                <section data-markdown>
+                    ## Generations
+
+                    - Young generation
+                      - collected often
+                    - Old generation
+                      - collected rarely, different algorithm
+                </section>
+                <section>
+                    <h2>Scheduling GC</h2>
+                    <img src="gc.png" alt="">
+                    <br>
+                    <a href="https://blog.chromium.org/2015/12/smarter-garbage-collection-for-smoother.html">
+                    Smarter garbage collection for smoother browsing and less memory usage, 2015/12/08
+                    </a>
+                    <br>
+                    <a href="http://v8project.blogspot.com/2015/08/getting-garbage-collection-for-free.html">V8 garbage collection deep dive</a>
+                </section>
+                <section>
+                    <h2>Compacting GC</h2>
+
+                    <a href="https://hacks.mozilla.org/2015/07/compacting-garbage-collection-in-spidermonkey/">
+                    Compacting Garbage Collection in SpiderMonkey
+                    </a>
+                    <br>
+                    <a href="https://blog.mozilla.org/nnethercote/2016/04/12/more-compacting-gc/">More compacting GC</a>
+                </section>
+                <section>
+                    <h2>Hidden classes</h2>
+
+                    <a href="http://richardartoul.github.io/jekyll/update/2015/04/26/hidden-classes.html">
+                    Nice explanatoin with more links
+                    </a>
+                </section>
+            </section>
+            <section>
+              <section data-markdown>
+                # Freeing memory
+              </section>
+              <section>
+                  <h3>How it works</h3>
+
+                  <pre><code class="javascript">var aBoy = { name: "Johny" },
+  aGirl = { name: "Sue" },
+  anAnimal={ name: "Garfield" };
+
+aBoy = null;//Johny can now be garbage-collected
+aGirl = { name: "Lucy" };//Sue can now be garbage-collected
+
+aGirl.ownsAnimal = anAnimal
+//we have a new reference to Garfield
+anAnimal = null;
+//a reference is removed, but it was not the only one
+//Garfield can't be garbage-collected
+                  </code></pre>
+              </section>
+
+              <section>
+                  <h3>Popular misconceptions</h3>
+
+                  <ul class="pad1">
+                      <li>no, <code>delete</code> keyword does not free memory</li>
+                      <li>seriously, <code>delete</code> just slows you down (changes hidden class)</li>
+                      <li>no, setting object to <code>null</code> doesn't remove the object, it changes the reference</li>
+                  </ul>
+              </section>
+              <section data-markdown>
+                ## When a reference dies
+
+                - Reference lifetime
+                - Functional scope
+
+                 New engines forget unused references
+              </section>
+              <section>
+                  <h3>Pooling</h3>
+                  <p>What if I need thousands of objects for short periods of time? I'm implementing a minigun.</p>
+                  <ul>
+                      <li>Create a set of empty objects you need</li>
+                      <li>Make a getter that returns the least recently used one</li>
+                      <li>Overwrite its fields with new values</li>
+                      <li>Reuse the same N objects without ever causing garbage collection</li>
+                  </ul>
+                  <p>This really is only useful for things like particle animation</p>
+              </section>
+            </section>
+            <section>
+                <h3>What's the problem?</h3>
+                <img alt="" src="leaking.jpg">
+            </section>
+            <section>
+              <section data-markdown>
+                ## What's a leak?
+              </section>
+              <section data-markdown>
+                ### Leaving a reference to someting you expected to get garbage collected
+              </section>
+
+              <section data-markdown>
+                  ## Tools
+
+                  - heap snapshot + diff view
+                  - profiles -> allocation timeline
+                  - timeline -> memory
+                  - force GC - timeline -> trash icon
+                  - performance.memory (chrome)
+                  - process.memoryUsage() (Node.js)
+
+                  [Memory analysis vocabulary](https://developers.google.com/web/tools/chrome-devtools/memory-problems/memory-101)
+              </section>
+              <section data-markdown>
+                  ## Reading the heap
+
+                  Red nodes do not have direct references from JavaScript to them, but are alive because they’re part of a detached DOM tree. There may be a node in the tree referenced from JavaScript preventing the entire DOM tree from being garbage collected.
+
+                  Yellow nodes have direct references from JavaScript. There should be a chain of properties leading from the DOM window to the element.
+
+              </section>
+            </section>
+            <section data-markdown>
+              # Training time
+            </section>
+            <section>
+                <h4>Forget!</h4>
+                <p>@naugtur
+                    <br>http://naugtur.pl
+                </p>
+                <blockquote>
+                    <p>Subscribe to my newsletter <a href="http://naugtur.pl/news">http://naugtur.pl/news</a> and get:</p>
+                        <ul>
+                            <li>notifications about events I organize before everyone else (think tickets)
+                            <li>access to learning resources I produce
+                            <li>no spam, less than 1 email a month on average
+                        </ul>
+                </blockquote>
+            </section>
+
+        </div>
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/lib/js/head.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/js/reveal.js"></script>
+
+    <script>
+        // Full list of configuration options available at:
+        // https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+            mouseWheel: true,
+
+            transition: 'concave', // none/fade/slide/convex/concave/zoom
+
+
+            // Optional reveal.js plugins
+            dependencies: [{
+                src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/plugin/markdown/marked.js',
+                condition: function() {
+                    return !!document.querySelector('[data-markdown]');
+                }
+            }, {
+                src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/plugin/markdown/markdown.js',
+                condition: function() {
+                    return !!document.querySelector('[data-markdown]');
+                }
+            }, {
+                src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/plugin/highlight/highlight.js',
+                async: true,
+                callback: function() {
+                    hljs.initHighlightingOnLoad();
+                }
+            }, {
+                src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/plugin/zoom-js/zoom.js',
+                async: true
+            }, {
+                src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/plugin/notes/notes.js',
+                async: true
+            }]
+        });
+    </script>
+
+</body>
+
+</html>
