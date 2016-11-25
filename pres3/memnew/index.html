@@ -43,7 +43,15 @@
                 <p class="pad1">and hunting memory leaks</p>
                 <small class="pad1">@naugtur, meet.js 2016</small>
             </section>
+            <section data-markdown="">
+              ## Some history
+              How did it become an issue and how it seems solved now
+            </section>
+            <section>
+              <h2>The app that tought me about memory leaks</h2>
+              <p>#coolstory</p>
 
+            </section>
             <section>
                 <section id="garbage">
                     <h3>Garbage collection</h3>
@@ -212,8 +220,25 @@ anAnimal = null;
               </section>
               <section data-markdown>
                 ### Leaving a reference to someting you expected to get garbage collected
+                ```js
+                var module = (function(){
+                var keptAsLongAsModuleLives = [];
+                    return {
+                        init:function(someObject){
+                            keptAsLongAsModuleLives.push(someObject);
+                            //do stuff
+                        }
+                    }
+                })();
+                ```
               </section>
+              <section data-markdown>
+                ## What's not a leak, but could be worse?
 
+                - canvas allocates all pixels on first use `rgba*width*height`
+                - separate event handler assignment to each element of the list (kinda went away with backbone)
+                - cache of items downloaded from the server
+              </section>
               <section data-markdown>
                   ## Tools
 
@@ -226,17 +251,27 @@ anAnimal = null;
 
                   [Memory analysis vocabulary](https://developers.google.com/web/tools/chrome-devtools/memory-problems/memory-101)
               </section>
-              <section data-markdown>
-                  ## Reading the heap
 
-                  Red nodes do not have direct references from JavaScript to them, but are alive because they’re part of a detached DOM tree. There may be a node in the tree referenced from JavaScript preventing the entire DOM tree from being garbage collected.
-
-                  Yellow nodes have direct references from JavaScript. There should be a chain of properties leading from the DOM window to the element.
-
-              </section>
             </section>
             <section data-markdown>
               # Training time
+            </section>
+            <section data-markdown>
+                ## Reading the heap
+
+                Red nodes do not have direct references from JavaScript to them, but are alive because they’re part of a detached DOM tree. There may be a node in the tree referenced from JavaScript preventing the entire DOM tree from being garbage collected.
+
+                Yellow nodes have direct references from JavaScript. There should be a chain of properties leading from the DOM window to the element.
+
+            </section>
+            <section data-markdown>
+              ## Good times
+
+                - Browsers don't leak much anymore.
+                - Popular libraries tend to prevent leaks
+                - Popularity of functional programming reduces chance of leaking
+                - Human error is the most common source of leaks
+
             </section>
             <section>
                 <h4>Forget!</h4>
