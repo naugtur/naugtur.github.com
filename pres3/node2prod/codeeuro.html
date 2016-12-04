@@ -1,0 +1,424 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>Going production with Node.js</title>
+
+    <meta name="author" content="naugtur">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/css/reveal.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/css/theme/black.css" id="theme">
+
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/lib/css/zenburn.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/css/print/pdf.css' : 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/css/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+
+    <link rel="stylesheet" href="../branding/style.css" id="branding">
+
+</head>
+
+<body>
+
+    <div class="reveal" id="naugtur">
+
+        <!-- Any section element inside of this container is displayed as a slide -->
+        <div class="slides">
+            <section>
+                <h1>Getting your Node.js app production ready</h1>
+                <h3 class="pad1">Practical guide
+                    <h3>
+
+                        <small>@naugtur, Code Europe 2016</small>
+            </section>
+
+            <section data-markdown>
+                ## What's this node thing good for?
+
+                * translation layers
+                * websockets on top of heavy services
+                * middlewares
+                * integrations
+                * microservice architectures
+
+            </section>
+            <section data-markdown>
+                ## How does it work?
+
+                * event loop
+                * all asynchronous
+                * no concurent memory access
+            </section>
+            <section data-markdown>
+                ## Why write JavaScript?
+
+                * You all know some of it by now
+                * Still kinda mandatory for web apps
+                * It's everywhere
+                * Decent language if you know what to avoid
+            </section>
+
+            <section class="texttyper" data-markdown>
+                ### So, you're writing an app
+                ```javascript
+                const express = require('express')
+
+                const app = express()
+
+                app.get('/answer/to/:anything',function(req,res){
+                    res.status(200).send('42')
+                })
+
+                app.listen(1337)
+                ```
+            </section>
+
+            <section>
+                <section data-markdown>
+                    ### Running in production
+
+                    * `node app.js` - forget it
+                    * `forever`, `cluster` - no, thanks
+                    * PM2! http://pm2.keymetrics.io/
+                    * Containers / Docker / Now
+                    * Serverless - AWS Lambda etc.
+
+
+> PM2 is a production process manager for Node.js applications with a built-in load balancer. It allows you to keep applications alive forever, to reload them without downtime and to facilitate common system admin tasks.
+                </section>
+                <section data-background-video="./pm2.mp4">
+                    <h3 style="padding-bottom: 5em">Process Manager FTW</h3>
+                </section>
+                <section data-markdown>
+                    ### Containers
+
+                    Back to
+
+                    `node app.js`
+
+                    but with all features of a process manager extracted outside and great infrastructure building/scaling tools.
+                </section>
+                <section data-markdown>
+                    ### Serverless
+
+                    * You only write the logic,
+                    * Infrastructure, http layer and scaling is already provided
+                    * You pay for number of function runs, not servers waiting for traffic
+
+> Mindblowing, but not applicable for everyone
+
+                </section>
+            </section>
+            <section data-markdown>
+                ### Basic monitoring
+
+                * server resources
+                * is app running
+                * can app be accessed
+
+>If your company (like mine) has centralized monitoring already, you're better off leveraging that.
+>The best monitoring is the one that has someone looking at it
+
+            </section>
+            <section>
+                <section data-markdown>
+                    But first
+                    ## Some good practices
+                    for writing the app
+                </section>
+                <section data-markdown>
+                    ### Stateless
+
+                    * No client information exists in the app between requests
+                    * Multiple copies of the app can handle requests from the same user
+                    * Stateless = simple horizontal scaling
+                    * Redis for shared temporary state (sessions etc.)
+
+                </section>
+                <section data-markdown>
+                    ![ASYNCHRONOUS](async.jpg)
+
+                    Promises!
+
+                    Did you know asynchronous JSON parsers exist?
+
+                </section>
+                <section data-markdown>
+                    ### Enforce types sometimes
+
+                    >Dude, you're talking about JS, right?
+
+
+                    * Some important objects that carry data through your app need to have checks on them.
+                    * Tiny tools like [strongly-typed](https://github.com/naugtur/strongly-typed) can be enough. And are easy to add to an existing app
+                    * You can go all in and use Typescript or facebook's Flow.
+
+                </section>
+                <section data-markdown>
+                    ### Feature toggles
+
+                    Good for keeping your master branch deployable.
+
+                    * Make them easy to find in code
+                    * Always remove them after no longer needed
+                    * Don't put tons of `if`s in code, duplicate a file and `require` depending on toggle value
+
+                </section>
+
+            </section>
+            <section data-markdown>
+                ## Manage dependencies
+
+                * When in doubt, `npm shrinkwrap`
+                * Don't install unmaintained code if it saves you 3 lines
+                * Node Security Project and requireSafe
+
+                ![nsp check](nsp.png)
+            </section>
+            <section data-markdown>
+                ## Getting dependencies to production
+
+                * npm install with shrinkwrap file? - not bulletproof
+                * `yarn` - a more precise npm client
+                * `secure-dependencies` for bundling dependencies as build artifacts
+                * bundle the whole app - use docker
+
+            </section>
+            <section data-markdown>
+                ## secure dependencies
+
+                *never run npm install in production again!*
+                [https://github.com/naugtur/secure-dependencies](https://github.com/naugtur/secure-dependencies)
+
+                ```
+npm install secure-dependencies --save-dev
+                ```
+
+                ```js
+"scripts": {
+  "bundle": "secure-dependencies"
+},
+                ```
+
+                `npm run bundle` --> myapp-1.0.0.tgz
+            </section>
+            <section data-markdown>
+                # And now we're in production
+            </section>
+            <section>
+
+                <section data-markdown>
+                    ## Logging
+
+                    * Use log levels
+                    * Enable changing log level without restarting the app. Most bugs stop reproducing after you restart.
+                    * IF you expect more than one user, generate a random ID for each HTTP request and add it to all logs it generates.
+
+                    ![info logs](logs.png)
+                </section>
+                <section data-markdown>
+                    ## Sanitize
+
+                    * Logs should not contain user credentials etc.
+                    * Build a sanitizer that hashes sensitive data
+
+                    ```
+                    [03-12_00:50:14.181] TRACE [75577] authorization: 'Bearer
+                     (sha256:bea5d8a8afabfb21b1b8234c23b12ea44f1180c6a96d53c5)'
+                    ```
+                </section>
+            </section>
+            <section>
+                <section data-markdown>
+                    ## What to monitor
+
+                    I'm not going to go through features of tools like keymetrics or newRelic
+                </section>
+                <section data-markdown>
+                    ## HTTP request time and status
+
+                    * Watch for 5XX and alert immediately.
+                    * Monitor other statuses for popularity. Too many 404s may be a problem too.
+                    * Keep statistics on response time separately for every endpoint
+                    * Time requests made by the app
+
+                </section>
+                <section data-markdown>
+                    ## Loop blocks
+
+                    * Use `blocked` to detect
+                    ```
+                    blocked(function(ms){
+                        console.log('BLOCKED FOR %s ms', ms | 0);
+                    });
+                    ```
+                    * Finding them is harder. My little experiment:  [promise-blocked](https://github.com/naugtur/promise-blocked)
+                    * Some monitoring tools integrate with node to do that
+                </section>
+                <section data-markdown>
+                    ## Memory increase
+
+                    * Node.js will shutdown when 1.5GB gets allocated
+                    * Monitor `process.memoryUsage().rss`
+                    * Watch for steady increase in memory use
+
+                </section>
+            </section>
+            <section data-markdown>
+                ## Debugging memory leaks
+
+                * `v8-profiler` in dev/staging
+                * Simple [tutorial](https://github.com/felixge/node-memory-leak-tutorial), but very old
+                * In production - take a heapdump and then another, compare
+
+
+                It's an old topic, noone is getting into a conference lineup with it, so no new content.
+                I have some fresh content about it, for training. (private use permitted)
+
+            </section>
+            <section data-markdown>
+                ## maintenance endpoint
+
+                Create a separate http server listening on `localhost:1337` that will handle:
+
+                * Switching log level without restart
+                * Generating a heapdump
+                * Healthcheck endpoint (can also be public)
+                * Runing scripts for diagnostics or data migration
+                * Returning basic stats for monitoring (unless you're using tools that integrate directly into node)
+            </section>
+            <section>
+                <section data-markdown>
+                    ## Things I didn't squeeze into the presentation
+
+                    * Getting and using heapdumps
+                    * Error handler shared across the app
+                    * Much more security tips
+                    * Safe, non leaking, object caches
+                    * No-downtime redeploys
+                </section>
+                <section data-markdown>
+                    ## Advanced debugging in production
+
+                    Recent [talk](http://techblog.netflix.com/2015/12/debugging-nodejs-in-production.html) from Netflix is a must.
+                    * Flame graphs [2014 at Netflix](http://techblog.netflix.com/2014/11/nodejs-in-flames.html)
+                    * Joyent had flame graphs [long ago](http://www.joyent.com/blog/walmart-node-js-memory-leak)
+                    * Postmortem debugging from a core dump with `mdb` on smartos
+                    * [Post Mortem Diagnostics Working Group](https://github.com/nodejs/post-mortem)
+
+                </section>
+            </section>
+            <section>
+                <h4>Follow me for workshops on this</h4>
+                <p>@naugtur
+                    <br>http://naugtur.pl
+                </p>
+                <blockquote>
+                    <p>Subscribe to my newsletter <a href="http://naugtur.pl/news">http://naugtur.pl/news</a> and get:</p>
+                        <ul>
+                            <li>notifications about events I organize before everyone else (think tickets)
+                            <li>access to learning resources I produce
+                            <li>no spam, less than 1 email a month on average
+                        </ul>
+                </blockquote>
+            </section>
+
+        </div>
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/lib/js/head.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/js/reveal.js"></script>
+
+    <script>
+        // Full list of configuration options available at:
+        // https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+            mouseWheel: true,
+
+            transition: 'concave', // none/fade/slide/convex/concave/zoom
+
+            // Parallax background image
+            parallaxBackgroundImage: '../branding/space-03.jpg',
+            // Parallax background size
+            parallaxBackgroundSize: '1920px 880px', // CSS syntax, e.g. "2100px 900px" - currently only pixels are supported (don't use % or auto)
+
+
+            // Optional reveal.js plugins
+            dependencies: [{
+                src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/plugin/markdown/marked.js',
+                condition: function() {
+                    return !!document.querySelector('[data-markdown]');
+                }
+            }, {
+                src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/plugin/markdown/markdown.js',
+                condition: function() {
+                    return !!document.querySelector('[data-markdown]');
+                }
+            }, {
+                src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/plugin/highlight/highlight.js',
+                async: true,
+                callback: function() {
+                    hljs.initHighlightingOnLoad();
+                }
+            }, {
+                src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/plugin/zoom-js/zoom.js',
+                async: true
+            }, {
+                src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/plugin/notes/notes.js',
+                async: true
+            }]
+        });
+    </script>
+
+    <script>
+    //because I can
+    Reveal.addEventListener('ready', function( event ) {
+        var typerSlide = document.querySelector("section.texttyper");
+        var codeBox = typerSlide.querySelector("code");
+        var text = codeBox.innerText;
+        var timerRef, progress=0;
+        codeBox.innerText="";
+        document.addEventListener("mousedown",md)
+        document.addEventListener("mouseup",mu)
+        function md(){
+            if(Reveal.getCurrentSlide() === typerSlide){
+                timerRef = setInterval(continueTyping,50)
+            }
+        }
+        function mu(){
+            clearInterval(timerRef)
+        }
+        function continueTyping(){
+            if(progress<text.length){
+                codeBox.innerText+=text[progress++]
+            } else {
+                clearInterval(timerRef)
+                document.removeEventListener("mousedown",md)
+                document.removeEventListener("mouseup",mu)
+            }
+            hljs.highlightBlock(codeBox);
+        }
+    });
+    </script>
+
+</body>
+
+</html>
