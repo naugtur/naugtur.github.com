@@ -1,0 +1,34 @@
+{
+  "baseUrl": "/writes/",
+  "output": "../writes",
+  "locals": {
+    "url": "http://naugtur.pl/writes",
+    "name": "Naugtur's scribbles",
+    "owner": "Naugtur",
+    "description": ""
+  },
+  "plugins": [
+    "./plugins/paginator.coffee",
+    "wintersmith-tag"
+  ],
+  "require": {
+    "moment": "moment",
+    "_": "underscore",
+    "typogr": "typogr"
+  },
+  "jade": {
+    "pretty": true
+  },
+  "introCutoffs": ["<hr", "<h2"],
+  "markdown": {
+    "smartLists": true,
+    "smartypants": true
+  },
+  "paginator": {
+    "perPage": 3
+  },
+  "tag": {
+      "template": "tag-index.jade",
+      "perPage": 10
+  }
+}

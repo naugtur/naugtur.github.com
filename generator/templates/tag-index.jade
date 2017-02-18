@@ -1,0 +1,17 @@
+
+extends layout
+
+block content
+  include author
+  h1= 'in: ' + tagName
+  hr
+  each article in articles
+    header
+      h2
+        a(href=article.url)= article.title
+        p
+          span= moment.utc(article.date).format('DD. MMMM YYYY')
+
+block prepend footer
+  div.nav
+    a(href=contents.index.url) &laquo; Main

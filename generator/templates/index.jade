@@ -1,0 +1,31 @@
+
+extends layout
+
+block content
+  include author
+  each article in articles
+    article.article.intro
+      header.cutoff
+        p.date
+          span
+            | #{ moment.utc(article.date).format('DD. MMMM YYYY') }
+            | #{ ' in ' }
+            each tag in env.helpers.getTagsFromArticle(article)
+              a.tag-name(href=env.helpers.getTagHome(tag).url)= tag
+        h2
+          a(href=article.url)= article.title
+      section.content
+        if article.intro.length > 0
+          != typogr(article.intro).typogrify()
+        if article.hasMore
+          p.more
+            a(href=article.url) more
+
+block prepend footer
+  div.nav
+    if prevPage
+      a(href=prevPage.url) &laquo; Newer
+    else
+      a(href=locals.url + '/archive.html') &laquo; Archives
+    if nextPage
+      a(href=nextPage.url) Next page &raquo;

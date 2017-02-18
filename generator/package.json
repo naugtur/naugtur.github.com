@@ -1,0 +1,15 @@
+{
+  "dependencies": {
+    "moment": "2.3.x",
+    "underscore": "1.4.x",
+    "typogr": "0.5.x"
+  },
+  "private": "true",
+  "scripts": {
+    "start": "wintersmith build -X"
+  },
+  "devDependencies": {
+    "wintersmith": "^2.3.6",
+    "wintersmith-tag": "^1.0.2"
+  }
+}

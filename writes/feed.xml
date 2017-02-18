@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:wfw="http://wellformedweb.org/CommentAPI/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Naugtur's scribbles</title>
+    <atom:link href="http://naugtur.pl/writes/feed.xml" rel="self" type="application/rss+xml"></atom:link>
+    <link>http://naugtur.pl/writes</link>
+    <description></description>
+    <pubDate>Tue, 06 Sep 2016 02:00:00 +0200</pubDate>
+    <generator>Wintersmith - https://github.com/jnordberg/wintersmith</generator>
+    <language>en</language>
+    <item>
+      <title>Panel dyskusyjny React vs Angular</title>
+      <link>http://naugtur.pl/writes/writes/articles/nagranie-react-vs-angular/</link>
+      <pubDate>Tue, 06 Sep 2016 02:00:00 +0200</pubDate>
+      <guid isPermaLink="true">http://naugtur.pl/writes/writes/articles/nagranie-react-vs-angular/</guid>
+      <author></author>
+      <description>&lt;p&gt;Po miesiącach wytężonej pracy i ciągłego przekładania na później, oddaję w wasze ręce… uszy? słuchawki? nagranie z panelu dyskusyjnego Rect vs Angular, który miałem okazję moderować w lutym tego roku.&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;Nagranie nie jest idealne, ale odszumiłem je jak tylko mogłem. Odgłosy pisania na klawiaturze musicie wybaczyć Sebastianowi :) - gdyby nie on, nie byłoby nagrania!&lt;/p&gt;
+&lt;p&gt;Podziękowania dla panelistów i organizatorów!&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&quot;audio-do-pobrania&quot;&gt;Audio do pobrania&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Nagranie podzielone na rozdziały &lt;a href=&quot;https://naugtur.egnyte.com/fl/eSdMCRoEOs/React-vs-Angular&quot;&gt;Otwórz folder&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ul&gt;
+&lt;li&gt;Całe nagranie w jendym pliku &lt;a href=&quot;https://naugtur.egnyte.com/dl/LSFvNmx0B6/React-vs-Angular.mp3&quot;&gt;Pobierz plik&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;linki&quot;&gt;Linki&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://www.facebook.com/events/160251467665280&quot;&gt;Event z lutego&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&quot;http://events.pozoga.eu&quot;&gt;Autor nagrania&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&quot;http://naugtur.pl/news&quot;&gt;Zapisz się do newslettera po więcej&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;licencja&quot;&gt;Licencja&lt;/h2&gt;
+&lt;p&gt;Creative Commons Attribution Non-commercial&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://creativecommons.org/licenses/by-nc/3.0/&quot;&gt;https://creativecommons.org/licenses/by-nc/3.0/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Czyli jeśli podajesz dalej, to napisz skąd masz i nie zarabiaj na tym.&lt;/p&gt;
+</description>
+    </item>
+    <item>
+      <title>Everything is an array index</title>
+      <link>http://naugtur.pl/writes/writes/articles/everything-is-an-array-index/</link>
+      <pubDate>Wed, 13 May 2015 02:00:00 +0200</pubDate>
+      <guid isPermaLink="true">http://naugtur.pl/writes/writes/articles/everything-is-an-array-index/</guid>
+      <author></author>
+      <description>&lt;p&gt;Javascript engines never cease to amuse me.
+Let’s look at our good old &lt;code&gt;Array.prototype.splice&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;[&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;3&lt;/span&gt;].splice(&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;) &lt;span class=&quot;comment&quot;&gt;//returns [1]&lt;/span&gt;
+[&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;3&lt;/span&gt;].splice(&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;) &lt;span class=&quot;comment&quot;&gt;//returns [2]&lt;/span&gt;
+[&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;3&lt;/span&gt;].splice(&lt;span class=&quot;literal&quot;&gt;undefined&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;) &lt;span class=&quot;comment&quot;&gt;// 1&lt;/span&gt;
+[&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;3&lt;/span&gt;].splice(&lt;span class=&quot;literal&quot;&gt;false&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;) &lt;span class=&quot;comment&quot;&gt;// 1&lt;/span&gt;
+[&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;3&lt;/span&gt;].splice(&lt;span class=&quot;literal&quot;&gt;true&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;) &lt;span class=&quot;comment&quot;&gt;// 2!&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Ok, so splice is accepting non-numbers and it’s casting them to booleans and then to numbers, right? Wrong.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;[&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;3&lt;/span&gt;].splice({},&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;) &lt;span class=&quot;comment&quot;&gt;// 1&lt;/span&gt;
+[&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;3&lt;/span&gt;].splice(&lt;span class=&quot;string&quot;&gt;&quot;&quot;&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;) &lt;span class=&quot;comment&quot;&gt;// 1&lt;/span&gt;
+[&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;3&lt;/span&gt;].splice(&lt;span class=&quot;string&quot;&gt;&quot;one&quot;&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;) &lt;span class=&quot;comment&quot;&gt;// 1&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Confused? That’s still pretty consistent!
+Check this out:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;[&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;3&lt;/span&gt;].splice([],&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;) &lt;span class=&quot;comment&quot;&gt;//1&lt;/span&gt;
+[&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;3&lt;/span&gt;].splice([&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;],&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;) &lt;span class=&quot;comment&quot;&gt;//2&lt;/span&gt;
+[&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;3&lt;/span&gt;].splice([&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;],&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;) &lt;span class=&quot;comment&quot;&gt;//3&lt;/span&gt;
+[&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;3&lt;/span&gt;].splice([&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;],&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;) &lt;span class=&quot;comment&quot;&gt;//1&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Go home javascript, you’re drunk.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id=&quot;let-s-figure-this-out-anyway-&quot;&gt;Let’s figure this out anyway.&lt;/h3&gt;
+&lt;p&gt;First:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;[&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;3&lt;/span&gt;].splice({&lt;span class=&quot;attr&quot;&gt;toString&lt;/span&gt;:&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;&lt;/span&gt;)&lt;/span&gt;{&lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;;}},&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;) &lt;span class=&quot;comment&quot;&gt;// 3&lt;/span&gt;
+[&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;3&lt;/span&gt;].splice({&lt;span class=&quot;attr&quot;&gt;toString&lt;/span&gt;:&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;&lt;/span&gt;)&lt;/span&gt;{&lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&quot;2one&quot;&lt;/span&gt;;}},&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;) &lt;span class=&quot;comment&quot;&gt;// 1&lt;/span&gt;
+[&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;3&lt;/span&gt;].splice({&lt;span class=&quot;attr&quot;&gt;toString&lt;/span&gt;:&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;&lt;/span&gt;)&lt;/span&gt;{&lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&quot;2&quot;&lt;/span&gt;;}},&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;) &lt;span class=&quot;comment&quot;&gt;// 3&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Ok, that’s something. Looks like it casts stuff to string and expects it to be a number, then if NaN, assumes 0.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; a=[];
+[&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;3&lt;/span&gt;].splice(a,&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;)  &lt;span class=&quot;comment&quot;&gt;//returns [ 1 ]&lt;/span&gt;
+a.toString=&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;&lt;/span&gt;)&lt;/span&gt;{&lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;;}
+[&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;3&lt;/span&gt;].splice(a,&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;)  &lt;span class=&quot;comment&quot;&gt;//returns [ 3 ]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Confirmed.
+But what about true ?&lt;/p&gt;
+&lt;p&gt;Well, it turns out there’s one more step:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;built_in&quot;&gt;Number&lt;/span&gt;(&lt;span class=&quot;literal&quot;&gt;true&lt;/span&gt;) === &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;
+&lt;span class=&quot;built_in&quot;&gt;Number&lt;/span&gt;({&lt;span class=&quot;attr&quot;&gt;toString&lt;/span&gt;:&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;&lt;/span&gt;)&lt;/span&gt;{&lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;number&quot;&gt;9&lt;/span&gt;;}}) === &lt;span class=&quot;number&quot;&gt;9&lt;/span&gt;
+&lt;span class=&quot;built_in&quot;&gt;Number&lt;/span&gt;({}) &lt;span class=&quot;comment&quot;&gt;//is NaN&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;So, finally, the closest thing to what &lt;code&gt;Array.prototype.splice&lt;/code&gt; does to its arguments is:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;~~&lt;span class=&quot;built_in&quot;&gt;Number&lt;/span&gt;(arg)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ol&gt;
+&lt;li&gt;Cast to number&lt;/li&gt;
+&lt;li&gt;If input is not a primitive type, &lt;code&gt;Number()&lt;/code&gt; will call &lt;code&gt;.toString()&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Force-cast to integer (emulated here by &lt;code&gt;~~&lt;/code&gt;) so all &lt;code&gt;NaN&lt;/code&gt; results become &lt;code&gt;0&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Now if that’s not a work of art, I don’t know what is. :)&lt;/p&gt;
+&lt;p&gt;All return values come from V8 as present in node v0.10.37&lt;/p&gt;
+</description>
+    </item>
+  </channel>
+</rss>
