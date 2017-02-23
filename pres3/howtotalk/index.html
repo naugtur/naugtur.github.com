@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="pl">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>How to talk</title>
+
+    <meta name="author" content="naugtur">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/css/reveal.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/css/theme/black.css" id="theme">
+
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/lib/css/zenburn.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/css/print/pdf.css' : 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/css/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+
+    <link rel="stylesheet" href="../branding/style.css" id="branding">
+    <style>
+    #naugtur {
+        background: transparent url('http://egnyte.com/assets/2015/images/logo.png') no-repeat bottom left;
+    }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="reveal" id="naugtur">
+
+        <!-- Any section element inside of this container is displayed as a slide -->
+        <div class="slides">
+            <section>
+                <h1>How to talk</h1>
+                <p class="pad1">Intro to preparing a talk for a meetup v1.0<p>
+
+                        <small>@naugtur 2017</small>
+            </section>
+
+            <section data-markdown>
+                #### Can you say something?
+
+            </section>
+            <section data-markdown>
+                #### Great!
+                #### You can talk
+                #### We're almost done
+            </section>
+            <section data-markdown>
+                ## Why
+            </section>
+
+            <section data-markdown>
+                ### Sharing is growing
+
+                * when you speak about something you know, you explore it better for yourself
+                * other people **will** tell you something interesting about it
+                * best ideas come from discussions
+                * it does stuff to your career :)
+                * only way to fight the fear of public speaking is to try
+            </section>
+            <section data-markdown>
+                ##### People are nice and they want to hear you
+
+                There's nothing to worry about. There's no difference between talking to 10 or 100 of them.
+            </section>
+
+            <section data-markdown>
+                ## What
+            </section>
+
+            <section data-markdown>
+                ##### When speaking, tell a story
+                ![story](story.jpg)
+            </section>
+
+            <section data-markdown>
+                ### Story?
+
+                What if it's technical knowledge, not a story?
+
+                Well, I mean tell something that:
+                * has a beginnging
+                * is complete
+                * is your own experience
+                * is about you or about something
+            </section>
+            <section data-markdown>
+                * Raise awareness, inspire
+                * Teach people something they can't google faster
+                * Tell people something they were not aware about
+                * Share your experience
+            </section>
+
+            <section data-markdown>
+                ## How
+            </section>
+
+            <section data-markdown>
+                ### Prepare some visuals
+
+                1. So that you don't forget what's next
+                2. So that they can remember or go back to it
+                3. Some things are easier to type than say
+                4. You need to put links somewhere
+            </section>
+
+            <section data-markdown>
+                ### Don't think in powerpoint
+
+                Never start with creating a ppt or keynote file.
+
+                * Make notes on real paper.
+                * You can do with 10 tabs in the browser.
+                * You can scroll a document.
+
+            </section>
+            <section data-markdown>
+                ### Never read from the slides
+
+                It makes you redundant
+            </section>
+            <section data-markdown>
+                ### Live demos are great
+
+                 If people don't have to listen to you type in total silence.
+
+            </section>
+            <section data-markdown>
+                ### Always cheat when live coding
+
+                ![live coding deception requires](deception.jpg)
+
+                * git commits for steps
+                * tabs with results already loaded
+                * a file with all commands you'll use
+
+            </section>
+            <section data-markdown>
+                ### Time it
+
+                Don't practice. You're not on a TED stage.
+
+                Just try it once out loud to see if it's not 3 times longer than you thought.
+            </section>
+            <section data-markdown>
+                ## Make your own rules
+
+                It's good to be different. Just make sure you know how to do the normal thing first.
+            </section>
+
+        </div>
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/lib/js/head.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/js/reveal.js"></script>
+
+    <script>
+        // Full list of configuration options available at:
+        // https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+            mouseWheel: true,
+
+            transition: 'concave', // none/fade/slide/convex/concave/zoom
+
+
+            // Optional reveal.js plugins
+            dependencies: [{
+                src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/plugin/markdown/marked.js',
+                condition: function() {
+                    return !!document.querySelector('[data-markdown]');
+                }
+            }, {
+                src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/plugin/markdown/markdown.js',
+                condition: function() {
+                    return !!document.querySelector('[data-markdown]');
+                }
+            }, {
+                src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/plugin/highlight/highlight.js',
+                async: true,
+                callback: function() {
+                    hljs.initHighlightingOnLoad();
+                }
+            }, {
+                src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/plugin/zoom-js/zoom.js',
+                async: true
+            }, {
+                src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/plugin/notes/notes.js',
+                async: true
+            }]
+        });
+    </script>
+
+</body>
+
+</html>
