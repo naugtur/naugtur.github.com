@@ -19,7 +19,7 @@
   "jade": {
     "pretty": true
   },
-  "introCutoffs": ["<hr", "<h2"],
+  "introCutoffs": ["<hr", "<h2","<cut>"],
   "markdown": {
     "smartLists": true,
     "smartypants": true

@@ -5,9 +5,38 @@
     <atom:link href="http://naugtur.pl/writes/feed.xml" rel="self" type="application/rss+xml"></atom:link>
     <link>http://naugtur.pl/writes</link>
     <description></description>
-    <pubDate>Tue, 06 Sep 2016 02:00:00 +0200</pubDate>
+    <pubDate>Thu, 23 Feb 2017 01:00:00 +0100</pubDate>
     <generator>Wintersmith - https://github.com/jnordberg/wintersmith</generator>
     <language>en</language>
+    <item>
+      <title>Chaos Monkey for PM2</title>
+      <link>http://naugtur.pl/writes/writes/articles/chaos-monkey-for-pm2/</link>
+      <pubDate>Thu, 23 Feb 2017 01:00:00 +0100</pubDate>
+      <guid isPermaLink="true">http://naugtur.pl/writes/writes/articles/chaos-monkey-for-pm2/</guid>
+      <author></author>
+      <description>&lt;p&gt;The term Chaos Monkey was coined by Netflix - it’s a tool that kills your production machines at random.&lt;/p&gt;
+&lt;cut&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/netflix/chaosmonkey&quot;&gt;See their repo&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Surprised? Well, that’s how they got developers to think about making the services available no matter what happens.
+You can’t dismiss any failure as unlikely anymore. There’s a monkey in your server room. Even if it’s entirely virtual.&lt;/p&gt;
+&lt;p&gt;I needed this concept recently for testing failover of workers running as processes on &lt;a href=&quot;http://pm2.keymetrics.io/&quot;&gt;PM2&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Here’s a tiny script I came up with&lt;/p&gt;
+&lt;h3 id=&quot;minimum-viable-chaos-monkey&quot;&gt;Minimum Viable Chaos Monkey&lt;/h3&gt;
+&lt;p&gt;Just give it the name of your app as &lt;code&gt;$APP&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-bash&quot;&gt;&lt;span class=&quot;meta&quot;&gt;#!/bin/bash&lt;/span&gt;
+&lt;span class=&quot;keyword&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;literal&quot;&gt;true&lt;/span&gt;
+&lt;span class=&quot;keyword&quot;&gt;do&lt;/span&gt;
+  &lt;span class=&quot;comment&quot;&gt;#choose one of the delays randomly and wait&lt;/span&gt;
+  shuf -n1 &lt;span class=&quot;_&quot;&gt;-e&lt;/span&gt; 30 60 120 | xargs sleep
+  &lt;span class=&quot;built_in&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&quot;chaos monkey strikes!&quot;&lt;/span&gt;
+  &lt;span class=&quot;comment&quot;&gt;#choose one random app process and restart it&lt;/span&gt;
+  pm2 id &lt;span class=&quot;variable&quot;&gt;$APP&lt;/span&gt; | egrep -o &lt;span class=&quot;string&quot;&gt;&quot;[0-9]+&quot;&lt;/span&gt; | xargs shuf -n1 &lt;span class=&quot;_&quot;&gt;-e&lt;/span&gt; | xargs pm2 restart
+&lt;span class=&quot;keyword&quot;&gt;done&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Cute, huh?&lt;/p&gt;
+</description>
+    </item>
     <item>
       <title>Panel dyskusyjny React vs Angular</title>
       <link>http://naugtur.pl/writes/writes/articles/nagranie-react-vs-angular/</link>
