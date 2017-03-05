@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width">
+    <title>Escaping Backbone ecosystem - Naugtur's scribbles
+    </title>
+    <link rel="alternate" href="http://naugtur.pl/writes/feed.xml" type="application/rss+xml" title="">
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Anonymous+Pro:400,700,400italic,700italic">
+    <link rel="stylesheet" href="/writes/css/main.css">
+  </head>
+  <body class="article-detail">
+    <header class="header">
+      <div class="content-wrap">
+        <p class="date"><span>
+            05. March 2017
+             in: <a href="/writes/tag/English/1/" class="tag-name">English</a></span></p>
+        <h1>Escaping Backbone ecosystem</h1>
+        <p class="author">Written by <span class="author"><a href="https://twitter.com/@naugtur">Naugtur</a></span>
+        </p>
+      </div>
+    </header>
+    <div id="content">
+      <div class="content-wrap">
+        <article class="article">
+          <section class="content"><blockquote>
+<p><span class="caps">TL</span>;DR <a href="https://github.com/naugtur/backbone-redux-migrator">backbone-redux-migrator</a> lets you migrate away from Backbone without disrupting the product you’re&nbsp;building</p>
+</blockquote>
+<p>Here’s some old news: <a href="https://benmccormick.org/2016/03/07/the-sad-state-of-the-backbone-ecosystem/">Backbone ecosystem is dead</a>.</p>
+<cut>
+
+<p>Backbone helped organize astounding number of web apps in its time. These products are still alive and well, with people maintaining the codebases and companies hiring new&nbsp;talent.</p>
+<p>But with no more updates to core pieces of ecosystem, paradigm shift in front-end and community interests driven away, keeping a Backbone project productive and hiring new people to work on it becomes a serious&nbsp;challenge.</p>
+<p>Some time in 2015 there was a very promising trend for using mixins to connect React as view layer for Backbone apps. Some time later it seemed like a dead end. I’ve been thinking about that again recently and when a colleague form work asked for help after getting himself in such a dead end, I happened to be in the right state of mind to find a way&nbsp;out.</p>
+<p>I’ve built a tool: <a href="https://github.com/naugtur/backbone-redux-migrator">backbone-redux-migrator</a></p>
+<p>It lets a Redux app exist inside of a Backbone project and slowly take over.
+It’s optimized for keeping total separation between codebases, so that they only exchange information via the migrator or <code>window.location</code>.</p>
+<p>The main idea behind the tool is to let Redux codebase grow without creating dependencies on old code. Backbone architecture requires it to hold on to routing, so even when you use full Redux stack in a rewritten functionality, routing is still done by Backbone side. The great thing that backbone-redux-migrator is helping you achieve is complete functionality migration to Redux with all elements of the stack available. Once Redux app consumes all the functionalities necessary, all you need to do is remove Backbone and configure&nbsp;routing.</p>
+<p>I’ve tested this solution on a real life project my colleague was maintaining and it became easy for him to start rewriting functionalities to Redux without breaking the app. He could decide which functionalities he’s ready to rewrite and which need to stay in Backbone to not affect the release timeline. Also, it prevented him from trying to use events from Backbone in components&nbsp;etc.</p>
+<p>Correct me if I’m wrong, but this seems like the only migration path freeing the project from its Backbone legacy without disruption that isn’t introducing dependencies on Backbone to Redux&nbsp;logic.</p>
+<p>I’m hoping this reaches everyone who’s dealing with maintaining a Backbone project in&nbsp;2017.</p>
+<p>Feel free to contact me for advice if the readme isn’t&nbsp;enough.</p>
+</section>
+        </article>
+      </div>
+    </div>
+    <footer>
+      <div class="content-wrap">
+        <div class="nav"><a href="/writes/">&laquo; Main</a></div>
+        <section class="about"><p><img src="http://naugtur.pl/me.avatar.jpg" alt="naugtur">
+Zbyszek Tenerowicz <a href="https://twitter.com/naugtur">@naugtur</a> Full-stack developer and technology researcher. Runs a growing number of Node.js powered applications in production at Egnyte Inc. Open-source enthusiast. Teaches web technology to designers and peer developers. One of the oldest members of Meet.js Poland community - both as a speaker and organizer of local meet-ups.</p>
+
+        </section>
+        <section class="copy">
+          <p>&copy; 2017 Naugtur &mdash; powered by&nbsp;<a href="https://github.com/jnordberg/wintersmith">Wintersmith</a>
+          </p>
+        </section>
+      </div>
+    </footer>
+  </body>
+</html>

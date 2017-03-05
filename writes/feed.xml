@@ -5,9 +5,34 @@
     <atom:link href="http://naugtur.pl/writes/feed.xml" rel="self" type="application/rss+xml"></atom:link>
     <link>http://naugtur.pl/writes</link>
     <description></description>
-    <pubDate>Thu, 23 Feb 2017 01:00:00 +0100</pubDate>
+    <pubDate>Sun, 05 Mar 2017 01:00:00 +0100</pubDate>
     <generator>Wintersmith - https://github.com/jnordberg/wintersmith</generator>
     <language>en</language>
+    <item>
+      <title>Escaping Backbone ecosystem</title>
+      <link>http://naugtur.pl/writes/writes/articles/escaping-backbone-ecosystem/</link>
+      <pubDate>Sun, 05 Mar 2017 01:00:00 +0100</pubDate>
+      <guid isPermaLink="true">http://naugtur.pl/writes/writes/articles/escaping-backbone-ecosystem/</guid>
+      <author></author>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;TL;DR &lt;a href=&quot;https://github.com/naugtur/backbone-redux-migrator&quot;&gt;backbone-redux-migrator&lt;/a&gt; lets you migrate away from Backbone without disrupting the product you’re building&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Here’s some old news: &lt;a href=&quot;https://benmccormick.org/2016/03/07/the-sad-state-of-the-backbone-ecosystem/&quot;&gt;Backbone ecosystem is dead&lt;/a&gt;.&lt;/p&gt;
+&lt;cut&gt;
+
+&lt;p&gt;Backbone helped organize astounding number of web apps in its time. These products are still alive and well, with people maintaining the codebases and companies hiring new talent.&lt;/p&gt;
+&lt;p&gt;But with no more updates to core pieces of ecosystem, paradigm shift in front-end and community interests driven away, keeping a Backbone project productive and hiring new people to work on it becomes a serious challenge.&lt;/p&gt;
+&lt;p&gt;Some time in 2015 there was a very promising trend for using mixins to connect React as view layer for Backbone apps. Some time later it seemed like a dead end. I’ve been thinking about that again recently and when a colleague form work asked for help after getting himself in such a dead end, I happened to be in the right state of mind to find a way out.&lt;/p&gt;
+&lt;p&gt;I’ve built a tool: &lt;a href=&quot;https://github.com/naugtur/backbone-redux-migrator&quot;&gt;backbone-redux-migrator&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;It lets a Redux app exist inside of a Backbone project and slowly take over.
+It’s optimized for keeping total separation between codebases, so that they only exchange information via the migrator or &lt;code&gt;window.location&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;The main idea behind the tool is to let Redux codebase grow without creating dependencies on old code. Backbone architecture requires it to hold on to routing, so even when you use full Redux stack in a rewritten functionality, routing is still done by Backbone side. The great thing that backbone-redux-migrator is helping you achieve is complete functionality migration to Redux with all elements of the stack available. Once Redux app consumes all the functionalities necessary, all you need to do is remove Backbone and configure routing.&lt;/p&gt;
+&lt;p&gt;I’ve tested this solution on a real life project my colleague was maintaining and it became easy for him to start rewriting functionalities to Redux without breaking the app. He could decide which functionalities he’s ready to rewrite and which need to stay in Backbone to not affect the release timeline. Also, it prevented him from trying to use events from Backbone in components etc.&lt;/p&gt;
+&lt;p&gt;Correct me if I’m wrong, but this seems like the only migration path freeing the project from its Backbone legacy without disruption that isn’t introducing dependencies on Backbone to Redux logic.&lt;/p&gt;
+&lt;p&gt;I’m hoping this reaches everyone who’s dealing with maintaining a Backbone project in 2017.&lt;/p&gt;
+&lt;p&gt;Feel free to contact me for advice if the readme isn’t enough.&lt;/p&gt;
+</description>
+    </item>
     <item>
       <title>Chaos Monkey for PM2</title>
       <link>http://naugtur.pl/writes/writes/articles/chaos-monkey-for-pm2/</link>
