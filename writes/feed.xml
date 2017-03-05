@@ -5,9 +5,57 @@
     <atom:link href="http://naugtur.pl/writes/feed.xml" rel="self" type="application/rss+xml"></atom:link>
     <link>http://naugtur.pl/writes</link>
     <description></description>
-    <pubDate>Sun, 05 Mar 2017 01:00:00 +0100</pubDate>
+    <pubDate>Mon, 06 Mar 2017 01:00:00 +0100</pubDate>
     <generator>Wintersmith - https://github.com/jnordberg/wintersmith</generator>
     <language>en</language>
+    <item>
+      <title>What if we're overestimating AI again?</title>
+      <link>http://naugtur.pl/writes/writes/articles/what-if-were-overestimating-ai-again/</link>
+      <pubDate>Mon, 06 Mar 2017 01:00:00 +0100</pubDate>
+      <guid isPermaLink="true">http://naugtur.pl/writes/writes/articles/what-if-were-overestimating-ai-again/</guid>
+      <author></author>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;I wanted the title to say NLP not AI, but Natural Language Processing is not the first meaning of NLP anymore :/&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Hi. I’m European. If you want to learn something about cultural differences I’ll teach you one thing today. People from Central Europe are not famous for being optimistic.&lt;/p&gt;
+&lt;h2 id=&quot;the-hype-s-&quot;&gt;The Hype(s)&lt;/h2&gt;
+&lt;p&gt;The first hype around machines and language I know of was when a demo of speech synthesizer was first presented to general public. There’s a great episode of 99% Invisible podcast &lt;a href=&quot;http://99percentinvisible.org/episode/vox-ex-machina/&quot;&gt;Vox Ex Machina&lt;/a&gt; detailing that.&lt;/p&gt;
+&lt;p&gt;Now guess when a machine spoke words that were not pre-recorded for the first time.&lt;/p&gt;
+&lt;p&gt;At the New York World’s Fair in 1939 Bell Labs presented “Voder” - short for “Voice Operating Demonstrator.” It was just few months before the Second World War.&lt;/p&gt;
+&lt;p&gt;Everyone was amazed. And while the technology behind it was later used to digitize voice and is still pretty important, people did not get their personal assistant robots to chat with any time soon.&lt;/p&gt;
+&lt;p&gt;Next great hype around NLP, off the top of my head, was &lt;a href=&quot;https://en.wikipedia.org/wiki/ELIZA&quot;&gt;ELIZA&lt;/a&gt;. A chat bot from 1966. It pretended to be a psychotherapist by scanning each sentence you type and figuring out how to ask another question so that it seems on-topic. Everyone thought passing the Turing test is right around the corner. 50 years later, and chatbots still have trouble getting their act together. Well, maybe ELIZA should have become the therapist for &lt;a href=&quot;http://www.theverge.com/2016/3/24/11297050/tay-microsoft-chatbot-racist&quot;&gt;Microsoft’s Tay&lt;/a&gt;. Could turn out more entertaining than watching &lt;a href=&quot;http://www.ctvnews.ca/sci-tech/we-love-each-other-millions-tune-in-to-watch-two-robots-discuss-life-flirt-1.3231589&quot;&gt;SeeBotsChat&lt;/a&gt; on &lt;a href=&quot;https://www.twitch.tv/seebotschat&quot;&gt;Twitch&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Sorry for the fast-forward, but from a layman’s perspective the industry has made insignificant progress until just recently.&lt;/p&gt;
+&lt;p&gt;Most of the advancement in chatbots between 1966 and 2006 was a result of careful human labor, still echoed by pre-programmed goodies we tend to enjoy most: &lt;a href=&quot;http://www.cheatsheet.com/gear-style/20-questions-to-ask-siri-for-a-hilarious-response.html/?a=viewall&quot;&gt;cheatsheet: questions to ask Siri&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;There’s a long way to go from parsing a sentence to understanding it in context.
+The only way to do that known to our civilization is being human. Language is key to the definition of being human (or sentient life as we discover language capacity in animals).&lt;/p&gt;
+&lt;h2 id=&quot;language-is-a-human-thing&quot;&gt;Language is a human thing&lt;/h2&gt;
+&lt;p&gt;My first job was at a company doing machine translation. It was a while before Google Translate came and destroyed the market. We had a demo plugged into the website, where you could translate 250 characters of text between various languages for free. I added monitoring of inputs and outputs so we could use sentences from random people to identify common errors and fix them.&lt;/p&gt;
+&lt;p&gt;I remember looking at the logs once and noticing something weird. They didn’t look like random logs, they looked like a conversation. Moments later, I understood what I’m looking at. A guy was chatting with a girl and they didn’t know each other’s languages. He copied each line she posted in Russian and translated it to Polish. Then he wrote a response and translated the other way around. I went home with a nice anecdote. The next day I looked at the logs and they were still there. Forging a relationship.&lt;/p&gt;
+&lt;p&gt;Also, good thing our translator knew some medical terms, if you know what I mean. I decided to give them some privacy and turned off the logs.&lt;/p&gt;
+&lt;p&gt;The translation was pretty good compared to what Google initially offered. In other words, translation quality ranged from “weird but I can guess what it meant” to “entirely wrong”. That didn’t stop humans who wanted a relationship.&lt;/p&gt;
+&lt;p&gt;What I want to say here is - natural language processing technology, even imperfect, will affect people’s lives in ways you don’t expect.&lt;/p&gt;
+&lt;h2 id=&quot;and-now&quot;&gt;And now&lt;/h2&gt;
+&lt;p&gt;The new hype is here. One can talk to machines and give commands. Provided that they start with the right safeword. Also, if you know someone who has an oldschool answering machine and Alexa in the same room &lt;a href=&quot;http://www.theregister.co.uk/2017/01/07/tv_anchor_says_alexa_buy_me_a_dollhouse_and_she_does/&quot;&gt;buy them something nice&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;These machines don’t understand the context and can’t tell if you were meaning or even supposed to talk to them. But that’s ok.&lt;/p&gt;
+&lt;p&gt;If you worked at a startup you know what happens when technology meets reality. MVP, scaling, pivots, product/market fit, move fast and break things. In other words - there will be limitations.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Dear customer, if you want to be understood by our product, please use the following grammar structures and limit your vocabulary to avoid archaic phrases. Also, remember our product does not understand metaphors nor sarcasm.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Now this is where I get anxious.&lt;/p&gt;
+&lt;p&gt;Claims that language is deteriorating have been made &lt;a href=&quot;https://www.princeton.edu/~browning/decline.html&quot;&gt;for centuries&lt;/a&gt; but what if this time degrading language can really happen? It’s not what it used to be with language adapting to new generations. Unless you’re willing to consider machines the new generation of humanity. I’m not ready to do that.&lt;/p&gt;
+&lt;p&gt;And remember, English is always the most polished case for NLP. What about all those languages that are harder? What about those languages that wouldn’t pay off? Are we ready to loose the language diversity of the World to get a new fancy hands-free communication device to the market early? Do we even have a say?&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Linguistic_relativity&quot;&gt;Linguistic Relativity&lt;/a&gt; no longer claims language determines thinking entirely, but there is modern research into specific areas where language influences thought. Let’s hope we don’t implement 1984 Orwell’s “newspeak” to limit what we &lt;em&gt;can&lt;/em&gt; think.&lt;/p&gt;
+&lt;p&gt;Language processing technology is going mainstream and nothing can stop it now.
+We have no clue how it’s going to affect our lives. But it will. A lot.&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;Dear reader. If you’re working on some AI for conversational interfaces, I hope you can share my concerns now.  We are the generation that makes the choice between keeping and loosing the beautiful mess of human languages. You are one of the very few people who have a vote.&lt;/p&gt;
+&lt;p&gt;Let’s make it count.&lt;/p&gt;
+&lt;p&gt;…&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;AI is coming. Hope for the best, prepare for the worst.
+&lt;img src=&quot;https://i.stack.imgur.com/wkUSC.png&quot; alt=&quot;know your paradoxes&quot;&gt;&lt;/p&gt;
+</description>
+    </item>
     <item>
       <title>Escaping Backbone ecosystem</title>
       <link>http://naugtur.pl/writes/writes/articles/escaping-backbone-ecosystem/</link>
