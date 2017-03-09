@@ -14,19 +14,19 @@ Hi. I'm European. If you want to learn something about cultural differences I'll
 
 ## The Hype(s)
 
-The first hype around machines and language I know of was when a demo of speech synthesizer was first presented to general public. There's a great episode of 99% Invisible podcast [Vox Ex Machina](http://99percentinvisible.org/episode/vox-ex-machina/) detailing that.
+The first hype around machines and language I know of was when a demo of speech synthesizer was first presented to general public. There's a great episode of [99% Invisible podcast](http://99percentinvisible.org/episode/vox-ex-machina/) detailing that.
 
-Now guess when a machine spoke words that were not pre-recorded for the first time.
+Now guess when was the first time a machine spoke words that were not pre-recorded.
 
 At the New York World’s Fair in 1939 Bell Labs presented "Voder" - short for "Voice Operating Demonstrator." It was just few months before the Second World War.
 
-Everyone was amazed. And while the technology behind it was later used to digitize voice and is still pretty important, people did not get their personal assistant robots to chat with any time soon.
+Everyone was amazed. And while the technology behind it was later used to digitize voice and is still pretty important, people did not get their personal assistant robots to chat with.
 
-Next great hype around NLP, off the top of my head, was [ELIZA](https://en.wikipedia.org/wiki/ELIZA). A chat bot from 1966. It pretended to be a psychotherapist by scanning each sentence you type and figuring out how to ask another question so that it seems on-topic. Everyone thought passing the Turing test is right around the corner. 50 years later, and chatbots still have trouble getting their act together. Well, maybe ELIZA should have become the therapist for [Microsoft's Tay](http://www.theverge.com/2016/3/24/11297050/tay-microsoft-chatbot-racist). Could turn out more entertaining than watching [SeeBotsChat](http://www.ctvnews.ca/sci-tech/we-love-each-other-millions-tune-in-to-watch-two-robots-discuss-life-flirt-1.3231589) on [Twitch](https://www.twitch.tv/seebotschat)
+The next great hype around NLP, off the top of my head, was [ELIZA](https://en.wikipedia.org/wiki/ELIZA), a chat bot from 1966. It pretended to be a psychotherapist by scanning each sentence you type and figuring out how to ask another question so that it seems on-topic. Everyone thought passing the Turing test is right around the corner. 50 years later, and chatbots still have trouble getting their act together. Well, maybe ELIZA should have become the therapist for [Microsoft's Tay](http://www.theverge.com/2016/3/24/11297050/tay-microsoft-chatbot-racist). It could turn out more entertaining than watching [SeeBotsChat](http://www.ctvnews.ca/sci-tech/we-love-each-other-millions-tune-in-to-watch-two-robots-discuss-life-flirt-1.3231589) on [Twitch](https://www.twitch.tv/seebotschat).
 
 Sorry for the fast-forward, but from a layman's perspective the industry has made insignificant progress until just recently.
 
-Most of the advancement in chatbots between 1966 and 2006 was a result of careful human labor, still echoed by pre-programmed goodies we tend to enjoy most: [cheatsheet: questions to ask Siri](http://www.cheatsheet.com/gear-style/20-questions-to-ask-siri-for-a-hilarious-response.html/?a=viewall)
+Most of the advancement in chatbots between 1966 and 2006 was a result of careful human labor, still echoed by pre-programmed goodies we tend to enjoy most. [cheatsheet: questions to ask Siri](http://www.cheatsheet.com/gear-style/20-questions-to-ask-siri-for-a-hilarious-response.html/?a=viewall)
 
 There's a long way to go from parsing a sentence to understanding it in context.
 The only way to do that known to our civilization is being human. Language is key to the definition of being human (or sentient life as we discover language capacity in animals).
