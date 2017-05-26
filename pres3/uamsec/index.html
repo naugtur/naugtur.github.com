@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="pl">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>Security</title>
+
+    <meta name="author" content="naugtur">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/css/reveal.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/css/theme/black.css" id="theme">
+
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/lib/css/zenburn.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/css/print/pdf.css' : 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/css/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+
+    <link rel="stylesheet" href="../branding/style.css" id="branding">
+    <style>
+    #naugtur {
+        background: transparent url('http://egnyte.com/assets/2015/images/logo.png') no-repeat bottom left;
+    }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="reveal" id="naugtur">
+
+        <!-- Any section element inside of this container is displayed as a slide -->
+        <div class="slides">
+            <section>
+                <h1 style="word-wrap: normal">Bezpieczeństwo Aplikacji Webowych</h1>
+
+                        <small>@naugtur @dawidbalut, Egnyte@UAM 2017</small>
+            </section>
+
+            <section data-markdown>
+                # I co z tego, że webowych?
+
+            </section>
+            <section data-markdown>
+                ## Między kodem a użytkownikiem
+
+                - Architektura klient-serwer
+                - Brak kontroli nad środowiskiem, w którym działa kod
+                - Inne aplikacje współdzielą to samo środowisko
+                - Użytkownik może zmienić wszystko
+
+            </section>
+            <section>
+              <h2>Pole z hasłem?</h2>
+              <input type="hidden" name="username" value="tommy" />
+              <input type="password" value="" name="savedpassword" />
+            </section>
+
+            <section data-markdown>
+                ## Podstawy, banały
+
+                - HTTPS i certyfikat albo nic
+                - "Głębokie ukrycie" #pdk
+                - Haszowanie haseł
+                - Nie, MD5 nie wystarczy
+            </section>
+            <section data-markdown>
+                ## Po czym poznać, że robię coś głupiego?
+
+                - W mailu na "zapomniałem hasła" odsyłasz aktualne hasło
+                - Logowanie jest po https:// ale reszta aplikacji już nie
+                - `q = "SELECT " + ... + "FROM" + ... + "WHERE" + ...`
+            </section>
+
+            <section>
+
+                <section data-markdown>
+                    ## Zagrożenia typowe dla aplikacji webowych
+                </section>
+                <section data-markdown>
+                    ## OWASP
+
+                    [OWASP Top 10](https://www.owasp.org/index.php/Category:OWASP_Top_Ten_Project)
+
+                </section>
+                <section data-markdown>
+                    ## Injection
+
+                    Treść wprowadzona przez użytkownika wykonana jako kod.
+
+                    Niby proste. Nie uruchamiać *inputu* użytkownika.
+                </section>
+                <section data-markdown>
+                    ## Kradzież sesji
+
+                    - `cookies` trzeba zabezpieczać flagami
+                    - ID sesji nie może być przewidywalne
+                </section>
+                <section data-markdown>
+                    ## XSS
+
+                    *input* użytkownika interpretowany przez przeglądarkę jako kod
+
+                    Jeśli myślisz, że odfiltrujesz niedozwolone tagi lub kod, to jeszcze nie wiesz z kim masz do czynienia.
+
+                    ```
+                    $=''|'',_=$+!"",__=_+_,___=__+_,($)[_$=($$=(_$=""+{})[__+__+_])+_$[_]+(""+_$[-__])[_]+(""+!_)[___]+($_=(_$=""+!$)[$])+_$[_]+_$[__]+$$+$_+(""+{})[_]+_$[_]][_$]((_$=""+!_)[_]+_$[__]+_$[__+__]+(_$=""+!$)[_]+_$[$]+"("+_+")")();
+                    ```
+                </section>
+                <section data-markdown>
+                    ## Jest tego więcej
+
+                    Wspominałem już, że za parę miesięcy prowadzimy o tym przedmiot?
+                </section>
+            </section>
+            <section>
+              <section data-markdown>
+                  # Narzędzia bezpiecznego programisty
+              </section>
+              <section data-markdown>
+                  ## Teoria
+
+                  Czyli wiem co robi:
+
+                  - Funkcja haszująca
+                  - Dobry generator pseudolosowy, UUID
+                  - Szyfrowanie symetryczne
+                  - Kryptografia asymetryczna
+                  - Autentykacja, sesja, OAuth2
+              </section>
+              <section data-markdown>
+                  ## Praktyka
+
+                  - Tylko gotowe i sprawdzone implementacje
+                  - Biblioteki do renderowania HTMLa
+                  - Bezpieczny model danych zamiast sklejania zapytań SQL
+                  - Unikanie wycieków danych z aplikacji (również do logów)
+                  - Automaty testujące, aktualizacje zależności i bibliotek
+              </section>
+            </section>
+
+            <section data-markdown>
+                ## Demo
+
+                https://www.owasp.org/index.php/OWASP_Mutillidae_2_Project
+            </section>
+
+            <section data-markdown>
+                ## Praca pentestera aplikacji webowej
+            </section>
+            <section data-markdown>
+                ## Praca architekta aplikacji webowej
+            </section>
+            <section data-markdown>
+                # Q & A
+            </section>
+
+
+        </div>
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/lib/js/head.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/js/reveal.js"></script>
+
+    <script>
+        // Full list of configuration options available at:
+        // https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+            mouseWheel: true,
+
+            transition: 'concave', // none/fade/slide/convex/concave/zoom
+
+
+            // Optional reveal.js plugins
+            dependencies: [{
+                src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/plugin/markdown/marked.js',
+                condition: function() {
+                    return !!document.querySelector('[data-markdown]');
+                }
+            }, {
+                src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/plugin/markdown/markdown.js',
+                condition: function() {
+                    return !!document.querySelector('[data-markdown]');
+                }
+            }, {
+                src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/plugin/highlight/highlight.js',
+                async: true,
+                callback: function() {
+                    hljs.initHighlightingOnLoad();
+                }
+            }, {
+                src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/plugin/zoom-js/zoom.js',
+                async: true
+            }, {
+                src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/plugin/notes/notes.js',
+                async: true
+            }]
+        });
+    </script>
+
+</body>
+
+</html>
