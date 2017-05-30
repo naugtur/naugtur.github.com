@@ -63,8 +63,8 @@
             </section>
             <section>
               <h2>Pole z hasłem?</h2>
-              <input type="hidden" name="username" value="tommy" />
-              <input type="password" value="" name="savedpassword" />
+              <input type="hidden" name="username" value="tommy" style="font-size:40px"/>
+              <input type="password" value="" name="savedpassword" style="font-size:40px"/>
             </section>
 
             <section data-markdown>
@@ -117,6 +117,21 @@
                     ```
                     $=''|'',_=$+!"",__=_+_,___=__+_,($)[_$=($$=(_$=""+{})[__+__+_])+_$[_]+(""+_$[-__])[_]+(""+!_)[___]+($_=(_$=""+!$)[$])+_$[_]+_$[__]+$$+$_+(""+{})[_]+_$[_]][_$]((_$=""+!_)[_]+_$[__]+_$[__+__]+(_$=""+!$)[_]+_$[$]+"("+_+")")();
                     ```
+                </section>
+                <section>
+                    <h2>XSS</h2>
+                    <ul>
+                        <li> Persisted XSS
+                        <li> Reflected XSS
+                    </ul>
+
+                    <div id="xssoutput"></div>
+                    <input type="text" id="xssinput" style="font-size: 1em">
+                    <script>
+                      document.getElementById('xssinput').addEventListener('change', function(){
+                        document.getElementById('xssoutput').innerHTML = this.value
+                      })
+                    </script>
                 </section>
                 <section data-markdown>
                     ## Jest tego więcej
