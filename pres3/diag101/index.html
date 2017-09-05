@@ -1,0 +1,405 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>Node.js Diagnostics 101</title>
+
+    <meta name="author" content="naugtur">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/css/reveal.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/css/theme/black.css" id="theme">
+
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/lib/css/zenburn.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/css/print/pdf.css' : 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/css/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+
+    <link rel="stylesheet" href="../branding/style.css" id="branding">
+
+</head>
+
+<body>
+
+    <div class="reveal" id="naugtur">
+
+        <!-- Any section element inside of this container is displayed as a slide -->
+        <div class="slides">
+            <section>
+                <h1>Node.js Diagnostics 101</h1>
+                        <small>@naugtur, meet.js summit 2017</small>
+            </section>
+
+            <section data-markdown>
+                ## Who is this for?
+            </section>
+            <section data-markdown>
+                ## I wrote an app
+                ### what could go wrong?
+
+                ![what](whatcould.jpg)
+            </section>
+            <section data-markdown>
+                ### Diagnosing common problems
+            </section>
+            <section>
+              <section data-markdown>
+                  ## Problem
+                  > High CPU for small number of users or just not fast enough
+              </section>
+              <section data-markdown>
+                  ### Need to look for performance improvements
+              </section>
+              <section data-markdown>
+                  ## How to diagnose
+
+                  - use `console.time`+`console.timeEnd` if you know where the issue might be and need to prove it
+                  - use profiler to track app execution running locally
+                  - use flame graphs for best results in production, with real traffic going on
+              </section>
+              <section data-background-video="./profi5.webm">
+                  <h2> profiler</h2>
+              </section>
+              <section>
+                  <h2> flame graph</h2>
+                  <br>
+                  <a href="./flamegraph.htm" target="blank">example</a>
+                  <br>
+                  <a href="./flamegraph2.htm" target="blank">cleaner example</a>
+              </section>
+            </section>
+            <section>
+              <section data-markdown>
+                  ## Problem
+                  > App "hangs" for short periods of time or has trouble handling many concurrent clients
+              </section>
+              <section>
+
+                  <img src="load.gif" style="border: none; background: #fff; border-radius: 50%; box-shadow: 0 0 130px 150px #fff" alt="">
+
+              </section>
+              <section data-markdown>
+                  ### Long synchronous operations block event loop
+              </section>
+              <section data-markdown>
+                  ## How to diagnose
+
+                  - detect using `blocked` or commercial tools - they tell you it happened
+                  - use flame graphs
+                  - use blocked-at
+
+              </section>
+            </section>
+            <section>
+              <section data-markdown>
+                  ## Problem
+                  > App eats more and more RAM and memory usage doesn't go down
+              </section>
+              <section data-markdown>
+                  ### It's a memory leak
+              </section>
+              <section data-markdown>
+                  ## How to diagnose
+
+                  - `process.memoryUsage()` for tracking how it grows
+                  - use heap snapshot comparison to find the source of the leak
+
+              </section>
+            </section>
+            <section>
+              <section data-markdown>
+                  ## Problem
+                  > App crashes with a core dump
+              </section>
+              <section data-markdown>
+                  ### It's an uncaught exception or it ran out of RAM
+              </section>
+              <section data-markdown>
+                  ## How to diagnose
+
+                  - `node-report` module may just tell you enough
+                  - core dump analysis (remember to enable)
+
+              </section>
+              <section data-markdown>
+                  ## Other reason for out-of-memory crash
+
+                  - Memory leak
+                  - A bug that correctly allocates over 1.5G
+                  - Infinite asynchronous recursion
+                  - Recursive promise chain
+                  - Lots of streams with fast input and slow output
+                  - Not using streams at all and handling files as buffers or strings
+
+              </section>
+            </section>
+
+            <section data-background-video="./pm2.mp4">
+                <h2 style="padding-bottom: 5em">Process Manager FTW</h2>
+            </section>
+            <section data-markdown>
+                ### Basic monitoring
+
+                * server resources
+                * is app running
+                * can app be accessed
+
+                >If your company (like mine) has centralized monitoring already, you're better off leveraging that.
+                >The best monitoring is the one that has someone looking at it
+
+            </section>
+            <section>
+                <section data-markdown>
+                    But first
+                    ## Some good practices
+                    for writing the app
+                </section>
+                <section data-markdown>
+                    ### Stateless
+
+                    * No client information exists in the app between requests
+                    * Multiple copies of the app can handle requests from the same user
+                    * Stateless = simple horizontal scaling
+                    * Redis for shared temporary state (sessions etc.)
+
+                </section>
+                <section data-markdown>
+                    ![ASYNCHRONOUS](async.jpg)
+
+                    Did you know asynchronous JSON parsers exist?
+
+                </section>
+                <section data-markdown>
+                    ### Enforce types sometimes
+
+                    >Dude, you're on a JS conference
+
+
+                    * Some important objects that carry data through your app need to have checks on them.
+                    * Tiny tools like [strongly-typed](https://github.com/naugtur/strongly-typed) can be enough. And are easy to add to an existing app
+                    * You can go all in and use Typescript.
+
+                </section>
+
+            </section>
+            <section data-markdown>
+                ## Manage dependencies
+
+                * When in doubt, `npm shrinkwrap`
+                * Don't install unmaintained code if it saves you 3 lines
+                * Node Security Project and requireSafe
+
+                ![nsp check](nsp.png)
+            </section>
+            <section data-markdown>
+                # And now we're in production
+            </section>
+            <section>
+
+                <section data-markdown>
+                    ## Logging
+
+                    IF you expect more than one user, generate a random ID for each HTTP request and add it to all logs it generates.
+
+                    ![info logs](logs.png)
+                </section>
+                <section data-markdown>
+                    ## Use log levels
+
+                    * Fatal, Error are pretty obvious
+                    * Warn can be an error you don't mind
+                    * Info is for tracking what app does regularly
+                    * Debug is for logs that help you understand what's up
+                    * Trace should contain enough data to reproduce
+
+                    Enable changing log level without restarting the app. Most bugs stop reproducing after you restart.
+                </section>
+                <section data-markdown>
+                    ## Sanitize
+
+                    * Logs should not contain user credentials etc.
+                    * Build a sanitizer that hashes sensitive data
+
+                    ```
+                    [03-12_00:50:14.181] TRACE [75577] authorization: 'Bearer
+                     (sha256:bea5d8a8afabfb21b1b8234c23b12ea44f1180c6a96d53c5)'
+                    ```
+                </section>
+            </section>
+            <section>
+                <section data-markdown>
+                    ## What to monitor
+
+                    I'm not going to go through features of tools like keymetrics or newRelic
+                </section>
+                <section data-markdown>
+                    ## HTTP request time and status
+
+                    * Watch for 5XX and alert immediately.
+                    * Monitor other statuses for popularity. Too many 404s may be a problem too.
+                    * Keep statistics on response time separately for every endpoint
+                    * Time requests made by the app
+
+                </section>
+                <section data-markdown>
+                    ## Loop blocks
+
+                    * Use `blocked` to detect
+                    ```
+                    blocked(function(ms){
+                        console.log('BLOCKED FOR %s ms', ms | 0);
+                    });
+                    ```
+                    * Finding them is harder. For promises, try [promise-blocked](https://github.com/naugtur/promise-blocked)
+                    * Some monitoring tools integrate with node to do that
+                </section>
+                <section data-markdown>
+                    ## Memory increase
+
+                    * Node.js will shutdown when 1.5GB gets allocated
+                    * Monitor `process.memoryUsage().rss`
+                    * Watch for steady increase in memory use
+
+                </section>
+            </section>
+            <section data-markdown>
+                ## Debugging memory leaks
+
+                * `v8-profiler` in dev/staging
+                * Simple [tutorial](https://github.com/felixge/node-memory-leak-tutorial) from 5yr ago
+                * In production - take a heapdump and then another, compare
+
+            </section>
+            <section data-markdown>
+                ## Heapdump
+
+                Only require the heapdump module when something weird is happening and you want the snapshot.
+
+                ``` javascript
+                function dumpRequestHandler(req, res) {
+                    var heapdump = require("heapdump");
+                    heapdump.writeSnapshot(function (err, filename) {
+                        res.end(err ||
+                          ("see: " + process.cwd() + "/" + filename)
+                        );
+                    });
+                }
+                ```
+                Don't make it publicly available!
+
+            </section>
+            <section data-markdown>
+                ## maintenance endpoint
+
+                Create a separate express app listening on `localhost:1337` that will handle:
+
+                * Switching log level without restart
+                * Generating a heapdump
+                * Healthcheck endpoint
+                * Runing scripts for diagnostics or data migration
+                * Returning basic stats for monitoring (unless you're using tools that integrate directly into node)
+            </section>
+            <section data-markdown>
+                ## Debugging in production
+
+                Recent [talk](http://techblog.netflix.com/2015/12/debugging-nodejs-in-production.html) from Netflix is a must.
+                * Flame graphs [2014 at Netflix](http://techblog.netflix.com/2014/11/nodejs-in-flames.html)
+                * Joyent had flame graphs [long ago](http://www.joyent.com/blog/walmart-node-js-memory-leak)
+                * Postmortem debugging from a core dump
+                * `mdb` works on smartos, so you need a VM
+                * [Post Mortem Diagnostics Working Group](https://github.com/nodejs/post-mortem)
+
+            </section>
+            <section data-markdown>
+                ## Things I didn't squeeze into the presentation
+
+                * Error handler shared across the app
+                * Feature toggles
+                * Much more security tips
+                * Safe, non leaking, object caches
+                * No-downtime redeploys
+            </section>
+
+            <section>
+                <h4>Follow me for workshops on this</h4>
+                <p>@naugtur
+                    <br>http://naugtur.pl
+                </p>
+                <blockquote>
+                    <p>Subscribe to my newsletter <a href="http://naugtur.pl/news">http://naugtur.pl/news</a> and get:</p>
+                        <ul>
+                            <li>notifications about events I organize before everyone else (think tickets)
+                            <li>access to learning resources I produce
+                            <li>no spam, at most 2 mails a month
+                        </ul>
+                </blockquote>
+            </section>
+
+        </div>
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/lib/js/head.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/js/reveal.js"></script>
+
+    <script>
+        // Full list of configuration options available at:
+        // https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+            mouseWheel: true,
+
+            transition: 'concave', // none/fade/slide/convex/concave/zoom
+
+            // Parallax background image
+            // parallaxBackgroundImage: '../branding/space-03.jpg', // e.g. "https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg"
+
+            // Parallax background size
+            // parallaxBackgroundSize: '1920px 880px', // CSS syntax, e.g. "2100px 900px" - currently only pixels are supported (don't use % or auto)
+
+
+            // Optional reveal.js plugins
+            dependencies: [{
+                src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/plugin/markdown/marked.js',
+                condition: function() {
+                    return !!document.querySelector('[data-markdown]');
+                }
+            }, {
+                src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/plugin/markdown/markdown.js',
+                condition: function() {
+                    return !!document.querySelector('[data-markdown]');
+                }
+            }, {
+                src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/plugin/highlight/highlight.js',
+                async: true,
+                callback: function() {
+                    hljs.initHighlightingOnLoad();
+                }
+            }, {
+                src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/plugin/zoom-js/zoom.js',
+                async: true
+            }, {
+                src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/plugin/notes/notes.js',
+                async: true
+            }]
+        });
+    </script>
+
+</body>
+
+</html>
