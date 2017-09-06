@@ -11,6 +11,13 @@
     font-style: normal;
 }
 
+/*effectively switch from contain to cover behav*/
+#naugtur .slide-background video {
+    min-width:100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+}
 
 
 #naugtur h1,
