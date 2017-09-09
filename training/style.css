@@ -1,0 +1,104 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway:300,500&subset=latin-ext');
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Raleway', sans-serif;
+  font-weight: 300;
+  font-size: 17px;
+  word-spacing: 0.3em;
+  line-height: 1.2em;
+  margin: 0;
+  padding: 0;
+
+}
+
+
+
+h1, h2, h3, h4 {
+ margin-top:0;
+ font-weight: 500;
+}
+h1 {font-size:1.6rem}
+h2 {font-size:1.4rem}
+h3 {font-size:1.2rem}
+h4 {font-size:1rem}
+p {
+  text-align: justify;
+}
+
+.layout {
+    margin: 30px 0;
+
+  display:grid;
+
+  width: 100%;
+  grid-gap: 0px;
+  grid-template-columns: 1fr 3fr 4fr 3fr 1fr;
+  grid-template-rows: auto auto auto auto;
+  grid-template-areas: ". top about about. "
+                       "val1 val1 val2 val3 val3"
+                       ". contact company company .";
+
+  /*grid-template-columns: 2fr 2fr 2fr;
+  grid-template-areas: "top val1 val2"
+                       "about about val3"
+                       "about about ."
+                       "company company contact";*/
+
+}
+
+.taglines{ grid-area:top }
+.value1{ grid-area:val1 }
+.value2{ grid-area:val2 }
+.value3{ grid-area:val3 }
+.about{ grid-area:about }
+.company{ grid-area:company }
+.contact{ grid-area:contact }
+
+.layout>div {
+  padding: 30px;
+}
+
+
+
+
+
+
+.layout .valuep {
+  padding: 20px;
+  background: #eee;
+  margin: 20px 0;
+  /*box-shadow: inset -1px 0px 2px rgba(200,200,200,0.5);*/
+
+}
+.valuep .title {
+  font-weight:500;
+  border-bottom: 1px solid inherit;
+}
+
+
+
+
+
+.layout .taglines {
+  padding: 50px;
+  color: #eff;
+  background: linear-gradient(240deg, #60BFF2, #323D8C, #BF5D38);
+  background-size: 600% 600%;
+  animation: AnimationName 100s ease infinite;
+}
+
+@keyframes AnimationName {
+  0% {
+    background-position: 0% 50%
+  }
+  50% {
+    background-position: 100% 50%
+  }
+  100% {
+    background-position: 0% 50%
+  }
+}

@@ -12,18 +12,18 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/css/reveal.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/css/theme/black.css" id="theme">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/css/reveal.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/css/theme/black.css" id="theme">
 
     <!-- Code syntax highlighting -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/lib/css/zenburn.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/lib/css/zenburn.css">
 
     <!-- Printing and PDF exports -->
     <script>
         var link = document.createElement('link');
         link.rel = 'stylesheet';
         link.type = 'text/css';
-        link.href = window.location.search.match(/print-pdf/gi) ? 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/css/print/pdf.css' : 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/css/print/paper.css';
+        link.href = window.location.search.match(/print-pdf/gi) ? 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/css/print/pdf.css' : 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/css/print/paper.css';
         document.getElementsByTagName('head')[0].appendChild(link);
     </script>
 
@@ -73,7 +73,7 @@
                   You might want to scale horizontally before investing in optimizations
               </section>
               <section data-markdown>
-                  ## Manually
+                  ## Measure
 
                   ```js
                     console.time('task1')
@@ -84,7 +84,7 @@
 
                   Next version of Node should ship with Perf Traces to make it more efficient.
               </section>
-              <section data-background-video="./profi5.webm">
+              <section data-background-video="./profi5.webm" data-background-size="cover">
                   <h2 style="color:#333"> profiler</h2>
                   <p style="color:#333">
                     use profiler to track app execution running locally
@@ -226,7 +226,7 @@
                     <br>http://naugtur.pl
                 </p>
                 <blockquote>
-                    <p>Subscribe to my newsletter <a href="http://naugtur.pl/news">http://naugtur.pl/news</a> and get:</p>
+                    <p>Subscribe to my newsletter <br><a href="http://naugtur.pl/news">http://naugtur.pl/news</a><br> and get:</p>
                         <ul>
                             <li>notifications about events I organize before everyone else (think tickets)
                             <li>access to learning resources I produce
@@ -243,6 +243,14 @@
     #naugtur {
       background-image: none;
     }
+    /*effectively switch from contain to cover behav*/
+    #naugtur .slide-background video {
+        min-width:100%;
+        min-height: 100%;
+        width: auto;
+        height: auto;
+    }
+
     .problem .reveal{
       background-image: url('raptor.png') !important;
     }
@@ -251,8 +259,8 @@
     }
     </style>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/lib/js/head.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/js/reveal.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/lib/js/head.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/js/reveal.js"></script>
 
     <script>
         // Full list of configuration options available at:
@@ -275,26 +283,26 @@
 
             // Optional reveal.js plugins
             dependencies: [{
-                src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/plugin/markdown/marked.js',
+                src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/plugin/markdown/marked.js',
                 condition: function() {
                     return !!document.querySelector('[data-markdown]');
                 }
             }, {
-                src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/plugin/markdown/markdown.js',
+                src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/plugin/markdown/markdown.js',
                 condition: function() {
                     return !!document.querySelector('[data-markdown]');
                 }
             }, {
-                src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/plugin/highlight/highlight.js',
+                src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/plugin/highlight/highlight.js',
                 async: true,
                 callback: function() {
                     hljs.initHighlightingOnLoad();
                 }
             }, {
-                src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/plugin/zoom-js/zoom.js',
+                src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/plugin/zoom-js/zoom.js',
                 async: true
             }, {
-                src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/plugin/notes/notes.js',
+                src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/plugin/notes/notes.js',
                 async: true
             }]
         });
