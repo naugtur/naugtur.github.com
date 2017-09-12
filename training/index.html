@@ -12,29 +12,43 @@
 <body>
   <div class="layout">
     <div class="taglines">
-
-      <h1> LearnMoreJS</h1>
-
+      <img src="../me.avatar.jpg" alt="Zbyszek Tenerowicz" class="avatar">
+      <h1> Zbyszek Tenerowicz </h1>
       <p>Szkolenia z JavaScriptu i Node.js dla tych, którzy już umieją.</p>
     </div>
+    <div class="contact-cta">
+      <span class="chat"></span>
 
-    <div class="valuep value1"><span class="title"> Szkolenia "szyte na miarę"</span>
-      <p>
-
-        Plan, materiały i realizację szkolenia mogę dostosować do uczestników przed, a nawet w trakcie zajęć, bez potrzeby konsultacji z przełożonym lub autorem przykładów.
-      </p>
     </div>
-    <div class="valuep value2"><span class="title"> Świeże, sprawdzone, bez ściemy</span>
-      <p>
+    <form class="contact-form" action="https://formspree.io/naugtur@gmail.com" method="POST">
+      <div>Porozmawiajmy!</div>
+      <input type="email" name="email" placeholder="Twój adres email">
+      <textarea name="pytanie" placeholder="jakieś pytania na start? (opcjonalne)"></textarea>
+      <input type="hidden" name="_subject" value="Szkolenia od naugtur.pl" />
+      <input type="submit" value="Wyślij">
+      <input type="hidden" name="_format" value="plain" />
+      <input type="hidden" name="_language" value="pl" />
+    </form>
+    <div class="values">
 
-        Pracuję na codzień jako Lead zespołu full-stack i tak zdobywam doświadczenie, a model biznesowy nie wymaga ode mnie sprzedawania jednego szkolenia jak najwięcej razy. Jeśli nie znam odpowiedzi na pytanie, odpowiadam "nie wiem, sprawdźmy".
-      </p>
-    </div>
-    <div class="valuep value3"><span class="title"> Dostęp do zaawansowanych tematów</span>
-      <p>
+      <div class="valuep value1"><span class="title"> Szkolenia "szyte na miarę"</span>
+        <p>
 
-        Nie oferuję wprowadzenia do JS. Działając w pojedynkę mogę skupić się na ambitniejszych tematach, na które są za mało opłacalne dla większych firm szkoleniowych.
-      </p>
+          Plan, materiały i realizację szkolenia mogę dostosować do uczestników przed, a nawet w trakcie zajęć, bez potrzeby konsultacji z przełożonym lub autorem przykładów.
+        </p>
+      </div>
+      <div class="valuep value2"><span class="title"> Świeże, sprawdzone, bez ściemy</span>
+        <p>
+
+          Pracuję na codzień jako Lead zespołu full-stack i tak zdobywam doświadczenie, a model biznesowy nie wymaga ode mnie sprzedawania jednego szkolenia jak najwięcej razy. Jeśli nie znam odpowiedzi na pytanie, odpowiadam "nie wiem, sprawdźmy".
+        </p>
+      </div>
+      <div class="valuep value3"><span class="title"> Dostęp do zaawansowanych tematów</span>
+        <p>
+
+          Nie oferuję wprowadzenia do JS. Działając w pojedynkę mogę skupić się na ambitniejszych tematach, które są za mało opłacalne dla większych firm szkoleniowych.
+        </p>
+      </div>
     </div>
 
     <div class="about">
@@ -61,19 +75,74 @@
       <p>Tydzień lub dwa po szkoleniu robię jeszcze zdalne code review i dyskutujemy jak idzie wdrażanie nowej wiedzy.</p>
 
     </div>
-    <div class="contact">
+    <div class="company-contact">
 
-      <div class="cta">
-        Skontaktuj się!
-      </div>
-      <div class="ctactx">
-        <a href="mailto:naugtur@gmail.com">naugtur@gmail.com</a>
-
-      </div>
+      <form class="company-form" action="https://formspree.io/naugtur@gmail.com" method="POST">
+        <div>Skontaktuj się!</div>
+        <input type="email" name="email" placeholder="Twój adres email">
+        <input type="hidden" name="_subject" value="Szkolenia od naugtur.pl - dla firmy" />
+        <input type="submit" value="Wyślij">
+        <input type="hidden" name="_format" value="plain" />
+        <input type="hidden" name="_language" value="pl" />
+      </form>
       <p class="almostcta">Zbierz grupę w pracy i resztę załatwi HR :) Nie masz grupy? Napisz do mnie, coś wymyślimy.</p>
 
       <p class="almostcta">Pracodwaco!<br> Koszty prowadzenia rekrutacji ciągle rosną. Zamiast rekrutować z doświadczeniem, możesz wyszkolić kogoś, kogo już znasz.</p>
 
+    </div>
+    <div class="trainings-open">
+      <h2>
+        Szkolenie otwarte
+      </h2>
+
+      <p>Zgłoś chęć udziału w ogłoszonym szkoleniu a jak tylko uzbiera się grupa, zagłosuj na termin.</p>
+
+      <p>W szkoleniach otwartych usunę z ceny jak najwięcej kosztów administracyjnych. Sala po znajomości, bez popisywania się kateringiem, 0PLN zainwestowane w reklamę. Dokładna cena zależy od liczby chętnych. Cena ~500zł</p>
+
+      <div class="trainings-open-entry">Asynchroniczność - Promise dla wymagających
+        <ul>
+          <li>Możliwe problemy ze współbieżnością w jednowątkowym JavaScripcie</li>
+          <li>Promise, Async/Await i error handling</li>
+          <li>Asynchroniczna kolejka w jednej linii, timeout na rozwiązanie promisa</li>
+        </ul>
+        <form class="training-form" action="https://formspree.io/naugtur@gmail.com" method="POST">
+          <input type="email" name="email" placeholder="Twój adres email">
+          <input type="hidden" name="_subject" value="naugtur | szkolenie | promises" />
+          <input type="submit" value="Zapisz mnie">
+          <input type="hidden" name="_format" value="plain" />
+          <input type="hidden" name="_language" value="pl" />
+        </form>
+      </div>
+      <div class="trainings-open-entry">Diagnostyka Node.js
+        <ul>
+          <li>Inspector i profiler</li>
+          <li>Flame graphs - wygenerowane z apki na produkcji</li>
+          <li>Wycieki pamięci</li>
+          <li>Deoptymalizacje</li>
+          <li>Analiza post-mortem</li>
+        </ul>
+        <form class="training-form" action="https://formspree.io/naugtur@gmail.com" method="POST">
+          <input type="email" name="email" placeholder="Twój adres email">
+          <input type="hidden" name="_subject" value="naugtur | szkolenie | diagnostics" />
+          <input type="submit" value="Zapisz mnie">
+          <input type="hidden" name="_format" value="plain" />
+          <input type="hidden" name="_language" value="pl" />
+        </form>
+      </div>
+      <div class="trainings-open-entry">Front-endowe debugowanie JavaScriptu i tropienie wycieków pamięci
+        <ul>
+          <li>Dev tools - zaawansowane funkcje</li>
+          <li>Zarządzanie pamięcią i wycieki</li>
+        </ul>
+
+        <form class="training-form" action="https://formspree.io/naugtur@gmail.com" method="POST">
+          <input type="email" name="email" placeholder="Twój adres email">
+          <input type="hidden" name="_subject" value="naugtur | szkolenie | frontend-diag" />
+          <input type="submit" value="Zapisz mnie">
+          <input type="hidden" name="_format" value="plain" />
+          <input type="hidden" name="_language" value="pl" />
+        </form>
+      </div>
     </div>
   </div>
 
@@ -81,6 +150,14 @@
 
 
   </div>
+
+  <script>
+    var ccta = document.querySelector('.contact-cta')
+    var cform = document.querySelector('.contact-form')
+    ccta.addEventListener('click', function(e) {
+      cform.classList.toggle('open')
+    }, !1)
+  </script>
 </body>
 
 </html>

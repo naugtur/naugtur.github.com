@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css?family=Raleway:300,500&subset=latin-ext');
-
 * {
   box-sizing: border-box;
 }
@@ -10,85 +9,190 @@ body {
   font-size: 17px;
   word-spacing: 0.3em;
   line-height: 1.2em;
+}
+
+html, body {
   margin: 0;
   padding: 0;
-
 }
-
-
 
 h1, h2, h3, h4 {
- margin-top:0;
- font-weight: 500;
+  margin-top: 0;
+  font-weight: 500;
 }
-h1 {font-size:1.6rem}
-h2 {font-size:1.4rem}
-h3 {font-size:1.2rem}
-h4 {font-size:1rem}
+
+h1 {
+  font-size: 1.6rem
+}
+
+h2 {
+  font-size: 1.4rem
+}
+
+h3 {
+  font-size: 1.2rem
+}
+
+h4 {
+  font-size: 1rem
+}
+
 p {
   text-align: justify;
 }
 
 .layout {
-    margin: 30px 0;
-
-  display:grid;
-
+  margin: 0;
+  display: grid;
   width: 100%;
-  grid-gap: 0px;
-  grid-template-columns: 1fr 3fr 4fr 3fr 1fr;
-  grid-template-rows: auto auto auto auto;
-  grid-template-areas: ". top about about. "
-                       "val1 val1 val2 val3 val3"
-                       ". contact company company .";
-
-  /*grid-template-columns: 2fr 2fr 2fr;
-  grid-template-areas: "top val1 val2"
-                       "about about val3"
-                       "about about ."
-                       "company company contact";*/
-
+  grid-gap: 20px;
 }
-
-.taglines{ grid-area:top }
-.value1{ grid-area:val1 }
-.value2{ grid-area:val2 }
-.value3{ grid-area:val3 }
-.about{ grid-area:about }
-.company{ grid-area:company }
-.contact{ grid-area:contact }
 
 .layout>div {
-  padding: 30px;
-}
-
-
-
-
-
-
-.layout .valuep {
   padding: 20px;
-  background: #eee;
-  margin: 20px 0;
-  /*box-shadow: inset -1px 0px 2px rgba(200,200,200,0.5);*/
-
 }
+
+.layout .values {
+  background: #444 url('bg2.jpg') no-repeat top left;
+  background-attachment: fixed;
+  background-size: cover;
+  color: #fff;
+}
+
 .valuep .title {
-  font-weight:500;
-  border-bottom: 1px solid inherit;
+  font-weight: 500;
+  border-bottom: 1px solid #fff;
+  padding: 5px;
+}
+
+.contact-cta {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  background-color: #60BFF2;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  padding: 15px !important;
+  overflow: hidden;
+  z-index: 3;
+  box-shadow: 0 0 10px 0px rgba(0, 0, 0, 0.5)
+}
+
+.contact-form {
+  position: fixed;
+  width: 0px;
+  padding: 0;
+  overflow: hidden;
+  transition: all .3s ease-out;
+  right: 20px;
+  height: 0;
+  bottom: 35px;
+  box-shadow: 0 0 10px 0px rgba(0, 0, 0, 0.5);
+
+}
+.contact-form, .company-form{
+  background-color: #60BFF2;
+  padding: 10px;
 }
 
 
+form input {
+  border: 1px solid #ddd;
+  background: #fff;
+  margin: 5px;
+  padding: 5px;
+  min-width: 100px;
+}
+
+.contact-form>input, .contact-form>textarea {
+  width: 90%;
+  display: block;
+  margin: 10px auto;
+  padding: 5px;
+  border: none;
+  background-color: #fff;
+}
+
+.trainings-open-entry {
+  border: 1px solid #ddd;
+  margin: 10px;
+  padding: 10px;
+  width:calc(50% - 20px);
+  float:left;
+}
 
 
+.contact-form.open {
+  width: calc( 100% - 40px);
+  max-width: 500px;
+  padding: 10px;
+  height: auto;
+  border-radius: 0;
+}
+
+.contact-cta.open form {
+  display: block;
+}
+
+.chat {
+  position: relative;
+  color: #fff;
+  top: 10px;
+  left: 10px;
+}
+
+.chat:before, .chat:after {
+  content: "";
+  position: absolute;
+}
+
+.chat:before {
+  top: 50%;
+  left: -10px;
+  width: 25px;
+  height: 20px;
+  margin-top: -8px;
+  border-radius: 50%;
+  background: #fff;
+}
+
+.chat:after {
+  border-color: #fff;
+  left: 0px;
+  border-width: 4px;
+  border-style: solid;
+  border-bottom-color: transparent;
+  border-right-color: transparent;
+  top: 20px;
+  background: transparent;
+}
 
 .layout .taglines {
-  padding: 50px;
+  padding: 20px 50px;
+  text-align: center;
   color: #eff;
   background: linear-gradient(240deg, #60BFF2, #323D8C, #BF5D38);
   background-size: 600% 600%;
   animation: AnimationName 100s ease infinite;
+}
+.taglines .avatar{
+  width: 128px;
+  border-radius: 50%;
+  margin: 20px auto;
+  display:block;
+  border: 2px solid rgba(0,0,0,0.1)
+}
+
+
+.layout .values {
+  padding: 0;
+}
+
+.values .valuep {
+  width: 33%;
+  float: left;
+  padding: 30px;
 }
 
 @keyframes AnimationName {
@@ -101,4 +205,80 @@ p {
   100% {
     background-position: 0% 50%
   }
+}
+
+
+/* layouts */
+
+.layout {
+  grid-template-columns: 1fr 3fr 4fr 3fr 1fr;
+  grid-template-rows: auto auto auto auto;
+  grid-template-areas: ". top about about . "
+                       "val val val val val"
+                       ". contact company company ."
+                       ". open open open .";
+}
+
+.layout .values {
+  margin: 20px 0;
+}
+
+@media (max-width: 800px) {
+  .layout {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto auto;
+    grid-template-areas: "top"
+                         "about"
+                         "val"
+                         "company"
+                         "contact"
+                         "open";
+  }
+  .values .valuep {
+    width: 100%;
+    margin: 0;
+  }
+  .trainings-open-entry {
+ width: 100%;
+   margin: 10px 0;
+}
+
+}
+
+@media (min-width: 1500px) {
+  .layout {
+    grid-template-columns: 2fr 2fr 2fr 2fr 2fr 2fr;
+    grid-template-rows: auto auto auto auto;
+    grid-template-areas: ". top about about about . "
+                         "val val val val val val"
+                         "contact company company open open open";
+  }
+  .layout .valuep {
+    margin: 0;
+  }
+
+}
+
+.taglines {
+  grid-area: top
+}
+
+.values {
+  grid-area: val
+}
+
+.about {
+  grid-area: about
+}
+
+.company {
+  grid-area: company
+}
+
+.company-contact {
+  grid-area: contact
+}
+
+.trainings-open {
+  grid-area: open
 }
