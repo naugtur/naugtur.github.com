@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>Node.js Diagnostics 101</title>
+
+    <meta name="author" content="naugtur">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/css/reveal.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/css/theme/black.css" id="theme">
+
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/lib/css/zenburn.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/css/print/pdf.css' : 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/css/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+
+    <link rel="stylesheet" href="../branding/style.css" id="branding">
+
+</head>
+
+<body>
+
+    <div class="reveal" id="naugtur">
+
+        <!-- Any section element inside of this container is displayed as a slide -->
+        <div class="slides">
+            <section>
+                <h1>Node.js Diagnostics 101</h1>
+                        <small>@naugtur, meet.js summit 2017</small>
+            </section>
+
+            <section data-markdown>
+                ## Who is this for?
+            </section>
+            <section data-markdown>
+                ## I wrote an app
+                <!-- ### what could go wrong? -->
+
+                ![what](whatcould.jpg)
+            </section>
+            <section data-markdown data-state="sad">
+              What I knew about diagnostics in 2012
+              ```js
+                console.log('AAA', +new Date())
+              ```
+            </section>
+            <section data-markdown>
+                #### Diagnosing common problems
+                ## using tools!
+            </section>
+            <section>
+              <section data-markdown data-state="problem">
+                  ## Problem
+                  > High CPU usage or too slow under load
+              </section>
+              <section data-markdown>
+                  ### Need to look for performance improvements
+                  ## ⤸
+
+                  You might want to scale horizontally before investing in optimizations
+              </section>
+              <section data-markdown>
+                  ## Measure
+
+                  ```js
+                    console.time('task1')
+                    ...
+                    console.timeEnd('task1')
+                  ```
+                  Useful if you know what the issue could be.
+
+              </section>
+              <section data-markdown>
+                  ## Measure 2
+
+                  Node 8.5 shipped with [Performance Timing API](https://nodejs.org/api/perf_hooks.html)
+
+                  ```js
+                  const { performance } = require('perf_hooks');
+                  performance.mark('A');
+                  doSomeLongRunningProcess(() => {
+                    performance.mark('B');
+                    performance.measure('A to B', 'A', 'B');
+                    const measure = performance.getEntriesByName('A to B')[0];
+                    console.log(measure.duration);
+                    // Prints the number of milliseconds between 'A' and 'B'
+                  });
+                  ```
+              </section>
+              <section data-background-video="./profi5.webm" data-background-size="cover">
+                  <h2 style="color:#333"> profiler</h2>
+                  <p style="color:#333">
+                    use profiler to track app execution running locally
+                  </p>
+              </section>
+              <section data-markdown>
+                  ### text-only profiling
+                  ```
+                  node --prof app.js
+                  node --prof-process isolate-0x36ccc10-v8.log > result.txt
+                  ```
+
+                  Gives you a summary of where time was spent.
+
+                  Sort of a 1-dimensional flame graph.
+              </section>
+              <section data-background-image="./fla.png">
+                  <h2> flame graph</h2>
+
+                  <p>use flame graphs for best results in production,<br> with real traffic going on</p>
+
+                  <a href="./flamegraph.htm" target="blank">example</a>
+                  <br>
+                  <a href="./flamegraph2.htm" target="blank">cleaner example</a>
+              </section>
+            </section>
+            <section>
+              <section data-markdown  data-state="problem">
+                  ## Problem
+                  > App "hangs" for short periods of time or has trouble handling many concurrent clients
+              </section>
+              <section>
+
+                  <img src="load.gif" style="border: none; background: #fff; border-radius: 50%; box-shadow: 0 0 130px 150px #fff" alt="">
+
+              </section>
+              <section data-markdown>
+                  ### Long synchronous operations block event loop
+              </section>
+              <section data-markdown>
+                  ### First you need to notice
+
+                  Commercial tools for Node all support finding this.
+
+                  There's also the good old `blocked` package
+                  ```js
+                  blocked(ms => console.log('blocked for '+ms))
+                  ```
+
+              </section>
+              <section>
+                  <h3>Once you know it happens...</h3>
+
+                  <p>Flame graphs or --prof can help if it's significant.</p>
+
+                  <p>Finding the blocking function <br> <del>is</del> was hard to do in general.</p>
+
+              </section>
+              <section>
+                <img src="new2.png" class="plain" style="height: 2.5em; position:absolute; top:-2.5em; right:0" alt="">
+                  <h3>blocked-at</h3>
+                  <p>Thanks to Async Hooks it's finally possible in Node 8</p>
+                  <pre><code class="javascript"> blockedAt((ms, stack) => console.log(stack))</code></pre>
+                  <pre> at Promise.then (<anonymous>)
+  <span style="color:red; font-weight:bold">at Immediate.start (/test/cases/promise.js:9:6)</span>
+  at runCallback (timers.js:781:20)
+  at tryOnImmediate (timers.js:743:5)
+  at processImmediate [as _immediateCallback] (timers.js:714:5)</pre>
+              </section>
+              <section data-markdown>
+                Node 8 starts LTS in October.
+
+                I will use `blocked-at` in production at Egnyte, and you should try it too.
+
+              </section>
+              <section>
+                <h4 style="transform: rotate(-30deg)">
+                  Digress about <a href="https://nodejs.org/api/async_hooks.html" style="color:#cdf">async hooks</a> here
+                </h4>
+              </section>
+            </section>
+            <section>
+              <section data-markdown  data-state="problem">
+                  ## Problem
+                  > App eats more and more RAM and memory usage doesn't go down
+              </section>
+              <section data-markdown>
+                  ### It's a memory leak
+              </section>
+              <section data-markdown>
+                  ### Detect
+
+                  Monitor values from `process.memoryUsage()` over time.
+
+              </section>
+              <section data-markdown>
+                  ### Find source
+
+                  - Create heap snapshots with [heapdump](https://www.npmjs.com/package/heapdump)
+                  - Compare heap shanpshots in chromium/chrome
+
+              </section>
+              <section data-markdown>
+                  ### quick demo
+
+                  It's enough for a [separate talk or workshop](http://naugtur.pl/pres3/memnew/#/)
+
+                  but it's easy to demo in the browser.
+              </section>
+            </section>
+            <section>
+              <section data-markdown  data-state="problem">
+                  ## Problem
+                  > App crashes with a core dump
+              </section>
+              <section data-markdown>
+                  ### It's an uncaught exception or it ran out of RAM
+              </section>
+              <section data-markdown>
+                  ## How to diagnose
+
+                  - `node-report` package may just tell you enough
+                  - core dump analysis (remember to enable)
+
+              </section>
+              <section data-markdown>
+                  ## out-of-memory crash
+
+                  - Memory leak
+                  - A bug that correctly allocates over 1.5G
+                  - Infinite asynchronous recursion
+                  - Recursive promise chain
+                  - Lots of streams with fast input and slow output
+                  - Accepting uploads to RAM
+
+              </section>
+            </section>
+            <section data-markdown>
+                > I'm aggregating knowledge around tools old and new, building examples, exercises and attending meetings of Diagnostics WG. My ongoing Node diagnostics tutorials work is available [on github](https://github.com/naugtur/node-diagnostics-howtos).
+            </section>
+            <section>
+                <h4>Follow me for workshops on this</h4>
+                <p>@naugtur
+                    <br>http://naugtur.pl
+                </p>
+                <blockquote>
+                    <p>Subscribe to my newsletter <br><a href="http://naugtur.pl/news">http://naugtur.pl/news</a><br> and get:</p>
+                        <ul>
+                            <li>notifications about events I organize before everyone else (think tickets)
+                            <li>access to learning resources I produce
+                            <li>no spam, at most 2 mails a month
+                        </ul>
+                </blockquote>
+            </section>
+
+        </div>
+
+    </div>
+
+    <style>
+    h2, h3 {
+      margin-bottom: 0.8em !important;
+    }
+    #naugtur {
+      background-image: none;
+    }
+    /*effectively switch from contain to cover behav*/
+    #naugtur .slide-background video {
+        min-width:100%;
+        min-height: 100%;
+        width: auto;
+        height: auto;
+    }
+
+    .problem .reveal{
+      background-image: url('raptor.png') !important;
+    }
+    .sad .reveal{
+      background-image: url('sad.png') !important;
+    }
+    </style>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/lib/js/head.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/js/reveal.js"></script>
+
+    <script>
+        // Full list of configuration options available at:
+        // https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+            mouseWheel: true,
+
+            transition: 'concave', // none/fade/slide/convex/concave/zoom
+
+            // Parallax background image
+            // parallaxBackgroundImage: '../branding/space-03.jpg', // e.g. "https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg"
+
+            // Parallax background size
+            // parallaxBackgroundSize: '1920px 880px', // CSS syntax, e.g. "2100px 900px" - currently only pixels are supported (don't use % or auto)
+
+
+            // Optional reveal.js plugins
+            dependencies: [{
+                src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/plugin/markdown/marked.js',
+                condition: function() {
+                    return !!document.querySelector('[data-markdown]');
+                }
+            }, {
+                src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/plugin/markdown/markdown.js',
+                condition: function() {
+                    return !!document.querySelector('[data-markdown]');
+                }
+            }, {
+                src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/plugin/highlight/highlight.js',
+                async: true,
+                callback: function() {
+                    hljs.initHighlightingOnLoad();
+                }
+            }, {
+                src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/plugin/zoom-js/zoom.js',
+                async: true
+            }, {
+                src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/plugin/notes/notes.js',
+                async: true
+            }]
+        });
+    </script>
+
+</body>
+
+</html>
