@@ -16,6 +16,10 @@ html, body {
   padding: 0;
 }
 
+a {
+  text-decoration: none;
+}
+
 h1, h2, h3, h4 {
   margin-top: 0;
   font-weight: 500;
@@ -63,6 +67,7 @@ p {
   font-weight: 500;
   border-bottom: 1px solid #fff;
   padding: 5px;
+  font-size: 1.2em;
 }
 
 .contact-cta {
@@ -95,14 +100,15 @@ p {
   background-color: #60BFF2;
   padding: 10px;
 }
- .company-form {
-   padding: 30px;
-   margin: -20px -20px 10px -20px;
- }
 
- .me {
-   margin-bottom: 2em;
- }
+.company-form {
+  padding: 30px;
+  margin: -20px -20px 10px -20px;
+}
+
+.me {
+  margin-bottom: 2em;
+}
 
 form input {
   border: 1px solid #ddd;
@@ -175,7 +181,7 @@ form input {
 }
 
 .layout .taglines {
-  padding: 20px 50px;
+  padding: 30px 50px;
   text-align: center;
 }
 
@@ -197,7 +203,17 @@ form input {
   padding: 30px;
 }
 
+.footer {
+  padding: 30px;
+  margin: 50px 0 0 0;
+  background: #333;
+  color: #fff;
+  text-align: center;
+}
 
+.footer>blockquote {
+  font-size: 3px;
+}
 
 .colorflow {
   color: #eff;
@@ -224,12 +240,16 @@ form input {
 .layout {
   grid-template-columns: 1fr 3fr 4fr 3fr 1fr;
   grid-template-rows: auto auto auto auto;
-  grid-template-areas: ". top about about . " "val val val val val" ". contact company company ." ". open open open .";
+  grid-template-areas: ". top about about . "
+                       "val val val val val"
+                       ". contact company company ."
+                       ". open open open .";
 }
 
 .layout .values {
   margin: 20px 0;
 }
+
 .layout .about {
   padding-top: 100px;
 }
@@ -257,7 +277,9 @@ form input {
   .layout {
     grid-template-columns: 2fr 2fr 2fr 2fr 2fr 2fr;
     grid-template-rows: auto auto auto auto;
-    grid-template-areas: ". top about about about . " "val val val val val val" "contact company company open open open";
+    grid-template-areas: ". top about about about . "
+                         "val val val val val val"
+                         "contact company company open open open";
   }
   .layout .valuep {
     margin: 0;
