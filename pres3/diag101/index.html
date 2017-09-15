@@ -82,7 +82,23 @@
                   ```
                   Useful if you know what the issue could be.
 
-                  Next version of Node should ship with Perf Traces to make it more efficient.
+              </section>
+              <section data-markdown>
+                  ## Measure 2
+
+                  Node 8.5 shipped with [Performance Timing API](https://nodejs.org/api/perf_hooks.html)
+
+                  ```js
+                  const { performance } = require('perf_hooks');
+                  performance.mark('A');
+                  doSomeLongRunningProcess(() => {
+                    performance.mark('B');
+                    performance.measure('A to B', 'A', 'B');
+                    const measure = performance.getEntriesByName('A to B')[0];
+                    console.log(measure.duration);
+                    // Prints the number of milliseconds between 'A' and 'B'
+                  });
+                  ```
               </section>
               <section data-background-video="./profi5.webm" data-background-size="cover">
                   <h2 style="color:#333"> profiler</h2>
@@ -103,9 +119,9 @@
               </section>
               <section data-background-image="./fla.png">
                   <h2> flame graph</h2>
-                  <br>
-                  use flame graphs for best results in production, with real traffic going on
-                  <br>
+
+                  <p>use flame graphs for best results in production,<br> with real traffic going on</p>
+
                   <a href="./flamegraph.htm" target="blank">example</a>
                   <br>
                   <a href="./flamegraph2.htm" target="blank">cleaner example</a>
@@ -135,12 +151,12 @@
                   ```
 
               </section>
-              <section data-markdown>
-                  ### Once you know it happens...
+              <section>
+                  <h3>Once you know it happens...</h3>
 
-                  Flame graphs or --prof can help if it's significant.
+                  <p>Flame graphs or --prof can help if it's significant.</p>
 
-                  Pointing to the blocking function ~~is~~ was hard to do in general.
+                  <p>Finding the blocking function <br> <del>is</del> was hard to do in general.</p>
 
               </section>
               <section>
@@ -153,6 +169,12 @@
   at runCallback (timers.js:781:20)
   at tryOnImmediate (timers.js:743:5)
   at processImmediate [as _immediateCallback] (timers.js:714:5)</pre>
+              </section>
+              <section data-markdown>
+                Node 8 starts LTS in October.
+
+                I will use `blocked-at` in production at Egnyte, and you should try it too.
+
               </section>
               <section>
                 <h4 style="transform: rotate(-30deg)">
@@ -206,7 +228,6 @@
               </section>
               <section data-markdown>
                   ## out-of-memory crash
-                  ### other reasons
 
                   - Memory leak
                   - A bug that correctly allocates over 1.5G
@@ -240,6 +261,9 @@
     </div>
 
     <style>
+    h2, h3 {
+      margin-bottom: 0.8em !important;
+    }
     #naugtur {
       background-image: none;
     }
