@@ -89,13 +89,20 @@ p {
   height: 0;
   bottom: 35px;
   box-shadow: 0 0 10px 0px rgba(0, 0, 0, 0.5);
-
 }
-.contact-form, .company-form{
+
+.contact-form {
   background-color: #60BFF2;
   padding: 10px;
 }
+ .company-form {
+   padding: 30px;
+   margin: -20px -20px 10px -20px;
+ }
 
+ .me {
+   margin-bottom: 2em;
+ }
 
 form input {
   border: 1px solid #ddd;
@@ -118,10 +125,9 @@ form input {
   border: 1px solid #ddd;
   margin: 10px;
   padding: 10px;
-  width:calc(50% - 20px);
-  float:left;
+  width: calc(50% - 20px);
+  float: left;
 }
-
 
 .contact-form.open {
   width: calc( 100% - 40px);
@@ -171,19 +177,15 @@ form input {
 .layout .taglines {
   padding: 20px 50px;
   text-align: center;
-  color: #eff;
-  background: linear-gradient(240deg, #60BFF2, #323D8C, #BF5D38);
-  background-size: 600% 600%;
-  animation: AnimationName 100s ease infinite;
 }
-.taglines .avatar{
+
+.taglines .avatar {
   width: 128px;
   border-radius: 50%;
   margin: 20px auto;
-  display:block;
-  border: 2px solid rgba(0,0,0,0.1)
+  display: block;
+  border: 2px solid rgba(0, 0, 0, 0.1)
 }
-
 
 .layout .values {
   padding: 0;
@@ -193,6 +195,15 @@ form input {
   width: 33%;
   float: left;
   padding: 30px;
+}
+
+
+
+.colorflow {
+  color: #eff;
+  background: linear-gradient(240deg, #60BFF2, #323D8C, #BF5D38);
+  background-size: 600% 600%;
+  animation: AnimationName 100s ease infinite;
 }
 
 @keyframes AnimationName {
@@ -213,50 +224,44 @@ form input {
 .layout {
   grid-template-columns: 1fr 3fr 4fr 3fr 1fr;
   grid-template-rows: auto auto auto auto;
-  grid-template-areas: ". top about about . "
-                       "val val val val val"
-                       ". contact company company ."
-                       ". open open open .";
+  grid-template-areas: ". top about about . " "val val val val val" ". contact company company ." ". open open open .";
 }
 
 .layout .values {
   margin: 20px 0;
+}
+.layout .about {
+  padding-top: 100px;
 }
 
 @media (max-width: 800px) {
   .layout {
     grid-template-columns: 1fr;
     grid-template-rows: auto auto auto auto;
-    grid-template-areas: "top"
-                         "about"
-                         "val"
-                         "company"
-                         "contact"
-                         "open";
+    grid-template-areas: "top" "about" "val" "company" "contact" "open";
   }
   .values .valuep {
     width: 100%;
     margin: 0;
   }
   .trainings-open-entry {
- width: 100%;
-   margin: 10px 0;
-}
-
+    width: 100%;
+    margin: 10px 0;
+  }
+  .layout .about {
+    padding-top: 20px;
+  }
 }
 
 @media (min-width: 1500px) {
   .layout {
     grid-template-columns: 2fr 2fr 2fr 2fr 2fr 2fr;
     grid-template-rows: auto auto auto auto;
-    grid-template-areas: ". top about about about . "
-                         "val val val val val val"
-                         "contact company company open open open";
+    grid-template-areas: ". top about about about . " "val val val val val val" "contact company company open open open";
   }
   .layout .valuep {
     margin: 0;
   }
-
 }
 
 .taglines {
