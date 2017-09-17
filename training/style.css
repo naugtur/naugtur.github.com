@@ -20,6 +20,10 @@ a {
   text-decoration: none;
 }
 
+li,dd {
+  line-height: 1.5em;
+}
+
 h1, h2, h3, h4 {
   margin-top: 0;
   font-weight: 500;
@@ -205,11 +209,30 @@ form input {
   margin: 50px 0 0 0;
   background: #333;
   color: #fff;
-  text-align: center;
+  overflow:auto;
 }
-
-.footer>blockquote {
+.footer a{
+  color: #eef;
+  text-decoration: unedrline;
+  font-weight: 500;
+}
+.qr{
+  display:block;
+  float:left;
+}
+.footer>.footer-box{
+  float:left;
+}
+.footer blockquote {
   font-size: 3px;
+}
+.footer-soflair img {
+  margin-top: 35px;
+}
+.footer-lo{
+  clear:both;
+  padding-top: 50px;
+  text-align: center;
 }
 
 .colorflow {
@@ -251,6 +274,10 @@ form input {
   padding-top: 100px;
 }
 
+img.qr {
+  width: 200px;
+}
+
 @media (max-width: 800px) {
   .layout {
     grid-template-columns: 1fr;
@@ -267,6 +294,9 @@ form input {
   }
   .layout .about {
     padding-top: 20px;
+  }
+  img.qr {
+    width: 100%
   }
 }
 
