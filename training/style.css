@@ -148,10 +148,8 @@ form input {
 }
 
 .chat {
-  position: relative;
+  position: absolute;
   color: #fff;
-  top: 10px;
-  left: 10px;
 }
 
 .chat:before, .chat:after {
@@ -160,23 +158,22 @@ form input {
 }
 
 .chat:before {
-  top: 50%;
-  left: -10px;
+  top: 0;
+  left: 0;
   width: 25px;
   height: 20px;
-  margin-top: -8px;
   border-radius: 50%;
   background: #fff;
 }
 
 .chat:after {
   border-color: #fff;
-  left: 0px;
+  left: 10px;
   border-width: 4px;
   border-style: solid;
   border-bottom-color: transparent;
   border-right-color: transparent;
-  top: 20px;
+  top: 18px;
   background: transparent;
 }
 

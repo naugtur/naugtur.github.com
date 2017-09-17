@@ -89,14 +89,14 @@
                   Node 8.5 shipped with [Performance Timing API](https://nodejs.org/api/perf_hooks.html)
 
                   ```js
-                  const { performance } = require('perf_hooks');
-                  performance.mark('A');
+                  const { perf } = require('perf_hooks');
+                  perf.mark('A');
                   doSomeLongRunningProcess(() => {
-                    performance.mark('B');
-                    performance.measure('A to B', 'A', 'B');
-                    const measure = performance.getEntriesByName('A to B')[0];
+                    perf.mark('B');
+                    perf.measure('A to B', 'A', 'B');
+                    const measure = perf.getEntriesByName('A to B')[0];
                     console.log(measure.duration);
-                    // Prints the number of milliseconds between 'A' and 'B'
+                    // Number of milliseconds between 'A' and 'B'
                   });
                   ```
               </section>
