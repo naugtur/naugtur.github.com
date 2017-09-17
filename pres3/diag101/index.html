@@ -164,7 +164,7 @@
                   <h3>blocked-at</h3>
                   <p>Thanks to Async Hooks it's finally possible in Node 8</p>
                   <pre><code class="javascript"> blockedAt((ms, stack) => console.log(stack))</code></pre>
-                  <pre> at Promise.then (<anonymous>)
+                  <pre style="background:#000"> at Promise.then (<anonymous>)
   <span style="color:red; font-weight:bold">at Immediate.start (/test/cases/promise.js:9:6)</span>
   at runCallback (timers.js:781:20)
   at tryOnImmediate (timers.js:743:5)
@@ -217,12 +217,12 @@
                   > App crashes with a core dump
               </section>
               <section data-markdown>
-                  ### It's an uncaught exception or it ran out of RAM
+                  ### It's an uncaught exception or a crash
               </section>
               <section data-markdown>
                   ## How to diagnose
 
-                  - `node-report` package may just tell you enough
+                  - [`node-report`](https://www.npmjs.com/package/node-report) package may just tell you enough
                   - core dump analysis (remember to enable)
 
               </section>
@@ -251,6 +251,9 @@
                       <br><br>
                 <p>Subscribe to my newsletter <br><a href="http://naugtur.pl/news">http://naugtur.pl/news</a></p>
 
+            </section>
+            <section data-markdown>
+                Q&A or more demos?
             </section>
 
         </div>
@@ -296,9 +299,9 @@
             transition: 'concave', // none/fade/slide/convex/concave/zoom
 
             // Parallax background image
-            // parallaxBackgroundImage: '../branding/space-03.jpg', // e.g. "https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg"
-
-            // Parallax background size
+            // parallaxBackgroundImage: '../branding/bk.jpg', // e.g. "https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg"
+            //
+            // // Parallax background size
             // parallaxBackgroundSize: '1920px 880px', // CSS syntax, e.g. "2100px 900px" - currently only pixels are supported (don't use % or auto)
 
 
