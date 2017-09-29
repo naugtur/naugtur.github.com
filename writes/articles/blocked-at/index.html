@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width">
+    <title>Finding blocking operations with Async Hooks - Naugtur's scribbles
+    </title>
+    <link rel="alternate" href="http://naugtur.pl/writes/feed.xml" type="application/rss+xml" title="">
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Anonymous+Pro:400,700,400italic,700italic">
+    <link rel="stylesheet" href="/writes/css/main.css">
+  </head>
+  <body class="article-detail">
+    <header class="header">
+      <div class="content-wrap">
+        <p class="date"><span>
+            01. September 2017
+             in: <a href="/writes/tag/English/1/" class="tag-name">English</a></span></p>
+        <h1>Finding blocking operations with Async Hooks</h1>
+        <p class="author">Written by <span class="author"><a href="https://twitter.com/@naugtur">Naugtur</a></span>
+        </p>
+      </div>
+    </header>
+    <div id="content">
+      <div class="content-wrap">
+        <article class="article">
+          <section class="content"><p>Node.js introduced Async Hooks in version 8 and I could finally do what I always wanted - make a tool to tell me what is blocking the event&nbsp;loop.</p>
+<cut>
+
+<p>Let’s start with stating the obvious - Node.js programs are asynchronous and it’s for a reason. That reason is called <em>event loop</em> and if it’s not a familiar word yet, read up on single threaded asynchronous nature of Node.js - it’s&nbsp;great.</p>
+<p>I’ll continue with the assumption that running long synchronous operations in Node.js is something you want to&nbsp;avoid.</p>
+<h2 id="detecting-blocked-state">Detecting blocked&nbsp;state</h2>
+<p>In early days of Node, the only way to detect a function blocking the event loop was to notice your server stops accepting new requests for a while. Or use the <a href="https://www.npmjs.com/package/blocked"><code>blocked</code></a> package, which uses a neat hack for detecting blockage by (and I’m simplifying) measuring how late a <code>setTimeout</code> callback is compared to when it should have been&nbsp;called.</p>
+<p>There’s other ways to determine where a lot of <span class="caps">CPU</span> cycles are spent. You can use flame grapths but if your code blocks very rarely, the technique might not be helpful unless you know how to reproduce the issue in a narrow window of&nbsp;time.</p>
+<p>Here’s where <a href="https://nodejs.org/api/async_hooks.html">Async Hooks</a> come&nbsp;in.</p>
+<h2 id="async-hooks-new-possibilities">Async Hooks - new&nbsp;possibilities</h2>
+<p>Their main purpose is to allow diagnosing asynchronous workflows in general and their first use case was creating an asynchronous stack trace. With <code>before</code> and <code>after</code> hooks I was able to measure the time taken and the <code>init</code> hook is where a stack trace can be saved. That’s effectively the whole idea behind <a href="https://www.npmjs.com/package/blocked-at"><code>blocked-at</code></a>&nbsp;package.</p>
+<p>I made sure it’s similar to the original one, so it’s easy to switch.
+Once you run it, you’ll want to analyze the stack traces it&nbsp;collects.</p>
+<h2 id="finding-the-bug">Finding the&nbsp;bug</h2>
+<p>Let’s look at an&nbsp;example.</p>
+<pre><code>at Promise.then (&lt;anonymous&gt;)
+  at Immediate.start (/.../blocked-at/test/cases/promise.js:8:6)
+  at runCallback (timers.js:781:20)
+  at tryOnImmediate (timers.js:743:5)
+  at processImmediate [as _immediateCallback] (timers.js:714:5)
+</code></pre><p>It’s a stack trace from a test case in the unit tests for <code>blocked-at</code>. It demonstrates what you’ll get if you’re using promises and a <code>.then</code> handler is synchronously running a long&nbsp;operation.</p>
+<p>Now compare with the code which produced this stack&nbsp;trace.</p>
+<pre><code class="lang-js"><span class="meta">'use strict'</span>
+<span class="keyword">const</span> slow = <span class="built_in">require</span>(<span class="string">'../slowfunc'</span>)
+
+<span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span> <span class="title">start</span> (<span class="params"></span>) </span>{
+  <span class="built_in">Promise</span>.resolve(<span class="number">1</span>)
+    .then(<span class="function"><span class="params">a</span> =&gt;</span> a++)
+    .then(<span class="function"><span class="params">a</span> =&gt;</span> [a])
+    .then(<span class="function"><span class="params">a</span> =&gt;</span> {
+      a[<span class="number">0</span>] = <span class="number">1</span>
+      slow()
+      <span class="keyword">return</span> a
+    })
+    .catch(<span class="built_in">console</span>.error)
+}
+</code></pre>
+<p>Note how <code>blocked-at</code> told us that the offending line is <code>.then(a =&gt; {</code>. It’s the beginning of the function containing the actual blocking operation somewhere inside <code>slow()</code> function&nbsp;call.</p>
+<p>To successfully debug your eventloop blocking code you need to start in the reported line and review all synchronous operations going through function execution while ignoring anything that’s in a callback or .then&nbsp;etc.</p>
+<h2 id="when-stack-trace-is-not-enough">When stack trace is not&nbsp;enough</h2>
+<p>Sometimes your code is in a callback you pass somewhere to be called synchronously.
+Here’s what <code>blocked-at</code> would report if slow operation happened in a http&nbsp;handler.</p>
+<pre><code>at Server.connectionListener (_http_server.js:307:10)
+  at emitOne (events.js:115:13)
+  at Server.emit (events.js:210:7)
+  at TCP.onconnection (net.js:1560:8)
+</code></pre><p>If you see a case like that, all hope is not lost. You have a hint about what kind of asynchronous beginning there was. You can now wrap contents of your handler function in a <code>setImmediate</code> to get a stack trace from within your&nbsp;codebase.</p>
+<h2 id="share-your-stack-trace-">Share your stack&nbsp;trace!</h2>
+<p>I’m hoping to collect more real-life examples of stack traces and build a knowledge base of the less obvious&nbsp;ones.</p>
+<hr>
+<blockquote>
+<p>Share your stack traces from blocked-at in <a href="https://github.com/naugtur/blocked-at/issues/5">this github&nbsp;issue</a></p>
+</blockquote>
+<hr>
+</section>
+        </article>
+      </div>
+    </div>
+    <footer>
+      <div class="content-wrap">
+        <div class="nav"><a href="/writes/">&laquo; Main</a></div>
+        <section class="about"><p><img src="http://naugtur.pl/me.avatar.jpg" alt="naugtur">
+Zbyszek Tenerowicz <a href="https://twitter.com/naugtur">@naugtur</a> Full-stack developer and technology researcher. Runs a growing number of Node.js powered applications in production at Egnyte Inc. Open-source enthusiast. Teaches web technology to designers and peer developers. One of the oldest members of Meet.js Poland community - both as a speaker and organizer of local meet-ups.</p>
+
+        </section>
+        <section class="copy">
+          <p>&copy; 2017 Naugtur &mdash; powered by&nbsp;<a href="https://github.com/jnordberg/wintersmith">Wintersmith</a>
+          </p>
+        </section>
+      </div>
+    </footer>
+  </body>
+</html>

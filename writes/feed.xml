@@ -5,9 +5,71 @@
     <atom:link href="http://naugtur.pl/writes/feed.xml" rel="self" type="application/rss+xml"></atom:link>
     <link>http://naugtur.pl/writes</link>
     <description></description>
-    <pubDate>Mon, 06 Mar 2017 01:00:00 +0100</pubDate>
+    <pubDate>Fri, 01 Sep 2017 02:00:00 +0200</pubDate>
     <generator>Wintersmith - https://github.com/jnordberg/wintersmith</generator>
     <language>en</language>
+    <item>
+      <title>Finding blocking operations with Async Hooks</title>
+      <link>http://naugtur.pl/writes/writes/articles/blocked-at/</link>
+      <pubDate>Fri, 01 Sep 2017 02:00:00 +0200</pubDate>
+      <guid isPermaLink="true">http://naugtur.pl/writes/writes/articles/blocked-at/</guid>
+      <author></author>
+      <description>&lt;p&gt;Node.js introduced Async Hooks in version 8 and I could finally do what I always wanted - make a tool to tell me what is blocking the event loop.&lt;/p&gt;
+&lt;cut&gt;
+
+&lt;p&gt;Let’s start with stating the obvious - Node.js programs are asynchronous and it’s for a reason. That reason is called &lt;em&gt;event loop&lt;/em&gt; and if it’s not a familiar word yet, read up on single threaded asynchronous nature of Node.js - it’s great.&lt;/p&gt;
+&lt;p&gt;I’ll continue with the assumption that running long synchronous operations in Node.js is something you want to avoid.&lt;/p&gt;
+&lt;h2 id=&quot;detecting-blocked-state&quot;&gt;Detecting blocked state&lt;/h2&gt;
+&lt;p&gt;In early days of Node, the only way to detect a function blocking the event loop was to notice your server stops accepting new requests for a while. Or use the &lt;a href=&quot;https://www.npmjs.com/package/blocked&quot;&gt;&lt;code&gt;blocked&lt;/code&gt;&lt;/a&gt; package, which uses a neat hack for detecting blockage by (and I’m simplifying) measuring how late a &lt;code&gt;setTimeout&lt;/code&gt; callback is compared to when it should have been called.&lt;/p&gt;
+&lt;p&gt;There’s other ways to determine where a lot of CPU cycles are spent. You can use flame grapths but if your code blocks very rarely, the technique might not be helpful unless you know how to reproduce the issue in a narrow window of time.&lt;/p&gt;
+&lt;p&gt;Here’s where &lt;a href=&quot;https://nodejs.org/api/async_hooks.html&quot;&gt;Async Hooks&lt;/a&gt; come in.&lt;/p&gt;
+&lt;h2 id=&quot;async-hooks-new-possibilities&quot;&gt;Async Hooks - new possibilities&lt;/h2&gt;
+&lt;p&gt;Their main purpose is to allow diagnosing asynchronous workflows in general and their first use case was creating an asynchronous stack trace. With &lt;code&gt;before&lt;/code&gt; and &lt;code&gt;after&lt;/code&gt; hooks I was able to measure the time taken and the &lt;code&gt;init&lt;/code&gt; hook is where a stack trace can be saved. That’s effectively the whole idea behind &lt;a href=&quot;https://www.npmjs.com/package/blocked-at&quot;&gt;&lt;code&gt;blocked-at&lt;/code&gt;&lt;/a&gt; package.&lt;/p&gt;
+&lt;p&gt;I made sure it’s similar to the original one, so it’s easy to switch.
+Once you run it, you’ll want to analyze the stack traces it collects.&lt;/p&gt;
+&lt;h2 id=&quot;finding-the-bug&quot;&gt;Finding the bug&lt;/h2&gt;
+&lt;p&gt;Let’s look at an example.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;at Promise.then (&amp;lt;anonymous&amp;gt;)
+  at Immediate.start (/.../blocked-at/test/cases/promise.js:8:6)
+  at runCallback (timers.js:781:20)
+  at tryOnImmediate (timers.js:743:5)
+  at processImmediate [as _immediateCallback] (timers.js:714:5)
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;It’s a stack trace from a test case in the unit tests for &lt;code&gt;blocked-at&lt;/code&gt;. It demonstrates what you’ll get if you’re using promises and a &lt;code&gt;.then&lt;/code&gt; handler is synchronously running a long operation.&lt;/p&gt;
+&lt;p&gt;Now compare with the code which produced this stack trace.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-js&quot;&gt;&lt;span class=&quot;meta&quot;&gt;'use strict'&lt;/span&gt;
+&lt;span class=&quot;keyword&quot;&gt;const&lt;/span&gt; slow = &lt;span class=&quot;built_in&quot;&gt;require&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;'../slowfunc'&lt;/span&gt;)
+
+&lt;span class=&quot;built_in&quot;&gt;module&lt;/span&gt;.exports = &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;start&lt;/span&gt; (&lt;span class=&quot;params&quot;&gt;&lt;/span&gt;) &lt;/span&gt;{
+  &lt;span class=&quot;built_in&quot;&gt;Promise&lt;/span&gt;.resolve(&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;)
+    .then(&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;params&quot;&gt;a&lt;/span&gt; =&amp;gt;&lt;/span&gt; a++)
+    .then(&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;params&quot;&gt;a&lt;/span&gt; =&amp;gt;&lt;/span&gt; [a])
+    .then(&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;params&quot;&gt;a&lt;/span&gt; =&amp;gt;&lt;/span&gt; {
+      a[&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;] = &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;
+      slow()
+      &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; a
+    })
+    .catch(&lt;span class=&quot;built_in&quot;&gt;console&lt;/span&gt;.error)
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Note how &lt;code&gt;blocked-at&lt;/code&gt; told us that the offending line is &lt;code&gt;.then(a =&amp;gt; {&lt;/code&gt;. It’s the beginning of the function containing the actual blocking operation somewhere inside &lt;code&gt;slow()&lt;/code&gt; function call.&lt;/p&gt;
+&lt;p&gt;To successfully debug your eventloop blocking code you need to start in the reported line and review all synchronous operations going through function execution while ignoring anything that’s in a callback or .then etc.&lt;/p&gt;
+&lt;h2 id=&quot;when-stack-trace-is-not-enough&quot;&gt;When stack trace is not enough&lt;/h2&gt;
+&lt;p&gt;Sometimes your code is in a callback you pass somewhere to be called synchronously.
+Here’s what &lt;code&gt;blocked-at&lt;/code&gt; would report if slow operation happened in a http handler.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;at Server.connectionListener (_http_server.js:307:10)
+  at emitOne (events.js:115:13)
+  at Server.emit (events.js:210:7)
+  at TCP.onconnection (net.js:1560:8)
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;If you see a case like that, all hope is not lost. You have a hint about what kind of asynchronous beginning there was. You can now wrap contents of your handler function in a &lt;code&gt;setImmediate&lt;/code&gt; to get a stack trace from within your codebase.&lt;/p&gt;
+&lt;h2 id=&quot;share-your-stack-trace-&quot;&gt;Share your stack trace!&lt;/h2&gt;
+&lt;p&gt;I’m hoping to collect more real-life examples of stack traces and build a knowledge base of the less obvious ones.&lt;/p&gt;
+&lt;hr&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Share your stack traces from blocked-at in &lt;a href=&quot;https://github.com/naugtur/blocked-at/issues/5&quot;&gt;this github issue&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;hr&gt;
+</description>
+    </item>
     <item>
       <title>What if we're overestimating AI again?</title>
       <link>http://naugtur.pl/writes/writes/articles/what-if-were-overestimating-ai-again/</link>
