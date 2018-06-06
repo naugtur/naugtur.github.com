@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="pl">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>Redux additions</title>
+
+    <meta name="author" content="naugtur">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/css/reveal.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/css/theme/black.css" id="theme">
+
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/lib/css/zenburn.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/css/print/pdf.css' : 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/css/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+
+    <link rel="stylesheet" href="../branding/style.css" id="branding">
+    <style>
+        section.has-light-background {
+            top: 0 !important;
+            text-align: left;
+        }
+
+        section.has-light-background h3 {
+            transform: translateX(-2em) rotate(90deg);
+            transform-origin: 5% 0;
+
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="reveal" id="naugtur">
+
+        <!-- Any section element inside of this container is displayed as a slide -->
+        <div class="slides">
+            <section>
+                <h1 style="word-wrap: normal">Redux, async and side effects</h1>
+
+                <small>@naugtur Meet.js Poznań 2018</small>
+            </section>
+
+            <section data-markdown>
+                # Redux is nice, right?
+
+            </section>
+            <section data-markdown>
+                ## But where do I put the asynchronous actions and fancy stuff?
+
+            </section>
+            <section data-markdown>
+                - server calls
+                - triggering actions based on app state 
+                - initial load 
+                - data refresh
+                - reaction to passing time
+                - global DOM side-effects (scrolling hacks)
+
+            </section>
+            <section data-markdown data-background-color="#eee" data-background-image="1regular.svg" data-background-size="contain">
+                ### Regular flow
+            </section>
+            <section data-markdown data-background-color="#eee" data-background-image="2middleware.svg" data-background-size="contain">
+                ### Middleware
+            </section>
+            <section data-markdown data-background-color="#eee" data-background-image="3yolo.svg" data-background-size="contain">
+                ### Yolo component
+            </section>
+            <section data-markdown data-background-color="#eee" data-background-image="4loop.svg" data-background-size="contain">
+                ### redux-loop
+            </section>
+            <section data-markdown data-background-color="#eee" data-background-image="5elmstyle.svg" data-background-size="contain">
+                ### redux-effects, elm
+            </section>
+            <section data-markdown data-background-color="#eee" data-background-image="6reactor.svg" data-background-size="contain">
+                ### Reactor
+            </section>
+            <section data-markdown>
+                - [redux-thunk](https://www.npmjs.com/package/redux-thunk) 
+                - [redux-promise-middleware](https://www.npmjs.com/package/redux-promise-middleware)
+                - [redux-effects](https://www.npmjs.com/package/redux-effects) 
+                - [redux-loop](https://www.npmjs.com/package/redux-loop)
+                - [redux-saga](https://www.npmjs.com/package/redux-saga) 
+                - [redux-observable](https://www.npmjs.com/package/redux-observable)
+                ---- 
+                - [human redux book](https://reduxbook.com/) (reactor idea)
+            </section>
+            <section data-markdown>
+                ## Reactor demo
+            </section>
+
+
+
+        </div>
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/lib/js/head.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/js/reveal.js"></script>
+
+    <script>
+        // Full list of configuration options available at:
+        // https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+            mouseWheel: true,
+
+            transition: 'concave', // none/fade/slide/convex/concave/zoom
+
+
+            // Optional reveal.js plugins
+            dependencies: [{
+                src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/plugin/markdown/marked.js',
+                condition: function () {
+                    return !!document.querySelector('[data-markdown]');
+                }
+            }, {
+                src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/plugin/markdown/markdown.js',
+                condition: function () {
+                    return !!document.querySelector('[data-markdown]');
+                }
+            }, {
+                src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/plugin/highlight/highlight.js',
+                async: true,
+                callback: function () {
+                    hljs.initHighlightingOnLoad();
+                }
+            }, {
+                src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/plugin/zoom-js/zoom.js',
+                async: true
+            }, {
+                src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/plugin/notes/notes.js',
+                async: true
+            }]
+        });
+    </script>
+
+</body>
+
+</html>
