@@ -4,26 +4,30 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width">
-    <title>Everything is an array index - Naugtur's scribbles
+    <title>Naugtur's scribbles
     </title>
     <link rel="alternate" href="http://naugtur.pl/writes/feed.xml" type="application/rss+xml" title="">
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Anonymous+Pro:400,700,400italic,700italic">
     <link rel="stylesheet" href="/writes/css/main.css">
   </head>
-  <body class="article-detail">
+  <body>
     <header class="header">
       <div class="content-wrap">
-        <p class="date"><span>
-            13. May 2015
-             in: <a href="/writes/tag/English/1/" class="tag-name">English</a></span></p>
-        <h1>Everything is an array index</h1>
-        <p class="author">Written by <span class="author"><a href="https://twitter.com/@naugtur">Naugtur</a></span>
-        </p>
+        <div class="logo">
+          <h1><a href="http://naugtur.pl/writes">Naugtur's scribbles</a></h1>
+          <p class="description"></p>
+        </div>
       </div>
     </header>
     <div id="content">
       <div class="content-wrap">
-        <article class="article">
+        <article class="article intro">
+          <header class="cutoff">
+            <p class="date"><span>
+                13. May 2015
+                 in <a href="/writes/tag/English/1/" class="tag-name">English</a></span></p>
+            <h2><a href="/writes/articles/everything-is-an-array-index/">Everything is an array index</a></h2>
+          </header>
           <section class="content"><p>Javascript engines never cease to amuse me.
 Let’s look at our good old <code>Array.prototype.splice</code></p>
 <pre><code class="lang-javascript">[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>].splice(<span class="number">0</span>,<span class="number">1</span>) <span class="comment">//returns [1]</span>
@@ -45,43 +49,16 @@ Check this&nbsp;out:</p>
 [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>].splice([<span class="number">1</span>,<span class="number">2</span>],<span class="number">1</span>) <span class="comment">//1</span>
 </code></pre>
 <p>Go home javascript, you’re&nbsp;drunk.</p>
-<hr>
-<h3 id="let-s-figure-this-out-anyway-">Let’s figure this out&nbsp;anyway.</h3>
-<p>First:</p>
-<pre><code class="lang-javascript">[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>].splice({<span class="attr">toString</span>:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{<span class="keyword">return</span> <span class="number">2</span>;}},<span class="number">1</span>) <span class="comment">// 3</span>
-[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>].splice({<span class="attr">toString</span>:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{<span class="keyword">return</span> <span class="string">"2one"</span>;}},<span class="number">1</span>) <span class="comment">// 1</span>
-[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>].splice({<span class="attr">toString</span>:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{<span class="keyword">return</span> <span class="string">"2"</span>;}},<span class="number">1</span>) <span class="comment">// 3</span>
-</code></pre>
-<p>Ok, that’s something. Looks like it casts stuff to string and expects it to be a number, then if NaN, assumes&nbsp;0.</p>
-<pre><code class="lang-javascript"><span class="keyword">var</span> a=[];
-[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>].splice(a,<span class="number">1</span>)  <span class="comment">//returns [ 1 ]</span>
-a.toString=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{<span class="keyword">return</span> <span class="number">2</span>;}
-[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>].splice(a,<span class="number">1</span>)  <span class="comment">//returns [ 3 ]</span>
-</code></pre>
-<p>Confirmed.
-But what about true&nbsp;?</p>
-<p>Well, it turns out there’s one more&nbsp;step:</p>
-<pre><code class="lang-javascript"><span class="built_in">Number</span>(<span class="literal">true</span>) === <span class="number">1</span>
-<span class="built_in">Number</span>({<span class="attr">toString</span>:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{<span class="keyword">return</span> <span class="number">9</span>;}}) === <span class="number">9</span>
-<span class="built_in">Number</span>({}) <span class="comment">//is NaN</span>
-</code></pre>
-<p>So, finally, the closest thing to what <code>Array.prototype.splice</code> does to its arguments&nbsp;is:</p>
-<pre><code class="lang-javascript">~~<span class="built_in">Number</span>(arg)
-</code></pre>
-<ol>
-<li>Cast to&nbsp;number</li>
-<li>If input is not a primitive type, <code>Number()</code> will call <code>.toString()</code></li>
-<li>Force-cast to integer (emulated here by <code>~~</code>) so all <code>NaN</code> results become <code>0</code></li>
-</ol>
-<p>Now if that’s not a work of art, I don’t know what is.&nbsp;:)</p>
-<p>All return values come from V8 as present in node&nbsp;v0.10.37</p>
-</section>
+
+            <p class="more"><a href="/writes/articles/everything-is-an-array-index/">more</a></p>
+          </section>
         </article>
       </div>
     </div>
     <footer>
       <div class="content-wrap">
-        <div class="nav"><a href="/writes/">&laquo; Main</a></div>
+        <div class="nav"><a href="/writes/page/2/">&laquo; Newer</a>
+        </div>
         <section class="about"><p><img src="http://naugtur.pl/me.avatar.jpg" alt="naugtur">
 Zbyszek Tenerowicz <a href="https://twitter.com/naugtur">@naugtur</a> Full-stack developer and technology researcher. Runs a growing number of Node.js powered applications in production at Egnyte Inc. Open-source enthusiast. Teaches web technology to designers and peer developers. One of the oldest members of Meet.js Poland community - both as a speaker and organizer of local meet-ups.</p>
 

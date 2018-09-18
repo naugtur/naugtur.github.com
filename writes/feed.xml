@@ -5,9 +5,56 @@
     <atom:link href="http://naugtur.pl/writes/feed.xml" rel="self" type="application/rss+xml"></atom:link>
     <link>http://naugtur.pl/writes</link>
     <description></description>
-    <pubDate>Fri, 01 Sep 2017 02:00:00 +0200</pubDate>
+    <pubDate>Tue, 18 Sep 2018 02:00:00 +0200</pubDate>
     <generator>Wintersmith - https://github.com/jnordberg/wintersmith</generator>
     <language>en</language>
+    <item>
+      <title>Angielski dla prelegentów w 10 minut</title>
+      <link>http://naugtur.pl/writes/writes/articles/dla-prelegentow/</link>
+      <pubDate>Tue, 18 Sep 2018 02:00:00 +0200</pubDate>
+      <guid isPermaLink="true">http://naugtur.pl/writes/writes/articles/dla-prelegentow/</guid>
+      <author></author>
+      <description>&lt;p&gt;Sam nie jestem &lt;em&gt;native speaker’em&lt;/em&gt; i mam przed sobą jeszcze długą drogę zanim ktoś mnie z takowym pomyli. Ale widziałem nie jednego polskojęzycznego prelegenta mówiącego po angielsku i o ile zwykle mówią bardzo kompetentnie, to dość często powtarza się kilka prostych błędów, które rozpraszają słuchaczy. &lt;/p&gt;
+&lt;cut&gt;
+
+&lt;p&gt;Piszę ten tekst od ponad roku, a przypadki zbieram od kilku lat. Zebrałem kilka porad, których stosunek wartości do poświęconego czasu wydaje się najlepszy. Jeśli masz niewiele czasu na podszlifowanie angielskiego, te dwie strony tekstu powinny zauważalnie pomóc.&lt;/p&gt;
+&lt;p&gt;Na początek kilka wyrazów, które polskojęzyczni prelegenci często wymawiają nieco dziwnie:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://howjsay.com/searchResult?word=Talk&quot;&gt;Talk&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://howjsay.com/searchResult?word=Demo&quot;&gt;Demo&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://howjsay.com/searchResult?word=Data&quot;&gt;Data&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://howjsay.com/searchResult?word=Code&quot;&gt;Code&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://howjsay.com/searchResult?word=Have&quot;&gt;Have&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://howjsay.com/searchResult?word=Through&quot;&gt;Through&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://howjsay.com/searchResult?word=Which&quot;&gt;Which&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://howjsay.com/searchResult?word=were&quot;&gt;Were, are&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://howjsay.com/searchResult?word=Header&quot;&gt;Header&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://howjsay.com/searchResult?word=Body&quot;&gt;Body&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://howjsay.com/searchResult?word=Graphics&quot;&gt;Graphics, physics&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://howjsay.com/searchResult?word=Danger&quot;&gt;Danger&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://howjsay.com/searchResult?word=Result&quot;&gt;Result&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://howjsay.com/searchResult?word=Effects&quot;&gt;Effects&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://howjsay.com/searchResult?word=Browser&quot;&gt;Browser&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://howjsay.com/searchResult?word=Router&quot;&gt;Router&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Jeśli masz 10 minut na podszlifowanie wymowy, skup się na tych wyrazach. Kliknij w link, kliknij w wyraz i spróbuj powtórzyć.&lt;/p&gt;
+&lt;p&gt;Zabawnie robi się gdy zabieramy się za literowanie skrótów. Warto sobie sprawdzić jak dany skrót wymawiają inni. API to trzy osobne dźwięki. Na &lt;em&gt;native speakerach&lt;/em&gt; nieporadne literowanie robi negatywne wrażenie, bo jest to jedna z pierwszych rzeczy, których uczą się w szkole w ramach nauki ortografii. Jeśli powiesz &lt;em&gt;Apiii&lt;/em&gt; zamiast przeliterować - zwykle nic strasznego się nie stanie - postaraj się jednak unikać konsekwentnego wymawiania skrótu niepoprawnie przez całą prezentację.&lt;/p&gt;
+&lt;p&gt;Zwróć uwagę na bardziej skomplikowane słowa w swojej prezentacji i sprawdź czy umiesz je wymówić. Niby jasne, ale piszę, żeby nie zapomnieć.&lt;/p&gt;
+&lt;p&gt;Inne błędy to już naleciałości z języka polskiego i pozostałości po sposobie nauki charakterystycznym dla naszych szkół i podręczników.
+Jest kilka takich słów, które zwykle są zupełnie niepotrzebne a prawdopodobnie ich nadużywasz:
+&lt;strong&gt;actually&lt;/strong&gt;, interesting, really, stuff. &lt;/p&gt;
+&lt;p&gt;Na początek “actually”. O tym można napisać osobny artykuł (wiem bo czytałem). Polacy potrafią wstawić to słowo do co drugiego zdania, przez co brzmią jakby ciągle się komuś sprzeciwiali. To dlatego, że poprawnie użyte “actually” oznacza “tak naprawdę, to…”. Nigdy nie używaj “actually” mając na myśli “aktualnie”. W ogóle jeśli chcesz powiedzieć “actually” i nie jest to początek wypowiedzi, w której poprawiasz swojego rozmówcę - pomiń to słowo. &lt;/p&gt;
+&lt;p&gt;Inne popularne błędy podczas prezentowania:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;unikaj dodawania “very” do przymiotników, które i tak są już mocne - “very huge” brzmi podobnie jak “bardzo najlepszy”&lt;/li&gt;
+&lt;li&gt;dobrze: “do some work”, źle: “do some job”&lt;/li&gt;
+&lt;li&gt;dobrze: “this is what it looks like”, źle “this is how it looks like”&lt;/li&gt;
+&lt;li&gt;F-bomb i inne - wychodząc od naszych przekleństw łatwo uznać przekleństwa w języku angielskim za lekkie i zabawne. Mimo to unikaj ich w prezentacji jeśli nie masz 100% pewności, że to co powiesz będzie zabawne dla wszystkich&lt;/li&gt;
+&lt;li&gt;“This interesting example” - pozwól publiczności zauważyć, że jest interesujący - nie trzeba im tego zapowiadać.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Pamiętaj, że nawet jeśli nie mówisz idealnie, i tak łatwiej Cię zrozumieć niż przeciętnego mieszkańca Wysp Brytyjskich :)&lt;/p&gt;
+</description>
+    </item>
     <item>
       <title>Finding blocking operations with Async Hooks</title>
       <link>http://naugtur.pl/writes/writes/articles/blocked-at/</link>

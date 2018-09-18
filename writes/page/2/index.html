@@ -24,6 +24,21 @@
         <article class="article intro">
           <header class="cutoff">
             <p class="date"><span>
+                05. March 2017
+                 in <a href="/writes/tag/English/1/" class="tag-name">English</a></span></p>
+            <h2><a href="/writes/articles/escaping-backbone-ecosystem/">Escaping Backbone ecosystem</a></h2>
+          </header>
+          <section class="content"><blockquote>
+<p><span class="caps">TL</span>;DR <a href="https://github.com/naugtur/backbone-redux-migrator">backbone-redux-migrator</a> lets you migrate away from Backbone without disrupting the product you’re&nbsp;building</p>
+</blockquote>
+<p>Here’s some old news: <a href="https://benmccormick.org/2016/03/07/the-sad-state-of-the-backbone-ecosystem/">Backbone ecosystem is dead</a>.</p>
+
+            <p class="more"><a href="/writes/articles/escaping-backbone-ecosystem/">more</a></p>
+          </section>
+        </article>
+        <article class="article intro">
+          <header class="cutoff">
+            <p class="date"><span>
                 23. February 2017
                  in <a href="/writes/tag/English/1/" class="tag-name">English</a></span></p>
             <h2><a href="/writes/articles/chaos-monkey-for-pm2/">Chaos Monkey for PM2</a></h2>
@@ -45,50 +60,18 @@
             <p class="more"><a href="/writes/articles/nagranie-react-vs-angular/">more</a></p>
           </section>
         </article>
-        <article class="article intro">
-          <header class="cutoff">
-            <p class="date"><span>
-                13. May 2015
-                 in <a href="/writes/tag/English/1/" class="tag-name">English</a></span></p>
-            <h2><a href="/writes/articles/everything-is-an-array-index/">Everything is an array index</a></h2>
-          </header>
-          <section class="content"><p>Javascript engines never cease to amuse me.
-Let’s look at our good old <code>Array.prototype.splice</code></p>
-<pre><code class="lang-javascript">[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>].splice(<span class="number">0</span>,<span class="number">1</span>) <span class="comment">//returns [1]</span>
-[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>].splice(<span class="number">1</span>,<span class="number">1</span>) <span class="comment">//returns [2]</span>
-[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>].splice(<span class="literal">undefined</span>,<span class="number">1</span>) <span class="comment">// 1</span>
-[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>].splice(<span class="literal">false</span>,<span class="number">1</span>) <span class="comment">// 1</span>
-[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>].splice(<span class="literal">true</span>,<span class="number">1</span>) <span class="comment">// 2!</span>
-</code></pre>
-<p>Ok, so splice is accepting non-numbers and it’s casting them to booleans and then to numbers, right?&nbsp;Wrong.</p>
-<pre><code class="lang-javascript">[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>].splice({},<span class="number">1</span>) <span class="comment">// 1</span>
-[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>].splice(<span class="string">""</span>,<span class="number">1</span>) <span class="comment">// 1</span>
-[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>].splice(<span class="string">"one"</span>,<span class="number">1</span>) <span class="comment">// 1</span>
-</code></pre>
-<p>Confused? That’s still pretty consistent!
-Check this&nbsp;out:</p>
-<pre><code class="lang-javascript">[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>].splice([],<span class="number">1</span>) <span class="comment">//1</span>
-[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>].splice([<span class="number">1</span>],<span class="number">1</span>) <span class="comment">//2</span>
-[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>].splice([<span class="number">2</span>],<span class="number">1</span>) <span class="comment">//3</span>
-[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>].splice([<span class="number">1</span>,<span class="number">2</span>],<span class="number">1</span>) <span class="comment">//1</span>
-</code></pre>
-<p>Go home javascript, you’re&nbsp;drunk.</p>
-
-            <p class="more"><a href="/writes/articles/everything-is-an-array-index/">more</a></p>
-          </section>
-        </article>
       </div>
     </div>
     <footer>
       <div class="content-wrap">
-        <div class="nav"><a href="/writes/">&laquo; Newer</a>
+        <div class="nav"><a href="/writes/">&laquo; Newer</a><a href="/writes/page/3/">Next page &raquo;</a>
         </div>
         <section class="about"><p><img src="http://naugtur.pl/me.avatar.jpg" alt="naugtur">
 Zbyszek Tenerowicz <a href="https://twitter.com/naugtur">@naugtur</a> Full-stack developer and technology researcher. Runs a growing number of Node.js powered applications in production at Egnyte Inc. Open-source enthusiast. Teaches web technology to designers and peer developers. One of the oldest members of Meet.js Poland community - both as a speaker and organizer of local meet-ups.</p>
 
         </section>
         <section class="copy">
-          <p>&copy; 2017 Naugtur &mdash; powered by&nbsp;<a href="https://github.com/jnordberg/wintersmith">Wintersmith</a>
+          <p>&copy; 2018 Naugtur &mdash; powered by&nbsp;<a href="https://github.com/jnordberg/wintersmith">Wintersmith</a>
           </p>
         </section>
       </div>
