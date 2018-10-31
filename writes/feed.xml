@@ -5,9 +5,133 @@
     <atom:link href="http://naugtur.pl/writes/feed.xml" rel="self" type="application/rss+xml"></atom:link>
     <link>http://naugtur.pl/writes</link>
     <description></description>
-    <pubDate>Tue, 18 Sep 2018 02:00:00 +0200</pubDate>
+    <pubDate>Wed, 31 Oct 2018 01:00:00 +0100</pubDate>
     <generator>Wintersmith - https://github.com/jnordberg/wintersmith</generator>
     <language>en</language>
+    <item>
+      <title>Shared CI config with versioning</title>
+      <link>http://naugtur.pl/writes/writes/articles/versioning-shared-ci-config/</link>
+      <pubDate>Wed, 31 Oct 2018 01:00:00 +0100</pubDate>
+      <guid isPermaLink="true">http://naugtur.pl/writes/writes/articles/versioning-shared-ci-config/</guid>
+      <author></author>
+      <description>&lt;p&gt;Gitlab CI is one of a bunch of CIs configurable with a file in the repository. With over 25 repositories sharing a similar configuration maintenance becomes annoying.&lt;/p&gt;
+&lt;cut&gt;
+
+&lt;p&gt;My team is building integrations. We can’t seem to stop. There’s over 20 of them now and each has a build pipeline.&lt;/p&gt;
+&lt;p&gt;We even managed to get them to be really consistent in terms of tooling, builds and deployment. &lt;code&gt;sed&lt;/code&gt; in a loop was my editor of choice for a while. Now with everything reaching consistency, it’s time to address the overlap.&lt;/p&gt;
+&lt;h4 id=&quot;but-how-&quot;&gt;But how?&lt;/h4&gt;
+&lt;p&gt;&lt;code&gt;.gitlab-ci.yml&lt;/code&gt; defines the pipeline, so it’s not possible to install something external as the first step of the pipeline to affect the rest. &lt;code&gt;.gitlab-ci.yml&lt;/code&gt; allows importing external files from the repo or a URL. That sounds great. &lt;/p&gt;
+&lt;p&gt;External URLs don’t support authorization, so we’d have to put some infrastructure in place to have parts of &lt;code&gt;.gitlab-ci.yml&lt;/code&gt; shared between projects, but not available to general public. You know, security.&lt;/p&gt;
+&lt;p&gt;Also, if all configs point to the same URL, it’s just one version shared across all pipelines. Instant updates or no updates.&lt;/p&gt;
+&lt;p&gt;The big leap I had to make was to think of &lt;code&gt;.gitlab-ci.yml&lt;/code&gt; as code not configuration. &lt;/p&gt;
+&lt;p&gt;If it’s code, I need to reuse it. If I’m reusing code, I put it in a shared library. If I have a library, I version it so I don’t have to spend a few days rolling it out to each project with each change, but can do so progressively when revisiting projects while they continue to work fine with previous version.&lt;/p&gt;
+&lt;p&gt;The idea is not new. We’re using internal libraries to reuse code better. Logger, database abstractions etc. - they’re all packages we install in each app and their development follows semantic versioning.&lt;/p&gt;
+&lt;h4 id=&quot;here-s-what-i-did-&quot;&gt;Here’s what I did:&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;a library&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;extract common steps to files&lt;/li&gt;
+&lt;li&gt;give them descriptive stage names&lt;/li&gt;
+&lt;li&gt;parametrize with variables&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;I can include a file and use a stage from it, put it in the right order with others etc.
+Included stages are configured with variables. Variables from the main yaml are accessible in included code.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;make it installable&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;set up a repository for the library as a npm compatible package&lt;/li&gt;
+&lt;li&gt;use a &lt;code&gt;install&lt;/code&gt; script to take a folder with reusable files and copy it to the folder of the app installing my package as dependency&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;When I install the library at a certain version, I get a folder with reusable yaml in my repo root. Just need to commit it and it can be included in the main &lt;code&gt;.gitlab-ci.yml&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;We now have full control of the versions. If I want to update the CI pipeline across all apps, I run &lt;code&gt;npm update gitlabci-shared-config&lt;/code&gt; in a loop across repositories and commit changes. If I need to update the version for only one app, or the update requires changes in the app itself - I have control over how and when the update rolls out.&lt;/p&gt;
+&lt;p&gt;Also, the generated folder comes with a readme file explaining usage docs matching the installed version and a version file containing the version number so it’s easy to spot if/when it goes out of sync.&lt;/p&gt;
+&lt;p&gt;Here’s what it looks like when used&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-yaml&quot;&gt;&lt;span class=&quot;attr&quot;&gt;variables:&lt;/span&gt;
+  ...
+&lt;span class=&quot;attr&quot;&gt;  CURRENT_NODE_ALPINE:&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&quot;node:10-alpine&quot;&lt;/span&gt;
+&lt;span class=&quot;attr&quot;&gt;  GCR_CONTAINER_REGISTRY_NAME:&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&quot;...&quot;&lt;/span&gt;
+
+&lt;span class=&quot;attr&quot;&gt;include:&lt;/span&gt; 
+&lt;span class=&quot;bullet&quot;&gt;  -&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&quot;/gitlabci-shared-config/dependencies.yml&quot;&lt;/span&gt;
+&lt;span class=&quot;bullet&quot;&gt;  -&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&quot;/gitlabci-shared-config/build.yml&quot;&lt;/span&gt;
+
+&lt;span class=&quot;attr&quot;&gt;stages:&lt;/span&gt;
+&lt;span class=&quot;bullet&quot;&gt;  -&lt;/span&gt; setup_dependencies
+&lt;span class=&quot;bullet&quot;&gt;  -&lt;/span&gt; build_image_prod
+&lt;span class=&quot;bullet&quot;&gt;  -&lt;/span&gt; test
+  ...
+
+&lt;span class=&quot;attr&quot;&gt;unittesting:&lt;/span&gt;
+&lt;span class=&quot;attr&quot;&gt;  stage:&lt;/span&gt; test
+  ...
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&quot;known-issues&quot;&gt;Known issues&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Unused stages cause errors, each stage needs to be in a separate file with only the used ones included to &lt;code&gt;.gitlab-ci.yml&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;There’s no obvious way to stop someone from editing the installed files - they have to be committed to the repo because there’s no step before &lt;code&gt;.gitlab-ci.yml&lt;/code&gt; includes other than git commit.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;summary&quot;&gt;Summary&lt;/h3&gt;
+&lt;p&gt;We’ve been using this for a few weeks now and It’s proving useful for sharing parts of Gitlab CI configuration across 25 independent apps.  &lt;/p&gt;
+&lt;p&gt;I should post some more tips for dealing with maintenance across many applications without the need of a monorepo. Maybe a series of posts? Let me know on twitter.&lt;/p&gt;
+</description>
+    </item>
+    <item>
+      <title>Simulation Theory AMA</title>
+      <link>http://naugtur.pl/writes/writes/articles/simulation-theory-trolling/</link>
+      <pubDate>Wed, 31 Oct 2018 01:00:00 +0100</pubDate>
+      <guid isPermaLink="true">http://naugtur.pl/writes/writes/articles/simulation-theory-trolling/</guid>
+      <author></author>
+      <description>&lt;p&gt;Elon Musk comments on quantum physics and computer science. People gather. Finally the audience I’ve been waiting for :D&lt;/p&gt;
+&lt;p&gt;I volunteered to share some facts about how the software running our Universe’s simulation works&lt;/p&gt;
+&lt;cut&gt;
+
+&lt;p&gt;Warning: silliness ahead. &lt;/p&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot; data-lang=&quot;en&quot;&gt;&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;Most popular quantum mechanics quirks can be explained in terms of simulation software optimization or resource constraints to the extent of sounding convincing for someone who only read a popular science article. I wish I were a decent sci-fi author…&lt;/p&gt;&amp;mdash; Ζbγѕzеk (@naugtur) &lt;a href=&quot;https://twitter.com/naugtur/status/1042542692457213954?ref_src=twsrc%5Etfw&quot;&gt;September 19, 2018&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;p&gt;Here’s all the explanations I gave in the AMA nobody requested:&lt;/p&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot; data-lang=&quot;en&quot;&gt;&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;Quantum entanglement is one glitch that occurs when the hashing function used for indexing particles has collisions.&lt;/p&gt;&amp;mdash; Ζbγѕzеk (@naugtur) &lt;a href=&quot;https://twitter.com/naugtur/status/1042546445642018817?ref_src=twsrc%5Etfw&quot;&gt;September 19, 2018&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;blockquote class=&quot;twitter-tweet&quot; data-lang=&quot;en&quot;&gt;&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;The evolutionary algorithm running in our simulation has the goal of not just training an artificial intelligence but in an unattended process discover architectures for trainable AI capable of interfacing with the network adapter on the host machine&lt;/p&gt;&amp;mdash; Ζbγѕzеk (@naugtur) &lt;a href=&quot;https://twitter.com/naugtur/status/1042547340551311362?ref_src=twsrc%5Etfw&quot;&gt;September 19, 2018&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;blockquote class=&quot;twitter-tweet&quot; data-lang=&quot;en&quot;&gt;&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;The simulation resolves circular references by asynchronously delaying each step with exponential backoff to ensure good approximation of expected results with finite resources.&lt;/p&gt;&amp;mdash; Ζbγѕzеk (@naugtur) &lt;a href=&quot;https://twitter.com/naugtur/status/1042547982548299778?ref_src=twsrc%5Etfw&quot;&gt;September 19, 2018&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;blockquote class=&quot;twitter-tweet&quot; data-lang=&quot;en&quot;&gt;&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;Speed of light limitation and expanding universe are there to ensure increasing complexity of simulating this area of space are balanced by the diminishing number of objects within what we call observable Universe. It&amp;#39;s an idea superior to fog and map edges in video games&lt;/p&gt;&amp;mdash; Ζbγѕzеk (@naugtur) &lt;a href=&quot;https://twitter.com/naugtur/status/1042549259873263616?ref_src=twsrc%5Etfw&quot;&gt;September 19, 2018&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;blockquote class=&quot;twitter-tweet&quot; data-lang=&quot;en&quot;&gt;&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;It&amp;#39;s easier to scale the simulation workload horizontally across astronomical number of cpu cores if each observer can be processed separately even at the cost of some overlap and smart eventual consistency algorithms can converge minor differences unnoticed.&lt;/p&gt;&amp;mdash; Ζbγѕzеk (@naugtur) &lt;a href=&quot;https://twitter.com/naugtur/status/1042550236584050688?ref_src=twsrc%5Etfw&quot;&gt;September 19, 2018&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;blockquote class=&quot;twitter-tweet&quot; data-lang=&quot;en&quot;&gt;&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;In the simulation host universe physics it&amp;#39;s way cheaper to use cpu for regenerating the same data multiple times than store it in memory because different value of Planck constant allows for high frequencies but large minimum quants of energy, storing 1 bit takes a lot of power&lt;/p&gt;&amp;mdash; Ζbγѕzеk (@naugtur) &lt;a href=&quot;https://twitter.com/naugtur/status/1042553482312642560?ref_src=twsrc%5Etfw&quot;&gt;September 19, 2018&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;blockquote class=&quot;twitter-tweet&quot; data-lang=&quot;en&quot;&gt;&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;The waves interfering in this experiment are artifacts of a generic class for handling dimensions. An off-by-one programming error caused it to use one unnecessary dimension in calculations. The error was discovered too late - stayed for backwards compatibility across simulations&lt;/p&gt;&amp;mdash; Ζbγѕzеk (@naugtur) &lt;a href=&quot;https://twitter.com/naugtur/status/1042555544870039552?ref_src=twsrc%5Etfw&quot;&gt;September 19, 2018&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;blockquote class=&quot;twitter-tweet&quot; data-lang=&quot;en&quot;&gt;&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;If we continue growing our space observation reach, the speed of universe expanding will have to increase to make up for the onramp of work with removing objects from sight more quickly by pushing them beyond the edge of observable universe&lt;/p&gt;&amp;mdash; Ζbγѕzеk (@naugtur) &lt;a href=&quot;https://twitter.com/naugtur/status/1042556380375343106?ref_src=twsrc%5Etfw&quot;&gt;September 19, 2018&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;blockquote class=&quot;twitter-tweet&quot; data-lang=&quot;en&quot;&gt;&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;The idea behind entropy is to reduce concentration of unnecessary structures that aren&amp;#39;t used for a longer period of time. It allows freeing up simulation state memory faster and as I said earlier, in host universe memory is expensive.&lt;/p&gt;&amp;mdash; Ζbγѕzеk (@naugtur) &lt;a href=&quot;https://twitter.com/naugtur/status/1042557877175627776?ref_src=twsrc%5Etfw&quot;&gt;September 19, 2018&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;blockquote class=&quot;twitter-tweet&quot; data-lang=&quot;en&quot;&gt;&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;Superposition of states is an optimization - it&amp;#39;s cheaper to store an equation defining possible particle positions than keep updating the position constantly and propagate it through the network graph of everything affected by it. Graph executes only when attached to an observer&lt;/p&gt;&amp;mdash; Ζbγѕzеk (@naugtur) &lt;a href=&quot;https://twitter.com/naugtur/status/1042559898989600769?ref_src=twsrc%5Etfw&quot;&gt;September 19, 2018&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;blockquote class=&quot;twitter-tweet&quot; data-lang=&quot;en&quot;&gt;&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;If it fulfills the goal of the simulation before our neural network design does, it wins as the better architecture to be used in future models&lt;/p&gt;&amp;mdash; Ζbγѕzеk (@naugtur) &lt;a href=&quot;https://twitter.com/naugtur/status/1042560350183481344?ref_src=twsrc%5Etfw&quot;&gt;September 19, 2018&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;blockquote class=&quot;twitter-tweet&quot; data-lang=&quot;en&quot;&gt;&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;Simulation inspection is evaluated lazily, missing parts are retroactively filled in. Host universe observers monitor the processes running the simulation, they don&amp;#39;t interact with simulated particles on daily basis. Nobody can afford simulating everything unnecessarily.&lt;/p&gt;&amp;mdash; Ζbγѕzеk (@naugtur) &lt;a href=&quot;https://twitter.com/naugtur/status/1042561812200390657?ref_src=twsrc%5Etfw&quot;&gt;September 19, 2018&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;blockquote class=&quot;twitter-tweet&quot; data-lang=&quot;en&quot;&gt;&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;Due to horizontal scaling across many cores each observer&amp;#39;s scope is computed independently and overlap between observers is converged with eventual consistency. See also my post on off-by-one error in generic dimensions class.&lt;/p&gt;&amp;mdash; Ζbγѕzеk (@naugtur) &lt;a href=&quot;https://twitter.com/naugtur/status/1042562703036956672?ref_src=twsrc%5Etfw&quot;&gt;September 19, 2018&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;blockquote class=&quot;twitter-tweet&quot; data-lang=&quot;en&quot;&gt;&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;The goal of the evolutionary algorithm building a new neural network architecture is not affected by simulation limitations unless they skew the output of fitness function. Results should generalize to a higher definition universe.&lt;/p&gt;&amp;mdash; Ζbγѕzеk (@naugtur) &lt;a href=&quot;https://twitter.com/naugtur/status/1042563441976913920?ref_src=twsrc%5Etfw&quot;&gt;September 19, 2018&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;blockquote class=&quot;twitter-tweet&quot; data-lang=&quot;en&quot;&gt;&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;When an edge in a proximity graph of particles connects to a consciousness the graph cannot be frozen nor garbage collected in the next pass.&lt;/p&gt;&amp;mdash; Ζbγѕzеk (@naugtur) &lt;a href=&quot;https://twitter.com/naugtur/status/1042563870563467266?ref_src=twsrc%5Etfw&quot;&gt;September 19, 2018&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;blockquote class=&quot;twitter-tweet&quot; data-lang=&quot;en&quot;&gt;&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;The evolutionary algorithm running in the simulation is designing a neural network architecture capable of being trained to interface with the API. When we use the API correctly our network architecture design graduates to production use.&lt;/p&gt;&amp;mdash; Ζbγѕzеk (@naugtur) &lt;a href=&quot;https://twitter.com/naugtur/status/1042564605866921984?ref_src=twsrc%5Etfw&quot;&gt;September 20, 2018&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;blockquote class=&quot;twitter-tweet&quot; data-lang=&quot;en&quot;&gt;&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;Consciousness interacts with particles so observing oneself in that sense keeps particles actively simulated. Consciousness itself runs in a thread. If one stops observing any particles for long enough, the consciousness thread might be stopped and resources assigned elsewhere.&lt;/p&gt;&amp;mdash; Ζbγѕzеk (@naugtur) &lt;a href=&quot;https://twitter.com/naugtur/status/1042565749993295874?ref_src=twsrc%5Etfw&quot;&gt;September 20, 2018&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;blockquote class=&quot;twitter-tweet&quot; data-lang=&quot;en&quot;&gt;&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;There&amp;#39;s a maximum of specimen in the evolutionary algorithm but the maximum limits all consciousness threads, not only humans.&lt;/p&gt;&amp;mdash; Ζbγѕzеk (@naugtur) &lt;a href=&quot;https://twitter.com/naugtur/status/1042641599744880640?ref_src=twsrc%5Etfw&quot;&gt;September 20, 2018&lt;/a&gt;&lt;/blockquote&gt;
+
+
+
+
+&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;</description>
+    </item>
     <item>
       <title>Angielski dla prelegentów w 10 minut</title>
       <link>http://naugtur.pl/writes/writes/articles/dla-prelegentow/</link>

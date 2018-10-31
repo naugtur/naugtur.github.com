@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width">
+    <title>Shared CI config with versioning - Naugtur's scribbles
+    </title>
+    <link rel="alternate" href="http://naugtur.pl/writes/feed.xml" type="application/rss+xml" title="">
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Anonymous+Pro:400,700,400italic,700italic">
+    <link rel="stylesheet" href="/writes/css/main.css">
+  </head>
+  <body class="article-detail">
+    <header class="header">
+      <div class="content-wrap">
+        <p class="date"><span>
+            31. October 2018
+             in: <a href="/writes/tag/English/1/" class="tag-name">English</a></span></p>
+        <h1>Shared CI config with versioning</h1>
+        <p class="author">Written by <span class="author"><a href="https://twitter.com/@naugtur">Naugtur</a></span>
+        </p>
+      </div>
+    </header>
+    <div id="content">
+      <div class="content-wrap">
+        <article class="article">
+          <section class="content"><p>Gitlab <span class="caps">CI</span> is one of a bunch of CIs configurable with a file in the repository. With over 25 repositories sharing a similar configuration maintenance becomes&nbsp;annoying.</p>
+<cut>
+
+<p>My team is building integrations. We can’t seem to stop. There’s over 20 of them now and each has a build&nbsp;pipeline.</p>
+<p>We even managed to get them to be really consistent in terms of tooling, builds and deployment. <code>sed</code> in a loop was my editor of choice for a while. Now with everything reaching consistency, it’s time to address the&nbsp;overlap.</p>
+<h4 id="but-how-">But&nbsp;how?</h4>
+<p><code>.gitlab-ci.yml</code> defines the pipeline, so it’s not possible to install something external as the first step of the pipeline to affect the rest. <code>.gitlab-ci.yml</code> allows importing external files from the repo or a <span class="caps">URL</span>. That sounds&nbsp;great. </p>
+<p>External URLs don’t support authorization, so we’d have to put some infrastructure in place to have parts of <code>.gitlab-ci.yml</code> shared between projects, but not available to general public. You know,&nbsp;security.</p>
+<p>Also, if all configs point to the same <span class="caps">URL</span>, it’s just one version shared across all pipelines. Instant updates or no&nbsp;updates.</p>
+<p>The big leap I had to make was to think of <code>.gitlab-ci.yml</code> as code not&nbsp;configuration. </p>
+<p>If it’s code, I need to reuse it. If I’m reusing code, I put it in a shared library. If I have a library, I version it so I don’t have to spend a few days rolling it out to each project with each change, but can do so progressively when revisiting projects while they continue to work fine with previous&nbsp;version.</p>
+<p>The idea is not new. We’re using internal libraries to reuse code better. Logger, database abstractions etc. - they’re all packages we install in each app and their development follows semantic&nbsp;versioning.</p>
+<h4 id="here-s-what-i-did-">Here’s what I&nbsp;did:</h4>
+<ol>
+<li>a&nbsp;library</li>
+</ol>
+<ul>
+<li>extract common steps to&nbsp;files</li>
+<li>give them descriptive stage&nbsp;names</li>
+<li>parametrize with&nbsp;variables</li>
+</ul>
+<p>I can include a file and use a stage from it, put it in the right order with others etc.
+Included stages are configured with variables. Variables from the main yaml are accessible in included&nbsp;code.</p>
+<ol>
+<li>make it&nbsp;installable</li>
+</ol>
+<ul>
+<li>set up a repository for the library as a npm compatible&nbsp;package</li>
+<li>use a <code>install</code> script to take a folder with reusable files and copy it to the folder of the app installing my package as&nbsp;dependency</li>
+</ul>
+<p>When I install the library at a certain version, I get a folder with reusable yaml in my repo root. Just need to commit it and it can be included in the main <code>.gitlab-ci.yml</code>.</p>
+<p>We now have full control of the versions. If I want to update the <span class="caps">CI</span> pipeline across all apps, I run <code>npm update gitlabci-shared-config</code> in a loop across repositories and commit changes. If I need to update the version for only one app, or the update requires changes in the app itself - I have control over how and when the update rolls&nbsp;out.</p>
+<p>Also, the generated folder comes with a readme file explaining usage docs matching the installed version and a version file containing the version number so it’s easy to spot if/when it goes out of&nbsp;sync.</p>
+<p>Here’s what it looks like when&nbsp;used</p>
+<pre><code class="lang-yaml"><span class="attr">variables:</span>
+  ...
+<span class="attr">  CURRENT_NODE_ALPINE:</span> <span class="string">"node:10-alpine"</span>
+<span class="attr">  GCR_CONTAINER_REGISTRY_NAME:</span> <span class="string">"..."</span>
+
+<span class="attr">include:</span> 
+<span class="bullet">  -</span> <span class="string">"/gitlabci-shared-config/dependencies.yml"</span>
+<span class="bullet">  -</span> <span class="string">"/gitlabci-shared-config/build.yml"</span>
+
+<span class="attr">stages:</span>
+<span class="bullet">  -</span> setup_dependencies
+<span class="bullet">  -</span> build_image_prod
+<span class="bullet">  -</span> test
+  ...
+
+<span class="attr">unittesting:</span>
+<span class="attr">  stage:</span> test
+  ...
+</code></pre>
+<h4 id="known-issues">Known&nbsp;issues</h4>
+<ul>
+<li>Unused stages cause errors, each stage needs to be in a separate file with only the used ones included to <code>.gitlab-ci.yml</code></li>
+<li>There’s no obvious way to stop someone from editing the installed files - they have to be committed to the repo because there’s no step before <code>.gitlab-ci.yml</code> includes other than git&nbsp;commit.</li>
+</ul>
+<h3 id="summary">Summary</h3>
+<p>We’ve been using this for a few weeks now and It’s proving useful for sharing parts of Gitlab <span class="caps">CI</span> configuration across 25 independent&nbsp;apps.  </p>
+<p>I should post some more tips for dealing with maintenance across many applications without the need of a monorepo. Maybe a series of posts? Let me know on&nbsp;twitter.</p>
+</section>
+        </article>
+      </div>
+    </div>
+    <footer>
+      <div class="content-wrap">
+        <div class="nav"><a href="/writes/">&laquo; Main</a></div>
+        <section class="about"><p><img src="http://naugtur.pl/me.avatar.jpg" alt="naugtur">
+Zbyszek Tenerowicz <a href="https://twitter.com/naugtur">@naugtur</a> Full-stack developer and technology researcher. Runs a growing number of Node.js powered applications in production at Egnyte Inc. Open-source enthusiast. Teaches web technology to designers and peer developers. One of the oldest members of Meet.js Poland community - both as a speaker and organizer of local meet-ups.</p>
+
+        </section>
+        <section class="copy">
+          <p>&copy; 2018 Naugtur &mdash; powered by&nbsp;<a href="https://github.com/jnordberg/wintersmith">Wintersmith</a>
+          </p>
+        </section>
+      </div>
+    </footer>
+  </body>
+</html>
