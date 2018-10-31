@@ -15,7 +15,7 @@ My team is building integrations. We can't seem to stop. There's over 20 of them
 We even managed to get them to be really consistent in terms of tooling, builds and deployment. `sed` in a loop was my editor of choice for a while. Now with everything reaching consistency, it's time to address the overlap.
 
 
-#### But how? 
+## But how? 
 
 `.gitlab-ci.yml` defines the pipeline, so it's not possible to install something external as the first step of the pipeline to affect the rest. `.gitlab-ci.yml` allows importing external files from the repo or a URL. That sounds great. 
 
@@ -29,9 +29,10 @@ If it's code, I need to reuse it. If I'm reusing code, I put it in a shared libr
 
 The idea is not new. We're using internal libraries to reuse code better. Logger, database abstractions etc. - they're all packages we install in each app and their development follows semantic versioning.
 
-#### Here's what I did:
+## Here's what I did:
 
-1. a library
+### a library
+
 - extract common steps to files
 - give them descriptive stage names
 - parametrize with variables
@@ -39,7 +40,8 @@ The idea is not new. We're using internal libraries to reuse code better. Logger
 I can include a file and use a stage from it, put it in the right order with others etc.
 Included stages are configured with variables. Variables from the main yaml are accessible in included code.
 
-2. make it installable
+### make it installable
+
 - set up a repository for the library as a npm compatible package
 - use a `install` script to take a folder with reusable files and copy it to the folder of the app installing my package as dependency
 
@@ -72,12 +74,12 @@ unittesting:
   ...
 ```
 
-#### Known issues
+## Known issues
 
 - Unused stages cause errors, each stage needs to be in a separate file with only the used ones included to `.gitlab-ci.yml`
 - There's no obvious way to stop someone from editing the installed files - they have to be committed to the repo because there's no step before `.gitlab-ci.yml` includes other than git commit.
 
-### Summary
+## Summary
 
 We've been using this for a few weeks now and It's proving useful for sharing parts of Gitlab CI configuration across 25 independent apps.  
 
