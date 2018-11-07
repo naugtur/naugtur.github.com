@@ -47,7 +47,7 @@
             </section>
             
             <section data-markdown>
-                My first 5 lines of JavaScript
+                My first 5 lines of JavaScript ever
                 ```js
                 function kill(){
                     setTimeout('kill',0)
@@ -77,9 +77,34 @@
                 - close big gaps with little effort
             </section>
             <section data-markdown>
+                # Browser
+            </section>
+            <section data-markdown>
+                ## Prevent XSS exploitation
+
+                Content Security Policy
+
+                - [my talk from 2014](https://naugtur.pl/pres2/csp/)
+                - [approachable docs on MDN](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP)
+
+                Just a header to add to your app
+            </section>
+            <section data-markdown>
+                ### How to deploy CSP in a large legacy app
+
+                - `Content-Security-Policy-Report-Only` at first
+                - deploy with desired policy 
+                - see what would fail
+                - fix app or loosen the policy
+                - switch to `Content-Security-Policy`
+            </section>
+            <section data-markdown>
+                # Node.js
+            </section>
+            <section data-markdown>
                 Ok, I must say this.
 
-                ## DH0: Don't use `eval`
+                ## 1. Don't use `eval`
 
                 ```
                 npm install --save-dev eslint-plugin-security
@@ -87,7 +112,7 @@
             </section>
 
             <section data-markdown>
-                ### paranoid?
+                ### some healthy paranoia
 
                 ```js
                 const request = require("request")
@@ -102,7 +127,7 @@
                 ```
             </section>
             <section data-markdown>
-                ### DH1: postinstall scripts
+                ### 2. postinstall scripts
 
                 - If you can:
                 ```
@@ -122,7 +147,7 @@ artifacts:
                 
             </section>
             <section data-markdown>
-                ### DH2: audit dependencies
+                ### 3. audit dependencies
 
                 ## 🎉 `npm audit fix`
                 
@@ -139,7 +164,7 @@ artifacts:
             </section>
 
             <section data-markdown>
-                    ### DH3: security in CI
+                    ### 4. audit in CI
     
                     - run audit check in CI
                     - manage your security decisions 
@@ -168,7 +193,15 @@ What would you like to do?
 ```
             </section>
             <section data-markdown>
-                ## All together now
+                ### npm audit resolver
+                
+                I'm working with npm cli and security to make it a part of `npm audit`
+                
+                - You can use it now
+                - Feedback welcome!
+            </section>
+            <section data-markdown>
+                ## All together now!
     
                 ```yml
 script:
@@ -184,14 +217,12 @@ artifacts:
 
 
             <section>
-                <h4>Follow me for workshops on this</h4>
                 <p>@naugtur
                 </p>
+                
+                <h4>For workshops on this and more</h4>
+                <p><a href="https://naugtur.pl/training/">naugtur.pl/training/</a></p>
 
-                <p><a href="http://naugtur.pl/training/">naugtur.pl/training/</a></p>
-
-                      <br><br>
-                <p>Subscribe to my newsletter <br><a href="http://naugtur.pl/news">http://naugtur.pl/news</a></p>
 
             </section>
             <section data-markdown>
