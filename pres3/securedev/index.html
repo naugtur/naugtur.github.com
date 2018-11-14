@@ -91,28 +91,7 @@
                 - close big gaps with little effort
                 - you are still responsible for your code
             </section>
-            <section data-markdown>
-                # Browser
-            </section>
-            <section data-markdown>
-                ## Prevent XSS exploitation
-
-                Content Security Policy
-
-                - [my talk from 2014](https://naugtur.pl/pres2/csp/)
-                - [approachable docs on MDN](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP)
-
-                Just a header to add to your app
-            </section>
-            <section data-markdown>
-                ### How to deploy CSP in a large legacy app
-
-                - `Content-Security-Policy-Report-Only` at first
-                - deploy with desired policy 
-                - see what would fail
-                - fix app or loosen the policy
-                - switch to `Content-Security-Policy`
-            </section>
+           
             <section data-markdown>
                 # Node.js
             </section>
@@ -228,6 +207,29 @@ artifacts:
         - node_modules/
     expire_in: 24h
                 ```  
+            </section>
+
+            <section data-markdown>
+                # Browser
+            </section>
+            <section data-markdown>
+                ## Prevent XSS exploitation
+
+                Content Security Policy
+
+                - [my talk from 2014](https://naugtur.pl/pres2/csp/)
+                - [approachable docs on MDN](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP)
+
+                Just a header to add to your app
+            </section>
+            <section data-markdown>
+                ### How to deploy CSP in a large legacy app
+
+                - `Content-Security-Policy-Report-Only` at first
+                - deploy with desired policy 
+                - see what would fail
+                - fix app or loosen the policy
+                - switch to `Content-Security-Policy`
             </section>
 
 
