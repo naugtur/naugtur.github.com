@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
 
-    <title>Node.js Diagnostics 101</title>
+    <title>Developer's take on security</title>
 
     <meta name="author" content="naugtur">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -40,6 +40,20 @@
             <section>
                 <h1>Developer's perspective on security</h1>
                         <small>@naugtur, 2018</small>
+
+                        <aside class="notes">
+                            - all security presentations need to have hacking in them
+                            - here's my first 5 lines of JavaScript I wrote when I was 14yo
+                            - hacking part done, let's get back to business
+            
+                            - You don't have to know hacking do improve app security. It helps, but you don't have to
+                            - This talk is really mostly about reducing attack surface area
+                            
+                            - Securing your build and deployment pipeline
+                            - Don't run npm install in production in case you got a malicious dependency
+                            - Check your dependencies 
+                            - Make it less frustrating
+                        </aside>
             </section>
 
             <section data-markdown>
@@ -75,6 +89,7 @@
                 - no hacking knowledge required
                 - introduce new tools and practices
                 - close big gaps with little effort
+                - you are still responsible for your code
             </section>
             <section data-markdown>
                 # Browser
@@ -205,9 +220,9 @@ What would you like to do?
     
                 ```yml
 script:
+    - npx -p eslint -p eslint-plugin-security eslint src/
     - npm install --production
     - npx -p npm-audit-resolver check-audit
-    - npx -p eslint -p eslint-plugin-security eslint src/
 artifacts:
     paths:
         - node_modules/
