@@ -39,7 +39,7 @@
         <div class="slides">
             <section>
                 <h1>Developer's perspective on security</h1>
-                        <small>@naugtur, 2018</small>
+                    <br>    <small>@naugtur, JSPoland, 2018</small>
 
             </section>
 
@@ -160,25 +160,28 @@ artifacts:
                     - npm-audit-resolver
             </section>
 
-            <section data-markdown>
-                    ### npm audit resolver
+            <section>
+                    <h3>
+                        npm audit resolver
+                    </h3>
     
-                    ```
-                    $ resolve-audit 
- expand-hash needs your attention.
+                    <pre><code class="nohighlight" data-noescape data-trim>
 
-[ low ] Prototype Pollution
- vulnerable versions <4.17.5 found in:
- -  devDependencies: expand-hash>lodash
- f) fix with npm install expand-hash 
- d) show more details and ask me again
- r) remind me in 24h
- i) ignore paths
- del) Remove all listed dependency paths
- s) Skip this
- q) Quit
-What would you like to do? 
-```
+                        $ resolve-audit 
+                        <span class="fragment">lodash needs your attention.
+                        
+                        [ low ] Prototype Pollution
+                        vulnerable versions <4.17.5 found in:
+                        -  devDependencies: lodash
+                        f) fix with npm install lodash 
+                        d) show more details and ask me again
+                        <mark class="fragment highlight-block"></4.17.5>r) remind me in 24h
+                        i) ignore paths
+                        del) Remove all listed dependency paths</mark>
+                        s) Skip this
+                        q) Quit                   
+                        What would you like to do?</span> 
+                        </code></pre>
             </section>
             <section data-markdown>
                 ### npm audit resolver
