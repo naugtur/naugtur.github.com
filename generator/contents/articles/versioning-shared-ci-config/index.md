@@ -29,9 +29,10 @@ If it's code, I need to reuse it. If I'm reusing code, I put it in a shared libr
 
 The idea is not new. We're using internal libraries to reuse code better. Logger, database abstractions etc. - they're all packages we install in each app and their development follows semantic versioning.
 
-#### Here's what I did:
+#### Here's what I did
+ 
 
-1. a library
+Turn it into a library:
 - extract common steps to files
 - give them descriptive stage names
 - parametrize with variables
@@ -39,7 +40,7 @@ The idea is not new. We're using internal libraries to reuse code better. Logger
 I can include a file and use a stage from it, put it in the right order with others etc.
 Included stages are configured with variables. Variables from the main yaml are accessible in included code.
 
-2. make it installable
+Make it installabe:
 - set up a repository for the library as a npm compatible package
 - use a `install` script to take a folder with reusable files and copy it to the folder of the app installing my package as dependency
 
@@ -82,3 +83,5 @@ unittesting:
 We've been using this for a few weeks now and It's proving useful for sharing parts of Gitlab CI configuration across 25 independent apps.  
 
 I should post some more tips for dealing with maintenance across many applications without the need of a monorepo. Maybe a series of posts? Let me know on twitter.
+
+More updates on shared CI config coming soon!

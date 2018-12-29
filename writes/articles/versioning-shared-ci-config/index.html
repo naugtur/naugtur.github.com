@@ -36,10 +36,8 @@
 <p>The big leap I had to make was to think of <code>.gitlab-ci.yml</code> as code not&nbsp;configuration. </p>
 <p>If it’s code, I need to reuse it. If I’m reusing code, I put it in a shared library. If I have a library, I version it so I don’t have to spend a few days rolling it out to each project with each change, but can do so progressively when revisiting projects while they continue to work fine with previous&nbsp;version.</p>
 <p>The idea is not new. We’re using internal libraries to reuse code better. Logger, database abstractions etc. - they’re all packages we install in each app and their development follows semantic&nbsp;versioning.</p>
-<h4 id="here-s-what-i-did-">Here’s what I&nbsp;did:</h4>
-<ol>
-<li>a&nbsp;library</li>
-</ol>
+<h4 id="here-s-what-i-did">Here’s what I&nbsp;did</h4>
+<p>Turn it into a&nbsp;library:</p>
 <ul>
 <li>extract common steps to&nbsp;files</li>
 <li>give them descriptive stage&nbsp;names</li>
@@ -47,9 +45,7 @@
 </ul>
 <p>I can include a file and use a stage from it, put it in the right order with others etc.
 Included stages are configured with variables. Variables from the main yaml are accessible in included&nbsp;code.</p>
-<ol>
-<li>make it&nbsp;installable</li>
-</ol>
+<p>Make it&nbsp;installabe:</p>
 <ul>
 <li>set up a repository for the library as a npm compatible&nbsp;package</li>
 <li>use a <code>install</code> script to take a folder with reusable files and copy it to the folder of the app installing my package as&nbsp;dependency</li>
@@ -85,6 +81,7 @@ Included stages are configured with variables. Variables from the main yaml are 
 <h3 id="summary">Summary</h3>
 <p>We’ve been using this for a few weeks now and It’s proving useful for sharing parts of Gitlab <span class="caps">CI</span> configuration across 25 independent&nbsp;apps.  </p>
 <p>I should post some more tips for dealing with maintenance across many applications without the need of a monorepo. Maybe a series of posts? Let me know on&nbsp;twitter.</p>
+<p>More updates on shared <span class="caps">CI</span> config coming&nbsp;soon!</p>
 </section>
         </article>
       </div>

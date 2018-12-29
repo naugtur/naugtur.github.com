@@ -26,10 +26,8 @@
 &lt;p&gt;The big leap I had to make was to think of &lt;code&gt;.gitlab-ci.yml&lt;/code&gt; as code not configuration. &lt;/p&gt;
 &lt;p&gt;If it’s code, I need to reuse it. If I’m reusing code, I put it in a shared library. If I have a library, I version it so I don’t have to spend a few days rolling it out to each project with each change, but can do so progressively when revisiting projects while they continue to work fine with previous version.&lt;/p&gt;
 &lt;p&gt;The idea is not new. We’re using internal libraries to reuse code better. Logger, database abstractions etc. - they’re all packages we install in each app and their development follows semantic versioning.&lt;/p&gt;
-&lt;h4 id=&quot;here-s-what-i-did-&quot;&gt;Here’s what I did:&lt;/h4&gt;
-&lt;ol&gt;
-&lt;li&gt;a library&lt;/li&gt;
-&lt;/ol&gt;
+&lt;h4 id=&quot;here-s-what-i-did&quot;&gt;Here’s what I did&lt;/h4&gt;
+&lt;p&gt;Turn it into a library:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;extract common steps to files&lt;/li&gt;
 &lt;li&gt;give them descriptive stage names&lt;/li&gt;
@@ -37,9 +35,7 @@
 &lt;/ul&gt;
 &lt;p&gt;I can include a file and use a stage from it, put it in the right order with others etc.
 Included stages are configured with variables. Variables from the main yaml are accessible in included code.&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;make it installable&lt;/li&gt;
-&lt;/ol&gt;
+&lt;p&gt;Make it installabe:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;set up a repository for the library as a npm compatible package&lt;/li&gt;
 &lt;li&gt;use a &lt;code&gt;install&lt;/code&gt; script to take a folder with reusable files and copy it to the folder of the app installing my package as dependency&lt;/li&gt;
@@ -75,6 +71,7 @@ Included stages are configured with variables. Variables from the main yaml are 
 &lt;h3 id=&quot;summary&quot;&gt;Summary&lt;/h3&gt;
 &lt;p&gt;We’ve been using this for a few weeks now and It’s proving useful for sharing parts of Gitlab CI configuration across 25 independent apps.  &lt;/p&gt;
 &lt;p&gt;I should post some more tips for dealing with maintenance across many applications without the need of a monorepo. Maybe a series of posts? Let me know on twitter.&lt;/p&gt;
+&lt;p&gt;More updates on shared CI config coming soon!&lt;/p&gt;
 </description>
     </item>
     <item>
