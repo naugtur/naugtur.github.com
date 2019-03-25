@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>Developer's take on security</title>
+
+    <meta name="author" content="naugtur">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/css/reveal.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/css/theme/black.css" id="theme">
+
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/lib/css/zenburn.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/css/print/pdf.css' : 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/css/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+
+    <link rel="stylesheet" href="../branding/style.css" id="branding">
+
+</head>
+
+<body>
+
+    <div class="reveal" id="naugtur">
+
+        <!-- Any section element inside of this container is displayed as a slide -->
+        <div class="slides">
+            <section>
+                <h1>Developer's perspective on security</h1>
+                    <br>    <small>@naugtur, WDI2019</small>
+
+            </section>
+
+            <section>
+                <h3>Who's that guy?</h3>
+            </section>
+                
+                
+            <section data-markdown>
+                ## I'm not a hacker
+            </section>
+            
+            <section data-markdown>
+                My first 5 lines of JavaScript ever
+                ```js
+                function kill(){
+                    setTimeout('kill',0)
+                    setTimeout('kill',0)
+                }
+                kill()
+                ```
+
+                breaks Windows pre XP SP2
+            </section>
+            
+            <section data-markdown>
+                Now to the point
+            </section>
+
+            <section data-markdown>
+                ### Make it harder for the hacker
+
+                > In computing, hardening is usually the process of securing a system by reducing its surface of vulnerability (...)
+
+            </section>
+            <section data-markdown>
+                ## Development Hardening
+
+                - no hacking knowledge required
+                - introduce new tools and practices
+                - close big gaps with little effort
+            </section>
+            <section data-markdown>
+                ### you are still responsible for your code
+            </section>
+           
+            <section data-markdown>
+                # Ok, so what's the threat
+            </section>
+
+
+            <section>
+
+               
+                <h4 class="fragment">Injections</h4>
+                <h4 class="fragment">Malicious packages</h4>
+                <h4 class="fragment">Data theft</h4>
+                <h4 class="fragment">XSS</h4>
+                <h4 class="fragment">CSRF</h4>
+                <h4 class="fragment">RCE</h4>
+                <h4 class="fragment">RegExp DoS</h4>
+                <img class="pad1 plain fragment" src="shroom.png">
+
+            </section>
+
+            <section>
+                <h3> Wait, did he say <br> Mongodb injections?</h3>
+                <pre><code data-noescape data-trim>
+                    Collection.find(req.query)
+                </code></pre>
+                
+                <dd><code>?id=1</code> </dd>
+                <dd class="fragment"><code>?$where=sleep(20000)</code></dd>
+                
+                <br><br>Source:
+                <a href="https://youtu.be/xJWZsoYmsIE?list=PLfMzBWSH11xaZvhv1X5Fq1H-oMdnAtG6k&t=1104">Node.js Interactive talk</a>
+            </section>
+            <section data-markdown>
+                Now to the point (again)
+            </section>
+            <section data-markdown>
+                # Node.js
+                ### dev hardening
+            </section>
+            <section data-markdown>
+                Ok, I must say this.
+
+                ## 1. Don't use `eval`
+
+                ```
+                npm install --save-dev eslint-plugin-security
+                ```
+            </section>
+
+            <section data-markdown>
+                ### some healthy paranoia
+
+                ```js
+                const request = require("request")
+                const method = ???
+                const payload = "console.log('pwnd')"
+                request[method](payload)();
+
+                // prints 'pwnd', but how?
+                
+                ```
+                Not even an error
+                ```
+                3:18  warning  Function Call Object Injection Sink
+                ```
+            </section>
+            <section data-markdown>
+                ### eval, eval everywhere
+
+                ```js
+                const request = require("request")
+                const method = "constructor"
+                const payload = "console.log('pwnd')"
+                request[method](payload)();
+                
+                ```
+               
+            </section>
+            <section data-markdown>
+                ### 2. postinstall scripts
+
+                - If you can:
+                ```
+                npm install --ignore-scripts
+                ```
+
+                - Anyway, don't run `npm install` in production.
+
+                ```yml
+script:
+    - npm install
+artifacts:
+    paths:
+        - node_modules/
+    expire_in: 24h
+                ```
+                
+            </section>
+            <section data-markdown>
+                ### 3. audit dependencies
+
+                ## 🎉 `npm audit fix`
+                
+            </section>
+            
+            <section >
+                <div>
+                    <h2> Story time </h2>
+                    <h4 class="fragment"> Integrations team at Egnyte</h4>
+                    <h4 class="fragment"> >25 apps</h4>
+                    <h4 class="fragment"> mass maintenance</h4>
+                </div>
+            </section>
+            <section data-background-image="ccl.png" data-background-size="contain">
+                
+            </section>
+
+            <section data-markdown>
+                    ### 4. audit in CI
+    
+                    - run audit check in CI
+                    - manage your security decisions 
+                    - no demo-day hangovers
+                    - npm-audit-resolver
+            </section>
+
+            <section>
+                    <h3>
+                        npm audit resolver
+                    </h3>
+    
+                    <pre><code class="nohighlight" data-noescape data-trim>
+
+                        $ resolve-audit 
+                        <span class="fragment">lodash needs your attention.
+                        
+                        [ low ] Prototype Pollution
+                        vulnerable versions <4.17.5 found in:
+                        -  devDependencies: lodash
+                        f) fix with npm install lodash 
+                        d) show more details and ask me again
+                        <mark class="fragment highlight-block">r) remind me in 24h
+                        i) ignore paths
+                        del) Remove all listed dependency paths</mark>
+                        s) Skip this
+                        q) Quit                   
+                        What would you like to do?</span> 
+                        </code></pre>
+            </section>
+            <section data-markdown>
+                ### npm audit resolver
+                
+                I'm working with npm cli and security to make it a part of `npm audit`
+                
+                - You can use it now
+                - Feedback welcome!
+            </section>
+            <section data-markdown>
+                ## All together now!
+    
+                ```yml
+script:
+    - npx -p eslint -p eslint-plugin-security eslint src/
+    - npm install --production
+    - npx -p npm-audit-resolver check-audit
+artifacts:
+    paths:
+        - node_modules/
+    expire_in: 24h
+                ```  
+
+                - [gitlabci-job-prototypes](https://www.npmjs.com/package/gitlabci-job-prototypes) - not even announced yet
+                - [secure-dependencies](https://www.npmjs.com/package/secure-dependencies) package can help if you're not on docker etc.
+            </section>
+
+            <section data-markdown>
+                # Browser
+            </section>
+            <section data-markdown>
+                ## Prevent XSS exploitation
+
+                Content Security Policy
+
+                - [my talk from 2014](https://naugtur.pl/pres2/csp/)
+                - [approachable docs on MDN](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP)
+
+                Just a header to add to your app
+            </section>
+            <section data-markdown>
+                ### How to deploy CSP in a large legacy app
+
+                - `Content-Security-Policy-Report-Only` at first
+                - deploy with desired policy 
+                - see what would fail
+                - fix app or loosen the policy
+                - switch to `Content-Security-Policy`
+            </section>
+
+            <section>
+                <img class="plain" src="mjs.png" alt="">
+            </section>
+
+           
+            <section>
+                <p>@naugtur
+                </p>
+                
+                <h4>For workshops on this and more</h4>
+                <p><a href="https://naugtur.pl/training/">naugtur.pl/training/</a></p>
+
+
+            </section>
+            <section data-markdown>
+                # thx!
+            </section>
+
+        </div>
+
+    </div>
+
+    <style>
+    h2, h3 {
+      margin-bottom: 0.8em !important;
+    }
+    #naugtur {
+      background-image: none;
+    }
+    /*effectively switch from contain to cover behav*/
+    #naugtur .slide-background video {
+        min-width:100%;
+        min-height: 100%;
+        width: auto;
+        height: auto;
+    }
+
+
+    </style>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/lib/js/head.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/js/reveal.js"></script>
+
+    <script>
+        // Full list of configuration options available at:
+        // https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+            mouseWheel: true,
+
+            transition: 'concave', // none/fade/slide/convex/concave/zoom
+
+            // Parallax background image
+            // parallaxBackgroundImage: '../branding/bk.jpg', // e.g. "https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg"
+            //
+            // // Parallax background size
+            // parallaxBackgroundSize: '1920px 880px', // CSS syntax, e.g. "2100px 900px" - currently only pixels are supported (don't use % or auto)
+
+
+            // Optional reveal.js plugins
+            dependencies: [{
+                src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/plugin/markdown/marked.js',
+                condition: function() {
+                    return !!document.querySelector('[data-markdown]');
+                }
+            }, {
+                src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/plugin/markdown/markdown.js',
+                condition: function() {
+                    return !!document.querySelector('[data-markdown]');
+                }
+            }, {
+                src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/plugin/highlight/highlight.js',
+                async: true,
+                callback: function() {
+                    hljs.initHighlightingOnLoad();
+                }
+            }, {
+                src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/plugin/zoom-js/zoom.js',
+                async: true
+            }, {
+                src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/plugin/notes/notes.js',
+                async: true
+            }]
+        });
+    </script>
+
+</body>
+
+</html>

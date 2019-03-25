@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <p>Now you can demonstrate XSS on any page. Drag this to bookmarks, go to the page, click on the bookmark, put a script tag in the text of the page.</p>
+    <a href="javascript:(_=>{xs=setInterval(_=>(document.body.innerText.match(/<script>(alert\([^)]*)\)<\/script>/gi)||[]).map(s=>eval(s.replace(/<[^>]*>/g,''))).map(_=>clearInterval(xs)),1000)})()">X</a>
+        <div>
+            &lt;script&gt;alert("test")&lt;/script&gt;
+            &lt;script&gt;console.warn("only alerts should work")&lt;/script&gt;
+        </div>
+    <script>
+
+    </script>
+</body>
+</html>
