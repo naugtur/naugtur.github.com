@@ -1,3 +1,5 @@
+import jsc from 'jscodeshift' //feed the typescript engine
+
 export default function transformer(file, api) {
     const j = api.jscodeshift;
   
@@ -5,7 +7,7 @@ export default function transformer(file, api) {
       .find(j.CallExpression, {arguments:[{params:[{name:"fileMetadata"}]}]})
       .find(j.Identifier, {name:"then"})
       .forEach(path => {
-        j(path).replaceWith(j.Identifier("catch")); 
+        j(path).replaceWith(jsc.identifier("catch")); 
       })
       .toSource();
   }
