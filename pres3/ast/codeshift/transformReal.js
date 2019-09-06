@@ -78,7 +78,6 @@
     }
     return j(file.source)
       .find(j.Identifier, {name: "egnyte"}) //find egnyte
-      // .filter(ident => ident.value.name === "egnyte") 
       .closest(j.MemberExpression, {property:{name:"API"}}) //find a wrapping member expression
       // now we only have egnyte.API
       .forEach(path => {
