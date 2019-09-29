@@ -28,6 +28,14 @@
     </script>
 
     <link rel="stylesheet" href="../branding/style.css" id="branding">
+    <style>
+    .slide-background.chapter.present{
+      background-color: darkslategrey;
+      background-image: url('raptor.png') !important;
+      background-position: bottom left;
+      background-size: auto;
+    }
+    </style>
 
 </head>
 
@@ -38,24 +46,11 @@
         <!-- Any section element inside of this container is displayed as a slide -->
         <div class="slides">
             <section>
-                <h1>Developer's perspective on security</h1>
-                    <br>    <small>@naugtur, Node.js Meetup Berlin, 2019</small>
+                <h1>Developer's perspective on security </h1><br><h1> v2 </h1>
+                    <br>    <small>@naugtur, meet.js Summit, 2019</small>
 
             </section>
 
-            <section>
-                <section>
-                    <h3>A lengthy hello</h3>
-                </section>
-                
-                <section>
-                    <img class="plain" src="../../berlin-node-streaming.jpg" style="width: 48%"  alt="">
-                </section>
-                <section>
-                    <img class="plain" src="mjs.png" alt="">
-                </section>
-                
-            </section>
             <section data-markdown>
                 ## I'm not a hacker
             </section>
@@ -129,23 +124,31 @@
                 Now to the point (again)
             </section>
             <section data-markdown>
-                # Node.js
-                ### dev hardening
+                ### dev hardening with NPM workflows
             </section>
-            <section data-markdown>
+            <section data-markdown class="chapter">
                 Ok, I must say this.
 
-                ## 1. Don't use `eval`
-
+                ## Don't use `eval`
+            </section>
+            
+            <section data-markdown>
+                ### Someone to shout at you 
                 ```
                 npm install --save-dev eslint-plugin-security
                 ```
+                
+                Disabling this warning is ok
+                ```
+                3:18  warning  Function Call Object Injection Sink
+                ```
             </section>
 
             <section data-markdown>
-                ### some healthy paranoia
+                ### Or is it?
 
                 ```js
+                // node.js
                 const request = require("request")
                 const method = ???
                 const payload = "console.log('pwnd')"
@@ -154,10 +157,7 @@
                 // prints 'pwnd', but how?
                 
                 ```
-                Not even an error
-                ```
-                3:18  warning  Function Call Object Injection Sink
-                ```
+                
             </section>
             <section data-markdown>
                 ### eval, eval everywhere
@@ -171,29 +171,36 @@
                 ```
                
             </section>
-            <section data-markdown>
-                ### 2. postinstall scripts
+            <section data-markdown  class="chapter">
+                ### postinstall scripts
 
-                - If you can:
+                `npm install `  is a RCE
+
+            </section>
+            <section data-markdown>
+                ### don't run them!
+
                 ```
                 npm install --ignore-scripts
                 ```
 
-                - If you have to compile some:
+                If you have to compile some packages
+
                 ```
                 npm i -D allow-scripts
                 allow-scripts
                 ```
-                runs only install scripts listed as trusted in package.json
+
+                runs only install scripts of packages listed as trusted in package.json
             </section>
             <section data-markdown>
-                ### allow postinstall scripts
+                #### or run them and avoid consequences
 
-                Don't run `npm install` in production.
+                Never run `npm install` in production.
 
                 ```yml
 script:
-    - npm install
+    - npm ci
 artifacts:
     paths:
         - node_modules/
@@ -201,10 +208,10 @@ artifacts:
                 ```
                 
             </section>
-            <section data-markdown>
-                ### 3. audit dependencies
+            <section data-markdown  class="chapter">
+                ### audit dependencies!
 
-                ## 🎉 `npm audit fix`
+                ## `npm audit fix`
                 
             </section>
             
@@ -212,7 +219,7 @@ artifacts:
                 <div>
                     <h2> Story time </h2>
                     <h4 class="fragment"> Integrations team at Egnyte</h4>
-                    <h4 class="fragment"> >25 apps</h4>
+                    <h4 class="fragment"> >30 apps</h4>
                     <h4 class="fragment"> mass maintenance</h4>
                 </div>
             </section>
@@ -221,12 +228,26 @@ artifacts:
             </section>
 
             <section data-markdown>
-                    ### 4. audit in CI
+                    ### We want audit in CI
     
                     - run audit check in CI
                     - manage your security decisions 
                     - no demo-day hangovers
                     - npm-audit-resolver
+            </section>
+            <section data-markdown>
+                    ### npm audit resolver
+
+                    Wrapper for `npm audit` in CI
+                    ```
+                    check-audit
+                    ```
+
+                    Tool to manage your security decisions
+                    ```
+                    resolve-audit
+                    resolve-audit --yarn
+                    ```
             </section>
 
             <section>
@@ -255,20 +276,20 @@ artifacts:
             <section data-markdown>
                 ### npm audit resolver
                 
-                I'm working with npm cli and security to make it a part of `npm audit`
-
-                Now with experimental yarn support.
+                - RFC is open to add it to `npm audit`.
+                - Extracted core -> can be added to any package manager's audit command.
+                - Now with experimental yarn support.
                 
-                - You can use it now
-                - Feedback welcome!
+                You can use it now  
+                Feedback welcome!
             </section>
             <section data-markdown>
                 ## All together now!
-    
                 ```yml
 script:
     - npx -p eslint -p eslint-plugin-security eslint src/
-    - npm install --production
+    - npm ci --only=production --ignore-scripts
+    - npx allow-scripts
     - npx -p npm-audit-resolver check-audit
 artifacts:
     paths:
@@ -276,20 +297,18 @@ artifacts:
     expire_in: 24h
                 ```  
 
-                - [gitlabci-job-prototypes](https://www.npmjs.com/package/gitlabci-job-prototypes) - not even announced yet
+                - [gitlabci-job-prototypes](https://www.npmjs.com/package/gitlabci-job-prototypes)
                 - [secure-dependencies](https://www.npmjs.com/package/secure-dependencies) package can help if you're not on docker etc.
             </section>
 
-            <section data-markdown>
-                # Browser
-            </section>
-            <section data-markdown>
+            <section data-markdown class="chapter">
                 ## Prevent XSS exploitation
 
                 Content Security Policy
 
-                - [my talk from 2014](https://naugtur.pl/pres2/csp/)
+                - [content-security-policy.com](https://content-security-policy.com/)
                 - [approachable docs on MDN](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP)
+                - [my talk from 2014!](https://naugtur.pl/pres2/csp/)
 
                 Just a header to add to your app
             </section>
@@ -303,6 +322,18 @@ artifacts:
                 - switch to `Content-Security-Policy`
             </section>
 
+            <section data-markdown class="chapter">
+                ## Bonus: Node.js package network access control
+
+                [package-firewall](https://www.npmjs.com/package/package-firewall)
+
+                - Experimental tool for checking which packages access network
+                - I wrote it yesterday, no kidding
+                - Please try it on your app 
+                - Let me know if you can hack around it
+
+            </section>
+
 
             <section>
                 <p>@naugtur
@@ -311,6 +342,7 @@ artifacts:
                 <p>Look for slides here: <a href="https://naugtur.pl/">naugtur.pl</a></p>
 
                 <p>I also do training...</p>
+                <a href="https://naugtur.pl/training">naugtur.pl/training</a>
 
             </section>
             <section data-markdown>
