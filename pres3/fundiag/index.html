@@ -1,0 +1,368 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>Fun with async hooks and stack traces</title>
+
+    <meta name="author" content="naugtur">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/css/reveal.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/css/theme/black.css" id="theme">
+
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/lib/css/zenburn.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/css/print/pdf.css' : 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/css/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+
+    <link rel="stylesheet" href="../branding/style.css" id="branding">
+
+</head>
+
+<body>
+
+    <div class="reveal" id="naugtur">
+
+        <!-- Any section element inside of this container is displayed as a slide -->
+        <div class="slides">
+            <section>
+                <h1>Fun with async hooks and stack traces</h1>
+                        <small>@naugtur, WFHConf2020</small>
+            </section>
+            <section data-markdown>
+               ## Goal:
+               ### Nerdy amusement with a chance of education
+
+               # 👇
+
+               Click for yourself:  
+               https://naugtur.pl  
+               https://github.com/naugtur/debugging-aid-demo
+            </section>
+            <section data-markdown>
+[![](CliffordStoll_2006-embed.jpg)](https://www.ted.com/talks/clifford_stoll_the_call_to_learn?utm_campaign=tedspread&utm_medium=referral&utm_source=tedcomshare)
+
+It's going to be like this TED talk by Clifford Stoll if all goes well...
+            </section>
+            <section data-markdown>
+                ## I've got unusual hobbies
+            </section>
+            <section data-markdown>
+                ## 🧙 
+                ### Trying seemingly impossible things in JavaScript is one
+            </section>
+            <section data-markdown>
+                But first!
+            </section>
+            <section data-markdown>
+                ## 📣 Introoo
+            </section>
+
+            <section data-markdown>
+                # 🎣
+                ## Async hooks?
+
+                ```js
+const asyncHooks = require('async_hooks');
+const hook = asyncHooks.createHook({    
+    init, 
+    before, after, 
+    destroy 
+});
+hook.enable();
+                ```
+            </section>
+            <section data-markdown>
+                ### init
+                ```js
+Promise.resolve()
+    .then(👋() => {
+        return doingWork()
+    })
+                ```
+                Runs within current call stack
+            </section>
+            <section data-markdown>
+                ### before
+                ```js
+Promise.resolve()
+    .then(() => 👋{
+        return doingWork()
+    })
+                ```
+            </section>
+            <section data-markdown>
+                ### after
+                ```js
+Promise.resolve()
+    .then(() => {
+        return doingWork()
+    }👋)
+                ```
+            </section>
+            <section data-markdown>
+                ### destroy
+                ```js
+Promise.resolve()
+    .then(() => {
+        return doingWork()
+    })
+
+... 👋
+                ```
+            </section>
+           
+            <section data-markdown>
+                There's also `promiseResolve` one now, but I only have 20 minutes
+            </section>
+
+            <section data-markdown>
+                ## 🧪 💥
+                ## experiments!
+            </section>
+
+            <section data-markdown>
+                # 🤔
+                > How many promise objects do I produce?
+            </section>
+
+            <section data-markdown>
+                ```js
+const functions = [inc,inc,inc]
+
+const result = functions.reduce(
+    async (acc, f) => await f(await acc), 
+    Promise.resolve(1)
+)
+
+const result = functions.reduce(
+    (acc, f) => acc.then(f), 
+    Promise.resolve(1)
+)
+                ```
+            </section>
+            <section data-markdown>
+                ```js
+const functions = [inc,inc,inc]
+
+const result = functions.reduce(
+    async (acc, f) => await f(await acc), 
+    Promise.resolve(1)
+) // 14
+
+const result = functions.reduce(
+    (acc, f) => acc.then(f), 
+    Promise.resolve(1)
+) // 5
+                ```
+            </section>
+           
+            <section data-markdown>
+            ```js
+let count = 0;
+const asyncHooks = require('async_hooks');
+const asyncHook = asyncHooks.createHook({
+    init(asyncId, type, triggerAsyncId) {
+        if (type === 'PROMISE') count++;
+    },
+});
+asyncHook.enable();
+
+process.on('beforeExit', () => {
+    console.log(`promises created: ${count}`);
+});
+            ```
+            </section>
+           
+            <section data-markdown>
+                This and other little experimental tools can be found in
+
+                [debugging-aid package](https://www.npmjs.com/package/debugging-aid)
+            </section>
+
+            <section data-markdown>
+                # 🤔
+                > Can I find the function that blocks the event loop?
+            </section>
+
+            <section data-markdown>
+                ```js
+const timers = {}                
+before:(asyncId) => {
+    timers[asyncId] = Date.now()
+}
+after:(asyncId) => {
+    synchronousRunTime = Date.now() - timers[asyncId]
+}
+
+//you may be disappointed if you actually use Date.now()
+                ```
+
+            </section>
+
+            <section data-markdown>
+                ### Ok, now which function was it?
+            </section>
+
+            <section data-markdown>
+                ```js
+function whereAmI(){
+    const e = {}
+    Error.captureStackTrace(e)
+    return magicParsing(e.stack)
+}
+                ```
+```
+/home/naugtur/repo/app/app.js:14:4
+```
+
+# 🏆
+            </section>
+
+            <section data-markdown>
+                ### Demo and deep dive
+
+                This functionality is available in a standalone package `blocked-at`
+                
+                [see the file with hooks](https://github.com/naugtur/blocked-at/blob/master/index.js#L25)
+
+            </section>
+
+            <section data-markdown>
+                # 🤔
+                > Can I see which modules are using network?
+            </section>
+            <section data-markdown>
+                ```py
+[aid] network, outgoing  to: http://example.com/
+stack: at Agent.createSocket (_http_agent.js:265:26)
+ at Agent.addRequest (_http_agent.js:224:10)
+ at new ClientRequest (_http_client.js:296:16)
+ at Object.request (http.js:46:10)
+ at Request.start (node_modules/request/request.js:751:32)
+ at Request.end (node_modules/request/request.js:1511:10)
+                ```
+            </section>
+
+            <section data-markdown>
+                # 🍿
+                > Bonus - control network access for modules
+                
+                [package-firewall](https://github.com/naugtur/package-firewall)
+            </section>
+
+            <section data-markdown>
+                # 🤔
+                > Can I visualize asynchronous flow of my app?
+            </section>
+            <section data-markdown>
+                There's better tools for that, but hey - why not!
+
+                ## DEMO
+            </section>
+                     
+
+            <section>
+                <h4>Thanks for participating<br> in my hobbies</h4>
+
+                <br><br>
+
+                <p>@naugtur &nbsp; <a href="http://naugtur.pl/">naugtur.pl</a></p>
+
+                 
+            </section>
+            <section data-markdown>
+                Q&A or more demos?
+            </section>
+
+        </div>
+
+    </div>
+
+    <style>
+    h2, h3 {
+      margin-bottom: 0.8em !important;
+    }
+    #naugtur {
+      background-image: none;
+    }
+    /*effectively switch from contain to cover behav*/
+    #naugtur .slide-background video {
+        min-width:100%;
+        min-height: 100%;
+        width: auto;
+        height: auto;
+    }
+
+    .problem .reveal{
+      background-image: url('raptor.png') !important;
+    }
+    .sad .reveal{
+      background-image: url('sad.png') !important;
+    }
+    </style>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/lib/js/head.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/js/reveal.js"></script>
+
+    <script>
+        // Full list of configuration options available at:
+        // https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+            mouseWheel: true,
+
+            transition: 'concave', // none/fade/slide/convex/concave/zoom
+
+            // Parallax background image
+            // parallaxBackgroundImage: '../branding/bk.jpg', // e.g. "https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg"
+            //
+            // // Parallax background size
+            // parallaxBackgroundSize: '1920px 880px', // CSS syntax, e.g. "2100px 900px" - currently only pixels are supported (don't use % or auto)
+
+
+            // Optional reveal.js plugins
+            dependencies: [{
+                src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/plugin/markdown/marked.js',
+                condition: function() {
+                    return !!document.querySelector('[data-markdown]');
+                }
+            }, {
+                src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/plugin/markdown/markdown.js',
+                condition: function() {
+                    return !!document.querySelector('[data-markdown]');
+                }
+            }, {
+                src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/plugin/highlight/highlight.js',
+                async: true,
+                callback: function() {
+                    hljs.initHighlightingOnLoad();
+                }
+            }, {
+                src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/plugin/zoom-js/zoom.js',
+                async: true
+            }, {
+                src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/plugin/notes/notes.js',
+                async: true
+            }]
+        });
+    </script>
+
+</body>
+
+</html>
