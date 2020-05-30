@@ -33,7 +33,7 @@
 
 <body>
 
-    <div class="reveal" id="naugtur">
+    <div class="reveal none" id="naugtur">
 
         <!-- Any section element inside of this container is displayed as a slide -->
         <div class="slides">
@@ -41,7 +41,7 @@
             <section>
                 <h1>JS<br> memory management</h1>
                 <p class="pad1">and hunting memory leaks</p>
-                <small class="pad1">@naugtur, Node.js Global Summit 2020</small>
+                <small class="pad1">@naugtur, 2020</small>
             </section>
             <section data-markdown="">
               ## Some history
@@ -53,9 +53,21 @@
               <p>#coolstory</p>
 
             </section>
+           
             <section>
+                <p>There's a live-leaking demo at the end. <br>You can follow along if you checkout this:</p>
+                <a href="https://github.com/naugtur/js-training-examples">github.com/naugtur/js-training-examples</a>
             </section>
+           
             <section>
+                <section>
+                    <h3>Garbage collection</h3>
+                    <br>
+                    <p>
+                        What to collect??
+
+                    </p>
+                </section>
                 <section id="garbage">
                     <h3>Garbage collection</h3>
 
@@ -144,7 +156,7 @@
                     - Old generation 
                       - (2+ gc old)
                       
-                    Major GC - whole heap
+                    Major GC - whole heap  
                     Minor GC - only young
                 </section>
                 <section>
