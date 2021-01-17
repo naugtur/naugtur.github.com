@@ -1,0 +1,72 @@
+# Zbigniew Tenerowicz
+
+|  Contact|   |
+| --- | --- |
+| email | naugtur@gmail.com |
+| web | [http://naugtur.pl](http://naugtur.pl) |
+
+## Experience
+
+### Egnyte Inc.
+Senior Software Engineer (2014-2019)  
+Partner Integrations Team Lead (2014-2020)  
+Principal Software Engineer (2020-onward)  
+
+> Founded an ecosystem engineering team, later expanded to 3 teams. Drove teammates to step up and become senior engineers, team leaders. Built a beginner-focused and repeatability oriented set of tools for developing integrations with 3rdparty systems for Egnyte. All that with Node.js as the technology of choice.
+
+- Built a set of tools to quickly develop and maintain 30 mostly independent applications
+- Onboarded non-JS developers onto the early team with fast track to productivity
+- Architected tooling for maintaining basic security across many repositories (npm-audit-resolver etc.)
+- Took responsibility for shaping product scope and helping UX department navigating what's feasible on more challenging projects
+- Designed a new set of public APIs and introduced tooling for consistent documentation, validation and testing.
+
+### Cogision / UsabilityTools.com
+Senior Front-end Developer (2011-2014)
+
+> Single, and then leading, JS developer at a startup building remote usability tools. Built tracking and data visualization scripts for various user insights tools.
+
+- HTML+CSS snapshot tool with custom LZW-based compression
+- Full-page heatmap rendering in the browser
+- Heatmaps for elements of varying location on the page
+- Tracking all events on the site and replaying them in a manner resembling a video
+- Onboarding and mentoring young and bright JS developers
+### Poleng Sp. z o.o.
+GUI Developer, Project Manager (2008-2011)
+
+> Designing and building web interfaces, touchscreen/kiosk interactive presentations, installing Linux on way too new hardware. 
+
+
+
+## Community work
+
+### Meetups and conferences - meet.js
+* Regular speaker since 2011
+* Organizer since 2014
+
+* Organized Meet.js Summit 2014 and 2018  
+https://summit.meetjs.pl/2018/  
+https://dev.to/naugtur/community-conference-organizer-checklist-5d45  
+
+### Speaking
+* NodeConf Remote
+* Meet.js Summit
+* JSPoland
+* Polyconf
+* Front-trends
+* 4Developers
+* Computer Human Interaction Poznań  
+and more
+
+## Education
+
+### Teaching
+* Adam Mickiewicz University: Maintainable Javascript, Web Security (2018-2019)
+* School of Form - SWPS, Poznań, Poland  (2012-2019)
+* WWSSE, Środa Wlkp., Poland  (2011-2013)
+* Workshops for developers - commercial, community and charity auction
+
+### M.S. Computer Science, Software Engineering
+Adam Mickiewicz University, Poznań, Poland (2005-2010)
+
+Thesis: Applying evolutionary computation
+to natural language processing
