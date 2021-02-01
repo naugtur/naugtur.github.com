@@ -1,134 +1,138 @@
-
 @font-face {
-	font-family: 'nicefont';
-  src: url('reveal.js/fonts/KOMIKAX_-webfont.ttf') format('truetype');
+  font-family: "nicefont";
+  src: url("reveal.js/fonts/KOMIKAX_-webfont.ttf") format("truetype");
   font-weight: normal;
-	font-style: normal;
+  font-style: normal;
 }
 
-
-body{
-font-family: sans-serif;
-font-size: 100%;
-background-color: #222;
-color:#fff;
-text-shadow:3px 3px 0px #000000;
-margin:0 auto;
+body {
+  font-family: sans-serif;
+  font-size: 100%;
+  background-color: #222;
+  color: #fff;
+  text-shadow: 3px 3px 0px #000000;
+  margin: 0 auto;
 }
 
-small{
-font-size: 0.7em;
+small {
+  font-size: 0.7em;
 }
 
-#blag div+div{
-font-size: 0.8rem;
-padding:5px 0 0 0;
-margin:0;
-list-style-type: none;
+section,
+header,
+body > div {
+  font-family: "nicefont", sans-serif;
+  width: 16em;
+  margin: 1em auto;
+  padding: 1em;
+  border-left: 1px solid #333;
 }
 
-#blag div>a{
-    display: block;
-    font-family: sans-serif;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow:hidden;
+section:hover {
+  border-color: #a93;
 }
 
-section, header, body>div{
-font-family: 'nicefont', sans-serif;
-width: 16em;
-margin: 1em auto;
-padding:1em;
-border-left: 1px solid #333;
+div {
+  padding-top: 3px;
+  -webkit-transition: all 1s ease-in-out;
+  -moz-transition: all 1s ease-in-out;
+  -ms-transition: all 1s ease-in-out;
+  -o-transition: all 1s ease-in-out;
+  transition: all 1s ease-in-out;
 }
 
-section:hover{
-border-color: #a93;
+section div div {
+  opacity: 0.94;
+
+  -webkit-transform-origin: 3em 0%;
+  -moz-transform-origin: 3em 0%;
+  -ms-transform-origin: 3em 0%;
+  -o-transform-origin: 3em 0%;
+  transform-origin: 3em 0%;
+
+  -webkit-transform: rotate(8deg) scale(0.8) translate(1em);
+  -moz-transform: rotate(8deg) scale(0.8) translate(1em);
+  -ms-transform: rotate(8deg) scale(0.8) translate(1em);
+  -o-transform: rotate(8deg) scale(0.8) translate(1em);
+  transform: rotate(8deg) scale(0.8) translate(1em);
 }
 
-div{
-padding-top: 3px;
--webkit-transition: all 1s ease-in-out;
-	 -moz-transition: all 1s ease-in-out;
-	  -ms-transition: all 1s ease-in-out;
-	   -o-transition: all 1s ease-in-out;
-	      transition: all 1s ease-in-out;
+section:hover div,
+li:hover li {
+  -webkit-transform: rotate(0deg) scale(1) translate(0);
+  -moz-transform: rotate(0deg) scale(1) translate(0);
+  -ms-transform: rotate(0deg) scale(1) translate(0);
+  -o-transform: rotate(0deg) scale(1) translate(0);
+  transform: rotate(0deg) scale(1) translate(0);
 }
 
-section div div{
-opacity: 0.9;
-
--webkit-transform-origin: 3em 0%;
-   -moz-transform-origin: 3em 0%;
-    -ms-transform-origin: 3em 0%;
-     -o-transform-origin: 3em 0%;
-        transform-origin: 3em 0%;
-
--webkit-transform: rotate(8deg) scale(0.8) translate(1em);
-   -moz-transform: rotate(8deg) scale(0.8) translate(1em);
-    -ms-transform: rotate(8deg) scale(0.8) translate(1em);
-     -o-transform: rotate(8deg) scale(0.8) translate(1em);
-        transform: rotate(8deg) scale(0.8) translate(1em);
-
+h1 {
+  text-align: center;
 }
 
-section:hover div, li:hover li{
-
--webkit-transform: rotate(0deg) scale(1) translate(0);
-   -moz-transform: rotate(0deg) scale(1) translate(0);
-    -ms-transform: rotate(0deg) scale(1) translate(0);
-     -o-transform: rotate(0deg) scale(1) translate(0);
-        transform: rotate(0deg) scale(1) translate(0);
+em {
+  font-size: 1.1em;
 }
 
-
-h1{
-text-align: center;
+em > a {
+  font-size: 0.8em;
+  text-align: right;
+  display: block;
 }
 
-em{
-font-size: 1.1em;
+a,
+span {
+  color: #feffff;
+  white-space: nowrap;
+  padding: 2px;
+  margin: 5px;
 }
 
-em>a{
-font-size: 0.8em;
-text-align: right;
-display:block;
+a {
+  text-decoration: none;
+  border-bottom: 1px solid #333;
 }
 
-a,span{
-color: #feffff;
-white-space:nowrap;
-padding: 2px;
-margin: 5px;
+a:hover {
+  text-decoration: none;
+  border-bottom: 1px solid #a93;
 }
 
-a{
-text-decoration: none;
-border-bottom: 1px solid #333;
+[title="unavaliable"] {
+  opacity: 0.5;
+}
+[title="unavaliable"]:before {
+  content: "x";
+  position: absolute;
+  top: 0.1em;
+  left: 0;
+  font-size: 10px;
+  font-family: sans-serif;
 }
 
-a:hover{
-text-decoration: none;
-border-bottom: 1px solid #a93;
+.yt-bt {
+  position: relative;
+  display: inline-block;
+  width: 16px;
+  height: 14px;
+  border: 2px solid;
+  border-radius: 6px;
+  margin-bottom: -2px;
 }
-
-
-[title=unavaliable] {
-opacity: 0.5;
-}
-[title=unavaliable]:before{
-content: 'x';
-position: absolute;
-top:0.1em;
-left:0;
-font-size: 10px;
-font-family: sans-serif;
+.yt-bt::before {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-top: 4px solid transparent;
+  border-bottom: 4px solid transparent;
+  border-left: 5px solid;
+  top: 3px;
+  left: 6px;
 }
 
 /* lol */
 script {
-display:none;
+  display: none;
 }
-

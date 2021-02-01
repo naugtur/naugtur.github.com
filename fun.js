@@ -17,6 +17,6 @@
         }
     }
 
-        recur();
+    recur();
 
-    })(document)
+})(document)
