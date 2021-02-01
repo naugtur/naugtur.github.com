@@ -11,7 +11,14 @@ body {
   background-color: #222;
   color: #fff;
   text-shadow: 3px 3px 0px #000000;
-  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: center;
+}
+section {
+  flex-grow: 1;
+  max-width: 32em;
 }
 
 small {
@@ -22,7 +29,6 @@ section,
 header,
 body > div {
   font-family: "nicefont", sans-serif;
-  width: 16em;
   margin: 1em auto;
   padding: 1em;
   border-left: 1px solid #333;
