@@ -12,24 +12,56 @@ body {
   color: #fff;
   text-shadow: 3px 3px 0px #000000;
   margin: 0 auto;
+  display: grid;
+  justify-content: space-around;
 }
 
-small {
-  font-size: 0.7em;
+.ts {
+  grid-area: ts;
+}
+.do {
+  grid-area: do;
+}
+.me {
+  grid-area: me;
+}
+
+body {
+  grid-template-columns: auto;
+  grid-template-rows: auto;
+  grid-template-areas:
+  "do"
+  "ts"
+  "me";
+}
+/* ascii art for layouts! why bother learning anything else? well, I did anyway, but hey - ascii art layouts! */
+@media (min-width: 888px) {
+  body {
+    max-width: 1024px;
+    grid-template-columns: 5fr 2fr;
+    grid-template-rows: auto 1fr;
+    grid-template-areas:
+      "ts do"
+      "ts me";
+  }
 }
 
 section,
 header,
 body > div {
   font-family: "nicefont", sans-serif;
-  width: 16em;
-  margin: 1em auto;
+  min-width: 16em;
+  margin: 1em;
   padding: 1em;
   border-left: 1px solid #333;
 }
 
-section:hover {
+body:hover > section {
+  opacity: 0.3;
+}
+body section:hover {
   border-color: #a93;
+  opacity: 1;
 }
 
 div {
@@ -41,6 +73,7 @@ div {
   transition: all 1s ease-in-out;
 }
 
+/* this part does the recursion, in case you were looking */
 section div div {
   opacity: 0.94;
 
@@ -96,18 +129,6 @@ a {
 a:hover {
   text-decoration: none;
   border-bottom: 1px solid #a93;
-}
-
-[title="unavaliable"] {
-  opacity: 0.5;
-}
-[title="unavaliable"]:before {
-  content: "x";
-  position: absolute;
-  top: 0.1em;
-  left: 0;
-  font-size: 10px;
-  font-family: sans-serif;
 }
 
 .yt-bt {
