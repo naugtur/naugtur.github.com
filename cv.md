@@ -29,13 +29,19 @@ Senior Front-end Developer (2011-2014)
 - Full-page heatmap rendering in the browser
 - Heatmaps for elements of varying location on the page
 - Tracking all events on the site and replaying them in a manner resembling a video
+- Finding and fixing spectacular memory leaks
 - Onboarding and mentoring young and bright JS developers
 ### Poleng Sp. z o.o.
 GUI Developer, Project Manager (2008-2011)
 
 > Designing and building web interfaces, touchscreen/kiosk interactive presentations, installing Linux on way too new hardware. 
 
+## Outside-work experience
 
+- Member of Node.js Diagnostics Working Group
+- Created npm-audit-resolver, working on getting package managers to support resolutions file
+- Experimental diagnostics tools for Node.js - debugging-aid package 
+(find more on https://naugtur.pl)
 
 ## Community work
 
