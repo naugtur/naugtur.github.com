@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
 
-    <title>Fun with async hooks and stack traces</title>
+    <title>My NPM package will eat your lunch</title>
 
     <meta name="author" content="naugtur">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -62,11 +62,14 @@
             animation: move 3456ms infinite ease-in-out;
         }
 
-        .an-oops {
-            box-shadow: 1px -2px 56px 40px rgb(255 166 60);
+        .an-item.an-oops {
             background-color: rgba(255, 166, 60, 0.9);
-            animation-play-state: paused !important;
+
+            /* animation-play-state: paused !important; */
             border-radius: 50%;
+            offset-path: path('M30,80 C200,-200 500,0 300,250');
+            animation: discover 3456ms ease-in-out;
+            animation-fill-mode: forwards;
         }
 
         .an-oops:after {
@@ -83,6 +86,25 @@
                 offset-distance: 100%;
             }
         }
+
+        @keyframes discover {
+            0% {
+                offset-distance: 0%;
+                box-shadow: 1px -2px 0px 0px rgb(255 166 60);
+            }
+
+            100% {
+                box-shadow: 1px -2px 64px 50px rgb(255 166 60);
+                offset-distance: 100%;
+            }
+        }
+
+        .avatar {
+            position: fixed;
+            bottom: 3%;
+            right: 15%;
+            height: 100px;
+        }
     </style>
 </head>
 
@@ -98,8 +120,27 @@
                 <small>@naugtur, 2021</small>
             </section>
 
+            <section data-markdown>
+                ### So, imagine we meet for some 🍻 and nerding out about your new project.
+            </section>
+            <section data-markdown data-background-color="#3d0364">
+                You say  
+                ### Sounds unrealistic
+                ### but cool
+            </section>
+            <section data-markdown>
+                Then I ask
+                ### How did you do this and that?
+            </section>
+            <section data-markdown data-background-color="#3d0364">
+                ### Packages!
+                #### Shoulders of giants, etc.etc.
+            </section>
+            <section data-markdown>
+                ### npm install?
+            </section>
             <section class="animatedSlide">
-                <h3>npm install</h3>
+                <h3>npm install?</h3>
 
                 <img src="./npm.svg" alt="npm logo" style="width: 15%; padding: 20px; background-color: #333;"
                     class="an-cover an-start-loc">
@@ -108,11 +149,12 @@
 
             </section>
             <section data-markdown>
-                ### Supply chain attack!
+                #### Have you heard of
+                ### Supply chain attacks?
             </section>
-            <section data-markdown data-background-color="#653">
+            <section data-markdown data-background-color="#3d0364">
                 ### I know, I know
-                ### But I trust my packages
+                ### But I install good stuff
             </section>
 
             <section class="animatedDependency">
@@ -124,70 +166,172 @@
                 <span> a dev dependency of yours?</span>
             </section>
 
-            <section data-markdown data-background-color="#653">
-                ### Well, I don't run it at all
+            <section data-markdown data-background-color="#3d0364">
+                ### Well,
+                ### I don't run it in production
             </section>
             <section data-markdown>
                 ### U sure? 🤔
             </section>
             <section data-markdown>
                 ```js
-    "postinstall":
-        "echo 💩 > /etc/hosts"
+                "postinstall":
+                "echo 💩 > /etc/hosts"
                 ```
             </section>
-            <section data-markdown data-background-color="#653">
-               ### Well, 💩 
+
+            <section data-markdown data-background-color="#3d0364">
+                ### Well, 💩
             </section>
-            <section data-markdown data-background-color="#653">
-               ### Ok, wait
-               ```
-    ✨🐋
-    npm ci 
-    cp node_modules s3://
-    🔥🔥🐋🔥🔥
-               ```
-               #### Gotcha! Now I'm safe!
+            <section data-markdown>
+                ### Need a demo?
+            </section>
+            <section data-markdown data-background-color="#3d0364">
+                ### Ok, wait
+                ```
+                ✨🐋
+                npm ci
+                cp node_modules s3://
+                🔥🔥🐋🔥🔥
+                ```
+                #### Gotcha! Now I'm safe!
             </section>
             <section data-markdown>
                 ### Hold my 🍺
             </section>
+            <section data-markdown data-background-image="./intro.svg">
+                ### Hold my 🍺
+            </section>
+            <section data-markdown data-background-color="#3d0364">
+                # 😱  
+
+
+                ### Woot?!
+            </section>
+
+
+
+
+
+
+
+
 
             <section data-markdown>
-                ## DEMO
+                ### I was into JS security before I knew JS or security
             </section>
 
-            <section class="aboutme">
+            <section data-markdown>
+                My first 5 lines of JavaScript ever
+                ```js
+                function kill(){
+                setTimeout('kill',0)
+                setTimeout('kill',0)
+                }
+                kill()
+                ```
 
-                <section data-markdown>
-                    ### I was into JS security before I knew JS or security
-                </section>
+                breaks Windows pre XP SP2
+            </section>
+            <section data-markdown>
+                ### How does one hack the typescript compiler?
 
-                <section data-markdown>
-                    My first 5 lines of JavaScript ever
-                    ```js
-                    function kill(){
-                    setTimeout('kill',0)
-                    setTimeout('kill',0)
-                    }
-                    kill()
-                    ```
+                With code coverage tools!
+            </section>
+           
+            <section data-markdown>
+                #### Deep down inside
+                ### I'm on the blue team
+            </section>
+           
 
-                    breaks Windows pre XP SP2
-                </section>
 
-                <section data-markdown>
-                    Was it obvious? yes
 
-                    Was it something people thought to do? no
-                </section>
+
+
+
+
+
+
+
+
+            <section data-markdown>
+                # Let's fix this mess
+            </section>
+
+            <section data-markdown>
+                ## --ignore-scripts
+
+                ```
+                npm ci --ignore-scripts
+                yarn --ignore-scripts
+                ```
+            </section>
+
+            <section data-markdown data-background-color="#3d0364">
+                ### Ok.
+                ### that's all?
+            </section>
+
+            <section data-markdown>
+                ### Almost...
+            </section>
+            <section data-markdown>
+                ## 😅
+                #### Does your app still work?  
+                
+                #### Some scripts are there for a reason 
+            </section>
+            <section data-markdown>
+                #### Run selected scritps
+                npm CLI has an option to do that
+                ```
+                npm rebuild bcrypt bignum
+                ```
+                For more control (and yarn support)  
+                use allow-scripts
+                ```
+                npm install --save-dev allow-scripts
+                ```
+            </section>
+            <section>
+                <h3>allow scripts</h3>
+                <img src="dom.png" class="avatar">
+                <img src="allow.png" alt="allow-scripts npm page screenshot">
+                
+            </section>
+            <section>
+                <h3>more tooling?</h3>
+                <div>
+                    @lavamoat/allow-scripts etc.
+                </div>
+                <img src="kumavis.png" class="avatar">
+                <img src="lavamoat-logo.png" alt="lavamoat logo">
 
             </section>
-          
+            <section data-markdown data-background-color="#3d0364">
+                ### That's great.
+                 Now I just need to create the allow list   
+                 with a lot of trial and error...
+            </section>
+            <section data-markdown>
+                # Nope!
+                </section>
 
+                <section>
+                    <h3>There's an app for that</h3>
+                    <img src="../../me.avatar.jpg" class="avatar">
+                
+                    <img src="canicli.png" alt="">
+                </section>
+                <section>
+                    <h2>Call to arms!</h2>
+                    <div>Please open PRs to data.json</div>
+                    <img src="data.png" style="border:none; background: none" alt="">
+                </section>
 
             <section>
-                <h4>Thanks for participating<br> in my hobbies</h4>
+                <h4>Cheers! 🍻</h4>
 
                 <br><br>
 
@@ -196,8 +340,9 @@
 
             </section>
             <section data-markdown>
-                Q&A or more demos?
+                #### We can't have a Q&A now, but we could nerd out about the details of how the typescript hack works
             </section>
+
 
         </div>
 
@@ -293,22 +438,22 @@
             if (event.currentSlide.classList.contains('animatedSlide')) {
                 an.innerHTML = '';
 
-                ['❤️‍🔥', '😂', '🎤', '🎵', '🖥️', '📎', '💻', '📱', '📞', '📟', '📠', '📡', '📺', '📻', '📽', '🔌', '🔋', '🔎', '💡', '🔦', '🔧', '🔨', '🔩', '🔪', '🔭', '🔮', '🔰', '🔱', '🕊', '🕐', '🕯', '🕰', '🕴', '🕵', '🕶', '🕷', '🖔', '🖖', '🖤', '🖥', '🖦', '🖨', '🖩', '🖫'].forEach((icon, index) =>
-                    installAnimation(icon, index * 357)
+                ['🔧', '🔨', '🔩', '🔪', '❤️‍🔥', '😂', '🎤', '🎵', '📎', '💻', '📱', '📞', '📟', '📠', '📡', '📺', '📻', '📽', '🔌', '🔋', '🔎', '💡', '🔦', '🔭', '🔮', '🔰', '🔱', '🕊', '🕐', '🕯', '🕰', '🕴', '🕵', '🕶', '🕷', '🖖', '🖤', '🖥', '🖦', '🖨', '🖩', '🖫'].forEach((icon, index) =>
+                    installAnimation(icon, index * 400)
                 )
                 const poo = installAnimation('💩', 5000)
-                setTimeout(() => poo.classList.add('an-oops'), 5000 + 2000 + 3456)
+                setTimeout(() => poo.classList.add('an-oops'), 5000 + 3456)
             }
 
 
             if (event.currentSlide.classList.contains('animatedDependency')) {
                 const dep = document.querySelector('.adependency');
                 const deps = document.querySelector('.dependencies');
-                deps.innerHTML='';
+                deps.innerHTML = '';
                 ' '.repeat(8).split('').forEach((_, index) => {
                     setTimeout(() => {
                         deps.appendChild(dep.cloneNode(true));
-                    }, (index+3) * 1000)
+                    }, (index + 3) * 1000)
                 })
             }
 
