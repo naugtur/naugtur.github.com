@@ -30,6 +30,10 @@
 
     <link rel="stylesheet" href="../branding/style.css" id="branding">
     <style>
+        /* need to override branding because some ilustrations are too dark :( */
+        body {
+            background-color: #000 !important;
+        }
         .an-container {
             width: 100%;
             height: 100%
@@ -38,28 +42,36 @@
         .an-item,
         .an-start-loc {
             position: fixed;
-            top: 25%;
+            top: 15%;
             left: 15%;
         }
 
-        .an-cover {
-            z-index: 10;
+        .an-npm {
+            z-index: 11;
         }
 
         .an-target {
             position: fixed;
-            bottom: 25%;
-            right: 15%;
-            font-size: 2.5em !important;
+            bottom: 12%;
+            right: 8%;
+            width: 42%;
+            z-index: 9;
+
         }
 
+        .reveal section img.clear  {
+            border: none;
+            background:none;
+            box-shadow: none;
+            max-width: 50%;
+        }
         .an-item {
             offset-path: path('M100,80 C200,-200 500,0 600,300');
             offset-rotate: 0deg;
         }
 
         .an-item.an-to {
-            animation: move 3456ms infinite ease-in-out;
+            animation: move 4444ms infinite ease-in-out;
         }
 
         .an-item.an-oops {
@@ -67,14 +79,11 @@
 
             /* animation-play-state: paused !important; */
             border-radius: 50%;
-            offset-path: path('M30,80 C200,-200 500,0 300,250');
-            animation: discover 3456ms ease-in-out;
+            /* offset-path: path('M30,80 C200,-200 500,0 320,200'); */
+            animation: discover 4444ms ease-in-out;
             animation-fill-mode: forwards;
-        }
+            z-index: 10;
 
-        .an-oops:after {
-            content: 'Oops!';
-            position: absolute;
         }
 
         @keyframes move {
@@ -90,11 +99,11 @@
         @keyframes discover {
             0% {
                 offset-distance: 0%;
-                box-shadow: 1px -2px 0px 0px rgb(255 166 60);
+                box-shadow: 0px 0px 0px 0px rgb(255 166 60);
             }
 
             100% {
-                box-shadow: 1px -2px 64px 50px rgb(255 166 60);
+                box-shadow: 0px 0px 64px 50px rgb(255 166 60);
                 offset-distance: 100%;
             }
         }
@@ -104,6 +113,9 @@
             bottom: 3%;
             right: 15%;
             height: 100px;
+        }
+
+        .you, .me {
         }
     </style>
 </head>
@@ -115,78 +127,91 @@
         <!-- Any section element inside of this container is displayed as a slide -->
         <div class="slides">
             <section data-background-image="./intro.svg">
-                <br>
+                <br><br>
                 <h1>My NPM package will eat your lunch</h1>
                 <small>@naugtur, 2021</small>
             </section>
 
-            <section data-markdown>
-                ### So, imagine we meet for some 🍻 and nerding out about your new project.
-            </section>
-            <section data-markdown data-background-color="#3d0364">
-                You say  
-                ### Sounds unrealistic
-                ### but cool
-            </section>
-            <section data-markdown>
-                Then I ask
-                ### How did you do this and that?
-            </section>
-            <section data-markdown data-background-color="#3d0364">
-                ### Packages!
-                #### Shoulders of giants, etc.etc.
-            </section>
-            <section data-markdown>
-                ### npm install?
-            </section>
-            <section class="animatedSlide">
-                <h3>npm install?</h3>
+        
+            <section class="animatedSlide ">
 
-                <img src="./npm.svg" alt="npm logo" style="width: 15%; padding: 20px; background-color: #333;"
-                    class="an-cover an-start-loc">
-                <div class="an-target an-cover">📁</div>
+                <img src="./npm.svg" alt="npm logo" style="width: 25%; margin-top:5%"
+                    class="clear an-npm an-start-loc">
+                <img src="./ilus/undraw_proud_coder_7ain.svg" alt="your app"
+                class="clear an-target ">
                 <div class="an-container"></div>
 
+                <aside class="notes">
+                    So what do you do for a living? I install npm packages. You should try it some time, it's fun.
+                </aside>
+
+            </section>
+            <section>
+                <img src="./ilus/undraw_hacker_mind_6y85.svg" alt="hacker"
+                class="clear">
+                <h4>
+
+                    Have you heard of <br>
+                    supply chain attacks?
+                </h4>
+                <aside class="notes">
+                    When you do, make sure there's no hackers passing by, cause you never know...
+                </aside>
+
+            </section>
+            
+            <section class="animatedSlide withpoo">
+
+                <img src="./npm.svg" alt="npm logo" style="width: 25%; margin-top:5%"
+                    class="clear an-npm an-start-loc">
+                <img src="./ilus/undraw_proud_coder_7ain.svg" alt="your app"
+                class="clear an-target ">
+                <div class="an-container"></div>
+
+                <aside class="notes">
+                    Not everything from npm has to be nice tho.
+                    It's not fun to be on a receiveing end of a malicious package.
+                </aside>
+
             </section>
             <section data-markdown>
-                #### Have you heard of
-                ### Supply chain attacks?
+                # 🤔
             </section>
-            <section data-markdown data-background-color="#3d0364">
-                ### I know, I know
-                ### But I install good stuff
+            <section>
+                <img src="./ilus/undraw_Update_re_swkp.svg" alt="publish a package" class="clear">
+                <h4>So, I published a package</h4>
             </section>
+            <!-- Makes me think what it'd be ike to be on the publishing end of a malicious package -->
+            
+
+            <!-- Ok, so I wrote a malicious package. Whatcha gonna do about it? -->
 
             <section class="animatedDependency">
-                How about <div class="dependencies">
+                I'm gonna sneak it in as <div class="dependencies">
                     <div class="adependency"> a dependency of </div>
 
                 </div>
 
-                <span> a dev dependency of yours?</span>
-            </section>
-
-            <section data-markdown data-background-color="#3d0364">
-                ### Well,
-                ### I don't run it in production
+                <span> a dev dependency of yours</span>
             </section>
             <section data-markdown>
-                ### U sure? 🤔
+                #### You think you won't run it? 
             </section>
-            <section data-markdown>
-                ```js
-                "postinstall":
-                "echo 💩 > /etc/hosts"
-                ```
+            <section>
+                <img src="npmscripts.png" alt="npm docs for lifecycle scripts" class="clear">
+                <pre><code data-trim>
+                        "postinstall": "echo 💩 > /etc/hosts"
+                    </code></pre>
             </section>
 
-            <section data-markdown data-background-color="#3d0364">
-                ### Well, 💩
+            <section data-markdown>
+                ## Well, 💩
             </section>
             <section data-markdown>
                 ### Need a demo?
             </section>
-            <section data-markdown data-background-color="#3d0364">
+
+            <section data-markdown>
                 ### Ok, wait
                 ```
                 ✨🐋
@@ -194,54 +219,41 @@
                 cp node_modules s3://
                 🔥🔥🐋🔥🔥
                 ```
-                #### Gotcha! Now I'm safe!
             </section>
-            <section data-markdown>
-                ### Hold my 🍺
-            </section>
+            
             <section data-markdown data-background-image="./intro.svg">
                 ### Hold my 🍺
             </section>
-            <section data-markdown data-background-color="#3d0364">
-                # 😱  
-
-
-                ### Woot?!
-            </section>
-
-
-
-
-
-
-
-
-
-            <section data-markdown>
-                ### I was into JS security before I knew JS or security
-            </section>
-
-            <section data-markdown>
-                My first 5 lines of JavaScript ever
-                ```js
-                function kill(){
-                setTimeout('kill',0)
-                setTimeout('kill',0)
-                }
-                kill()
-                ```
-
-                breaks Windows pre XP SP2
-            </section>
-            <section data-markdown>
-                ### How does one hack the typescript compiler?
-
-                With code coverage tools!
-            </section>
            
-            <section data-markdown>
-                #### Deep down inside
-                ### I'm on the blue team
+
+
+
+
+
+
+                <section data-markdown>
+                    #### I was into JS security before I knew JS or security
+                </section>
+                
+                <section data-markdown>
+                    My first 5 lines of JavaScript ever
+                    ```js
+                    function kill(){
+                        setTimeout('kill',0)
+                        setTimeout('kill',0)
+                    }
+                    kill()
+                    ```
+                    
+                    breaks Windows pre XP SP2
+                </section>
+                <section>
+                    <img src="./ilus/simply.jpg" alt="meme: one does not simply hack typescript compiler" class="clear">
+                </section>
+           
+            <section>
+                <img src="./ilus/undraw_Landing_page_re_6xev.svg" alt="publish a package" class="clear">
+                <h4>But I prefer fixing</h4>
             </section>
            
            
@@ -268,10 +280,9 @@
                 yarn --ignore-scripts
                 ```
             </section>
-
-            <section data-markdown data-background-color="#3d0364">
-                ### Ok.
-                ### that's all?
+            <section>
+                <img src="./ilus/undraw_winners_ao2o.svg" alt="publish a package" class="clear">
+                <h4 class="fragment">And that's it?</h4>
             </section>
 
             <section data-markdown>
@@ -292,7 +303,7 @@
                 For more control (and yarn support)  
                 use allow-scripts
                 ```
-                npm install --save-dev allow-scripts
+                npm install -D allow-scripts
                 ```
             </section>
             <section>
@@ -310,14 +321,11 @@
                 <img src="lavamoat-logo.png" alt="lavamoat logo">
 
             </section>
-            <section data-markdown data-background-color="#3d0364">
-                ### That's great.
-                 Now I just need to create the allow list   
-                 with a lot of trial and error...
-            </section>
             <section data-markdown>
-                # Nope!
+                ### That's great.
+                 Now I **"just"** need to look through all my dependencies and create an allow list
             </section>
+            
 
             <section>
                 <h3>There's an app for that</h3>
@@ -333,14 +341,19 @@
                 <div>Please open PRs to data.json</div>
                 <img src="data.png" style="border:none; background: none" alt="">
             </section>
-            <section data-markdown data-background-color="#3d0364">
-                #### There's this Ci guru I need to convince now
-                But they don't watch videos, they watch orbs turn from blue to red all day
+            <section data-markdown>
+                ### Need to convince others?
+            </section>
+            <section>
+                <img src="./ilus/jenkins.png" alt="publish a package" class="clear">
+                
             </section>
             <section data-markdown>
-                #### I've got you covered!
+                ### I've got you covered!
+
+
                 ```
-                npm i -D @naugtur/pentest-my-ci
+                npm install -D @naugtur/pentest-my-ci
                 ```
 
                 It will break your build and print a scary but informative message 😂
@@ -366,11 +379,7 @@
     </div>
 
     <style>
-        h2,
-        h3 {
-            margin-bottom: 0.8em !important;
-        }
-
+       
         #naugtur {
             background-image: none;
         }
@@ -383,13 +392,7 @@
             height: auto;
         }
 
-        .problem .reveal {
-            background-image: url('raptor.png') !important;
-        }
-
-        .sad .reveal {
-            background-image: url('sad.png') !important;
-        }
+        
     </style>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/lib/js/head.min.js"></script>
@@ -441,7 +444,7 @@
         });
 
 
-        function installAnimation(icon, delay) {
+        function installAnimation(an, icon, delay) {
             var el = document.createElement('span');
             el.classList.add('an-item');
             el.innerHTML = icon;
@@ -449,17 +452,24 @@
             setTimeout(() => el.classList.add('an-to'), delay);
             return el
         }
-        var an = document.querySelector('.an-container');
         Reveal.addEventListener('slidechanged', (event) => {
             console.log(event.currentSlide)
             if (event.currentSlide.classList.contains('animatedSlide')) {
+                var an = event.currentSlide.querySelector('.an-container');
                 an.innerHTML = '';
 
-                ['🔧', '🔨', '🔩', '🔪', '❤️‍🔥', '😂', '🎤', '🎵', '📎', '💻', '📱', '📞', '📟', '📠', '📡', '📺', '📻', '📽', '🔌', '🔋', '🔎', '💡', '🔦', '🔭', '🔮', '🔰', '🔱', '🕊', '🕐', '🕯', '🕰', '🕴', '🕵', '🕶', '🕷', '🖖', '🖤', '🖥', '🖦', '🖨', '🖩', '🖫'].forEach((icon, index) =>
-                    installAnimation(icon, index * 400)
-                )
-                const poo = installAnimation('💩', 5000)
-                setTimeout(() => poo.classList.add('an-oops'), 5000 + 3456)
+                
+                if(event.currentSlide.classList.contains('withpoo')) {
+                    ['🔧', '🔨', '🔩', '🔪', '❤️‍🔥', '😂', '🎤', '🎵', '📎', '💻', '📱', '📞', '📟', '📠', '📡', '📺', '📻', '📽', '🔌', '🔋', '🔎', '💡', '🔦', '🔭', '🔮', '🔰', '🔱', '🕊', '🕐', '🕯', '🕰', '🕴', '🕵', '🕶', '🕷', '🖖', '🖤', '🖥', '🖦', '🖨', '🖩', '🖫'].forEach((icon, index) =>
+                        installAnimation(an, icon, index * 456)
+                    )
+                    const poo = installAnimation(an, '💩', 5000)
+                    setTimeout(() => poo.classList.add('an-oops'), 5000 + 4444)
+                } else {
+                    '📦,'.repeat(30).split(',').forEach((icon, index) =>
+                        installAnimation(an, icon, 7777*Math.log10((index)/3 + 1))
+                    )
+                }
             }
 
 
