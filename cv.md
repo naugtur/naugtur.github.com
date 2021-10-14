@@ -1,16 +1,24 @@
+![](./me.avatar.jpg)
+
 # Zbigniew Tenerowicz
 
-|  Contact|   |
+| Contact |   |
 | --- | --- |
 | email | naugtur@gmail.com |
-| web | [http://naugtur.pl](http://naugtur.pl) |
+| web | [https://naugtur.pl](https://naugtur.pl) |
 
 ## Experience
 
+### Collibra
+
+Principal Software Engineer (2021)
+
+> Joined Central Frontend Team to push javascript practice forward. Founded dev-security community of practice.
+
 ### Egnyte Inc.
-Senior Software Engineer (2014-2019)  
+Principal Software Engineer (2020-2021)  
 Partner Integrations Team Lead (2014-2020)  
-Principal Software Engineer (2020-onward)  
+Senior Software Engineer (2014-2019)  
 
 > Founded an ecosystem engineering team, later expanded to 3 teams. Drove teammates to step up and become senior engineers, team leaders. Built a beginner-focused and repeatability oriented set of tools for developing integrations with 3rdparty systems for Egnyte. All that with Node.js as the technology of choice.
 
@@ -40,6 +48,7 @@ GUI Developer, Project Manager (2008-2011)
 
 - Member of Node.js Diagnostics Working Group
 - Created npm-audit-resolver, working on getting package managers to support resolutions file
+  - Member of OpenJS Foundation's Package Vulnerability Management & Reporting Collaboration Space
 - Experimental diagnostics tools for Node.js - debugging-aid package 
 (find more on https://naugtur.pl)
 
@@ -54,8 +63,10 @@ https://summit.meetjs.pl/2018/
 https://dev.to/naugtur/community-conference-organizer-checklist-5d45  
 
 ### Speaking
+* SnykCon
 * NodeConf Remote
 * Meet.js Summit
+* Node.js meetup Berlin
 * JSPoland
 * Polyconf
 * Front-trends
@@ -76,3 +87,29 @@ Adam Mickiewicz University, Poznań, Poland (2005-2010)
 
 Thesis: Applying evolutionary computation
 to natural language processing
+
+
+
+
+
+
+
+
+
+<style>
+    * {
+        border-bottom:none !important;
+        border-top:none !important;
+        font-family: Roboto, sans-serif;
+    }
+    body {
+        
+    }
+    img {
+        float: right;
+        width: 20%;
+    }
+    h1, h2 {
+        margin: 50px 0 0 -15px;
+    }
+</style>
