@@ -90,6 +90,7 @@ section div div {
   transform: rotate(8deg) scale(0.8) translate(1em);
 }
 
+body.touch section div,
 section:hover div,
 li:hover li {
   -webkit-transform: rotate(0deg) scale(1) translate(0);

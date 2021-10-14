@@ -8,7 +8,7 @@
             elements = [].slice.apply(current.getElementsByTagName('*'));
             for (var e = 0, le = elements.length; e < le; e += 1) {
                 if(elements[e].parentNode===sections[i]){
-                element = document.createElement('div');
+                element = D.createElement('div');
                 element.appendChild(elements[e]);
                 current.appendChild(element);
                 current = element;
@@ -19,4 +19,8 @@
 
     recur();
 
+    D.addEventListener('touchstart', function () {
+        D.body.classList.add('touch')
+    })
+    
 })(document)
