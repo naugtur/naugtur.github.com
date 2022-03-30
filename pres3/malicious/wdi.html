@@ -1,0 +1,511 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>My NPM package will eat your lunch</title>
+
+    <meta name="author" content="naugtur">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/css/reveal.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/css/theme/black.css" id="theme">
+
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/lib/css/zenburn.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/css/print/pdf.css' : 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/css/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+
+    <link rel="stylesheet" href="../branding/style.css" id="branding">
+    <style>
+        /* need to override branding because some ilustrations are too dark :( */
+        body {
+            background-color: #000 !important;
+        }
+        .an-container {
+            width: 100%;
+            height: 100%
+        }
+
+        .an-item,
+        .an-start-loc {
+            position: fixed;
+            top: 15%;
+            left: 15%;
+        }
+
+        .an-npm {
+            z-index: 11;
+        }
+
+        .an-target {
+            position: fixed;
+            bottom: 12%;
+            right: 8%;
+            width: 42%;
+            z-index: 9;
+
+        }
+
+        .reveal section img.clear  {
+            border: none;
+            background:none;
+            box-shadow: none;
+            max-width: 50%;
+        }
+        .an-item {
+            offset-path: path('M100,80 C200,-200 500,0 600,300');
+            offset-rotate: 0deg;
+        }
+
+        .an-item.an-to {
+            animation: move 4444ms infinite ease-in-out;
+        }
+
+        .an-item.an-oops {
+            background-color: rgba(255, 166, 60, 0.9);
+
+            /* animation-play-state: paused !important; */
+            border-radius: 50%;
+            /* offset-path: path('M30,80 C200,-200 500,0 320,200'); */
+            animation: discover 4444ms ease-in-out;
+            animation-fill-mode: forwards;
+            z-index: 10;
+
+        }
+
+        @keyframes move {
+            0% {
+                offset-distance: 0%;
+            }
+
+            100% {
+                offset-distance: 100%;
+            }
+        }
+
+        @keyframes discover {
+            0% {
+                offset-distance: 0%;
+                box-shadow: 0px 0px 0px 0px rgb(255 166 60);
+            }
+
+            100% {
+                box-shadow: 0px 0px 64px 50px rgb(255 166 60);
+                offset-distance: 100%;
+            }
+        }
+        .lavamoat {
+            display:block;
+            margin: 0 auto !important;
+            border: none !important;
+        }
+        .avatar {
+            height: 100px;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div class="reveal none" id="naugtur">
+
+        <!-- Any section element inside of this container is displayed as a slide -->
+        <div class="slides">
+            <section data-background-image="./wdi.svg"
+            data-background-size="contain"
+            data-background-position="right">
+                <br><br>
+                <h1>My NPM package will eat your lunch</h1>
+                <small>@naugtur, WDI 2022</small>
+            </section>
+
+        
+            <section class="animatedSlide ">
+
+                <img src="./npm.svg" alt="npm logo" style="width: 25%; margin-top:5%"
+                    class="clear an-npm an-start-loc">
+                <img src="./ilus/undraw_proud_coder_7ain.svg" alt="your app"
+                class="clear an-target ">
+                <div class="an-container"></div>
+
+                <aside class="notes">
+                    So what do you do for a living? I install npm packages. You should try it some time, it's fun.
+                </aside>
+
+            </section>
+            <section>
+                <img src="./ilus/undraw_hacker_mind_6y85.svg" alt="hacker"
+                class="clear">
+                <h4>
+                    Have you heard of <br>
+                    supply chain attacks?
+                </h4>
+                <aside class="notes">
+                    When you do, make sure there's no hackers passing by, cause you never know...
+                </aside>
+
+            </section>
+            
+            <section class="animatedSlide withpoo">
+
+                <img src="./npm.svg" alt="npm logo" style="width: 25%; margin-top:5%"
+                    class="clear an-npm an-start-loc">
+                <img src="./ilus/undraw_proud_coder_7ain.svg" alt="your app"
+                class="clear an-target ">
+                <div class="an-container"></div>
+
+                <aside class="notes">
+                    Not everything from npm has to be nice tho.
+                    It's not fun to be on a receiveing end of a malicious package.
+                </aside>
+
+            </section>
+            <section data-markdown>
+                # 🤔
+            </section>
+            <section>
+                <img src="./ilus/undraw_Update_re_swkp.svg" alt="publish a package" class="clear">
+                <h4>So, I published a package</h4>
+            </section>
+            <!-- Makes me think what it'd be ike to be on the publishing end of a malicious package -->
+            
+
+            <!-- Ok, so I wrote a malicious package. Whatcha gonna do about it? -->
+
+            <section class="animatedDependency">
+                I'm gonna sneak it in as <div class="dependencies">
+                    <div class="adependency"> a dependency of </div>
+
+                </div>
+
+                <span> a dev dependency of yours</span>
+            </section>
+            <section data-markdown>
+                #### You think you won't run it? 
+            </section>
+            <section>
+                <img src="npmscripts.png" alt="npm docs for lifecycle scripts" class="clear">
+                <pre><code data-trim>
+                        "postinstall": "echo 💩 > /etc/hosts"
+                    </code></pre>
+            </section>
+
+            <section data-markdown>
+                ## Well, 💩
+            </section>
+            <section data-markdown>
+                ### Need a demo?
+            </section>
+
+            <section data-markdown>
+                ### Ok, wait
+                ```
+                ✨🐋
+                npm ci
+                cp node_modules s3://
+                🔥🔥🐋🔥🔥
+                ```
+            </section>
+            
+            <section data-markdown data-background-image="./wdi.svg"
+            data-background-size="contain"
+            data-background-position="right">
+                ### Hold my 🍺
+            </section>
+           
+
+
+
+
+
+
+                <section data-markdown>
+                    #### I was into JS security before I knew JS or security
+                </section>
+                
+                <section data-markdown>
+                    My first 5 lines of JavaScript ever
+                    ```js
+                    function kill(){
+                        setTimeout('kill',0)
+                        setTimeout('kill',0)
+                    }
+                    kill()
+                    ```
+                    
+                    breaks Windows pre XP SP2
+                </section>
+                <section>
+                    <img src="./ilus/simply.jpg" alt="meme: one does not simply hack typescript compiler" class="clear">
+                </section>
+           
+            <section>
+                <img src="./ilus/undraw_Landing_page_re_6xev.svg"
+                        alt="ilustrates fixing with a picture of a dude prodding an item with his leg" class="clear">
+                <h4>But I prefer fixing</h4>
+            </section>
+           
+           
+
+
+
+
+
+
+
+
+
+
+
+            <section data-markdown>
+                # Let's fix this mess
+            </section>
+
+            <section data-markdown>
+                ## --ignore-scripts
+
+                ```
+                npm ci --ignore-scripts
+                yarn --ignore-scripts
+                ```
+            </section>
+            <section>
+                <img src="./ilus/undraw_winners_ao2o.svg" alt="publish a package" class="clear">
+                <h4 class="fragment">And that's it?</h4>
+            </section>
+
+            <section data-markdown>
+                ### Almost...
+            </section>
+            <section data-markdown>
+                ## 😅
+                #### Does your app still work?  
+                
+                #### Yeah. Some scripts are there for a reason 
+            </section>
+            <section data-markdown>
+                #### Run selected scritps
+                npm CLI has an option to do that
+                ```
+                npm rebuild bcrypt bignum
+                ```
+                For more control (and yarn support)  
+                use allow-scripts
+                ```
+                npm install -D @lavamoat/allow-scripts
+                ```
+            </section>
+            <section>
+                <h3>lavamoat</h3>
+                
+                <img src="lavamoat-logo.png" class="lavamoat" alt="lavamoat logo">
+                <img src="kumavis.png" class="avatar">
+
+            </section>
+            <section>
+                <h3>lavamoat</h3>
+                
+                <img src="lavamoat-logo.png" class="lavamoat" alt="lavamoat logo">
+                <img src="kumavis.png" class="avatar">
+                <img src="../../me.avatar.jpg" class="avatar"> 🥳
+
+            </section>
+            <section data-markdown>
+                ### more control
+
+                - setup helper
+                - stops if setup broken
+
+                ![](allow-scripts_LavaMoat.png)
+            </section>
+            <section data-markdown>
+                ### That's great.
+                 Now I **"just"** need to look through all my dependencies and create an allow list
+            </section>
+            
+
+            <section>
+                <h3>There's an app for that</h3>
+                
+                <img src="canicli.png" alt="">
+                <img src="../../me.avatar.jpg" class="avatar">
+            </section>
+            <!-- <section data-markdown>
+                #### My hobby: creating tooling to make decent security more approachable
+            </section> -->
+            <section>
+                <h2>Call to arms!</h2>
+                <div>Please open PRs to data.json</div>
+                <img src="data.png" style="border:none; background: none" alt="">
+            </section>
+            <section data-markdown>
+                ### Need to convince others?
+            </section>
+            <section>
+                <img src="./ilus/jenkins.png" alt="publish a package" class="clear">
+                
+            </section>
+            <section data-markdown>
+                ### I've got you covered!
+
+
+                ```
+                npm install -D @naugtur/pentest-my-ci
+                ```
+
+                It will break your build and print a scary but informative message 😂
+
+            </section>
+            <section data-markdown data-background-image="./wdi.svg"
+            data-background-size="contain"
+            data-background-position="right">
+                ### My recommendation
+                
+                
+```
+✨🐋
+cp remote/package.json ./
+cp remote/package-lock.json ./
+npm ci --production --ignore-scripts
+npm run allow-scripts
+cp node_modules cloud://
+🔥🔥🐋🔥🔥
+```
+
+
+            </section>
+
+            <section>
+                <h4>Q&A or more about lavamoat?</h4>
+
+                <br><br>
+
+                <p>@naugtur &nbsp; <a href="https://naugtur.pl/">naugtur.pl</a></p>
+
+
+            </section>
+       
+
+        </div>
+
+    </div>
+
+    <style>
+       
+        #naugtur {
+            background-image: none;
+        }
+
+        
+    </style>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/lib/js/head.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/js/reveal.js"></script>
+
+    <script>
+        // Full list of configuration options available at:
+        // https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+            mouseWheel: true,
+
+            transition: 'concave', // none/fade/slide/convex/concave/zoom
+
+            // Parallax background image
+            // parallaxBackgroundImage: '../branding/bk.jpg', // e.g. "https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg"
+            //
+            // // Parallax background size
+            // parallaxBackgroundSize: '1920px 880px', // CSS syntax, e.g. "2100px 900px" - currently only pixels are supported (don't use % or auto)
+
+
+            // Optional reveal.js plugins
+            dependencies: [{
+                src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/plugin/markdown/marked.js',
+                condition: function () {
+                    return !!document.querySelector('[data-markdown]');
+                }
+            }, {
+                src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/plugin/markdown/markdown.js',
+                condition: function () {
+                    return !!document.querySelector('[data-markdown]');
+                }
+            }, {
+                src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/plugin/highlight/highlight.js',
+                async: true,
+                callback: function () {
+                    hljs.initHighlightingOnLoad();
+                }
+            }, {
+                src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/plugin/zoom-js/zoom.js',
+                async: true
+            }, {
+                src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/plugin/notes/notes.js',
+                async: true
+            }]
+        });
+
+
+        function installAnimation(an, icon, delay) {
+            var el = document.createElement('span');
+            el.classList.add('an-item');
+            el.innerHTML = icon;
+            an.appendChild(el)
+            setTimeout(() => el.classList.add('an-to'), delay);
+            return el
+        }
+        Reveal.addEventListener('slidechanged', (event) => {
+            console.log(event.currentSlide)
+            if (event.currentSlide.classList.contains('animatedSlide')) {
+                var an = event.currentSlide.querySelector('.an-container');
+                an.innerHTML = '';
+
+                
+                if(event.currentSlide.classList.contains('withpoo')) {
+                    ['🔧', '🔨', '🔩', '🔪', '❤️‍🔥', '😂', '🎤', '🎵', '📎', '💻', '📱', '📞', '📟', '📠', '📡', '📺', '📻', '📽', '🔌', '🔋', '🔎', '💡', '🔦', '🔭', '🔮', '🔰', '🔱', '🕊', '🕐', '🕯', '🕰', '🕴', '🕵', '🕶', '🕷', '🖖', '🖤', '🖥', '🖦', '🖨', '🖩', '🖫'].forEach((icon, index) =>
+                        installAnimation(an, icon, index * 456)
+                    )
+                    const poo = installAnimation(an, '💩', 5000)
+                    setTimeout(() => poo.classList.add('an-oops'), 5000 + 4444)
+                } else {
+                    '📦,'.repeat(30).split(',').forEach((icon, index) =>
+                        installAnimation(an, icon, 7777*Math.log10((index)/3 + 1))
+                    )
+                }
+            }
+
+
+            if (event.currentSlide.classList.contains('animatedDependency')) {
+                const dep = document.querySelector('.adependency');
+                const deps = document.querySelector('.dependencies');
+                deps.innerHTML = '';
+                ' '.repeat(8).split('').forEach((_, index) => {
+                    setTimeout(() => {
+                        deps.appendChild(dep.cloneNode(true));
+                    }, (index + 3) * 1000)
+                })
+            }
+
+        })
+
+    </script>
+
+</body>
+
+</html>
