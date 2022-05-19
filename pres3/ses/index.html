@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+
+  <title>Hardened JavaScript</title>
+
+  <meta name="author" content="naugtur">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reset.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reveal.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/theme/black.css" id="theme">
+
+  <!-- Theme used for syntax highlighting of code -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/plugin/highlight/zenburn.css">
+
+
+  <link rel="stylesheet" href="../branding/style4x.css" id="branding">
+  <style>
+    #naugtur.reveal .muchcode pre>code {
+      max-height: 90vh;
+      width: 95vh;
+      font-size: 0.88em;
+    }
+
+    .boxes {
+      width: 70vw;
+      height: 70vh;
+      font-size: 5vh;
+
+    }
+
+    .boxes div {
+      box-sizing: border-box;
+      width: 46%;
+      height: 44%;
+      float: left;
+      border: 3px solid #3c873a;
+      margin: 2%;
+      text-align: center;
+      font-size: 0.7em;
+      line-height: 2em;
+      padding: 2%;
+    }
+
+
+    .an-container {
+      width: 100%;
+      height: 100%;
+      min-height: 500px;
+
+    }
+
+    .an-item,
+    .an-start-loc {
+      position: fixed;
+      top: 15%;
+      left: 15%;
+    }
+
+    .an-y {
+      z-index: 11;
+      max-height: none !important;
+    }
+
+    .an-target {
+      position: fixed;
+      bottom: 12%;
+      right: 8%;
+      width: 42%;
+      z-index: 9;
+
+    }
+
+    .reveal section img.clear {
+      border: none;
+      background: none;
+      box-shadow: none;
+      max-width: 50%;
+    }
+
+    .an-item {
+      offset-path: path('M100,80 C200,-200 500,0 600,300');
+      offset-rotate: 0deg;
+    }
+
+    .an-item.an-to {
+      animation: move 4444ms infinite ease-in-out;
+    }
+
+    .an-item.an-oops {
+      background-color: rgba(255, 166, 60, 0.9);
+
+      /* animation-play-state: paused !important; */
+      border-radius: 50%;
+      /* offset-path: path('M30,80 C200,-200 500,0 320,200'); */
+      animation: discover 4444ms ease-in-out;
+      animation-fill-mode: forwards;
+      z-index: 10;
+
+    }
+
+    @keyframes move {
+      0% {
+        offset-distance: 0%;
+      }
+
+      100% {
+        offset-distance: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="reveal none" id="naugtur">
+
+    <div class="slides">
+      <section>
+        <br><br>
+        <h1>Eval All The Strings!</h1>
+        <br>
+        <h4>Intro to Secure EcmaScript</h4>
+        <!-- <h1>Hardening JavaScript</h1>
+        <br>
+        <h4>As if JS wasn't hard enough</h4> -->
+        <small>@naugtur, 2022</small>
+      </section>
+
+      <section data-markdown>
+        <textarea data-template>
+          # ⌨️
+
+          Would you take a string of text from me and run it via eval in your application's process?
+
+          ---
+
+          # 📦
+
+            
+          What if I offered to pack it in a .tgz file for you? 😂
+
+          ---
+
+          Yes, that's what npm packages are.  
+          And they're glorious.
+
+          ---
+
+          Wouldn't it be great to be able to use them without being afraid, like we did back in 2015? 
+          
+          ---
+          
+          Wouldn't it be great if we could run code from anyone who claims it's useful?
+
+          Fearless cooperation!
+
+          ---
+
+          🎉 demo
+          </textarea>
+      </section>
+      <section class="animatedSlide ">
+
+        <img src="./npm.svg" alt="npm logo" style="width: 25%; margin-top:5%" class=" an-y an-start-loc">
+        <img src="./gobble.svg" alt="gobble" class="an-target an-y">
+        <div class="an-container"></div>
+
+        Wouldn't it be great to be able to use them without being afraid, like we did back in 2015? 
+
+      </section>
+
+
+      <section data-markdown class="muchcode">
+```js [11|22|4-7|3|13-17|2|18-20|2-9]
+function evaluator() {
+    with (this.scopeGuard) {
+    with (this.evalOnce) {
+        return function () {
+        'use strict';
+        return eval(arguments[0])
+        }
+    }
+    }
+}
+exports.good = (sourceCode, globalObject = Object.create(null)) => {
+    const evaluate = evaluator.call({
+    evalOnce: Object.freeze(
+        Object.defineProperty(Object.create(null), 'eval', {
+        get: Array.prototype.pop.bind([eval]),
+        })
+    ),
+    scopeGuard: new Proxy(globalObject, {
+        has: () => true
+    }),
+    })
+    return evaluate.call(globalObject, sourceCode);
+}
+```
+        </section>
+
+        <section data-markdown class="muchcode">
+```js [2-4|5|6]
+exports.lockdown = () => {
+    Object.freeze(Object.prototype)
+    Object.freeze(Array.prototype)
+    Object.freeze(Promise.prototype)
+    Object.defineProperty(Function.prototype, 'constructor', {
+        get: () => () => () => { throw Error('why so eval?') }
+    })
+}
+```
+        </section>
+
+      <section data-markdown>
+        <textarea data-template>
+  ## Actual SES 
+  ### is a bit larger
+
+  ```
+  $ sloc ses/src
+  ```
+
+  - Physical: 8681
+  - Source: 4988
+  - Comment: 2961
+  - Number of files read: 41
+
+  ---
+
+  ## And a TC39 proposal!
+
+  https://github.com/tc39/proposal-compartments
+
+  https://github.com/tc39/proposal-ses
+  </textarea>
+      </section>
+
+
+      <section data-auto-animate>
+        <div data-id="bx" class="boxes">
+          <div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+          <div> process </div>
+          <div> process </div>
+          <div> process </div>
+        </div>
+      </section>
+
+      <section data-auto-animate>
+        <div data-id="bx" class="boxes" style=" width: 120vw; height: 120vh; font-size: 7vh;">
+          <div>
+            <div>
+              <div> </div>
+              <div> </div>
+            </div>
+            <div> worker </div>
+            <div> isolate </div>
+            <div> thread </div>
+          </div>
+          <div> process </div>
+          <div> process </div>
+          <div> process </div>
+        </div>
+      </section>
+      <section data-auto-animate>
+        <div data-id="bx" class="boxes" style=" width: 250vw; height: 250vh; font-size: 10vh;">
+          <div>
+            <div>
+              <div> 📦 </div>
+              <div> 📦 </div>
+            </div>
+            <div> worker </div>
+            <div> isolate </div>
+            <div> thread </div>
+          </div>
+          <div> process </div>
+          <div> process </div>
+          <div> process </div>
+        </div>
+      </section>
+
+
+
+
+      <section>
+        <h4>Q&A on twitter?</h4>
+
+        <br><br>
+
+        <p>@naugtur &nbsp; <a href="https://naugtur.pl/">naugtur.pl</a></p>
+
+
+      </section>
+
+
+    </div>
+
+  </div>
+
+  <style>
+    #naugtur {
+      background-image: none;
+    }
+
+    /*effectively switch from contain to cover behav*/
+    #naugtur .slide-background video {
+      min-width: 100%;
+      min-height: 100%;
+      width: auto;
+      height: auto;
+    }
+  </style>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reveal.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/plugin/zoom/zoom.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/plugin/notes/notes.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/plugin/search/search.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/plugin/markdown/markdown.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/plugin/highlight/highlight.js"></script>
+
+
+  <script>
+    // Full list of configuration options available at:
+    // https://github.com/hakimel/reveal.js#configuration
+    Reveal.initialize({
+      controls: true,
+      progress: true,
+      history: true,
+      center: true,
+      mouseWheel: true,
+
+      transition: 'concave', // none/fade/slide/convex/concave/zoom
+
+      plugins: [RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight],
+      // autoAnimateEasing: 'linear',
+
+      // Parallax background image
+      // parallaxBackgroundImage: '../branding/bk.jpg', // e.g. "https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg"
+      //
+      // // Parallax background size
+      // parallaxBackgroundSize: '1920px 880px', // CSS syntax, e.g. "2100px 900px" - currently only pixels are supported (don't use % or auto)
+
+
+    });
+
+    function installAnimation(an, icon, delay) {
+      var el = document.createElement('span');
+      el.classList.add('an-item');
+      el.innerHTML = icon;
+      an.appendChild(el)
+      setTimeout(() => el.classList.add('an-to'), delay);
+      return el
+    }
+    Reveal.addEventListener('slidechanged', (event) => {
+      console.log(event.currentSlide)
+      if (event.currentSlide.classList.contains('animatedSlide')) {
+        var an = event.currentSlide.querySelector('.an-container');
+        an.innerHTML = '';
+        '📦,'.repeat(30).split(',').forEach((icon, index) =>
+          installAnimation(an, icon, 7777 * Math.log10((index) / 3 + 1))
+        )
+      }
+    })
+
+
+  </script>
+
+</body>
+
+</html>
