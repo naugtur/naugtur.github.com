@@ -53,8 +53,7 @@
 
     .an-container {
       width: 100%;
-      height: 100%;
-      min-height: 500px;
+      height: 550px;
 
     }
 
@@ -72,10 +71,10 @@
 
     .an-target {
       position: fixed;
-      bottom: 12%;
+      top: 326px;
       right: 8%;
-      width: 42%;
-      z-index: 9;
+      width: 40%;
+      z-index: 0;
 
     }
 
@@ -128,23 +127,20 @@
         <br><br>
         <h1>Eval All The Strings!</h1>
         <br>
-        <h4>Intro to Secure EcmaScript</h4>
-        <!-- <h1>Hardening JavaScript</h1>
-        <br>
-        <h4>As if JS wasn't hard enough</h4> -->
+        <h4>Hardening JavaScript</h4>
         <small>@naugtur, 2022</small>
       </section>
 
       <section data-markdown>
         <textarea data-template>
-          # ⌨️
-
+          # ⌨️ -> ⚙️
+          <br> <br>
           Would you take a string of text from me and run it via eval in your application's process?
 
           ---
 
-          # 📦
-
+          # 📦 -> ⚙️
+          <br> <br>
             
           What if I offered to pack it in a .tgz file for you? 😂
 
@@ -153,31 +149,122 @@
           Yes, that's what npm packages are.  
           And they're glorious.
 
-          ---
-
-          Wouldn't it be great to be able to use them without being afraid, like we did back in 2015? 
-          
-          ---
-          
-          Wouldn't it be great if we could run code from anyone who claims it's useful?
-
-          Fearless cooperation!
-
-          ---
-
-          🎉 demo
+       
           </textarea>
       </section>
       <section class="animatedSlide ">
 
         <img src="./npm.svg" alt="npm logo" style="width: 25%; margin-top:5%" class=" an-y an-start-loc">
-        <img src="./gobble.svg" alt="gobble" class="an-target an-y">
+        <img src="./ilus/cookie.png" alt="gobble" class="an-target an-y">
         <div class="an-container"></div>
 
         Wouldn't it be great to be able to use them without being afraid, like we did back in 2015? 
 
       </section>
 
+
+      <section data-markdown>
+        ```js
+        var code = `trustMe("I'm an engineer")`
+        ```
+
+        <aside class="notes">
+        Let's generalize to running someone else's code regardless of where it comes from.  
+        </aside>
+      </section>
+
+      <section>
+
+        <br>
+        <h4 class="fragment">exfiltration</h4>
+        <h4 class="fragment">fetch, process.env</h4>
+        <h4 class="fragment">prototype pollution</h4>
+        <h4 class="fragment">RCE</h4>
+        <h4 class="fragment">fs</h4>
+        <h4 class="fragment">auth bypass</h4>
+        <img class="pad1 plain fragment" src="./ilus/shroom.png">
+
+    </section>
+
+    <section data-markdown>
+      ### What about 
+      ### lambda, deno, isolates?
+    </section>
+    <section data-auto-animate>
+      <div data-id="bx" class="boxes">
+        <div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+        <div> process </div>
+        <div> process </div>
+        <div> Lambda function </div>
+      </div>
+    </section>
+
+    <section data-auto-animate>
+      <div data-id="bx" class="boxes" style=" width: 120vw; height: 120vh; font-size: 7vh;">
+        <div>
+          <div>
+            <div> </div>
+            <div> </div>
+          </div>
+          <div> ClFl worker </div>
+          <div> isolate </div>
+          <div> thread </div>
+        </div>
+        <div> process </div>
+        <div> process </div>
+        <div> process </div>
+      </div>
+    </section>
+    <section data-auto-animate>
+      <div data-id="bx" class="boxes" style=" width: 250vw; height: 250vh; font-size: 10vh;">
+        <div>
+          <div>
+            <div> 📦 </div>
+            <div> 📦 </div>
+          </div>
+          <div> ClFl worker </div>
+          <div> isolate </div>
+          <div> thread </div>
+        </div>
+        <div> process </div>
+        <div> process </div>
+        <div> process </div>
+      </div>
+    </section>
+    <section data-auto-animate>
+      <div data-id="bx" class="boxes" style=" width: 250vw; height: 250vh; font-size: 10vh;">
+        <div>
+          <div>
+            <div> 📢 </div>
+            <div> 👂 </div>
+          </div>
+          <div> worker </div>
+          <div> isolate </div>
+          <div> thread </div>
+        </div>
+        <div> process </div>
+        <div> process </div>
+        <div> process </div>
+      </div>
+    </section>
+
+    <section class="animatedSlide bad">
+
+      <img src="./npm.svg" alt="npm logo" style="width: 25%; margin-top:5%" class=" an-y an-start-loc">
+      <img src="./ilus/cookie.png" alt="gobble" class="an-target an-y">
+      <div class="an-container"></div>
+
+      What if a package turns malicious?
+    </section>
+
+      <section data-markdown>
+        🎉 demo
+      </section>
 
       <section data-markdown class="muchcode">
 ```js [11|22|4-7|3|13-17|2|18-20|2-9]
@@ -241,62 +328,34 @@ exports.lockdown = () => {
   https://github.com/tc39/proposal-compartments
 
   https://github.com/tc39/proposal-ses
+
+  
+
   </textarea>
       </section>
 
 
-      <section data-auto-animate>
-        <div data-id="bx" class="boxes">
-          <div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-          </div>
-          <div> process </div>
-          <div> process </div>
-          <div> process </div>
-        </div>
-      </section>
 
-      <section data-auto-animate>
-        <div data-id="bx" class="boxes" style=" width: 120vw; height: 120vh; font-size: 7vh;">
-          <div>
-            <div>
-              <div> </div>
-              <div> </div>
-            </div>
-            <div> worker </div>
-            <div> isolate </div>
-            <div> thread </div>
-          </div>
-          <div> process </div>
-          <div> process </div>
-          <div> process </div>
-        </div>
-      </section>
-      <section data-auto-animate>
-        <div data-id="bx" class="boxes" style=" width: 250vw; height: 250vh; font-size: 10vh;">
-          <div>
-            <div>
-              <div> 📦 </div>
-              <div> 📦 </div>
-            </div>
-            <div> worker </div>
-            <div> isolate </div>
-            <div> thread </div>
-          </div>
-          <div> process </div>
-          <div> process </div>
-          <div> process </div>
-        </div>
-      </section>
+      <section data-markdown>
+        <textarea data-template>
+          ## How can I use it today?
 
+          ---
 
+          - use Compartment and lockdown directly
+          - use @endo/compartment-mapper 
+          - use LavaMoat with generated policies
+
+          ---
+
+          LavaMoat and Endo are meant to converge eventually.
+
+        </textarea>
+      </section>
 
 
       <section>
-        <h4>Q&A on twitter?</h4>
+        <h4>Now go run everyone's JavaScript</h4>
 
         <br><br>
 
@@ -369,7 +428,13 @@ exports.lockdown = () => {
       if (event.currentSlide.classList.contains('animatedSlide')) {
         var an = event.currentSlide.querySelector('.an-container');
         an.innerHTML = '';
-        '📦,'.repeat(30).split(',').forEach((icon, index) =>
+        var pkgs = '📦,'.repeat(30).split(',')
+        if (event.currentSlide.classList.contains('bad')) {
+          pkgs[4]='💣';
+          pkgs[10]='🔥';
+          pkgs[29]='👿';
+        }        
+        pkgs.forEach((icon, index) =>
           installAnimation(an, icon, 7777 * Math.log10((index) / 3 + 1))
         )
       }

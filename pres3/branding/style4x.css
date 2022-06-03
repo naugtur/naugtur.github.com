@@ -1,0 +1,91 @@
+@font-face {
+    font-family: 'nicefont';
+    src: url('fonts/KOMIKAX_-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'nicefontpl';
+    src: url('fonts/Audiowide-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+#naugtur h1,
+#naugtur h2,
+#naugtur h3,
+#naugtur h4 {
+    margin: 0 0 20px 0;
+
+    font-family: 'nicefont', sans-serif;
+    line-height: 1.07em;
+    letter-spacing: 0.03em;
+
+    text-transform: uppercase;
+    text-shadow: 0px 0px 12px 2px rgba(0,0,0,1);
+
+    text-shadow: 0 1px 0 #999,
+        0 2px 0 #888,
+        0 3px 0 #aaa,
+        0 0 4px rgba(0,0,0,.8),
+        0 1px 3px rgba(0,0,0,.3),
+        0 3px 5px rgba(0,0,0,.2);
+}
+
+#naugtur h3,
+#naugtur h4 {
+    letter-spacing: 0.07em;
+}
+
+[lang=pl] #naugtur h1,
+[lang=pl] #naugtur h2,
+[lang=pl] #naugtur h3,
+[lang=pl] #naugtur h4 {
+    font-family: 'nicefontpl', sans-serif;
+}
+
+#naugtur h1 {
+    text-shadow: 0 2px 0 #999,
+        0 4px 0 #888,
+        0 6px 0 #aaa,
+        0 0 8px rgba(0,0,0,.8),
+        0 2px 6px rgba(0,0,0,.3),
+        0 6px 10px rgba(0,0,0,.2);
+}
+
+
+#naugtur{
+    background: transparent url('logo.png') no-repeat bottom left;
+}
+
+#naugtur .pad1 {
+    padding: 1em;
+    clear:both;
+}
+#naugtur .pad2 {
+    padding: 2em;
+    clear:both;
+}
+#naugtur .noli {
+    list-style-type:none;
+}
+
+#naugtur img.plain{
+ background: none;
+  border-color: transparent;
+  box-shadow: none;
+}
+#naugtur blockquote{
+    text-align: justify;
+    font-size: 0.8em;
+    padding: 1em;
+}
+
+
+#naugtur.reveal pre>code {
+    max-height: 90vh;
+}
+
+#naugtur.reveal .highlight-line .hljs-ln-numbers {
+    padding-right: 0.50em;
+    border-left: 0.25em solid #dda;
