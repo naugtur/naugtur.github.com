@@ -130,6 +130,33 @@
         <h4>Hardening JavaScript</h4>
         <small>@naugtur, 2022</small>
       </section>
+      <section>
+        <section data-markdown>
+          ### Previously...
+        </section>
+
+        <section data-markdown>
+          ### vulnerable dependencies
+
+          - audit scanners
+          - false positives
+          - security culture
+          - npm-audit-resolver 
+        </section>
+
+        <section data-markdown>
+          ### malicious install scripts
+
+          - postinstall turns tsc evil  
+
+          - can-i-ignore-scripts
+          - allow-scripts
+
+          [slides](https://naugtur.pl/pres3/malicious/geekle.html#/)
+
+          
+        </section>
+      </section>
 
       <section data-markdown>
         <textarea data-template>
@@ -163,15 +190,22 @@
       </section>
 
 
-      <section data-markdown>
-        ```js
-        var code = `trustMe("I'm an engineer")`
-        ```
+        <section>
 
-        <aside class="notes">
-        Let's generalize to running someone else's code regardless of where it comes from.  
-        </aside>
-      </section>
+          <pre><code language="js">
+            var code = `trustMe("I'm an engineer")`
+          </code></pre>    
+
+          <aside class="notes">
+          Let's generalize to running someone else's code regardless of where it comes from.  
+          </aside>
+        </section>
+      <section>
+
+        <section data-markdown>
+          ![](./ilus/meme.jpg)
+        </section>
+
 
       <section>
 
@@ -183,6 +217,7 @@
         <h4 class="fragment">fs</h4>
         <h4 class="fragment">auth bypass</h4>
         <img class="pad1 plain fragment" src="./ilus/shroom.png">
+      </section>
 
     </section>
 
@@ -261,6 +296,7 @@
 
       What if a package turns malicious?
     </section>
+    <section>
 
       <section data-markdown>
         🎉 demo
@@ -333,8 +369,29 @@ exports.lockdown = () => {
 
   </textarea>
       </section>
+    </section>
 
-
+      <section data-markdown>
+        ### Object Capability model
+  
+         vs identity based security
+  
+        - code gets references to capable objects
+        - code doesn't "work on your behalf"
+  
+        
+      </section>
+      <section data-markdown>
+        # 🤯
+        ### JS design is good for security?
+  
+  
+        - Take ECMA + W3C
+        - Add Conway's Law
+        - Separation between language and APIs
+        - Power only reachable through scope 
+        - Compartment controls scope
+      </section>
 
       <section data-markdown>
         <textarea data-template>
@@ -342,13 +399,15 @@ exports.lockdown = () => {
 
           ---
 
-          - use Compartment and lockdown directly
+          - use SES Compartment and lockdown directly
           - use @endo/compartment-mapper 
           - use LavaMoat with generated policies
 
           ---
 
-          LavaMoat and Endo are meant to converge eventually.
+          ### Let's look at what LavaMoat can do
+
+          ![lavamoat](./lavamoat-logo.png)
 
         </textarea>
       </section>
