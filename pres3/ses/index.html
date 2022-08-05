@@ -130,33 +130,7 @@
         <h4>Hardening JavaScript</h4>
         <small>@naugtur, 2022</small>
       </section>
-      <section>
-        <section data-markdown>
-          ### Previously...
-        </section>
-
-        <section data-markdown>
-          ### vulnerable dependencies
-
-          - audit scanners
-          - false positives
-          - security culture
-          - npm-audit-resolver 
-        </section>
-
-        <section data-markdown>
-          ### malicious install scripts
-
-          - postinstall turns tsc evil  
-
-          - can-i-ignore-scripts
-          - allow-scripts
-
-          [slides](https://naugtur.pl/pres3/malicious/geekle.html#/)
-
-          
-        </section>
-      </section>
+     
 
       <section data-markdown>
         <textarea data-template>
@@ -189,9 +163,48 @@
 
       </section>
 
+      <section>
+        <section data-markdown>
+          <textarea data-template>
+          # 📺
+          Previously on  
+          
+          #### supply chain security
+        
+          ---
+
+          ### vulnerable dependencies
+
+          - audit scanners
+          - false positives
+          - security culture
+          
+          📦npm-audit-resolver 
+        
+          ---
+
+          ### malicious install scripts
+
+          - postinstall turns tsc evil  
+          - `--ignore-scripts`
+
+          📦@lavamoat/allow-scripts  
+          📦can-i-ignore-scripts  
+
+          ---
+
+          Talks available at 
+          [naugtur.pl](https://naugtur.pl)
+          
+        
+          </textarea>
+        </section>
+      </section>
+
 
         <section>
-
+          <h4>Let's generalize</h4>
+          <p><br></p>
           <pre><code language="js">
             var code = `trustMe("I'm an engineer")`
           </code></pre>    
@@ -337,7 +350,7 @@ exports.lockdown = () => {
     Object.freeze(Array.prototype)
     Object.freeze(Promise.prototype)
     Object.defineProperty(Function.prototype, 'constructor', {
-        get: () => () => () => { throw Error('why so eval?') }
+        get: () => () => () => { throw Error('why so eval?🤡') }
     })
 }
 ```
@@ -355,11 +368,11 @@ exports.lockdown = () => {
   - Physical: 8681
   - Source: 4988
   - Comment: 2961
-  - Number of files read: 41
+
 
   ---
 
-  ## And a TC39 proposal!
+  ## A TC39 proposal!
 
   https://github.com/tc39/proposal-compartments
 
