@@ -134,21 +134,25 @@
 
       <section data-markdown>
         <textarea data-template>
-          # ⌨️ -> ⚙️
           <br> <br>
-          Would you take a string of text from me and run it via eval in your application's process?
+          # ⌨️ -> ⚙️🖥️
+          <br> <br> <br>
+          <sub><sup>Would you take a string from me and run it in your application's process?</sup></sub>
 
           ---
-
-          # 📦 -> ⚙️
           <br> <br>
+          # 📦 -> ⚙️🖥️
+          <br> <br> <br>
             
-          What if I offered to pack it in a .tgz file for you? 😂
+          <sub><sup>What if I offered to pack it in a .tgz file for you? 😂</sup></sub>
 
           ---
-
-          Yes, that's what npm packages are.  
-          And they're glorious.
+          <br> <br>
+          # 👉📦👈
+          <br> <br> <br>
+          
+          <sub><sup>Yes, that's what npm packages are.  </sup></sub>
+            <sub><sup>And they're glorious.</sup></sub>
 
        
           </textarea>
@@ -369,7 +373,6 @@ exports.lockdown = () => {
   - Source: 4988
   - Comment: 2961
 
-
   ---
 
   ## A TC39 proposal!
@@ -385,13 +388,48 @@ exports.lockdown = () => {
     </section>
 
       <section data-markdown>
-        ### Object Capability model
+        ### Object Capability
   
          vs identity based security
   
         - code gets references to capable objects
         - code doesn't "work on your behalf"
+        
+      </section>
+      <section data-markdown>
+        ### Object Capability
+
+        You already know how to use it
   
+        ```js
+        import { lint } from 'some-linter'
+        import { readFile } from 'node:fs/promises'
+
+        const fs = { readFile }
+
+        lint({ fs })
+        ```
+  
+        
+      </section>
+      <section data-markdown>
+        ### Object Capability
+
+        This is called attenuation BTW
+
+        ```js
+        import { lint } from 'some-linter'
+        import { readFile } from 'node:fs/promises'
+
+        const fs = {
+          readFile: async (path) => {
+            if(!allowed(path)) { throw Error('nope') }
+            return readFile(path)
+          },
+        }
+        
+        lint({ fs })
+        ```
         
       </section>
       <section data-markdown>
@@ -407,7 +445,17 @@ exports.lockdown = () => {
       </section>
 
       <section data-markdown>
+        ### SES makes OCap work 
+
+        - `Compartment` - scope isolation
+        - `lockdown` - makes your Realm secure
+        - `harden` - protects capable objects
+
+      </section>
+
+      <section data-markdown>
         <textarea data-template>
+          # 🤩
           ## How can I use it today?
 
           ---
@@ -424,12 +472,30 @@ exports.lockdown = () => {
           ![lavamoat](./endo-logo.png)
           <!-- ![endo](./ilus/Agoric_illustration_10.png) -->
 
+          ---
+
+          ### Want more?
+
+          [Mark Miller on F5 Tech Talks](https://www.youtube.com/watch?v=u-XETUbxNUU)
+
+          Here's how it compares:
+
+          ```txt
+          Mark's talk: "Here's how we discovered cocoa trees and how
+           we now produce delicious chocolate in a beautiful process 
+           with incredible machines!"
+          ```
+          ```txt
+          Zb's talk: "It basically grows on trees!" 
+           >>throws handfuls of candy at the audience
+          ```
+
         </textarea>
       </section>
 
 
       <section>
-        <h4>Now go run everyone's JavaScript</h4>
+        <h4>Be safe frens</h4>
 
         <br><br>
 
