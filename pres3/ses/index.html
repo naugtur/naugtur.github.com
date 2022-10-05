@@ -26,8 +26,29 @@
   <style>
     #naugtur.reveal .muchcode pre>code {
       max-height: 90vh;
-      width: 95vh;
+      min-width: 70vw;
       font-size: 0.88em;
+    }
+
+    #naugtur:before {
+      content: '@naugtur';
+      position: fixed;
+      bottom: .5em;
+      left: .5em;
+      font-size: .8em;
+      animation-name: spin;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+      animation-duration: 30s;
+      transform-style: preserve-3d;
+      transform: rotateX(0.5deg);
+      transform-origin: 50% 50%;
+    }
+
+    @keyframes spin {
+      0% { transform: rotateX(0deg); }
+      3% { transform: rotateX(-360deg); }
+      100% { transform: rotateX(-360deg); }
     }
 
     .boxes {
@@ -115,6 +136,13 @@
         offset-distance: 100%;
       }
     }
+
+    #naugtur .moji h1{
+      line-height: 3em;
+    }
+    .moji sub {
+      color:#444;
+    }
   </style>
 </head>
 
@@ -132,7 +160,7 @@
       </section>
      
 
-      <section data-markdown>
+      <section class="moji" data-markdown>
         <textarea data-template>
           <br> <br>
           # ⌨️ -> ⚙️🖥️
@@ -144,7 +172,7 @@
           # 📦 -> ⚙️🖥️
           <br> <br> <br>
             
-          <sub><sup>What if I offered to pack it in a .tgz file for you? 😂</sup></sub>
+          <sub><sup>What if I offered to pack it in a .tgz file for you?</sup></sub>
 
           ---
           <br> <br>
@@ -163,7 +191,9 @@
         <img src="./ilus/cookie.png" alt="gobble" class="an-target an-y">
         <div class="an-container"></div>
 
-        Wouldn't it be great to be able to use them without being afraid, like we did back in 2015? 
+        <sub><sup>
+          Wouldn't it be great to fearlessly use them like we did back in 2015? 
+        </sup></sub>
 
       </section>
 
@@ -232,16 +262,12 @@
         <h4 class="fragment">prototype pollution</h4>
         <h4 class="fragment">RCE</h4>
         <h4 class="fragment">fs</h4>
-        <h4 class="fragment">auth bypass</h4>
+        <h4 class="fragment">event-stream</h4>
         <img class="pad1 plain fragment" src="./ilus/shroom.png">
       </section>
 
     </section>
 
-    <section data-markdown>
-      ### What about 
-      ### lambda, deno, isolates?
-    </section>
     <section data-auto-animate>
       <div data-id="bx" class="boxes">
         <div>
@@ -264,7 +290,7 @@
             <div> </div>
           </div>
           <div> ClFl worker </div>
-          <div> isolate </div>
+          <div> vm.Script </div>
           <div> thread </div>
         </div>
         <div> process </div>
@@ -280,7 +306,7 @@
             <div> 📦 </div>
           </div>
           <div> ClFl worker </div>
-          <div> isolate </div>
+          <div> vm.Script </div>
           <div> thread </div>
         </div>
         <div> process </div>
@@ -432,6 +458,17 @@ exports.lockdown = () => {
         ```
         
       </section>
+
+      <section data-markdown>
+        ### SES makes OCap work 
+
+        - `Compartment` - scope isolation
+        - `lockdown` - makes your Realm secure
+        - `harden` - protects capable objects
+
+      </section>
+
+
       <section data-markdown>
         # 🤯
         ### JS design is good for security?
@@ -444,14 +481,6 @@ exports.lockdown = () => {
         - Compartment controls scope
       </section>
 
-      <section data-markdown>
-        ### SES makes OCap work 
-
-        - `Compartment` - scope isolation
-        - `lockdown` - makes your Realm secure
-        - `harden` - protects capable objects
-
-      </section>
 
       <section data-markdown>
         <textarea data-template>
@@ -464,45 +493,49 @@ exports.lockdown = () => {
           - use @endo/compartment-mapper 
           - use LavaMoat with generated policies
 
+          LavaMoat is protecting installation, build and runtime of MetaMask - with over 20million users
           ---
 
-          ### Usage examples
+          ### Usage example
 
+          <!-- ![lavamoat](./endo-logo.png) -->
           ![lavamoat](./lavamoat-logo.png)
-          ![lavamoat](./endo-logo.png)
           <!-- ![endo](./ilus/Agoric_illustration_10.png) -->
 
-          ---
 
-          ### Want more?
-
-          [Mark Miller on F5 Tech Talks](https://www.youtube.com/watch?v=u-XETUbxNUU)
-
-          Here's how it compares:
-
-          ```txt
-          Mark's talk: "Here's how we discovered cocoa trees and how
-           we now produce delicious chocolate in a beautiful process 
-           with incredible machines!"
-          ```
-          ```txt
-          Zb's talk: "It basically grows on trees!" 
-           >>throws handfuls of candy at the audience
-          ```
-
+          [samples repository](https://github.com/naugtur/sessamples)
         </textarea>
       </section>
 
 
       <section>
-        <h4>Be safe</h4>
+        <h4> I'll help you set up LavaMoat in your project</h4>
 
-        <br><br>
+        <img src="naugtur.svg" style="height:6em" />
 
         <p>@naugtur &nbsp; <a href="https://naugtur.pl/">naugtur.pl</a></p>
-        <p>newsletter &nbsp; <a href="https://naugtur.pl/news">naugtur.pl/news</a></p>
+        <p> <a href="https://naugtur.pl/news">naugtur.pl/news</a></p>
+        <p> <a href="https://naugtur.pl/training">naugtur.pl/training</a></p>
 
 
+      </section>
+
+      <section data-markdown>
+        ### Want more?
+
+        [Mark Miller on F5 Tech Talks](https://www.youtube.com/watch?v=u-XETUbxNUU)
+
+        Here's how it compares:
+
+        ```txt
+        Mark's talk: "Here's how we discovered cocoa trees and how
+         we now produce delicious chocolate in a beautiful process 
+         with incredible machines!"
+        ```
+        ```txt
+        Zb's talk: "It basically grows on trees!" 
+         >>throws handfuls of candy at the audience
+        ```
       </section>
 
 
