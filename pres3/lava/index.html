@@ -307,10 +307,7 @@ breaks Windows pre XP SP2
       <section data-markdown class="blackhat">
         #### Using typescript maybe?
         ### Hold my 🍺
-      </section>  <section data-markdown class="blackhat">
-        #### Using typescript maybe?
-        ### Hold my 🍺
-      </section>
+      </section> 
 
       <section data-markdown class="whitehat">
         ## ignore scripts
@@ -385,20 +382,22 @@ package.json:
       </section>
 
       <section data-markdown class="whitehat">
-        #### one RTFM later
-        ```
-        $ allow-scripts setup --experimental-bins
+        <textarea>
+#### one RTFM later
+```
+$ allow-scripts setup --experimental-bins
 
-        $ allow-scripts auto --experimental-bins
+$ allow-scripts auto --experimental-bins
 
-        ```
-        ```
-        package.json:
-        "scripts": {
-        "setup": "npm ci && npm run allow-scripts"
-
-        ```
-
+```
+```
+package.json:
+  "scripts": {
+    "setup": "npm ci && npm run allow-scripts"
+  
+```
+            
+        </textarea>
       </section>
 
       <section data-markdown class="blackhat">
