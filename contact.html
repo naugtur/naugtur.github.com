@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>naugtur</title>
+  </head>
+  <style>
+    body,
+    a {
+      background-color: #333;
+      color: #fff;
+      line-height: 1.5em;
+      font-family: sans-serif;
+      display: block;
+    }
+    body {
+      height: 90vh;
+      padding: 1em;
+    }
+  </style>
+  <body>
+    <p>Hi! I'm naugtur.</p>
+    <p>I do JavaScript security.</p>
+    <p>
+      You can find me on twitter, fosstodon, github etc. if you search for
+      'naugtur'
+    </p>
+    <p>
+      <a href="https://naugtur.pl">https://naugtur.pl</a>
+      <a href="https://twitter.com/naugtur">https://twitter.com/naugtur</a>
+      <a href="https://fosstodon.com/@naugtur">https://fosstodon.org/naugtur</a>
+    </p>
+    <script>
+      function triggerFileDownload() {
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(
+          new Blob([
+            `
+Hi! I'm naugtur and you scanned my QR code.
+I do JavaScript security.
+You can find me on twitter, fosstodon, github etc. if you search for 'naugtur'
+
+Here's my website:
+https://naugtur.pl
+
+        `,
+          ])
+        );
+        a.download = "naugtur.txt";
+        a.click();
+      }
+
+      document.body.addEventListener("click", doit);
+      document.body.addEventListener("tap", doit);
+      doit();
+    </script>
+  </body>
+</html>
