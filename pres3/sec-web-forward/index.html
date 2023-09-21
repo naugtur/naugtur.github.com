@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+
+  <title>LavaMoat at Secure the Web Forward - W3C</title>
+
+  <meta name="author" content="naugtur">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reset.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reveal.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/theme/black.css" id="theme">
+
+  <!-- Theme used for syntax highlighting of code -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/plugin/highlight/zenburn.css">
+
+
+  <link rel="stylesheet" href="../branding/style4x.css" id="branding">
+  <style>
+    #naugtur.reveal .muchcode pre>code {
+      max-height: 90vh;
+      min-width: 70vw;
+      font-size: 0.88em;
+    }
+
+    #naugtur:before {
+      content: 'naugtur.pl';
+      position: fixed;
+      bottom: .5em;
+      left: .5em;
+      font-size: .8em;
+      animation-name: spin;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+      animation-duration: 30s;
+      transform-style: preserve-3d;
+      transform: rotateX(0.5deg);
+      transform-origin: 50% 50%;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotateX(0deg);
+      }
+
+      3% {
+        transform: rotateX(-360deg);
+      }
+
+      100% {
+        transform: rotateX(-360deg);
+      }
+    }
+
+   
+    #naugtur .moji h1 {
+      line-height: 3em;
+    }
+
+    sub>sup,
+    sup>sub {
+      color: #777;
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <div class="reveal none" id="naugtur">
+
+    <div class="slides">
+      <section>
+
+        <section>
+          <br><br>
+          <h1>LavaMoat</h1>
+          <h4>at Secure the Web Forward</h4>
+
+          <br>
+          <small>@naugtur, 2023</small>
+        </section>
+      </section>
+
+      <section class="moji" data-markdown>
+        <textarea data-template>
+          ## Problem statement
+          ---
+          ![](i0.png)
+          <br><sub><sup>In the beginning, there was software we typed into our computers</sup></sub>
+          ---
+          ![](i1.png)
+          <br><sub><sup>Oh no, There's someone in my network and I don't trust them!</sup></sub>
+
+          ---
+          #### We invented 
+          ## firewalls
+          ---
+          ![](i2.png)
+          <br><sub><sup>Oh no, There's someone in my browser and I don't trust them!</sup></sub>
+          ---
+          #### We invented
+          ## Same Origin Policy
+          ---
+          ![](i3.png)
+          <br><sub><sup>Oh no, There's someone in my codebase and I don't trust them!</sup></sub>
+          ---
+          #### We invented
+          ## hoping for the best
+          ---
+          #### What we need is
+          # 📦🤝📦
+          ## Fearless Cooperation
+          ---
+          ## Progress
+          - Subresource Integrity
+          - Content Security Policy
+          - Trusted Types
+          - Hardened Javascript
+          ---
+          ## Hardened Javascript
+
+          - Compartment proposal(s) in TC39
+          - SES Shim
+          - LavaMoat
+          ---
+          ![](i4.png)
+          ---
+          ### JS design is good for security?
+  
+          - Take ECMA + W3C
+          - Add Conway's Law
+          - Separation between language and APIs
+          - Power only reachable through scope 
+          - Compartment controls scope
+          ---
+          ![](i5.png)
+          <br><sub><sup>You decide which powers to pass in</sup></sub>
+          ---
+          
+          ![](i6.png)
+          <br><sub><sup>So are we done?</sup></sub>
+          ---
+         
+          ### Problem statement ++
+          - Any access to DOM leaks globalThis
+          - Compartment depends on evaluators or bundling
+          - `strict-dynamic` but for `eval`?
+          - same origin realms (tomorrow)
+        
+          ---
+          ### Call to action
+
+          How can we support the users of Hardened Javascript in the browser?
+          </textarea>
+      </section>
+     
+    </div>
+
+  </div>
+
+  <style>
+    #naugtur {
+      background-image: none;
+    }
+
+    /*effectively switch from contain to cover behav*/
+    #naugtur .slide-background video {
+      min-width: 100%;
+      min-height: 100%;
+      width: auto;
+      height: auto;
+    }
+  </style>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reveal.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/plugin/zoom/zoom.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/plugin/notes/notes.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/plugin/search/search.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/plugin/markdown/markdown.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/plugin/highlight/highlight.js"></script>
+
+
+  <script>
+    // Full list of configuration options available at:
+    // https://github.com/hakimel/reveal.js#configuration
+    Reveal.initialize({
+      controls: true,
+      progress: true,
+      history: true,
+      center: true,
+      mouseWheel: true,
+
+      transition: 'concave', // none/fade/slide/convex/concave/zoom
+
+      plugins: [RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight],
+      // autoAnimateEasing: 'linear',
+
+      // Parallax background image
+      // parallaxBackgroundImage: '../branding/bk.jpg', // e.g. "https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg"
+      //
+      // // Parallax background size
+      // parallaxBackgroundSize: '1920px 880px', // CSS syntax, e.g. "2100px 900px" - currently only pixels are supported (don't use % or auto)
+
+
+    });
+
+  </script>
+
+</body>
+
+</html>
