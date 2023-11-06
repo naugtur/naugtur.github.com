@@ -470,148 +470,149 @@
       <section class="whitehat">
         <h3> Let's install some dependencies! </h3>
       </section>
-      <section class="blackhat animatedDependency">
-        <h3> Ok, catch this: 📦 </h3>
+      <section>
+        <section class="blackhat animatedDependency">
+          <h3> Ok, catch this: 📦 </h3>
 
-        I'm gonna sneak it in as <div class="dependencies">
-          <div class="adependency"> a dependency of </div>
+          I'm gonna sneak it in as <div class="dependencies">
+            <div class="adependency"> a dependency of </div>
 
-        </div>
+          </div>
 
-        <span> a dev dependency of yours</span>
+          <span> a dev dependency of yours</span>
 
-      </section>
-
-
+        </section>
 
 
-      <section class="whitehat">
-        <h4> I'm not runing that. </h4>
-      </section>
-      <section class="blackhat">
-        <h4> That's what you think. </h4>
-        <img src="ilus/npmscripts.png" alt="npm docs for lifecycle scripts" class="clear">
-        <pre><code data-trim>
-            "postinstall": "echo 💩 > /etc/hosts"
-        </code></pre>
-      </section>
 
-      <section data-markdown class="whitehat">
-        ### Ok, wait
-        ```
-        ✨🐋
-        npm ci
-        cp node_modules s3://
-        🔥🔥🐋🔥🔥
-        ```
-      </section>
 
-      <section data-markdown class="blackhat">
-        #### Using typescript maybe?
-        ### Hold my 🍺
-      </section> 
-
-      <section data-markdown class="whitehat">
-        ## ignore scripts
-
-        ```
-        npm ci --ignore-scripts
-        ```
-
-        Run selected scritps
-        ```
-        npm rebuild bcrypt
-        ```
-      </section>
-
-      <section data-markdown class="blackhat">
-        <textarea>
-#### I can spoof that package name
-  
-```
-evilpackage/node_modules/bcrypt/package.json:
-  "scripts": {
-    "postinstall": "echo 💩 > /etc/hosts"
-    
-evilpackage/package.json:
-  "bundledDependencies": ["bcrypt"]
-
-$ npm publish
-```
-        </textarea>
-      </section>
-
-      <section data-markdown class="whitehat">
-        # Oh 💩
-      </section>
-      <section data-markdown class="whitehat">
-        #### look what I found!
-        ![lavamoat](./lavamoat-logo.png)
-      </section>
-      <section data-markdown class="whitehat">
-        <textarea>
-#### @lavamoat/allow-scripts
-
-```
-$ allow-scripts setup
-
-$ allow-scripts auto
-
-```
-```
-package.json:
-  "scripts": {
-    "setup": "npm ci && allow-scripts"
-
-```
-          
-        </textarea>
-      </section>
-
-      <section class="blackhat">
-        <h4>I see you use scripts </h4>
-
-        <pre><code data-trim>
-        evilpackage/package.json:
-          "bin": {
-            "npm": "./evilPlots.js",
-            "node": "./evilPlots.js"
-        
+        <section class="whitehat">
+          <h4> I'm not runing that. </h4>
+        </section>
+        <section class="blackhat">
+          <h4> That's what you think. </h4>
+          <img src="ilus/npmscripts.png" alt="npm docs for lifecycle scripts" class="clear">
+          <pre><code data-trim>
+              "postinstall": "echo 💩 > /etc/hosts"
           </code></pre>
+        </section>
 
+        <section data-markdown class="whitehat">
+          ### Ok, wait
+          ```
+          ✨🐋
+          npm ci
+          cp node_modules s3://
+          🔥🔥🐋🔥🔥
+          ```
+        </section>
 
-        <br><br><br><sub><sup>credit: https://socket.dev/blog/npm-bin-script-confusion</sup></sub>
-      </section>
+        <section data-markdown class="blackhat">
+          #### Using typescript maybe?
+          ### Hold my 🍺
+        </section> 
 
-      <section data-markdown class="whitehat">
-        <textarea>
-#### one RTFM later
-```
-$ allow-scripts setup --experimental-bins
+        <section data-markdown class="whitehat">
+          ## ignore scripts
 
-$ allow-scripts auto --experimental-bins
+          ```
+          npm ci --ignore-scripts
+          ```
 
-```
-```
-package.json:
-  "scripts": {
-    "setup": "npm ci && npm run allow-scripts"
-  
-```
+          Run selected scritps
+          ```
+          npm rebuild bcrypt
+          ```
+        </section>
+
+        <section data-markdown class="blackhat">
+          <textarea>
+  #### I can spoof that package name
+    
+  ```
+  evilpackage/node_modules/bcrypt/package.json:
+    "scripts": {
+      "postinstall": "echo 💩 > /etc/hosts"
+      
+  evilpackage/package.json:
+    "bundledDependencies": ["bcrypt"]
+
+  $ npm publish
+  ```
+          </textarea>
+        </section>
+
+        <section data-markdown class="whitehat">
+          # Oh 💩
+        </section>
+        <section data-markdown class="whitehat">
+          #### look what I found!
+          ![lavamoat](./lavamoat-logo.png)
+        </section>
+        <section data-markdown class="whitehat">
+          <textarea>
+  #### @lavamoat/allow-scripts
+
+  ```
+  $ allow-scripts setup
+
+  $ allow-scripts auto
+
+  ```
+  ```
+  package.json:
+    "scripts": {
+      "setup": "npm ci && allow-scripts"
+
+  ```
             
-        </textarea>
+          </textarea>
+        </section>
+
+        <section class="blackhat">
+          <h4>I see you use scripts </h4>
+
+          <pre><code data-trim>
+          evilpackage/package.json:
+            "bin": {
+              "npm": "./evilPlots.js",
+              "node": "./evilPlots.js"
+          
+            </code></pre>
+
+
+          <br><br><br><sub><sup>credit: https://socket.dev/blog/npm-bin-script-confusion</sup></sub>
+        </section>
+
+        <section data-markdown class="whitehat">
+          <textarea>
+  #### one RTFM later
+  ```
+  $ allow-scripts setup --experimental-bins
+
+  $ allow-scripts auto --experimental-bins
+
+  ```
+  ```
+  package.json:
+    "scripts": {
+      "setup": "npm ci && npm run allow-scripts"
+    
+  ```
+              
+          </textarea>
+        </section>
+
+        <section data-markdown class="blackhat">
+          # 🤯
+
+          but
+
+          but npm said it was a feature! 😭
+        </section>
       </section>
-
       <section data-markdown class="blackhat">
-        # 🤯
-
-        but
-
-        but npm said it was a feature! 😭
-      </section>
-
-      <section data-markdown class="blackhat">
-        #### let's get serious
+        #### I'm in!
 
         > Dear ${ eslintPluginMaintainer },
         > I understand you're busy and I'd be happy to help with maintenance of your
@@ -737,38 +738,20 @@ TypeError: Cannot read properties of undefined
 
 
       <section>
-        <h4> Now let's set up LavaMoat in a project</h4>
+        <h4> Now let's set up LavaMoat <br>in a project</h4>
+        <img src="./ilus/lm.png">
+        <br>
+        <sub><sup>(Your project is the castle)</sup></sub>
         </section>
         <section>
 
         <img src="naugtur.svg" style="height:6em" />
 
         <p>@naugtur &nbsp; <a href="https://naugtur.pl/">naugtur.pl</a></p>
-        <p> <a href="https://naugtur.pl/news">naugtur.pl/news</a></p>
         <p> <a href="https://naugtur.pl/training">naugtur.pl/training</a></p>
 
 
       </section>
-
-      <section data-markdown>
-        ### Want more?
-
-        [Mark Miller on F5 Tech Talks](https://www.youtube.com/watch?v=u-XETUbxNUU)
-
-        Here's how it compares:
-
-        ```txt
-        Mark's talk: "Here's how we discovered cocoa trees and how
-         we now produce delicious chocolate in a beautiful process 
-         with incredible machines!"
-        ```
-        ```txt
-        Zb's talk: "It basically grows on trees!" 
-         >>throws handfuls of candy at the audience
-        ```
-      </section>
-
-
     </div>
 
   </div>
