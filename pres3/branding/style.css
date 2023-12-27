@@ -53,12 +53,36 @@
         0 6px 10px rgba(0,0,0,.2);
 }
 
+#naugtur:before {
+    content: 'naugtur.pl';
+    position: fixed;
+    bottom: .5em;
+    left: .5em;
+    font-size: .8em;
+    animation-name: spin;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-duration: 30s;
+    transform-style: preserve-3d;
+    transform: rotateX(0.5deg);
+    transform-origin: 50% 50%;
+  }
 
-#naugtur{
-    background: transparent url('logo.png') no-repeat bottom left;
-}
+  @keyframes spin {
+    0% {
+      transform: rotateX(0deg);
+    }
 
-#naugtur .pad1 {
+    3% {
+      transform: rotateX(-360deg);
+    }
+
+    100% {
+      transform: rotateX(-360deg);
+    }
+  }
+  
+  #naugtur .pad1 {
     padding: 1em;
     clear:both;
 }
