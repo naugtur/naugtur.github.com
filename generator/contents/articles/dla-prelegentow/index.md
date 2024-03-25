@@ -14,22 +14,22 @@ Piszę ten tekst od ponad roku, a przypadki zbieram od kilku lat. Zebrałem kilk
 
 Na początek kilka wyrazów, które polskojęzyczni prelegenci często wymawiają nieco dziwnie:
 
-- [Talk](https://howjsay.com/searchResult?word=Talk)
-- [Demo](https://howjsay.com/searchResult?word=Demo)
-- [Data](https://howjsay.com/searchResult?word=Data)
-- [Code](https://howjsay.com/searchResult?word=Code)
-- [Have](https://howjsay.com/searchResult?word=Have)
-- [Through](https://howjsay.com/searchResult?word=Through)
-- [Which](https://howjsay.com/searchResult?word=Which)
-- [Were, are](https://howjsay.com/searchResult?word=were)
-- [Header](https://howjsay.com/searchResult?word=Header)
-- [Body](https://howjsay.com/searchResult?word=Body)
-- [Graphics, physics](https://howjsay.com/searchResult?word=Graphics)
-- [Danger](https://howjsay.com/searchResult?word=Danger)
-- [Result](https://howjsay.com/searchResult?word=Result)
-- [Effects](https://howjsay.com/searchResult?word=Effects)
-- [Browser](https://howjsay.com/searchResult?word=Browser)
-- [Router](https://howjsay.com/searchResult?word=Router)
+- [Talk](https://howjsay.com/how-to-pronounce-Talk)
+- [Demo](https://howjsay.com/how-to-pronounce-Demo)
+- [Data](https://howjsay.com/how-to-pronounce-Data)
+- [Code](https://howjsay.com/how-to-pronounce-Code)
+- [Have](https://howjsay.com/how-to-pronounce-Have)
+- [Through](https://howjsay.com/how-to-pronounce-Through)
+- [Which](https://howjsay.com/how-to-pronounce-Which)
+- [Were, are](https://howjsay.com/how-to-pronounce-were)
+- [Header](https://howjsay.com/how-to-pronounce-Header)
+- [Body](https://howjsay.com/how-to-pronounce-Body)
+- [Graphics, physics](https://howjsay.com/how-to-pronounce-Graphics)
+- [Danger](https://howjsay.com/how-to-pronounce-Danger)
+- [Result](https://howjsay.com/how-to-pronounce-Result)
+- [Effects](https://howjsay.com/how-to-pronounce-Effects)
+- [Browser](https://howjsay.com/how-to-pronounce-Browser)
+- [Router](https://howjsay.com/how-to-pronounce-Router)
 
 Jeśli masz 10 minut na podszlifowanie wymowy, skup się na tych wyrazach. Kliknij w link, kliknij w wyraz i spróbuj powtórzyć.
 

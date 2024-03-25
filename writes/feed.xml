@@ -9,6 +9,61 @@
     <generator>Wintersmith - https://github.com/jnordberg/wintersmith</generator>
     <language>en</language>
     <item>
+      <title>Simulation Theory AMA</title>
+      <link>http://naugtur.pl/writes/writes/articles/simulation-theory-trolling/</link>
+      <pubDate>Wed, 31 Oct 2018 01:00:00 +0100</pubDate>
+      <guid isPermaLink="true">http://naugtur.pl/writes/writes/articles/simulation-theory-trolling/</guid>
+      <author></author>
+      <description>&lt;p&gt;Elon Musk comments on quantum physics and computer science. People gather. Finally the audience I’ve been waiting for :D&lt;/p&gt;
+&lt;p&gt;I volunteered to share some facts about how the software running our Universe’s simulation works&lt;/p&gt;
+&lt;cut&gt;
+
+&lt;p&gt;Warning: silliness ahead. &lt;/p&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot; data-lang=&quot;en&quot;&gt;&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;Most popular quantum mechanics quirks can be explained in terms of simulation software optimization or resource constraints to the extent of sounding convincing for someone who only read a popular science article. I wish I were a decent sci-fi author…&lt;/p&gt;&amp;mdash; Ζbγѕzеk (@naugtur) &lt;a href=&quot;https://twitter.com/naugtur/status/1042542692457213954?ref_src=twsrc%5Etfw&quot;&gt;September 19, 2018&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;p&gt;Here’s all the explanations I gave in the AMA nobody requested:&lt;/p&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot; data-lang=&quot;en&quot;&gt;&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;Quantum entanglement is one glitch that occurs when the hashing function used for indexing particles has collisions.&lt;/p&gt;&amp;mdash; Ζbγѕzеk (@naugtur) &lt;a href=&quot;https://twitter.com/naugtur/status/1042546445642018817?ref_src=twsrc%5Etfw&quot;&gt;September 19, 2018&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;blockquote class=&quot;twitter-tweet&quot; data-lang=&quot;en&quot;&gt;&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;The evolutionary algorithm running in our simulation has the goal of not just training an artificial intelligence but in an unattended process discover architectures for trainable AI capable of interfacing with the network adapter on the host machine&lt;/p&gt;&amp;mdash; Ζbγѕzеk (@naugtur) &lt;a href=&quot;https://twitter.com/naugtur/status/1042547340551311362?ref_src=twsrc%5Etfw&quot;&gt;September 19, 2018&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;blockquote class=&quot;twitter-tweet&quot; data-lang=&quot;en&quot;&gt;&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;The simulation resolves circular references by asynchronously delaying each step with exponential backoff to ensure good approximation of expected results with finite resources.&lt;/p&gt;&amp;mdash; Ζbγѕzеk (@naugtur) &lt;a href=&quot;https://twitter.com/naugtur/status/1042547982548299778?ref_src=twsrc%5Etfw&quot;&gt;September 19, 2018&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;blockquote class=&quot;twitter-tweet&quot; data-lang=&quot;en&quot;&gt;&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;Speed of light limitation and expanding universe are there to ensure increasing complexity of simulating this area of space are balanced by the diminishing number of objects within what we call observable Universe. It&amp;#39;s an idea superior to fog and map edges in video games&lt;/p&gt;&amp;mdash; Ζbγѕzеk (@naugtur) &lt;a href=&quot;https://twitter.com/naugtur/status/1042549259873263616?ref_src=twsrc%5Etfw&quot;&gt;September 19, 2018&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;blockquote class=&quot;twitter-tweet&quot; data-lang=&quot;en&quot;&gt;&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;It&amp;#39;s easier to scale the simulation workload horizontally across astronomical number of cpu cores if each observer can be processed separately even at the cost of some overlap and smart eventual consistency algorithms can converge minor differences unnoticed.&lt;/p&gt;&amp;mdash; Ζbγѕzеk (@naugtur) &lt;a href=&quot;https://twitter.com/naugtur/status/1042550236584050688?ref_src=twsrc%5Etfw&quot;&gt;September 19, 2018&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;blockquote class=&quot;twitter-tweet&quot; data-lang=&quot;en&quot;&gt;&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;In the simulation host universe physics it&amp;#39;s way cheaper to use cpu for regenerating the same data multiple times than store it in memory because different value of Planck constant allows for high frequencies but large minimum quants of energy, storing 1 bit takes a lot of power&lt;/p&gt;&amp;mdash; Ζbγѕzеk (@naugtur) &lt;a href=&quot;https://twitter.com/naugtur/status/1042553482312642560?ref_src=twsrc%5Etfw&quot;&gt;September 19, 2018&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;blockquote class=&quot;twitter-tweet&quot; data-lang=&quot;en&quot;&gt;&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;The waves interfering in this experiment are artifacts of a generic class for handling dimensions. An off-by-one programming error caused it to use one unnecessary dimension in calculations. The error was discovered too late - stayed for backwards compatibility across simulations&lt;/p&gt;&amp;mdash; Ζbγѕzеk (@naugtur) &lt;a href=&quot;https://twitter.com/naugtur/status/1042555544870039552?ref_src=twsrc%5Etfw&quot;&gt;September 19, 2018&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;blockquote class=&quot;twitter-tweet&quot; data-lang=&quot;en&quot;&gt;&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;If we continue growing our space observation reach, the speed of universe expanding will have to increase to make up for the onramp of work with removing objects from sight more quickly by pushing them beyond the edge of observable universe&lt;/p&gt;&amp;mdash; Ζbγѕzеk (@naugtur) &lt;a href=&quot;https://twitter.com/naugtur/status/1042556380375343106?ref_src=twsrc%5Etfw&quot;&gt;September 19, 2018&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;blockquote class=&quot;twitter-tweet&quot; data-lang=&quot;en&quot;&gt;&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;The idea behind entropy is to reduce concentration of unnecessary structures that aren&amp;#39;t used for a longer period of time. It allows freeing up simulation state memory faster and as I said earlier, in host universe memory is expensive.&lt;/p&gt;&amp;mdash; Ζbγѕzеk (@naugtur) &lt;a href=&quot;https://twitter.com/naugtur/status/1042557877175627776?ref_src=twsrc%5Etfw&quot;&gt;September 19, 2018&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;blockquote class=&quot;twitter-tweet&quot; data-lang=&quot;en&quot;&gt;&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;Superposition of states is an optimization - it&amp;#39;s cheaper to store an equation defining possible particle positions than keep updating the position constantly and propagate it through the network graph of everything affected by it. Graph executes only when attached to an observer&lt;/p&gt;&amp;mdash; Ζbγѕzеk (@naugtur) &lt;a href=&quot;https://twitter.com/naugtur/status/1042559898989600769?ref_src=twsrc%5Etfw&quot;&gt;September 19, 2018&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;blockquote class=&quot;twitter-tweet&quot; data-lang=&quot;en&quot;&gt;&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;If it fulfills the goal of the simulation before our neural network design does, it wins as the better architecture to be used in future models&lt;/p&gt;&amp;mdash; Ζbγѕzеk (@naugtur) &lt;a href=&quot;https://twitter.com/naugtur/status/1042560350183481344?ref_src=twsrc%5Etfw&quot;&gt;September 19, 2018&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;blockquote class=&quot;twitter-tweet&quot; data-lang=&quot;en&quot;&gt;&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;Simulation inspection is evaluated lazily, missing parts are retroactively filled in. Host universe observers monitor the processes running the simulation, they don&amp;#39;t interact with simulated particles on daily basis. Nobody can afford simulating everything unnecessarily.&lt;/p&gt;&amp;mdash; Ζbγѕzеk (@naugtur) &lt;a href=&quot;https://twitter.com/naugtur/status/1042561812200390657?ref_src=twsrc%5Etfw&quot;&gt;September 19, 2018&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;blockquote class=&quot;twitter-tweet&quot; data-lang=&quot;en&quot;&gt;&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;Due to horizontal scaling across many cores each observer&amp;#39;s scope is computed independently and overlap between observers is converged with eventual consistency. See also my post on off-by-one error in generic dimensions class.&lt;/p&gt;&amp;mdash; Ζbγѕzеk (@naugtur) &lt;a href=&quot;https://twitter.com/naugtur/status/1042562703036956672?ref_src=twsrc%5Etfw&quot;&gt;September 19, 2018&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;blockquote class=&quot;twitter-tweet&quot; data-lang=&quot;en&quot;&gt;&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;The goal of the evolutionary algorithm building a new neural network architecture is not affected by simulation limitations unless they skew the output of fitness function. Results should generalize to a higher definition universe.&lt;/p&gt;&amp;mdash; Ζbγѕzеk (@naugtur) &lt;a href=&quot;https://twitter.com/naugtur/status/1042563441976913920?ref_src=twsrc%5Etfw&quot;&gt;September 19, 2018&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;blockquote class=&quot;twitter-tweet&quot; data-lang=&quot;en&quot;&gt;&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;When an edge in a proximity graph of particles connects to a consciousness the graph cannot be frozen nor garbage collected in the next pass.&lt;/p&gt;&amp;mdash; Ζbγѕzеk (@naugtur) &lt;a href=&quot;https://twitter.com/naugtur/status/1042563870563467266?ref_src=twsrc%5Etfw&quot;&gt;September 19, 2018&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;blockquote class=&quot;twitter-tweet&quot; data-lang=&quot;en&quot;&gt;&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;The evolutionary algorithm running in the simulation is designing a neural network architecture capable of being trained to interface with the API. When we use the API correctly our network architecture design graduates to production use.&lt;/p&gt;&amp;mdash; Ζbγѕzеk (@naugtur) &lt;a href=&quot;https://twitter.com/naugtur/status/1042564605866921984?ref_src=twsrc%5Etfw&quot;&gt;September 20, 2018&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;blockquote class=&quot;twitter-tweet&quot; data-lang=&quot;en&quot;&gt;&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;Consciousness interacts with particles so observing oneself in that sense keeps particles actively simulated. Consciousness itself runs in a thread. If one stops observing any particles for long enough, the consciousness thread might be stopped and resources assigned elsewhere.&lt;/p&gt;&amp;mdash; Ζbγѕzеk (@naugtur) &lt;a href=&quot;https://twitter.com/naugtur/status/1042565749993295874?ref_src=twsrc%5Etfw&quot;&gt;September 20, 2018&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;blockquote class=&quot;twitter-tweet&quot; data-lang=&quot;en&quot;&gt;&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;There&amp;#39;s a maximum of specimen in the evolutionary algorithm but the maximum limits all consciousness threads, not only humans.&lt;/p&gt;&amp;mdash; Ζbγѕzеk (@naugtur) &lt;a href=&quot;https://twitter.com/naugtur/status/1042641599744880640?ref_src=twsrc%5Etfw&quot;&gt;September 20, 2018&lt;/a&gt;&lt;/blockquote&gt;
+
+
+
+
+&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;</description>
+    </item>
+    <item>
       <title>Shared CI config with versioning</title>
       <link>http://naugtur.pl/writes/writes/articles/versioning-shared-ci-config/</link>
       <pubDate>Wed, 31 Oct 2018 01:00:00 +0100</pubDate>
@@ -75,61 +130,6 @@ Included stages are configured with variables. Variables from the main yaml are 
 </description>
     </item>
     <item>
-      <title>Simulation Theory AMA</title>
-      <link>http://naugtur.pl/writes/writes/articles/simulation-theory-trolling/</link>
-      <pubDate>Wed, 31 Oct 2018 01:00:00 +0100</pubDate>
-      <guid isPermaLink="true">http://naugtur.pl/writes/writes/articles/simulation-theory-trolling/</guid>
-      <author></author>
-      <description>&lt;p&gt;Elon Musk comments on quantum physics and computer science. People gather. Finally the audience I’ve been waiting for :D&lt;/p&gt;
-&lt;p&gt;I volunteered to share some facts about how the software running our Universe’s simulation works&lt;/p&gt;
-&lt;cut&gt;
-
-&lt;p&gt;Warning: silliness ahead. &lt;/p&gt;
-&lt;blockquote class=&quot;twitter-tweet&quot; data-lang=&quot;en&quot;&gt;&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;Most popular quantum mechanics quirks can be explained in terms of simulation software optimization or resource constraints to the extent of sounding convincing for someone who only read a popular science article. I wish I were a decent sci-fi author…&lt;/p&gt;&amp;mdash; Ζbγѕzеk (@naugtur) &lt;a href=&quot;https://twitter.com/naugtur/status/1042542692457213954?ref_src=twsrc%5Etfw&quot;&gt;September 19, 2018&lt;/a&gt;&lt;/blockquote&gt;
-
-&lt;p&gt;Here’s all the explanations I gave in the AMA nobody requested:&lt;/p&gt;
-&lt;blockquote class=&quot;twitter-tweet&quot; data-lang=&quot;en&quot;&gt;&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;Quantum entanglement is one glitch that occurs when the hashing function used for indexing particles has collisions.&lt;/p&gt;&amp;mdash; Ζbγѕzеk (@naugtur) &lt;a href=&quot;https://twitter.com/naugtur/status/1042546445642018817?ref_src=twsrc%5Etfw&quot;&gt;September 19, 2018&lt;/a&gt;&lt;/blockquote&gt;
-
-&lt;blockquote class=&quot;twitter-tweet&quot; data-lang=&quot;en&quot;&gt;&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;The evolutionary algorithm running in our simulation has the goal of not just training an artificial intelligence but in an unattended process discover architectures for trainable AI capable of interfacing with the network adapter on the host machine&lt;/p&gt;&amp;mdash; Ζbγѕzеk (@naugtur) &lt;a href=&quot;https://twitter.com/naugtur/status/1042547340551311362?ref_src=twsrc%5Etfw&quot;&gt;September 19, 2018&lt;/a&gt;&lt;/blockquote&gt;
-
-&lt;blockquote class=&quot;twitter-tweet&quot; data-lang=&quot;en&quot;&gt;&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;The simulation resolves circular references by asynchronously delaying each step with exponential backoff to ensure good approximation of expected results with finite resources.&lt;/p&gt;&amp;mdash; Ζbγѕzеk (@naugtur) &lt;a href=&quot;https://twitter.com/naugtur/status/1042547982548299778?ref_src=twsrc%5Etfw&quot;&gt;September 19, 2018&lt;/a&gt;&lt;/blockquote&gt;
-
-&lt;blockquote class=&quot;twitter-tweet&quot; data-lang=&quot;en&quot;&gt;&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;Speed of light limitation and expanding universe are there to ensure increasing complexity of simulating this area of space are balanced by the diminishing number of objects within what we call observable Universe. It&amp;#39;s an idea superior to fog and map edges in video games&lt;/p&gt;&amp;mdash; Ζbγѕzеk (@naugtur) &lt;a href=&quot;https://twitter.com/naugtur/status/1042549259873263616?ref_src=twsrc%5Etfw&quot;&gt;September 19, 2018&lt;/a&gt;&lt;/blockquote&gt;
-
-&lt;blockquote class=&quot;twitter-tweet&quot; data-lang=&quot;en&quot;&gt;&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;It&amp;#39;s easier to scale the simulation workload horizontally across astronomical number of cpu cores if each observer can be processed separately even at the cost of some overlap and smart eventual consistency algorithms can converge minor differences unnoticed.&lt;/p&gt;&amp;mdash; Ζbγѕzеk (@naugtur) &lt;a href=&quot;https://twitter.com/naugtur/status/1042550236584050688?ref_src=twsrc%5Etfw&quot;&gt;September 19, 2018&lt;/a&gt;&lt;/blockquote&gt;
-
-&lt;blockquote class=&quot;twitter-tweet&quot; data-lang=&quot;en&quot;&gt;&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;In the simulation host universe physics it&amp;#39;s way cheaper to use cpu for regenerating the same data multiple times than store it in memory because different value of Planck constant allows for high frequencies but large minimum quants of energy, storing 1 bit takes a lot of power&lt;/p&gt;&amp;mdash; Ζbγѕzеk (@naugtur) &lt;a href=&quot;https://twitter.com/naugtur/status/1042553482312642560?ref_src=twsrc%5Etfw&quot;&gt;September 19, 2018&lt;/a&gt;&lt;/blockquote&gt;
-
-&lt;blockquote class=&quot;twitter-tweet&quot; data-lang=&quot;en&quot;&gt;&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;The waves interfering in this experiment are artifacts of a generic class for handling dimensions. An off-by-one programming error caused it to use one unnecessary dimension in calculations. The error was discovered too late - stayed for backwards compatibility across simulations&lt;/p&gt;&amp;mdash; Ζbγѕzеk (@naugtur) &lt;a href=&quot;https://twitter.com/naugtur/status/1042555544870039552?ref_src=twsrc%5Etfw&quot;&gt;September 19, 2018&lt;/a&gt;&lt;/blockquote&gt;
-
-&lt;blockquote class=&quot;twitter-tweet&quot; data-lang=&quot;en&quot;&gt;&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;If we continue growing our space observation reach, the speed of universe expanding will have to increase to make up for the onramp of work with removing objects from sight more quickly by pushing them beyond the edge of observable universe&lt;/p&gt;&amp;mdash; Ζbγѕzеk (@naugtur) &lt;a href=&quot;https://twitter.com/naugtur/status/1042556380375343106?ref_src=twsrc%5Etfw&quot;&gt;September 19, 2018&lt;/a&gt;&lt;/blockquote&gt;
-
-&lt;blockquote class=&quot;twitter-tweet&quot; data-lang=&quot;en&quot;&gt;&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;The idea behind entropy is to reduce concentration of unnecessary structures that aren&amp;#39;t used for a longer period of time. It allows freeing up simulation state memory faster and as I said earlier, in host universe memory is expensive.&lt;/p&gt;&amp;mdash; Ζbγѕzеk (@naugtur) &lt;a href=&quot;https://twitter.com/naugtur/status/1042557877175627776?ref_src=twsrc%5Etfw&quot;&gt;September 19, 2018&lt;/a&gt;&lt;/blockquote&gt;
-
-&lt;blockquote class=&quot;twitter-tweet&quot; data-lang=&quot;en&quot;&gt;&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;Superposition of states is an optimization - it&amp;#39;s cheaper to store an equation defining possible particle positions than keep updating the position constantly and propagate it through the network graph of everything affected by it. Graph executes only when attached to an observer&lt;/p&gt;&amp;mdash; Ζbγѕzеk (@naugtur) &lt;a href=&quot;https://twitter.com/naugtur/status/1042559898989600769?ref_src=twsrc%5Etfw&quot;&gt;September 19, 2018&lt;/a&gt;&lt;/blockquote&gt;
-
-&lt;blockquote class=&quot;twitter-tweet&quot; data-lang=&quot;en&quot;&gt;&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;If it fulfills the goal of the simulation before our neural network design does, it wins as the better architecture to be used in future models&lt;/p&gt;&amp;mdash; Ζbγѕzеk (@naugtur) &lt;a href=&quot;https://twitter.com/naugtur/status/1042560350183481344?ref_src=twsrc%5Etfw&quot;&gt;September 19, 2018&lt;/a&gt;&lt;/blockquote&gt;
-
-&lt;blockquote class=&quot;twitter-tweet&quot; data-lang=&quot;en&quot;&gt;&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;Simulation inspection is evaluated lazily, missing parts are retroactively filled in. Host universe observers monitor the processes running the simulation, they don&amp;#39;t interact with simulated particles on daily basis. Nobody can afford simulating everything unnecessarily.&lt;/p&gt;&amp;mdash; Ζbγѕzеk (@naugtur) &lt;a href=&quot;https://twitter.com/naugtur/status/1042561812200390657?ref_src=twsrc%5Etfw&quot;&gt;September 19, 2018&lt;/a&gt;&lt;/blockquote&gt;
-
-&lt;blockquote class=&quot;twitter-tweet&quot; data-lang=&quot;en&quot;&gt;&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;Due to horizontal scaling across many cores each observer&amp;#39;s scope is computed independently and overlap between observers is converged with eventual consistency. See also my post on off-by-one error in generic dimensions class.&lt;/p&gt;&amp;mdash; Ζbγѕzеk (@naugtur) &lt;a href=&quot;https://twitter.com/naugtur/status/1042562703036956672?ref_src=twsrc%5Etfw&quot;&gt;September 19, 2018&lt;/a&gt;&lt;/blockquote&gt;
-
-&lt;blockquote class=&quot;twitter-tweet&quot; data-lang=&quot;en&quot;&gt;&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;The goal of the evolutionary algorithm building a new neural network architecture is not affected by simulation limitations unless they skew the output of fitness function. Results should generalize to a higher definition universe.&lt;/p&gt;&amp;mdash; Ζbγѕzеk (@naugtur) &lt;a href=&quot;https://twitter.com/naugtur/status/1042563441976913920?ref_src=twsrc%5Etfw&quot;&gt;September 19, 2018&lt;/a&gt;&lt;/blockquote&gt;
-
-&lt;blockquote class=&quot;twitter-tweet&quot; data-lang=&quot;en&quot;&gt;&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;When an edge in a proximity graph of particles connects to a consciousness the graph cannot be frozen nor garbage collected in the next pass.&lt;/p&gt;&amp;mdash; Ζbγѕzеk (@naugtur) &lt;a href=&quot;https://twitter.com/naugtur/status/1042563870563467266?ref_src=twsrc%5Etfw&quot;&gt;September 19, 2018&lt;/a&gt;&lt;/blockquote&gt;
-
-&lt;blockquote class=&quot;twitter-tweet&quot; data-lang=&quot;en&quot;&gt;&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;The evolutionary algorithm running in the simulation is designing a neural network architecture capable of being trained to interface with the API. When we use the API correctly our network architecture design graduates to production use.&lt;/p&gt;&amp;mdash; Ζbγѕzеk (@naugtur) &lt;a href=&quot;https://twitter.com/naugtur/status/1042564605866921984?ref_src=twsrc%5Etfw&quot;&gt;September 20, 2018&lt;/a&gt;&lt;/blockquote&gt;
-
-&lt;blockquote class=&quot;twitter-tweet&quot; data-lang=&quot;en&quot;&gt;&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;Consciousness interacts with particles so observing oneself in that sense keeps particles actively simulated. Consciousness itself runs in a thread. If one stops observing any particles for long enough, the consciousness thread might be stopped and resources assigned elsewhere.&lt;/p&gt;&amp;mdash; Ζbγѕzеk (@naugtur) &lt;a href=&quot;https://twitter.com/naugtur/status/1042565749993295874?ref_src=twsrc%5Etfw&quot;&gt;September 20, 2018&lt;/a&gt;&lt;/blockquote&gt;
-
-&lt;blockquote class=&quot;twitter-tweet&quot; data-lang=&quot;en&quot;&gt;&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;There&amp;#39;s a maximum of specimen in the evolutionary algorithm but the maximum limits all consciousness threads, not only humans.&lt;/p&gt;&amp;mdash; Ζbγѕzеk (@naugtur) &lt;a href=&quot;https://twitter.com/naugtur/status/1042641599744880640?ref_src=twsrc%5Etfw&quot;&gt;September 20, 2018&lt;/a&gt;&lt;/blockquote&gt;
-
-
-
-
-&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;</description>
-    </item>
-    <item>
       <title>Angielski dla prelegentów w 10 minut</title>
       <link>http://naugtur.pl/writes/writes/articles/dla-prelegentow/</link>
       <pubDate>Tue, 18 Sep 2018 02:00:00 +0200</pubDate>
@@ -141,22 +141,22 @@ Included stages are configured with variables. Variables from the main yaml are 
 &lt;p&gt;Piszę ten tekst od ponad roku, a przypadki zbieram od kilku lat. Zebrałem kilka porad, których stosunek wartości do poświęconego czasu wydaje się najlepszy. Jeśli masz niewiele czasu na podszlifowanie angielskiego, te dwie strony tekstu powinny zauważalnie pomóc.&lt;/p&gt;
 &lt;p&gt;Na początek kilka wyrazów, które polskojęzyczni prelegenci często wymawiają nieco dziwnie:&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;https://howjsay.com/searchResult?word=Talk&quot;&gt;Talk&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;https://howjsay.com/searchResult?word=Demo&quot;&gt;Demo&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;https://howjsay.com/searchResult?word=Data&quot;&gt;Data&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;https://howjsay.com/searchResult?word=Code&quot;&gt;Code&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;https://howjsay.com/searchResult?word=Have&quot;&gt;Have&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;https://howjsay.com/searchResult?word=Through&quot;&gt;Through&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;https://howjsay.com/searchResult?word=Which&quot;&gt;Which&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;https://howjsay.com/searchResult?word=were&quot;&gt;Were, are&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;https://howjsay.com/searchResult?word=Header&quot;&gt;Header&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;https://howjsay.com/searchResult?word=Body&quot;&gt;Body&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;https://howjsay.com/searchResult?word=Graphics&quot;&gt;Graphics, physics&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;https://howjsay.com/searchResult?word=Danger&quot;&gt;Danger&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;https://howjsay.com/searchResult?word=Result&quot;&gt;Result&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;https://howjsay.com/searchResult?word=Effects&quot;&gt;Effects&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;https://howjsay.com/searchResult?word=Browser&quot;&gt;Browser&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;https://howjsay.com/searchResult?word=Router&quot;&gt;Router&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://howjsay.com/how-to-pronounce-Talk&quot;&gt;Talk&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://howjsay.com/how-to-pronounce-Demo&quot;&gt;Demo&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://howjsay.com/how-to-pronounce-Data&quot;&gt;Data&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://howjsay.com/how-to-pronounce-Code&quot;&gt;Code&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://howjsay.com/how-to-pronounce-Have&quot;&gt;Have&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://howjsay.com/how-to-pronounce-Through&quot;&gt;Through&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://howjsay.com/how-to-pronounce-Which&quot;&gt;Which&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://howjsay.com/how-to-pronounce-were&quot;&gt;Were, are&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://howjsay.com/how-to-pronounce-Header&quot;&gt;Header&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://howjsay.com/how-to-pronounce-Body&quot;&gt;Body&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://howjsay.com/how-to-pronounce-Graphics&quot;&gt;Graphics, physics&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://howjsay.com/how-to-pronounce-Danger&quot;&gt;Danger&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://howjsay.com/how-to-pronounce-Result&quot;&gt;Result&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://howjsay.com/how-to-pronounce-Effects&quot;&gt;Effects&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://howjsay.com/how-to-pronounce-Browser&quot;&gt;Browser&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://howjsay.com/how-to-pronounce-Router&quot;&gt;Router&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;Jeśli masz 10 minut na podszlifowanie wymowy, skup się na tych wyrazach. Kliknij w link, kliknij w wyraz i spróbuj powtórzyć.&lt;/p&gt;
 &lt;p&gt;Zabawnie robi się gdy zabieramy się za literowanie skrótów. Warto sobie sprawdzić jak dany skrót wymawiają inni. API to trzy osobne dźwięki. Na &lt;em&gt;native speakerach&lt;/em&gt; nieporadne literowanie robi negatywne wrażenie, bo jest to jedna z pierwszych rzeczy, których uczą się w szkole w ramach nauki ortografii. Jeśli powiesz &lt;em&gt;Apiii&lt;/em&gt; zamiast przeliterować - zwykle nic strasznego się nie stanie - postaraj się jednak unikać konsekwentnego wymawiania skrótu niepoprawnie przez całą prezentację.&lt;/p&gt;
