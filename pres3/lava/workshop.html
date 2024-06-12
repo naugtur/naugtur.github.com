@@ -182,7 +182,8 @@
           <dl>
             <dd>built for DEFCON31,</dd>
             <dd>updated for NodeConfEU,</dd>
-            <dd>updated for Confidence!</dd>
+            <dd>updated for Confidence,</dd>
+            <dd>updated for X33fcon!</dd>
             
           </dl>
         </small>
@@ -391,9 +392,166 @@
         [ses/src/commons.js](https://github.com/endojs/endo/blob/master/packages/ses/src/commons.js)
     </section>
     <section data-markdown>
-        # SES ?
-        ### What is that?
+        ### does it scale?
+
+        how to convince the entire ecosystem to use it?
+        
+        #### We don't really have to
     </section>
+
+
+    <section data-markdown>
+      # 🤯
+      ### JS design is good for security?
+
+
+      - Take ECMA + W3C
+      - Add Conway's Law
+      - Separation between language and APIs
+      - Power only reachable through scope 
+
+      
+      #### All we need to do is control scope
+    </section>
+
+     
+    
+    <section data-auto-animate>
+      <div data-id="bx" class="boxes">
+        <div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+        <div> process </div>
+        <div> window </div>
+        <div> Lambda function </div>
+      </div>
+    </section>
+
+    <section data-auto-animate>
+      <div data-id="bx" class="boxes" style=" width: 120vw; height: 120vh; font-size: 7vh;">
+        <div>
+          <div>
+            <div> </div>
+            <div> </div>
+          </div>
+          <div> ClFl worker </div>
+          <div> iframe </div>
+          <div> thread </div>
+        </div>
+        <div> process </div>
+        <div> process </div>
+        <div> process </div>
+      </div>
+    </section>
+    <section data-auto-animate>
+      <div data-id="bx" class="boxes" style=" width: 250vw; height: 250vh; font-size: 10vh;">
+        <div>
+          <div>
+            <div> 📦 </div>
+            <div> 📦 </div>
+          </div>
+          <div> ClFl worker </div>
+          <div> iframe </div>
+          <div> thread </div>
+        </div>
+        <div> process </div>
+        <div> process </div>
+        <div> process </div>
+      </div>
+    </section>
+    <section data-auto-animate>
+      <div data-id="bx" class="boxes" style=" width: 250vw; height: 250vh; font-size: 10vh;">
+        <div>
+          <div>
+            <div> 📢 </div>
+            <div> 👂 </div>
+          </div>
+          <div> worker </div>
+          <div> isolate </div>
+          <div> thread </div>
+        </div>
+        <div> process </div>
+        <div> process </div>
+        <div> process </div>
+      </div>
+    </section>
+
+      <section data-markdown>
+        ### Object Capability
+  
+         vs identity based security
+  
+        - code gets references to capable objects
+        - code doesn't "work on your behalf"
+        
+      </section>
+      <section data-markdown>
+        ### Object Capability
+
+        You already know how to use it
+  
+        ```js
+        import { lint } from 'some-linter'
+        import { readFile } from 'node:fs/promises'
+
+        const fs = { readFile }
+
+        lint({ fs })
+        ```
+  
+        
+      </section>
+      <section data-markdown>
+        ### Object Capability
+
+        This is called attenuation BTW
+
+        ```js
+        import { lint } from 'some-linter'
+        import { readFile } from 'node:fs/promises'
+
+        const fs = {
+          readFile: async (path) => {
+            if(!allowed(path)) { throw Error('nope') }
+            return readFile(path)
+          },
+        }
+        
+        lint({ fs })
+        ```
+        
+      </section> 
+
+      <section data-markdown>
+        ### SES
+
+        - `Compartment` - scope isolation
+        - `lockdown` - makes your Realm secure
+        - `harden` - protects capable objects
+
+      </section>
+      <section data-markdown>
+        #### `lockdown()` 
+        #### is 
+        #### `Object.freeze()`
+        #### on steroids
+        # 💪
+
+        
+      </section>
+
+      <section data-markdown>
+        #### So do we need to convince the ecosystem to use OCAP style?
+      </section>
+      <section data-markdown>
+        # No!
+
+        ### There's an app for that
+      </section>
+
 
 
       <section data-markdown data-background="#235">
@@ -640,170 +798,21 @@ TypeError: Cannot read properties of undefined
 
 
 
-          <section data-markdown \>
+          <section data-markdown>
             # how ?!
 
             ![](./ilus/hacker3.png)
           </section>
 
-          <section data-markdown data-background="#235">
-            ### what's inside?
-
-            ![lavamoat](./lavamoat-underthe.png)
-
-          </section>
 
 
-
-          <section data-markdown>
-            # 🤯
-            ### JS design is good for security?
-      
-      
-            - Take ECMA + W3C
-            - Add Conway's Law
-            - Separation between language and APIs
-            - Power only reachable through scope 
-            - Compartment controls scope
-          </section>
-    
-          
-    
-        <section data-auto-animate>
-          <div data-id="bx" class="boxes">
-            <div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-            </div>
-            <div> process </div>
-            <div> window </div>
-            <div> Lambda function </div>
-          </div>
-        </section>
-    
-        <section data-auto-animate>
-          <div data-id="bx" class="boxes" style=" width: 120vw; height: 120vh; font-size: 7vh;">
-            <div>
-              <div>
-                <div> </div>
-                <div> </div>
-              </div>
-              <div> ClFl worker </div>
-              <div> iframe </div>
-              <div> thread </div>
-            </div>
-            <div> process </div>
-            <div> process </div>
-            <div> process </div>
-          </div>
-        </section>
-        <section data-auto-animate>
-          <div data-id="bx" class="boxes" style=" width: 250vw; height: 250vh; font-size: 10vh;">
-            <div>
-              <div>
-                <div> 📦 </div>
-                <div> 📦 </div>
-              </div>
-              <div> ClFl worker </div>
-              <div> iframe </div>
-              <div> thread </div>
-            </div>
-            <div> process </div>
-            <div> process </div>
-            <div> process </div>
-          </div>
-        </section>
-        <section data-auto-animate>
-          <div data-id="bx" class="boxes" style=" width: 250vw; height: 250vh; font-size: 10vh;">
-            <div>
-              <div>
-                <div> 📢 </div>
-                <div> 👂 </div>
-              </div>
-              <div> worker </div>
-              <div> isolate </div>
-              <div> thread </div>
-            </div>
-            <div> process </div>
-            <div> process </div>
-            <div> process </div>
-          </div>
-        </section>
-    
-          <section data-markdown>
-            ### Object Capability
-      
-             vs identity based security
-      
-            - code gets references to capable objects
-            - code doesn't "work on your behalf"
-            
-          </section>
-          <section data-markdown>
-            ### Object Capability
-    
-            You already know how to use it
-      
-            ```js
-            import { lint } from 'some-linter'
-            import { readFile } from 'node:fs/promises'
-    
-            const fs = { readFile }
-    
-            lint({ fs })
-            ```
-      
-            
-          </section>
-          <section data-markdown>
-            ### Object Capability
-    
-            This is called attenuation BTW
-    
-            ```js
-            import { lint } from 'some-linter'
-            import { readFile } from 'node:fs/promises'
-    
-            const fs = {
-              readFile: async (path) => {
-                if(!allowed(path)) { throw Error('nope') }
-                return readFile(path)
-              },
-            }
-            
-            lint({ fs })
-            ```
-            
-          </section> 
-    
-          <section data-markdown>
-            ### SES
-    
-            - `Compartment` - scope isolation
-            - `lockdown` - makes your Realm secure
-            - `harden` - protects capable objects
-    
-          </section>
-          <section data-markdown>
-            #### `lockdown()` 
-            #### is 
-            #### `Object.freeze()`
-            #### on steroids
-            # 💪
-    
-            
-          </section>
-
-
-        <section data-markdown>
-          ### There's also a bundler
+        <section data-markdown class="whitehat">
+          ### I can do frontend too
   
-          1. browserify based
-          2. webpack plugin (in BETA)
+          1. LavaMoat webpack plugin (in BETA)
+          2. browserify 
           
-          Wanna help with the plugin?
+          Wanna try the plugin?
   
           #### Open Beta hub here:
   
@@ -831,6 +840,11 @@ TypeError: Cannot read properties of undefined
         <p>@naugtur &nbsp; <a href="https://naugtur.pl/">naugtur.pl</a></p>
         <p> <a href="https://naugtur.pl/training">naugtur.pl/training</a></p>
 
+
+      </section>
+      <section>
+        <img src="./ilus/mm.svg" height="200px">
+        <h4>we could work side-by-side</h4>
 
       </section>
     </div>
