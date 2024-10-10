@@ -1,0 +1,526 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+
+  <title>Hardened JavaScript</title>
+
+  <meta name="author" content="naugtur">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reset.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reveal.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/theme/black.css" id="theme">
+
+  <!-- Theme used for syntax highlighting of code -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/plugin/highlight/zenburn.css">
+
+
+  <link rel="stylesheet" href="../branding/style4x.css" id="branding">
+  <style>
+    #naugtur.reveal .muchcode pre>code {
+      max-height: 90vh;
+      min-width: 70vw;
+      font-size: 0.88em;
+    }
+
+    #naugtur:before {
+      content: 'naugtur.pl';
+      position: fixed;
+      bottom: .5em;
+      left: .5em;
+      font-size: .8em;
+      animation-name: spin;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+      animation-duration: 30s;
+      transform-style: preserve-3d;
+      transform: rotateX(0.5deg);
+      transform-origin: 50% 50%;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotateX(0deg);
+      }
+
+      3% {
+        transform: rotateX(-360deg);
+      }
+
+      100% {
+        transform: rotateX(-360deg);
+      }
+    }
+
+    .boxes {
+      width: 70vw;
+      height: 70vh;
+      font-size: 5vh;
+
+    }
+
+    .boxes div {
+      box-sizing: border-box;
+      width: 46%;
+      height: 44%;
+      float: left;
+      border: 3px solid #3c873a;
+      margin: 2%;
+      text-align: center;
+      font-size: 0.7em;
+      line-height: 2em;
+      padding: 2%;
+    }
+
+
+    .an-container {
+      width: 100%;
+      height: 550px;
+
+    }
+
+    .an-item,
+    .an-start-loc {
+      position: fixed;
+      top: 15%;
+      left: 15%;
+    }
+
+    .an-y {
+      z-index: 11;
+      max-height: none !important;
+    }
+
+    .an-target {
+      position: fixed;
+      top: 326px;
+      right: 8%;
+      width: 40%;
+      z-index: 0;
+
+    }
+
+    .reveal section img.clear {
+      border: none;
+      background: none;
+      box-shadow: none;
+      max-width: 50%;
+    }
+
+    .an-item {
+      offset-path: path('M100,80 C200,-200 500,0 600,300');
+      offset-rotate: 0deg;
+    }
+
+    .an-item.an-to {
+      animation: move 4444ms infinite ease-in-out;
+    }
+
+    .an-item.an-oops {
+      background-color: rgba(255, 166, 60, 0.9);
+
+      /* animation-play-state: paused !important; */
+      border-radius: 50%;
+      /* offset-path: path('M30,80 C200,-200 500,0 320,200'); */
+      animation: discover 4444ms ease-in-out;
+      animation-fill-mode: forwards;
+      z-index: 10;
+
+    }
+
+    @keyframes move {
+      0% {
+        offset-distance: 0%;
+      }
+
+      100% {
+        offset-distance: 100%;
+      }
+    }
+
+    #naugtur .moji h1 {
+      line-height: 3em;
+    }
+
+    sub>sup,
+    sup>sub {
+      color: #777;
+    }
+
+    #naugtur .whitehat .slide-background-content {
+      background: url('./ilus/dev.svg') no-repeat top right / 20%;
+    }
+
+    #naugtur .blackhat .slide-background-content {
+      background: url('./ilus/hacker.svg') no-repeat bottom right / 20%;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="reveal none" id="naugtur">
+
+    <div class="slides">
+      <section>
+        <br><br>
+        <h1>Weaponize your package</h1>
+        <br>
+        <small>@naugtur, The Hack Summit 2024</small>
+      </section>
+      <section>
+        <h3>
+          Who's that guy?
+        </h3>
+
+        <img src="../../me.avatar.jpg" height="100px">
+        <img src="./ilus/js.svg" height="100px">
+        <img src="./ilus/lm.png" height="100px">
+        <img src="./ilus/mm.svg" height="100px">
+
+        <p>https://naugtur.pl</p>
+
+
+      </section>
+      <section data-markdown>
+        <textarea data-template>
+
+          # 📺
+          Previously on  
+          
+          #### supply chain security
+        
+          ---
+
+          ### vulnerable dependencies
+
+          - audit scanners
+          - false positives
+          - security culture
+          
+          📦npm-audit-resolver 
+        
+          ---
+
+          ### malicious install scripts
+
+          - postinstall turns tsc evil  
+          - `--ignore-scripts`
+
+          📦@lavamoat/allow-scripts  
+          📦can-i-ignore-scripts  
+
+          ---
+
+          ### defending from malicious packages
+
+          - Hardened Javascript  
+
+          📦lavamoat
+
+          ---
+
+          Talks available at 
+          [naugtur.pl](https://naugtur.pl)
+          
+        
+          </textarea>
+      </section>
+      <section class="moji">
+        <br> <br>
+        <h1> 📦👌</h1>
+        <br> <br> <br>
+        <sub><sup>So you want to attack someone with a malicious package</sup></sub>
+      </section>
+      <section data-markdown>
+        <textarea data-template>
+
+          ### Let's get the "how" <br>out of the way
+
+          - dependency confusion
+          - typo squatting
+          - package takeover
+          - blog/stackoverflow post
+          - AI suggests it
+          - personal recommendation
+          - infiltration/insider
+        </textarea>
+      </section>
+
+      <section class="animatedSlide">
+
+        <img src="./npm.svg" alt="npm logo" style="width: 25%; margin-top:5%" class=" an-y an-start-loc">
+        <img src="./ilus/cookie.png" alt="gobble" class="an-target an-y">
+        <div class="an-container"></div>
+
+        <sub><sup>
+            In general, disguise it as one of these
+          </sup></sub>
+
+      </section>
+
+      <section data-markdown>
+        <textarea data-template>
+          # 🙈
+          ### BTW
+          ### Don't publish malware to NPM please
+
+          ---
+
+          In a legal engagement, prove you can typosquat with a non-malicious package and host your evil package on your own [verdaccio](https://verdaccio.org/) and configure .npmrc
+
+
+          ```
+          .npmrc
+          
+          @typosquat-emulator:registry=https://mypentesthosting.com/
+          //mypentesthosting.com/:_authToken=YOUR_AUTH_TOKEN
+          ```
+          ```
+          npm install @typosquat-emulator/pentest-package
+          ```
+          You get to keep your exploits to yourself and not violate npm's Terms of Service
+
+          ---
+
+          # 💣
+          ## Now we make it dangerous
+
+          ---
+
+          # 😴
+          ## Boring
+          - postinstall calls home
+          - postinstall steals env vars
+          - postinstall downloads more malware
+          - postinstall exfiltrates over DNS
+          - postinstall mines crypto
+          - obfuscated script in main
+
+          ---
+          # 🥱
+          ## Slightly less boring
+          - postinstall drops payload in sources
+          - postinstall turns tsc evil
+
+          Demo?
+
+          ---
+
+          ### Install scripts
+          - surprisingly, still popular
+          - easy to spot
+          - tools detect them
+          - quick to get deleted by npm etc.
+          - easy to block:
+            - `--ignore-scripts`
+            - 📦@lavamoat/allow-scripts
+
+          ---
+
+          # 🧐
+          ## Malicious source 
+          - requires more skill
+          - harder to detect
+          - attacks the app at runtime
+          - more interesting targets
+
+          ---
+
+          > In fact, 97% of the code in a modern web application comes from npm. An individual developer is responsible only for the final 3% that makes their application unique and useful. 
+          >
+          > https://blog.npmjs.org/post/180868064080/this-year-in-javascript-2018-in-review-and-npms
+
+          ---
+          # 🤏
+          But I can only control a boring little package that doesn't do anything important
+
+          ---
+          # 👻
+          ### Time to learn about lateral movement in JavaScript applications
+        </textarea>
+      </section>
+
+      
+
+      <section data-markdown>
+        ## Prototype poisoning
+        # 🧪🍏
+
+        ![]()
+
+        ```js
+        const a = {};
+        Object.prototype.toString = ()=>'👻';
+        console.log(`scary object: ${a}`);
+        ```
+
+        ```
+        scary object: 👻
+        ```
+
+      </section>
+      <section data-markdown>
+        # ⚔️
+        ## a weapon
+
+        ```js
+        Object.defineProperty(Object.prototype, 'toString', {
+          value: () => '👻',
+          writable: true,
+          configurable: true,
+          enumerable: false
+        });
+        ```
+
+        ```js
+        const a = {};
+        Object.prototype.toString = ()=>'👻';
+        console.log(`scary object: ${a}`);
+        ```
+
+        ```
+        scary object: 👻
+        ```
+
+      </section>
+
+
+      <section data-markdown>
+        ### JS can be tweaked and it's no accident
+
+        - designed in 10 days
+        - humbly assuming there's room for improvement
+      </section>
+      <section data-markdown>
+        ## polyfills
+        #### and
+        ## prototype poisoning
+
+        #### are the same thing
+        #### with different intentions
+
+      </section>
+      <section data-markdown>
+        ## attack examples
+
+      </section>
+
+      <section class="moji" data-markdown>
+        <textarea data-template>
+        <br> <br>
+        # 📦🛡️📦
+        <br> <br> <br>
+        <sub><sup>Let's put my blue hat back on</sup></sub>
+
+        ---
+        ## Hardened Javascript
+
+        ---
+        ![lavamoat](./lavamoat-logo.png)
+
+          #### Tell your devteam if you want to make your work harder 
+        </textarea>
+
+      </section>
+
+
+      <section>
+
+        <img src="naugtur.svg" style="height:6em" />
+
+        <p>@naugtur &nbsp; <a href="https://naugtur.pl/">naugtur.pl</a></p>
+        <p> <a href="https://naugtur.pl/training">naugtur.pl/training</a></p>
+
+
+      </section>
+
+
+    </div>
+
+  </div>
+
+  <style>
+    #naugtur {
+      background-image: none;
+    }
+
+    /*effectively switch from contain to cover behav*/
+    #naugtur .slide-background video {
+      min-width: 100%;
+      min-height: 100%;
+      width: auto;
+      height: auto;
+    }
+  </style>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reveal.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/plugin/zoom/zoom.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/plugin/notes/notes.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/plugin/search/search.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/plugin/markdown/markdown.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/plugin/highlight/highlight.js"></script>
+
+
+  <script>
+    // Full list of configuration options available at:
+    // https://github.com/hakimel/reveal.js#configuration
+    Reveal.initialize({
+      controls: true,
+      progress: true,
+      history: true,
+      center: true,
+      mouseWheel: true,
+
+      transition: 'concave', // none/fade/slide/convex/concave/zoom
+
+      plugins: [RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight],
+      // autoAnimateEasing: 'linear',
+
+      // Parallax background image
+      // parallaxBackgroundImage: '../branding/bk.jpg', // e.g. "https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg"
+      //
+      // // Parallax background size
+      // parallaxBackgroundSize: '1920px 880px', // CSS syntax, e.g. "2100px 900px" - currently only pixels are supported (don't use % or auto)
+
+
+    });
+
+    function installAnimation(an, icon, delay) {
+      var el = document.createElement('span');
+      el.classList.add('an-item');
+      el.innerHTML = icon;
+      an.appendChild(el)
+      setTimeout(() => el.classList.add('an-to'), delay);
+      return el
+    }
+    Reveal.addEventListener('slidechanged', (event) => {
+      console.log(event.currentSlide)
+      if (event.currentSlide.classList.contains('animatedSlide')) {
+        var an = event.currentSlide.querySelector('.an-container');
+        an.innerHTML = '';
+        var pkgs = '📦,'.repeat(30).split(',')
+        if (event.currentSlide.classList.contains('bad')) {
+          pkgs[4] = '💣';
+          pkgs[10] = '🔥';
+          pkgs[29] = '👿';
+        }
+        pkgs.forEach((icon, index) =>
+          installAnimation(an, icon, 7777 * Math.log10((index) / 3 + 1))
+        )
+      }
+    })
+
+
+  </script>
+
+</body>
+
+</html>
