@@ -141,7 +141,7 @@ section a:hover {
   vertical-align: middle;
   border: 2px solid;
   border-radius: 6px;
-  margin-bottom: 6px;
+  margin-bottom: 4px;
 }
 .yt-bt::before {
   content: "";
