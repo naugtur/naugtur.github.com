@@ -1,0 +1,71 @@
+@font-face {
+    font-family: "nicefont";
+    src: url("../fonts/KOMIKAX_-webfont.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    background-color: #1a1a1a;
+    color: #f0f0f0;
+    font-family: sans-serif;
+    margin: 0 auto;
+    padding: 50px;
+    box-sizing: border-box;
+
+}
+
+h1 {
+    text-align: center;
+    font-size: 24px;
+    font-family: nicefont, sans-serif;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 50px auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 50px;
+}
+
+a {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: #f0f0f0;
+    background-color: #2a2a2a;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 15px rgba(255, 165, 0, 0.1);
+}
+
+a:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 25px rgba(255, 165, 0, 0.3);
+}
+
+img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+a> :last-child {
+    padding: 15px;
+    font-size: 16px;
+    line-height: 1.4;
+}
+
+@media (min-width: 601px) and (max-width: 900px) {
+    .container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 901px) {
+    .container {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
