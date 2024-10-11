@@ -14,9 +14,8 @@ body {
   margin: 0 auto;
   display: grid;
   justify-content: space-around;
-  width: 100%;
-  overflow: visible;
 }
+
 
 .ts {
   grid-area: ts;
@@ -137,11 +136,12 @@ section a:hover {
 .yt-bt {
   position: relative;
   display: inline-block;
-  width: 16px;
-  height: 14px;
+  width: 26px;
+  height: 22px;
+  vertical-align: middle;
   border: 2px solid;
   border-radius: 6px;
-  margin-bottom: -2px;
+  margin-bottom: 6px;
 }
 .yt-bt::before {
   content: "";
@@ -149,11 +149,11 @@ section a:hover {
   position: absolute;
   width: 0;
   height: 0;
-  border-top: 4px solid transparent;
-  border-bottom: 4px solid transparent;
-  border-left: 5px solid;
-  top: 3px;
-  left: 6px;
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid transparent;
+  border-left: 8px solid;
+  top: 5px;
+  left: 9px;
 }
 span:hover .yt-bt {
   transform:rotate3d(0,1,0,360deg);
@@ -165,7 +165,7 @@ span:hover .yt-bt {
 aside {
   position: fixed;
   top: 0;
-  right: 1px;
+  left: calc(100vw - var(--square-size));
   z-index: 1;
   width: var(--square-size);
   display: flex;
@@ -181,6 +181,7 @@ aside a {
   display: flex;
   justify-content: center;
   align-items: center;
+  border: none;
 }
 aside a:hover{
   transform: translateX(-10px);
