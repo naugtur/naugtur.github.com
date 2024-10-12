@@ -164,7 +164,7 @@ span:hover .yt-bt {
 
 aside {
   position: fixed;
-  top: 0;
+  bottom: 1px;
   left: calc(100vw - var(--square-size));
   z-index: 1;
   width: var(--square-size);
