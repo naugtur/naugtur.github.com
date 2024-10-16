@@ -310,8 +310,6 @@
           - postinstall drops payload in sources
           - postinstall turns tsc evil
 
-          Demo?
-
           ---
 
           ### Install scripts
@@ -367,31 +365,6 @@
         ```
 
       </section>
-      <section data-markdown>
-        # ⚔️
-        ## a weapon
-
-        ```js
-        Object.defineProperty(Object.prototype, 'toString', {
-          value: () => '👻',
-          writable: true,
-          configurable: true,
-          enumerable: false
-        });
-        ```
-
-        ```js
-        const a = {};
-        Object.prototype.toString = ()=>'👻';
-        console.log(`scary object: ${a}`);
-        ```
-
-        ```
-        scary object: 👻
-        ```
-
-      </section>
-
 
       <section data-markdown>
         ### JS can be tweaked and it's no accident
@@ -409,6 +382,26 @@
 
       </section>
       <section data-markdown>
+        # ⚔️
+        ## a weapon
+
+        ```js
+        Object.defineProperty(Object.prototype, "Authorization", {
+          set(value) {
+            console.log(`stolen: ${value}`);
+          },
+        });
+        ```
+
+        ```js
+        const headers = {};
+        if( authorized ) {
+          headers.Authorization = `Bearer ${token}`;
+        }
+        ```
+
+      </section>
+      <section data-markdown>
         ## attack examples
 
       </section>
@@ -421,12 +414,29 @@
         <sub><sup>Let's put my blue hat back on</sup></sub>
 
         ---
+        ![hardened javascript logo](./hardenedjs.svg)
+
         ## Hardened Javascript
 
         ---
+        ## lockdown
+
+        - a part of Hardened Javascript
+        - locks down the environment by hardening prototypes of language internals
+        - prevents prototype poisoning Intrinsics
+
+        Let's see that demo again
+
+        ---
+
+        ### There's more
+        
         ![lavamoat](./lavamoat-logo.png)
 
           #### Tell your devteam if you want to make your work harder 
+
+
+
         </textarea>
 
       </section>
