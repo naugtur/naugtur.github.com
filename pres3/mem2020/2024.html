@@ -2,243 +2,265 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
+  <meta charset="utf-8">
 
-    <title>Memory Management</title>
+  <title>Memory Management</title>
 
-    <meta name="author" content="naugtur">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="author" content="naugtur">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/css/reveal.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/css/theme/black.css" id="theme">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/css/reveal.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/css/theme/black.css" id="theme">
 
-    <!-- Code syntax highlighting -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/lib/css/zenburn.css">
+  <!-- Code syntax highlighting -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/lib/css/zenburn.css">
 
-    <!-- Printing and PDF exports -->
-    <script>
-        var link = document.createElement('link');
-        link.rel = 'stylesheet';
-        link.type = 'text/css';
-        link.href = window.location.search.match(/print-pdf/gi) ? 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/css/print/pdf.css' : 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/css/print/paper.css';
-        document.getElementsByTagName('head')[0].appendChild(link);
-    </script>
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match(/print-pdf/gi) ? 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/css/print/pdf.css' : 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/css/print/paper.css';
+    document.getElementsByTagName('head')[0].appendChild(link);
+  </script>
 
-    <link rel="stylesheet" href="../branding/style.css" id="branding">
-    
+  <link rel="stylesheet" href="../branding/style.css" id="branding">
+
 </head>
 
 <body>
 
-    <div class="reveal none" id="naugtur">
+  <div class="reveal none" id="naugtur">
 
-        <!-- Any section element inside of this container is displayed as a slide -->
-        <div class="slides">
+    <!-- Any section element inside of this container is displayed as a slide -->
+    <div class="slides">
 
-            <section>
-                <h1>JS<br> memory management</h1>
-                <p class="pad1">and hunting memory leaks</p>
-                <small class="pad1">@naugtur, 2024</small>
-            </section>
-            <section data-markdown="">
-              ## Some history
-              
-              JavaScript didn't have leaking problem.
-            </section>
-            <section>
-              <h2>The app that tought me about memory leaks</h2>
-              <p>#coolstory</p>
+      <section>
+        <h1>JS<br> memory management</h1>
+        <p class="pad1">and hunting memory leaks</p>
+        <small class="pad1">@naugtur, 2024</small>
+      </section>
+      <section>
+        <h3>
+          Who's that guy?
+        </h3>
 
-            </section>
-           
-            <section>
-                <p>There's a live-leaking demo at the end. <br>You can follow along if you checkout this:</p>
-                <a href="https://github.com/naugtur/js-training-examples">github.com/naugtur/js-training-examples</a>
-            </section>
-           
-            <section>
-                <section>
-                    <h3>Garbage collection</h3>
-                    <br>
-                    <p>
-                        What to collect??
+        <img src="../../me.avatar.jpg" height="100px">
+        <img src="../lava/ilus/js.svg" height="100px">
+        <img src="../lava/ilus/lm.png" height="100px">
+        <img src="../lava/ilus/mm.svg" height="100px">
 
-                    </p>
-                </section>
-                <section id="garbage">
-                    <h3>Garbage collection</h3>
+        <p>https://naugtur.pl</p>
 
-                    <style>
-                    .mem{
-                        margin: 40px calc(50% - 300px) !important;
-                        padding: 5px !important;
-                        width: 550px;
-                        height: 42px;
+
+      </section>
+
+      <section data-markdown="">
+        ## JavaScript didn't have leaking problem.
+      </section>
+      <section>
+        <p>While I introduce you to the topic, checkout this repository:</p>
+        <a href="https://github.com/naugtur/js-training-examples">github.com/naugtur/js-training-examples</a>
+      </section>
+
+      <section>
+        <section>
+          <h3>Garbage collection</h3>
+          <br>
+          <p>
+            What to collect??
+
+          </p>
+        </section>
+        <section id="garbage">
+          <h3>Garbage collection</h3>
+
+          <style>
+            .mem {
+              margin: 40px calc(50% - 300px) !important;
+              padding: 5px !important;
+              width: 550px;
+              height: 42px;
+            }
+
+            .mem.memA {
+              border: 5px dashed orange;
+            }
+
+            .mem.memB {
+              border: 5px dashed #777;
+            }
+
+            .mem>div {
+              width: 90px;
+              opacity: 0.6;
+              height: 100%;
+              margin: 0 5px;
+              float: left;
+            }
+          </style>
+
+
+
+          <div class="mem memA">
+          </div>
+          <div class="mem memB">
+          </div>
+
+
+          <ol style="margin-top: 50px">
+            <li>Copy items that can be reached</li>
+            <li>Swap</li>
+            <li>Cleanup is done by not saving the rest</li>
+          </ol>
+
+          <script>
+            (function () {
+              var colors = ['#000000', '#006203', '#0f9200', '#4ae54a', '#ffffff'];
+              var m1 = document.querySelector('.memA'),
+                m2 = document.querySelector('.memB'),
+                c = 0, limit = 5; numberToKeep = 2;
+              document.getElementById('garbage')
+                .addEventListener('click', function (e) {
+
+                  if (c < limit) {
+                    c++;
+                    var item = document.createElement('div');
+                    item.style.background = colors.pop()
+                    m1.appendChild(item);
+                  } else {
+                    if (numberToKeep > 0) {
+                      m2.appendChild(m1.childNodes[numberToKeep].cloneNode());
                     }
-                    .mem.memA{
-                        border: 5px dashed orange;
+                    if (numberToKeep == -1) {
+                      m2.innerHTML = ''
                     }
-                    .mem.memB{
-                        border: 5px dashed #777;
+                    if (numberToKeep == 0) {
+                      var a = m1.innerHTML;
+                      m1.innerHTML = m2.innerHTML;
+                      m2.innerHTML = a;
                     }
-                    .mem>div{
-                        width: 90px;
-                        opacity: 0.6;
-                        height: 100%;
-                        margin: 0 5px;
-                        float: left;
-                    }
-                    </style>
+                    numberToKeep--;
+                  }
+                });
+            })();
+          </script>
+        </section>
+
+        <section data-markdown>
+          ## But all that copying would be expensive
+        </section>
+
+        <section data-markdown>
+          ## Generations
+
+          - Young generation
+          - Nursery (fresh)
+          - Intermediate (1gc old)
+          - Old generation
+          - (2+ gc old)
+          - collected with mark-sweep
+
+          Major GC - whole heap
+          Minor GC - only young
+        </section>
+        <section data-markdown>
+          #### There are many heap spaces now,
+          #### we'll see them soon
+        </section>
+
+        <section>
+          <pre>
+            <code>
+          young generation         |   old generation
+    nursery     |  intermediate    |
+                |                  |
+   +--------+   |     +--------+   |     +--------+
+   | object |---GC---&gt;| object |---GC---&gt;| object |
+   +--------+   |     +--------+   |     +--------+
+                |                  |
+            </code>
+          </pre>
+          Details <a href=""
+            https://github.com/thlorenz/v8-perf/blob/master/gc.md#heap-organization-in-detail">https://github.com/thlorenz/v8-perf/blob/master/gc.md#heap-organization-in-detail</a>
+        </section>
 
 
+        <section data-markdown>
+          ## Some history and credit
+          - Incremental GC (FF16)
+          - Generational GC (FF32)
+          https://hacks.mozilla.org/2014/09/generational-garbage-collection-in-firefox/
+          - Scheduling GC (Chrome45)
+          - Compacting GC (FF38)
+          https://hacks.mozilla.org/2015/07/compacting-garbage-collection-in-spidermonkey/
+        </section>
+        <section>
+          <h2>Scheduling GC</h2>
+          <img src="gc.png" alt="">
+          <br>
+          <a href="https://blog.chromium.org/2015/12/smarter-garbage-collection-for-smoother.html">
+            Smarter garbage collection for smoother browsing and less memory usage, 2015/12/08
+          </a>
+          <br>
+          <a href="http://v8project.blogspot.com/2015/08/getting-garbage-collection-for-free.html">V8 garbage
+            collection deep dive</a>
+        </section>
+        <section>
+          <h2>Compacting GC</h2>
 
-                    <div class="mem memA">
-                    </div>
-                    <div class="mem memB">
-                    </div>
+          <a href="https://hacks.mozilla.org/2015/07/compacting-garbage-collection-in-spidermonkey/">
+            Compacting Garbage Collection in SpiderMonkey
+          </a>
+          <br>
+          <a href="https://blog.mozilla.org/nnethercote/2016/04/12/more-compacting-gc/">More compacting GC</a>
+        </section>
+        <section>
+          <h2>Major GC phases</h2>
 
+          <h4>marking -> sweeping -> compacting</h4>
 
-                    <ol style="margin-top: 50px">
-                        <li>Copy items that can be reached</li>
-                        <li>Swap</li>
-                        <li>Cleanup is done by not saving the rest</li>
-                    </ol>
+        </section>
+        <section data-markdown>
+          ## All the complexity in one place:
 
-                    <script>
-                        (function(){
-                            var colors = [ '#000000', '#006203', '#0f9200', '#4ae54a', '#ffffff' ];
-                            var m1 = document.querySelector('.memA'),
-                            m2 = document.querySelector('.memB'),
-                            c=0,limit=5;numberToKeep=2;
-                            document.getElementById('garbage')
-                            .addEventListener('click',function(e){
-                                
-                                if(c<limit){
-                                    c++;
-                                    var item = document.createElement('div');
-                                    item.style.background = colors.pop()
-                                    m1.appendChild(item);
-                                }else{
-                                    if(numberToKeep>0){
-                                        m2.appendChild(m1.childNodes[numberToKeep].cloneNode());
-                                    }
-                                    if(numberToKeep==-1){
-                                        m2.innerHTML=''
-                                    }
-                                    if(numberToKeep==0){
-                                        var a = m1.innerHTML;
-                                        m1.innerHTML=m2.innerHTML;
-                                        m2.innerHTML=a;
-                                    }
-                                    numberToKeep--;
-                                }
-                            });
-                        })();
-                    </script>
-                </section>
+          https://github.com/thlorenz/v8-perf/blob/master/gc.md
+        </section>
+        <section>
+          <h2>Maps</h2>
+          <p>used to be called Shpes or <b>Hidden classes</b></p>
+          <a href="https://v8.dev/docs/hidden-classes">V8 docs</a>
+          <a href="http://richardartoul.github.io/jekyll/update/2015/04/26/hidden-classes.html">
+            Hidden Classes and Inline Caching in V8 (2015)
+          </a>
+          <br>
+          <a href="https://mathiasbynens.be/notes/shapes-ics"> Shapes and Inline Caches (2018)</a>
+        </section>
+        <section>
+          Let's look at one picture from the article.
+          <img src="https://mathiasbynens.be/_img/js-engines/shape-chain-1.svg">
+          <small><a href="https://mathiasbynens.be/notes/shapes-ics">image credit
+              https://mathiasbynens.be/notes/shapes-ics</a></small>
+        </section>
+      </section>
+      <section>
+        <h3>V8 garbage collector (2019)</h3>
+        <h1>Orinoko</h1>
+        <a href="https://v8.dev/blog/trash-talk">https://v8.dev/blog/trash-talk</a>
+      </section>
+      <section>
+        <section data-markdown>
+          # Freeing memory
 
-                <section data-markdown>
-                    ## But all that copying would be expensive
-                </section>
+        </section>
+        <section>
+          <h3>How it works</h3>
 
-                <section data-markdown>
-                    ## Generations
-
-                    - Young generation 
-                      - Nursery (fresh)
-                      - Intermediate (1gc old)
-                    - Old generation 
-                      - (2+ gc old)
-                      - collected with mark-sweep    
-                      
-                    Major GC - whole heap  
-                    Minor GC - only young  
-                </section>
-               
-                <section data-markdown>
-                    ```
-        young generation         |   old generation
-  nursery     |  intermediate    |
-              |                  |
- +--------+   |     +--------+   |     +--------+
- | object |---GC--->| object |---GC--->| object |
- +--------+   |     +--------+   |     +--------+
-              |                  |
-```   
-Details https://github.com/thlorenz/v8-perf/blob/master/gc.md#heap-organization-in-detail                               
-                </section>
-               
-               
-                <section data-markdown>
-                    ## Some history and credit
-                    - Incremental GC (FF16)
-                    - Generational GC (FF32)  https://hacks.mozilla.org/2014/09/generational-garbage-collection-in-firefox/
-                    - Scheduling GC (Chrome45)
-                    - Compacting GC (FF38)  https://hacks.mozilla.org/2015/07/compacting-garbage-collection-in-spidermonkey/
-                </section>
-                <section>
-                    <h2>Scheduling GC</h2>
-                    <img src="gc.png" alt="">
-                    <br>
-                    <a href="https://blog.chromium.org/2015/12/smarter-garbage-collection-for-smoother.html">
-                    Smarter garbage collection for smoother browsing and less memory usage, 2015/12/08
-                    </a>
-                    <br>
-                    <a href="http://v8project.blogspot.com/2015/08/getting-garbage-collection-for-free.html">V8 garbage collection deep dive</a>
-                </section>
-                <section>
-                    <h2>Compacting GC</h2>
-
-                    <a href="https://hacks.mozilla.org/2015/07/compacting-garbage-collection-in-spidermonkey/">
-                    Compacting Garbage Collection in SpiderMonkey
-                    </a>
-                    <br>
-                    <a href="https://blog.mozilla.org/nnethercote/2016/04/12/more-compacting-gc/">More compacting GC</a>
-                </section>
-                <section>
-                    <h2>Major GC phases</h2>
-
-                    <h4>marking -> sweeping -> compacting</h4>
-
-                </section>
-                <section data-markdown>
-                    ## All the complexity in one place:
-                    
-                    https://github.com/thlorenz/v8-perf/blob/master/gc.md
-                </section>
-                <section>
-                    <h2>Maps</h2>
-                    <p>used to be called Shpes or <b>Hidden classes</b></p>
-                    <a href="https://v8.dev/docs/hidden-classes">V8 docs</a>
-                    <a href="http://richardartoul.github.io/jekyll/update/2015/04/26/hidden-classes.html">
-                     Hidden Classes and Inline Caching in V8 (2015)
-                    </a>
-                    <br>    
-                    <a href="https://mathiasbynens.be/notes/shapes-ics"> Shapes and Inline Caches (2018)</a>
-                </section>
-                <section>
-                    Let's look at one picture from the article.
-                    <img src="https://mathiasbynens.be/_img/js-engines/shape-chain-1.svg">
-                    <small><a href="https://mathiasbynens.be/notes/shapes-ics">image credit https://mathiasbynens.be/notes/shapes-ics</a></small>
-                </section>
-            </section>
-            <section>
-                <h3>V8 garbage collector (2019)</h3>
-                <h1>Orinoko</h1>
-                <a href="https://v8.dev/blog/trash-talk">https://v8.dev/blog/trash-talk</a>
-            </section>
-            <section>
-              <section data-markdown>
-                # Freeing memory
-
-              </section>
-              <section>
-                  <h3>How it works</h3>
-
-                  <pre><code class="javascript">var aBoy = { name: "Johny" },
+          <pre><code class="javascript">var aBoy = { name: "Johny" },
   aGirl = { name: "Sue" },
   anAnimal = { name: "Garfield" };
 
@@ -253,149 +275,186 @@ anAnimal = null;
 //a reference is removed, but it was not the only one
 //Garfield can't be garbage-collected
                   </code></pre>
-              </section>
+        </section>
 
-              <section>
-                  <h3>Popular misconceptions</h3>
+        <section>
+          <h3>Popular misconceptions</h3>
 
-                  <ul class="pad1">
-                      <li>no, <code>delete</code> keyword does not free memory</li>
-                      <li>seriously, <code>delete</code> just slows you down (creates new Hidden Class)</li>
-                      <li>no, setting object to <code>null</code> doesn't remove the object, it changes the reference</li>
-                  </ul>
-              </section>
-              <section data-markdown>
-                ## When a reference dies 🪦
+          <ul class="pad1">
+            <li>no, <code>delete</code> keyword does not free memory</li>
+            <li>seriously, <code>delete</code> just slows you down (creates new Hidden Class)</li>
+            <li>no, setting object to <code>null</code> doesn't remove the object, it changes the reference
+            </li>
+          </ul>
+        </section>
+        <section data-markdown>
+          ## When a reference dies 🪦
 
-                - Reference lifetime (var/let)
-                - Functional scope
-                - Function context is sometimes limited to used references now
+          - Reference lifetime (var/let)
+          - Functional scope
+          - Function context is sometimes limited to used references now
 
-              </section>
-              <section>
-                  <h3>Pooling</h3>
-                  <p>What if I need thousands of objects for short periods of time? I'm implementing a minigun.</p>
-                  <ul>
-                      <li>Create a set of empty objects you need</li>
-                      <li>Make a getter that returns the least recently used one</li>
-                      <li>Overwrite its fields with new values</li>
-                      <li>Reuse the same N objects without ever causing garbage collection</li>
-                  </ul>
-                  <p>This really is only useful for things like particle animation or UI rendering libraries</p>
-              </section>
-            </section>
-            <section>
-                <h3>What's the problem?</h3>
-                <img alt="" src="leaking.jpg">
-            </section>
-            <section>
-              <section data-markdown>
-                ## What's a leak?
-              </section>
-              <section data-markdown>
-                ### Leaving a reference to someting you expected to get garbage collected
-                ```js
-                const keptAsLongAsModuleLives = [];
+        </section>
+        <section>
+          <h3>Pooling</h3>
+          <p>What if I need thousands of objects for short periods of time? I'm implementing a minigun.</p>
+          <ul>
+            <li>Create a set of empty objects you need</li>
+            <li>Make a getter that returns the least recently used one</li>
+            <li>Overwrite its fields with new values</li>
+            <li>Reuse the same N objects without ever causing garbage collection</li>
+          </ul>
+          <p>This really is only useful for things like particle animation or UI rendering libraries</p>
+        </section>
+      </section>
+      <section>
+        <h3>What's the problem?</h3>
+        <img alt="" src="leaking.jpg">
+      </section>
+      <section>
+        <section data-markdown>
+          ## What's a leak?
+        </section>
+        <section data-markdown>
+          ### Leaving a reference to someting you expected to get garbage collected
+          ```js
+          const keptAsLongAsModuleLives = [];
 
-                module.exports = {
-                    doStuff:function(someObject){
-                        keptAsLongAsModuleLives.push(someObject);
-                        //do stuff
-                    }
-                }
-                ```
-              </section>
-              <section data-markdown>
-                ## What's not a leak, but could be worse?
+          module.exports = {
+            doStuff:function(someObject){
+              keptAsLongAsModuleLives.push(someObject);
+              //do stuff
+            }
+          }
+          ```
+        </section>
+        <section data-markdown>
+          ## What's not a leak, but could be worse?
 
-                - unlimited in-memory cache of requests or sessions
-                - asynchronous recursion gone wrong
-                - reading files/uploads into memory instead of streaming
-                - stream with broken backpressure
-                - browser: canvas allocates all pixels on first use `rgba*width*height`
-              </section>
-              <section data-markdown>
-                  ## Tools
+          - unlimited in-memory cache of requests or sessions
+          - asynchronous recursion gone wrong
+          - reading files/uploads into memory instead of streaming
+          - stream with broken backpressure
+          - browser: canvas allocates all pixels on first use `rgba*width*height`
+        </section>
+        </section>
+        
+        <section data-markdown>
+          ## Tools
 
-                  - heap snapshot + diff view
-                  - profiles -> allocation timeline
-                  - timeline -> memory
-                  - force GC - devtools trash icon or --expose-gc
-                  - performance.memory (chrome)
-                  - process.memoryUsage() (Node.js)
+          - heap snapshot + diff view
+          - allocation timeline
+          - force GC - devtools trash icon or --expose-gc
+          - performance.memory (chrome)
+          - process.memoryUsage() (Node.js)
 
-                  [Memory analysis vocabulary](https://developer.chrome.com/docs/devtools/memory-problems/get-started)
-              </section>
-              <section data-markdown>
-                  ## Moar Tools
+          [Memory analysis vocabulary](https://developer.chrome.com/docs/devtools/memory-problems/get-started)
+        </section>
+        <section data-markdown>
+          ## Moar Tools
 
-                  Low level stuff
+          Low level stuff
 
-                  - v8.getHeapSpaceStatistics() (Node.js)
-                  - `PerformanceObserver` entryTypes `'gc'`
-                  - `%DebugTrackRetainingPath(x)` https://v8.dev/docs/memory-leaks
-              </section>
+          - v8.getHeapSpaceStatistics() (Node.js)
+          - `PerformanceObserver` entryTypes `'gc'`
+          - `%DebugTrackRetainingPath(x)` https://v8.dev/docs/memory-leaks
+        </section>
+        <section data-markdown>
+          ## How to find a leak
+        </section>
+        <section data-markdown>
+          ### 😃
 
-            </section>
-            <section data-markdown>
-              # 🏋️
-              ### Exercise time
-            </section>
-           
-            <section>
-                <h3>Forget!</h3>
-                <p>@naugtur
-                    <br>http://naugtur.pl
-                </p>
-                
-            </section>
+          - run app
+          - snapshot
+          - run suspect code
+          - snapshot
+          - compare
+        </section>
+        <section data-markdown>
+          ### 😁
 
-        </div>
+          - run app
+          - warm up suspect code
+          - snapshot
+          - benchmark suspect code
+          - snapshot
+          - compare
+        </section>
+        <section data-markdown>
+          ### 🤯
+
+          - run app
+          - warm up suspect code
+          - snapshot
+          - benchmark suspect code
+          - snapshot
+          - benchmark suspect code
+          - snapshot
+          - compare the two later snapshots
+        </section>
+
+        <section data-markdown>
+          # 🏋️
+          ### Exercise time
+
+          https://github.com/naugtur/js-training-examples
+        </section>
+
+        <section>
+          <h3>Forget!</h3>
+          <p>@naugtur
+            <br>http://naugtur.pl
+          </p>
+
+        </section>
 
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/lib/js/head.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/js/reveal.js"></script>
+  </div>
 
-    <script>
-        // Full list of configuration options available at:
-        // https://github.com/hakimel/reveal.js#configuration
-        Reveal.initialize({
-            controls: true,
-            progress: true,
-            history: true,
-            center: true,
-            mouseWheel: true,
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/lib/js/head.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/js/reveal.js"></script>
 
-            transition: 'concave', // none/fade/slide/convex/concave/zoom
+  <script>
+    // Full list of configuration options available at:
+    // https://github.com/hakimel/reveal.js#configuration
+    Reveal.initialize({
+      controls: true,
+      progress: true,
+      history: true,
+      center: true,
+      mouseWheel: true,
+
+      transition: 'concave', // none/fade/slide/convex/concave/zoom
 
 
-            // Optional reveal.js plugins
-            dependencies: [{
-                src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/plugin/markdown/marked.js',
-                condition: function() {
-                    return !!document.querySelector('[data-markdown]');
-                }
-            }, {
-                src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/plugin/markdown/markdown.js',
-                condition: function() {
-                    return !!document.querySelector('[data-markdown]');
-                }
-            }, {
-                src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/plugin/highlight/highlight.js',
-                async: true,
-                callback: function() {
-                    hljs.initHighlightingOnLoad();
-                }
-            }, {
-                src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/plugin/zoom-js/zoom.js',
-                async: true
-            }, {
-                src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/plugin/notes/notes.js',
-                async: true
-            }]
-        });
-    </script>
+      // Optional reveal.js plugins
+      dependencies: [{
+        src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/plugin/markdown/marked.js',
+        condition: function () {
+          return !!document.querySelector('[data-markdown]');
+        }
+      }, {
+        src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/plugin/markdown/markdown.js',
+        condition: function () {
+          return !!document.querySelector('[data-markdown]');
+        }
+      }, {
+        src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/plugin/highlight/highlight.js',
+        async: true,
+        callback: function () {
+          hljs.initHighlightingOnLoad();
+        }
+      }, {
+        src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/plugin/zoom-js/zoom.js',
+        async: true
+      }, {
+        src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/plugin/notes/notes.js',
+        async: true
+      }]
+    });
+  </script>
 
 </body>
 
