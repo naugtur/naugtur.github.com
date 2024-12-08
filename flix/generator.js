@@ -1,7 +1,17 @@
 const fs = require("fs");
 const { parseHTML } = require("linkedom");
 
-const links = require("./links.json");
+const links = dedupe(require("./links.json"));
+
+function dedupe(links) {
+  const known = new Set()
+  return links.filter(link=>{
+    if(!known.has(link)) {
+      known.add(link)
+      return true
+    }
+  })
+}
 
 async function fetchPreviewData(url) {
   try {
