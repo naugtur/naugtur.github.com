@@ -16,6 +16,12 @@ https://github.com/microsoft/TypeScript/issues/59601
     - And you can enforce it too
 https://github.com/JoshuaKGoldberg/eslint-plugin-erasable-syntax-only
 
+### elliptic sev9
+
+### CRA is dead 
+### drama about React docs
+### preach is now the spa tool
+
 ### some progress on JavaScript trademark 
 Oracle uses a screenshot of nodes.org website as example of its use of JavaScript trademark and instructs tomignote it when confronted
 https://deno.com/blog/deno-v-oracle2
