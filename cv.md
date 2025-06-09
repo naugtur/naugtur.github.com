@@ -9,11 +9,27 @@
 
 ## Experience
 
+### MetaMask
+Sr Staff Security Engineer (2024)  
+Staff Security Engineer (2023)  
+Senior Security Engineer2 (2022)  
+Senior Security Engineer (2022)  
+
+> Joined to work on LavaMoat, over time took the lead of the team and roadmap of the LavaMoat project
+
+- Building security tools
+- Consulting on JS security
+- Helping threat model product features
+- Got MetaMask to be in the first cohort of Socket.dev adopters
+
 ### Collibra
 
 Principal Software Engineer (2021)
 
 > Joined Central Frontend Team to push javascript practice forward. Founded dev-security community of practice.
+
+- Helped Security and Dev teams understand eachother better and collaborate
+- Red-teamed supply chain security and proceeded to lead fixes
 
 ### Egnyte Inc.
 Principal Software Engineer (2020-2021)  
@@ -46,6 +62,7 @@ GUI Developer, Project Manager (2008-2011)
 
 ## Outside-work experience
 
+- Participation in TC39 (as of 2025, figuring out how it works)
 - Member of Node.js Diagnostics Working Group
 - Created npm-audit-resolver, working on getting package managers to support resolutions file
   - Member of OpenJS Foundation's Package Vulnerability Management & Reporting Collaboration Space
@@ -57,22 +74,28 @@ GUI Developer, Project Manager (2008-2011)
 ### Meetups and conferences - meet.js
 * Regular speaker since 2011
 * Organizer since 2014
-
-* Organized Meet.js Summit 2014 and 2018  
+* Organized Meet.js Summit 2014, 2018, 2022, 2023
+A community conference for JavaScript devs which proudly donates most of its budget to charity
 https://summit.meetjs.pl/2018/  
-https://dev.to/naugtur/community-conference-organizer-checklist-5d45  
+https://summit.meetjs.pl/2022/  
+https://summit.meetjs.pl/2023/  
 
 ### Speaking
-* SnykCon
-* NodeConf Remote
-* Meet.js Summit
-* Node.js meetup Berlin
-* JSPoland
-* Polyconf
-* Front-trends
-* 4Developers
-* Computer Human Interaction Poznań  
-and more
+Below are a few examples of conferences and meetups I've spoken at.
+(find more on https://naugtur.pl)
+
+- JS events
+  - JSNation (remote and in-person)
+  - Node Congress
+  - NodeConfEU (many times)
+  - meet.js Summit (many times)
+
+
+- Security events
+  - DEFCON AppSec Village
+  - SnykCon
+  - NodeConf Remote
+  - X33fCon
 
 ## Education
 
@@ -80,15 +103,15 @@ and more
 * Adam Mickiewicz University: Maintainable Javascript, Web Security (2018-2019)
 * School of Form - SWPS, Poznań, Poland  (2012-2019)
 * WWSSE, Środa Wlkp., Poland  (2011-2013)
-* Workshops for developers - commercial, community and charity auction
+* Workshops for developers - commercial, community and charity auctions (all the time)
 
 ### M.S. Computer Science, Software Engineering
 Adam Mickiewicz University, Poznań, Poland (2005-2010)
 
 Thesis: Applying evolutionary computation
-to natural language processing
+to natural language processing for rule-based language translation
 
-
+### no certifications
 
 
 
