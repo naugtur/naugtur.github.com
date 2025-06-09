@@ -127,8 +127,9 @@
           ## Hardened Javascript
 
           - Compartment proposal(s) in TC39
-          - SES Shim
-          - LavaMoat  
+          - A Shim exists
+          - [https://hardenedjs.org](https://hardenedjs.org)
+          - LavaMoat 
           
           <br>
           <img src=lavamoat-logo.png height=200>
@@ -151,8 +152,12 @@
 
           index.js
           ```js
-          const c = new Compartment({ console }, ...)
-          c.import('example-pkg')
+          lockdown();
+          const c = new Compartment({
+            globals: { console }, 
+            ... 
+          });
+          c.import('example-pkg');
           ```
 
           example-pkg

