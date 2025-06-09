@@ -59,7 +59,7 @@
       }
     }
 
-   
+
     #naugtur .moji h1 {
       line-height: 3em;
     }
@@ -68,7 +68,6 @@
     sup>sub {
       color: #777;
     }
-
   </style>
 </head>
 
@@ -82,10 +81,10 @@
         <section>
           <br><br>
           <h1>LavaMoat</h1>
-          <h4>at Secure the Web Forward</h4>
+          <h4>at W3C's <br>"Secure the Web Forward"</h4>
 
           <br>
-          <small>@naugtur, 2023</small>
+          <small>@naugtur</small>
         </section>
       </section>
 
@@ -129,7 +128,12 @@
 
           - Compartment proposal(s) in TC39
           - SES Shim
-          - LavaMoat
+          - LavaMoat  
+          
+          <br>
+          <img src=lavamoat-logo.png height=200>
+
+          
           ---
           ![](i4.png)
           ---
@@ -144,24 +148,43 @@
           ![](i5.png)
           <br><sub><sup>You decide which powers to pass in</sup></sub>
           ---
-          
-          ![](i6.png)
-          <br><sub><sup>So are we done?</sup></sub>
-          ---
-         
-          ### Problem statement ++
-          - Any access to DOM leaks globalThis
-          - Compartment depends on evaluators or bundling
-          - `strict-dynamic` but for `eval`?
-          - same origin realms (tomorrow)
-        
-          ---
-          ### Call to action
 
-          How can we support the users of Hardened Javascript in the browser?
-          </textarea>
+          index.js
+          ```js
+          const c = new Compartment({ console }, ...)
+          c.import('example-pkg')
+          ```
+
+          example-pkg
+          ```js
+          console.log('this is fine')
+           fetch('/') // throws because fetch is undefined
+          ```
+        </textarea>
       </section>
-     
+      <section class="moji" data-markdown data-background="policy.png" data-background-size="contain">
+      ### LavaMoat scales this up to the whole application
+      </section>
+      <section class="moji" data-markdown>
+        <textarea  data-template>
+        ![](i6.png)
+        <br><sub><sup>So are we done?</sup></sub>
+        ---
+        
+        ### Problem statement ++
+        - Any access to DOM leaks globalThis
+          - Virtual DOM is the perfect separation layer, <br>but currently leaky
+        - Compartment depends on evaluators or bundling
+        - `strict-dynamic` but for `eval`?
+        - same origin realms 
+      
+        ---
+        ### Call to action
+
+        How can we support the users of Hardened Javascript in the browser?
+        </textarea>
+      </section>
+
     </div>
 
   </div>
@@ -171,13 +194,6 @@
       background-image: none;
     }
 
-    /*effectively switch from contain to cover behav*/
-    #naugtur .slide-background video {
-      min-width: 100%;
-      min-height: 100%;
-      width: auto;
-      height: auto;
-    }
   </style>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reveal.js"></script>
