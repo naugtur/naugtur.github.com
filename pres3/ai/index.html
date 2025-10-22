@@ -192,6 +192,7 @@
     #naugtur .animateBot.animateMany pre {
       height: 5em;
       border: 10px solid #ff7834;
+      background: #222;
       border-radius: 1em;
       width: 40%;
       float: left;
@@ -250,7 +251,7 @@
 
 
         </section>
-        <section data-markdown>
+        <!-- <section data-markdown>
           <textarea>
 #### I was into JS security <br>before I knew JS<br>or security
 
@@ -263,7 +264,7 @@ kill()
 ```
 
 <sub><sup>first 5 lines of JS I've written break Windows 98 up to XP before SP2</sup></sub>
-          </textarea>
+          </textarea> -->
         </section>
       </section>
 
@@ -487,14 +488,6 @@ LavaMoat uses HardenedJS to provide security for JavaScript projects of today an
             jsx_str += '<h3>Detailed Analytics Breakdown</h3>';
             jsx_str += '<div class="stat-main">Average Views: <span>' + avg_val.toFixed(1) + '</span></div>';
             
-            // Chart simulation with divs
-            jsx_str += '<div class="chart-simulation">';
-            for (var k = 0; k < d.length; k++) {
-                var p_h = (d[k] / Math.max.apply(null, d)) * 100;
-                jsx_str += '<div class="bar" style="height:' + p_h + '%;" title="'+d[k]+'"></div>';
-            }
-            jsx_str += '</div>';
-
             // Referrers table
             jsx_str += '<h4>Top Referrers</h4>';
             var tbl_str = '<table><thead><tr><th>Source</th><th>Visitors</th></tr></thead><tbody>';
@@ -509,20 +502,6 @@ LavaMoat uses HardenedJS to provide security for JavaScript projects of today an
             return jsx_str;
         }
 
-
-        // --== EVENT HANDLERS AND UTILITIES ==--
-        function attachPostRenderHooks(){
-            var w_coll = document.getElementsByClassName('widget');
-            for(var i=0;i<w_coll.length;i++){w_coll[i].addEventListener('mouseover', function(e){this.style.boxShadow='0 0 10px rgba(0,0,255,0.5)';}); w_coll[i].addEventListener('mouseout', function(e){this.style.boxShadow='none';});}
-        }
-        function completeTask(id, btn_el){console.log("Completing task: "+id);btn_el.disabled=true;btn_el.textContent='Completed';alert("Task "+id+" was marked complete. UI will NOT update until full refresh.");}
-        function handleErrors(err) {
-            console.log("FATAL: " + err.message); g_errorCount++;
-            if(g_errorCount>MAX_ERRORS_ALLOWED){document.getElementById(g_appContainerId).innerHTML='<div class="error-msg">A fatal error has occurred. The application is now unstable. Please refresh the page.</div>';}
-        }
-
-        // --== SCRIPT ENTRY POINT ==--
-        initializeDashboard();
 
 
         ```
@@ -566,10 +545,10 @@ LavaMoat uses HardenedJS to provide security for JavaScript projects of today an
             C --> F[Data 1]
             D --> G[Data 2]
             E --> H[Data 3]
-            F --> BB(((🧠 AI Agent)))
-            G --> BB
-            H --> BB
-            BB --> I[Final Output]
+            F --> B
+            G --> B
+            H --> B
+            B ----> I[Final Output]
 
           ```
 
@@ -594,21 +573,24 @@ LavaMoat uses HardenedJS to provide security for JavaScript projects of today an
           ```mermaid
           graph LR
             A[User Prompt] --> B((🧠 AI Agent))
-            B --> C
-            B --> I[Final Output]
+            B --Generate code--> C
             subgraph CODE[Orchestration Code Contained]
-              C["🦎\nfetchData1();\nfetchData2();\nfetchData3();\nd=mergeData(d1,d2,d3);\n_"] --> D1["rePrompt(d)"]
+            C["🦎\nfetchData1();\nfetchData2();\nfetchData3();\nresult=mergeData(d1,d2,d3);\nprompt(result)\n_"] 
+            C --> REP{{send result to AI}}
+              
+            end
+            subgraph POW[Powers]
+              Pp{{prompt}}
+              Pf{{fetch}} 
 
               C --- Pf
               C --- Pp
-
-              subgraph POW[Powers]
-                Pf{{fetch}} 
-                Pp{{prompt}}
-              end
             end
             
-            D1 --Yes it can loop--> B
+            
+            Pf <--> II[APIs]
+            REP --> B
+            B --> I[Final Output]
           ```
           ---
 
@@ -671,15 +653,17 @@ LavaMoat uses HardenedJS to provide security for JavaScript projects of today an
       </section>
        <section data-markdown data-background="./ilus/botcont1.png" data-background-size="30%" data-background-position="right bottom">
         ### Something for the Scribes
+
+        Coming to the enterprise webapp near you
         
         > Add a button that performs the following bulk action on items in the current view:  
         > ...
       </section>
-       <section data-markdown data-background="./ilus/botcont2.png">
-        ## Something for the Farmers
+       <section data-markdown data-background="./ilus/botcont2.png" data-background-opacity="0.777">
+        # Something for the Farmers
 
       </section>
-      <section data-markdown class="animateBot animateMany">
+      <section data-markdown class="animateBot animateMany" data-background="./ilus/botcont2.png" data-background-opacity="0.6">
         <textarea data-template>
         ## What if your app...
 
@@ -860,7 +844,7 @@ LavaMoat uses HardenedJS to provide security for JavaScript projects of today an
             code.appendChild(childNodes[i]);
             code.scrollTop = code.scrollHeight;
             i++;
-          }, 40));
+          }, 30));
         })
 
 
