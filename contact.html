@@ -1,58 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>naugtur</title>
-    <meta http-equiv="refresh" content="10; url=https://naugtur.pl">
-  </head>
-  <style>
-    body,
-    a {
-      background-color: #333;
-      color: #fff;
-      line-height: 1.5em;
-      font-family: sans-serif;
-      display: block;
-    }
-    body {
-      height: 90vh;
-      padding: 1em;
-    }
-  </style>
-  <body>
-    <p>Hi! I'm naugtur.</p>
-    <p>I do JavaScript security.</p>
-    <p>
-      You can find me on twitter, fosstodon, github etc. if you search for
-      'naugtur'
-    </p>
-    <p>
-      <a href="https://naugtur.pl">https://naugtur.pl</a>
-      <a href="https://twitter.com/naugtur">https://twitter.com/naugtur</a>
-      <a href="https://fosstodon.com/@naugtur">https://fosstodon.org/naugtur</a>
-    </p>
-    <script>
-      function doit() {
-        const a = document.createElement("a");
-        a.href = URL.createObjectURL(
-          new Blob([
-            `
-Hi! I'm naugtur and you scanned my QR code.
-I do JavaScript security.
-You can find me on twitter, fosstodon, github etc. if you search for 'naugtur'
 
-Here's my website:
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>naugtur</title>
+  <meta http-equiv="refresh" content="10; url=https://naugtur.pl">
+</head>
+<style>
+  body,
+  a {
+    background-color: #333;
+    color: #fff;
+    line-height: 1.5em;
+    font-family: sans-serif;
+    display: block;
+  }
+
+  body {
+    height: 90vh;
+    padding: 1em;
+  }
+</style>
+
+<body>
+  <p>Hi! I'm naugtur.</p>
+  <p>I do JavaScript security.</p>
+  <p>I work on HardenedJS and LavaMoat</p>
+  <p>
+    You can find me on twitter, bluesky, github etc. if you search for
+    'naugtur'
+  </p>
+  <p>
+    <a href="https://naugtur.pl">https://naugtur.pl</a>
+    <a href="https://bsky.app/profile/naugtur.pl">on bluesky</a>
+    <a href="https://pl.linkedin.com/in/zbigniew-tenerowicz-288175165"> linkedin </a>
+    <a href="https://twitter.com/naugtur">https://twitter.com/naugtur</a>
+    <a href="https://fosstodon.com/@naugtur">https://fosstodon.org/naugtur</a>
+  </p>
+  <p>
+
+    <a title="that's my face" href="https://naugtur.pl/#contact" target="_self">
+      <img src="me.avatar.jpg">
+    </a>
+    <a title="I use and teach JavaScript!" href="/training">
+      <img src="img/js.svg">
+    </a>
+    <a title="meet.js" href="https://meetjs.pl/">
+      <img src="img/mjs.svg">
+    </a>
+    <a title="LavaMoat" href="https://lavamoat.github.io/">
+      <img src="img/lm.png">
+    </a>
+    
+  </p>
+
+  <script>
+    function doit() {
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(
+        new Blob([
+          `
+Hi! I'm naugtur and you scanned my NFC or QR code.
+I do JavaScript security.
+I work on HardenedJS and LavaMoat
+You can find me on twitter, bluesky, github etc. if you search for 'naugtur'
+
+Here's my website with my talks and contact links at the bottom:
 https://naugtur.pl
 
         `,
-          ])
-        );
-        a.download = "naugtur.txt";
-        a.click();
-      }
+        ])
+      );
+      a.download = "I-met-naugtur.txt";
+      a.click();
+    }
 
-      doit();
-    </script>
-  </body>
+    doit();
+  </script>
+</body>
+
 </html>
