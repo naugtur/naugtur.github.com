@@ -383,6 +383,15 @@ DPRK is no longer focusing on the crypto ecosystem.
 
 But I digress...
 
+---
+#### Let me digress some more, because this just dopped
+
+The whole *DPRK IT Workers Organizational Structure* leaked because some people had their passwords set to 123456 🤷
+
+https://x.com/zachxbt/status/2041873551901520040
+
+https://investigation.io/dprk-itw-breach/ (password: 123456)
+
  </textarea>
 
       </section>
@@ -399,16 +408,30 @@ But I digress...
 
 ---
 
-#### Good first steps 
+## Good first steps 
+
+---
+
+#### Good First steps
+
+*Protect your git access*
+
+`ssh-keygen -p -a 1024 -t ed25519 -f ~/.ssh/id_ed25519`
+
+It's slow, but once per day is fine. Use ssh-agent.
+
+---
+#### Good First steps
+
+*Package install time*
 
 - `minimumReleaseAge` and ` trustPolicy` in pnpm
 - `allowBuilds` in pnpm is safe according to my testing  
 
 - `@lavamoat/allow-scripts` - eliminate running lifecycle scripts by default and control them with per-package allowlists. Supports npm, yarn and pnpm.
-
+- `sfw` - checks what you install against socket.dev
 
 But what if the attack is not in a postinstall script?
-
 
 ---
 
@@ -453,6 +476,7 @@ npm run lint
  npm install -g @lavamoat/kipuka
  kipuka-ctl init
  eval $(kipuka-ctl alias)
+ 
  ## or permanently:
  echo 'eval $(kipuka-ctl alias)' >> .bashrc
 ```
