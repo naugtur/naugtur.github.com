@@ -217,11 +217,6 @@
           ### Today's topics
           ## 🌳😱🐻🌋⚔️
 
-          ---
-
-> Almost 4 years ago a friend, sitting in the dirt in front of a tent where important company presentations were about to start, was showing us her interlinked notes on tracking DPRK activities including hacks, theft, attribution and graphs too dense to display on any screen.   
-[artistic recreation]  
-![](ilus/Pepe_Silvia.jpg)
 
           </textarea>
       </section>
@@ -277,7 +272,7 @@ kill()
 
 #### Qix Account Compromise <br>(September 2025)
 
-- A prolific npm maintainer "Qix" was compromised via a sophisticated 2FA phishing email, leading to malicious versions of foundational JavaScript packages.
+- A prolific npm maintainer "Qix" was compromised via a phishing email, leading to malicious versions of foundational JavaScript packages.
 - **Delivery Method**: Slightly obfuscated code injected in legitimate package code monkey-patching request methods
 - **Target**: End users with connected crypto wallets visiting applications using the compromised packages had their transactions destination addresses replaced with attacker-controlled addresses
 
@@ -323,8 +318,8 @@ kill()
 
 #### Toptal GitHub Hijack <br>(July 2025)
 
-- Stealing GitHub authentication tokens and attempting to destroy entire file systems
-- **Delivery Method**: hreat actors hijacked Toptal's GitHub organization, making 73 repositories public and publishing malicious packages with destructive preinstall and postinstall scripts
+- Stealing GitHub authentication tokens
+- **Delivery Method**: threat actors hijacked Toptal's GitHub organization, making 73 repositories public and publishing malicious packages with destructive preinstall and postinstall scripts
 - **Target**: Developer machines and GitHub credentials
 
 [The Register - Toptal caught serving malware after GitHub compromise](https://www.theregister.com/2025/07/25/toptal_malware_attack/)
@@ -364,7 +359,7 @@ interesting text files...'
 
 ---
 
-#### Axios compromise
+#### Axios compromise (March 2026)
 
 - Axios maintainer compromised via elaborate social engineering attack attributed to North Korea (UNC1069), only comparable to what crypto/defi people experienced before.
 
@@ -374,17 +369,15 @@ interesting text files...'
 DPRK is no longer focusing on the crypto ecosystem.
 
 [Google Threat Intelligence Group analysis](https://cloud.google.com/blog/topics/threat-intelligence/north-korea-threat-actor-targets-axios-npm-package)  
-[Socket.dev - Axios maintainer confirms social engineering](https://socket.dev/blog/axios-maintainer-confirms-social-engineering-behind-npm-compromise)
 
 ---
-#### A phrase that stops social engineering attacks 🤣
 
-![](./ilus/cantsay.png)
-
-But I digress...
-
+> Almost 4 years ago a friend, sitting in the dirt in front of a tent where important company presentations were about to start, was showing us her interlinked notes on tracking DPRK activities including hacks, theft, attribution and graphs too dense to display on any screen.   
+[artistic recreation]  
+![](ilus/Pepe_Silvia.jpg)
 ---
-#### Let me digress some more, because this just dopped
+
+#### Also, this just dropped
 
 The whole *DPRK IT Workers Organizational Structure* leaked because some people had their passwords set to 123456 🤷
 
@@ -398,7 +391,8 @@ https://investigation.io/dprk-itw-breach/ (password: 123456)
 
 
       <section data-background-video="./ilus/dark.mp4">
-        <h2>What's my point with all the FUD?</h2>
+        <h2>Ok, but</h2>
+        <h2>what's my point with all the FUD?</h2>
 
       </section>
 
@@ -408,30 +402,54 @@ https://investigation.io/dprk-itw-breach/ (password: 123456)
 
 ---
 
-## Good first steps 
+## Good first steps
+
+
+---
+#### A phrase that stops social engineering attacks 🤣
+
+![](./ilus/cantsay.png)
+
+But I digress...
 
 ---
 
-#### Good First steps
-
-*Protect your git access*
+#### Protect the goods
 
 `ssh-keygen -p -a 1024 -t ed25519 -f ~/.ssh/id_ed25519`
 
 It's slow, but once per day is fine. Use ssh-agent.
 
+1Password can be an ssh agent and hold your keys too.
+
 ---
-#### Good First steps
+#### Low hanging fruit 
+#### skip some malware
 
-*Package install time*
-
-- `minimumReleaseAge` and ` trustPolicy` in pnpm
-- `allowBuilds` in pnpm is safe according to my testing  
-
-- `@lavamoat/allow-scripts` - eliminate running lifecycle scripts by default and control them with per-package allowlists. Supports npm, yarn and pnpm.
+- `minimumReleaseAge` and `trustPolicy` in pnpm
 - `sfw` - checks what you install against socket.dev
 
-But what if the attack is not in a postinstall script?
+
+---
+#### Low hanging fruit 
+#### turn off scripts
+
+- turn off all install scripts forever
+- `allowBuilds` in pnpm is ok
+- `@lavamoat/allow-scripts` - per-package allowlists of scripts. 
+
+---
+
+#### allow-scripts
+
+- Supports npm, yarn and ~pnpm. 
+- Can't get tricked by `bundledDependencies` or git deps etc.
+- Just added version pinning in v5.
+- Tools for configuration and maintaining the list
+
+---
+
+#### But what if the attack is not in a postinstall script?
 
 ---
 
@@ -500,15 +518,6 @@ ignore-scripts=true
 git=/path/to/global/gitwrap
 ```
 
----
-
-### Comparison to <br>virtual dev envs
-
-- no change to how devs work necessary
-- no need to set up per-project
-- very granular isolation,
-  - *eg. virtual envs have git credentials*
-- easy to customize for JS devs
 
 ---
 
