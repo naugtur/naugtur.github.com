@@ -1,0 +1,537 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+
+  <title>AI thinking fast and slow</title>
+
+  <meta name="author" content="naugtur">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reset.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reveal.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/theme/black.css" id="theme">
+
+  <!-- Theme used for syntax highlighting of code -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/plugin/highlight/zenburn.css">
+
+
+  <link rel="stylesheet" href="../branding/style4x.css" id="branding">
+  <style>
+    #naugtur.reveal .muchcode pre>code {
+      max-height: 90vh;
+      min-width: 70vw;
+      font-size: 0.88em;
+    }
+
+    #naugtur pre svg {
+      line-height: normal;
+    }
+
+    #naugtur.reveal pre code.mermaid {
+      max-height: 60vh
+    }
+
+    #naugtur:before {
+      content: 'naugtur.pl';
+      position: fixed;
+      bottom: .5em;
+      left: .5em;
+      font-size: .8em;
+      animation-name: spin;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+      animation-duration: 30s;
+      transform-style: preserve-3d;
+      transform: rotateX(0.5deg);
+      transform-origin: 50% 50%;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotateX(0deg);
+      }
+
+      3% {
+        transform: rotateX(-360deg);
+      }
+
+      100% {
+        transform: rotateX(-360deg);
+      }
+    }
+
+    .boxes {
+      width: 70vw;
+      height: 70vh;
+      font-size: 5vh;
+
+    }
+
+    .boxes div {
+      box-sizing: border-box;
+      width: 46%;
+      height: 44%;
+      float: left;
+      border: 3px solid #3c873a;
+      margin: 2%;
+      text-align: center;
+      font-size: 0.7em;
+      line-height: 2em;
+      padding: 2%;
+    }
+
+
+    .an-container {
+      width: 100%;
+      height: 550px;
+
+    }
+
+    .an-item,
+    .an-start-loc {
+      position: fixed;
+      top: 15%;
+      left: 15%;
+    }
+
+    .an-y {
+      z-index: 11;
+      max-height: none !important;
+    }
+
+    .an-target {
+      position: fixed;
+      top: 326px;
+      right: 8%;
+      width: 40%;
+      z-index: 0;
+
+    }
+
+    .reveal section img.clear {
+      border: none;
+      background: none;
+      box-shadow: none;
+      max-width: 50%;
+    }
+
+    .an-item {
+      offset-path: path('M100,80 C200,-200 500,0 600,300');
+      offset-rotate: 0deg;
+    }
+
+    .an-item.an-to {
+      animation: move 4444ms infinite ease-in-out;
+    }
+
+    .an-item.an-oops {
+      background-color: rgba(255, 166, 60, 0.9);
+
+      /* animation-play-state: paused !important; */
+      border-radius: 50%;
+      /* offset-path: path('M30,80 C200,-200 500,0 320,200'); */
+      animation: discover 4444ms ease-in-out;
+      animation-fill-mode: forwards;
+      z-index: 10;
+
+    }
+
+    @keyframes move {
+      0% {
+        offset-distance: 0%;
+      }
+
+      100% {
+        offset-distance: 100%;
+      }
+    }
+
+    #naugtur .moji h1 {
+      line-height: 3em;
+    }
+
+    sub>sup,
+    sup>sub {
+      color: #777;
+    }
+
+
+    #naugtur.reveal .muchcode pre>code {
+      max-height: 90vh;
+      min-width: 70vw;
+      font-size: 0.88em;
+      border-left: 5px solid #777
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="reveal none" id="naugtur">
+
+    <div class="slides">
+      <!-- <section> -->
+
+      <section>
+        <br><br>
+        <h1>25 years of embracing the weird</h1>
+        a story about why I still enjoy JavaScript
+        <br>
+        <br>
+        <small>@naugtur, 2026</small>
+      </section>
+      <section data-markdown>
+        [![](./ilus/CliffordStoll_2006-embed.jpg)](https://www.ted.com/talks/clifford_stoll_the_call_to_learn?utm_campaign=tedspread&utm_medium=referral&utm_source=tedcomshare)
+        
+        It's going to be a bit like this TED talk by Clifford Stoll
+      </section>
+
+      <section data-markdown  class="muchcode">
+        <textarea data-template>
+          # 😅
+          ### Disclaimer: I'm skipping a lot of the ordinary stuff
+          
+          ---
+
+          ### 2001: How it started
+
+          ---
+
+          ```js
+          function a(){
+            setTimeout('a()',0)
+            setTimeout('a()',0)
+          }
+          a()
+          ```
+
+          <sub><sup>first 5 lines of JS I've written crash Windows 98 up to XP before SP2</sup></sub>
+          ---
+
+          ### 2007: Wrote a website that was editable in-place
+
+          <br>
+
+          ```
+          <iframe contenteditable="true"></iframe>
+
+          document.execCommand('insertText', false, 'some text')
+          ```
+
+          ---
+
+          ### 2009: Got multiple language spellcheck to work on one page
+
+          Only time I got paid to write a Java HTTP server 😂
+
+          ---
+
+          ### 2011: full-site heatmaps
+
+          ![](./ilus/heatmap.png)
+          
+          With blur derived from Pixastic FastBlur
+
+          ```js
+          for (var i=0;i<steps;i+=skip) {
+            var scaledWidth = Math.max(1,Math.round(smallWidth - i));
+            var scaledHeight = Math.max(1,Math.round(smallHeight - i));
+            copyCtx.clearRect(0,0,smallWidth,smallHeight);
+            copyCtx.drawImage(buffer,0,0,ww,hh,0,0,scaledWidth,scaledHeight);
+            ctx.clearRect(0, 0, ww, hh);
+            ctx.drawImage(copy,0,0,scaledWidth,scaledHeight,0,0,ww,hh);
+          }
+          ```
+
+          ---
+
+          ### And turned it into a game
+          [https://naugtur.pl/game/](https://naugtur.pl/game/)
+
+          ---
+
+
+          ### 2012: put 150KB of data in GET requests in production
+
+          Sent LZW compressed user activity data cross-origin to a GET endpoint
+
+          ---
+
+          ### 2013: I leaked 4GB of ram in one tab
+
+          Got me to learn about GC and heap dumps
+          
+          ---
+
+          ### 2014: Got banned from stackoverflow
+
+          for a library that used CSS animations to detect DOM insertions (an Idea I didn't properly attribute to https://backalleycoder.com/)
+
+          ```js
+          addEventListener("animationstart", (event) => { })
+          * { animation-name: 'insertionquery'; animation-duration: 0.001s; }
+          ```
+
+          ---
+
+          ### I went to invisible exhibition
+
+          ![](./ilus/invisible.png)
+
+          <sub><sup>Me finding a hairdryer in the sink</sup></sub>
+
+          ---
+
+          ### I went to invisible exhibition
+
+          ![](./ilus/invisible.png)
+
+          <sub><sup>Me discovering an electric stove is no longer hot</sup></sub>
+
+
+          ---
+
+          ### 2014: almost created a 3D audio game engine
+
+          Got stuck on how hard it was to test RX.js code 🙈
+
+          All of the fancy 3D math for binaural sound is in the browser
+          [MDN: Web audio spatialization basics](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API/Web_audio_spatialization_basics)
+
+          <sub><sup>An when you can't see, all collisions are simple sphere collisions 😝</sup></sub>
+          ---
+
+          ### We can't continue, because I need time for some deep dives
+
+         
+
+          </textarea>
+      </section>
+      <section>
+          <h3>
+            Who's that guy?
+          </h3>
+
+          <img src="../../me.avatar.jpg" height="100px">
+          <img src="./ilus/js.svg" height="100px">
+          <img src="../../mjs.svg" height="100px">
+          <img src="./ilus/lm.png" height="100px">
+          <img src="./ilus/mm.svg" height="100px">
+
+
+        </section>
+      <section data-markdown class="muchcode">
+        <textarea data-template>
+          These days, I'm writing security software that uses `with` statements 
+          ---
+          ### what's inside?
+
+          ![lavamoat](./ilus/lavamoat-underthe.png)
+          ---
+          ![](./ilus/hardenedjs.svg)
+
+          ## Hardened Javascript
+
+          Provides a secure environment for running code.
+
+          ---
+
+
+          ```js
+          good(' location.href="https://naugtur.pl/"; ')  // error: location is undefined
+
+          good(' location.href="https://naugtur.pl/"; ', { location })  // redirects
+
+          ```
+
+          ---
+
+          ```js [11|12|22|4-7|3|13-17|2|18-20|2-9]
+          function evaluator() {
+            with (this.scopeGuard) {
+              with (this.evalOnce) {
+                return function () {
+                'use strict';
+                return eval(arguments[0])
+                }
+              }
+            }
+          }
+          exports.good = (sourceCode, globalObject = Object.create(null)) => {
+            const evaluate = evaluator.call({
+            evalOnce: Object.freeze(
+              Object.defineProperty(Object.create(null), 'eval', {
+                get: Array.prototype.pop.bind([eval]),
+              })
+            ),
+            scopeGuard: new Proxy(globalObject, {
+                has: () => true
+              }),
+            })
+            return evaluate.call(globalObject, sourceCode);
+          }
+          ```
+          ---
+
+          ```js [2-4|5|6]
+          exports.lockdown = () => {
+          Object.freeze(Object.prototype)
+          Object.freeze(Array.prototype)
+          Object.freeze(Promise.prototype)
+          Object.defineProperty(Function.prototype, 'constructor', {
+            get: () => () => () => { throw Error('why so eval?🤡') }
+          })
+          }
+          ```
+
+
+
+
+            </textarea>
+      </section>
+      <section data-markdown>
+        <textarea data-template>
+![](./ilus/trampo.gif)
+
+#### let's learn trampoliners
+
+---
+
+### JS design is good for security?
+
+- Take ECMA + W3C
+- Add Conway's Law
+- Separation between language and APIs
+- Power only reachable through scope
+- Hardened JavaScript controls scope ✅
+
+---
+
+  ## Part of the language!
+  #### ( eventually )
+
+  https://github.com/tc39/proposal-compartments
+
+---
+
+### Object Capability
+
+vs identity based security
+
+- code gets references to capable objects
+- code doesn't "just work on your behalf"
+
+<br><br>
+OCap is a security model that enables <br>Fearless Cooperation.
+
+---
+
+### Object Capability
+
+You already know how to use it
+
+```js
+import { lint } from 'some-linter'
+import { readFile } from 'node:fs/promises'
+
+const fs = { readFile }
+
+lint({ fs })
+```
+
+---
+
+https://lavamoat.github.io
+
+![lavamoat](./ilus/lm.png)
+
+LavaMoat uses HardenedJS to provide security for JavaScript projects of today and tomorrow.
+
+
+            </textarea>
+      </section>
+
+
+
+      <section>
+        <h4> </h4>
+
+        <img src="naugtur.svg" style="height:6em" />
+
+        <p>@naugtur &nbsp; <a href="https://naugtur.pl/">naugtur.pl</a></p>
+        <p> <a href="https://naugtur.pl/training">naugtur.pl/training</a></p>
+
+
+      </section>
+
+    </div>
+
+  </div>
+
+  <style>
+    #naugtur {
+      background-image: none;
+    }
+
+    /*effectively switch from contain to cover behav*/
+    #naugtur .slide-background video {
+      min-width: 100%;
+      min-height: 100%;
+      width: auto;
+      height: auto;
+    }
+  </style>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reveal.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/plugin/zoom/zoom.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/plugin/notes/notes.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/plugin/search/search.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/plugin/markdown/markdown.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/plugin/highlight/highlight.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js-mermaid-plugin@2.3.0/plugin/mermaid/mermaid.js"></script>
+
+
+
+
+  <script>
+    // Full list of configuration options available at:
+    // https://github.com/hakimel/reveal.js#configuration
+    Reveal.initialize({
+      controls: true,
+      progress: true,
+      history: true,
+      center: true,
+      // mouseWheel: true,
+
+      transition: 'concave', // none/fade/slide/convex/concave/zoom
+      mermaid: {
+        theme: "dark"
+      },
+
+      plugins: [RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight, RevealMermaid],
+      // autoAnimateEasing: 'linear',
+
+      // Parallax background image
+      // parallaxBackgroundImage: '../branding/bk.jpg', // e.g. "https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg"
+      //
+      // // Parallax background size
+      // parallaxBackgroundSize: '1920px 880px', // CSS syntax, e.g. "2100px 900px" - currently only pixels are supported (don't use % or auto)
+
+
+    });
+
+
+
+
+  </script>
+
+</body>
+
+</html>
