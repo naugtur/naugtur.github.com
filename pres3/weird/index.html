@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
 
-  <title>AI thinking fast and slow</title>
+  <title>Embracing the Weird</title>
 
   <meta name="author" content="naugtur">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -24,12 +24,7 @@
 
   <link rel="stylesheet" href="../branding/style4x.css" id="branding">
   <style>
-    #naugtur.reveal .muchcode pre>code {
-      max-height: 90vh;
-      min-width: 70vw;
-      font-size: 0.88em;
-    }
-
+   
     #naugtur pre svg {
       line-height: normal;
     }
@@ -88,69 +83,12 @@
     }
 
 
-    .an-container {
-      width: 100%;
-      height: 550px;
-
-    }
-
-    .an-item,
-    .an-start-loc {
-      position: fixed;
-      top: 15%;
-      left: 15%;
-    }
-
-    .an-y {
-      z-index: 11;
-      max-height: none !important;
-    }
-
-    .an-target {
-      position: fixed;
-      top: 326px;
-      right: 8%;
-      width: 40%;
-      z-index: 0;
-
-    }
 
     .reveal section img.clear {
       border: none;
       background: none;
       box-shadow: none;
       max-width: 50%;
-    }
-
-    .an-item {
-      offset-path: path('M100,80 C200,-200 500,0 600,300');
-      offset-rotate: 0deg;
-    }
-
-    .an-item.an-to {
-      animation: move 4444ms infinite ease-in-out;
-    }
-
-    .an-item.an-oops {
-      background-color: rgba(255, 166, 60, 0.9);
-
-      /* animation-play-state: paused !important; */
-      border-radius: 50%;
-      /* offset-path: path('M30,80 C200,-200 500,0 320,200'); */
-      animation: discover 4444ms ease-in-out;
-      animation-fill-mode: forwards;
-      z-index: 10;
-
-    }
-
-    @keyframes move {
-      0% {
-        offset-distance: 0%;
-      }
-
-      100% {
-        offset-distance: 100%;
-      }
     }
 
     #naugtur .moji h1 {
@@ -165,7 +103,7 @@
 
     #naugtur.reveal .muchcode pre>code {
       max-height: 90vh;
-      min-width: 70vw;
+      /* min-width: 70vw; */
       font-size: 0.88em;
       border-left: 5px solid #777
     }
@@ -189,14 +127,14 @@
       </section>
       <section data-markdown>
         [![](./ilus/CliffordStoll_2006-embed.jpg)](https://www.ted.com/talks/clifford_stoll_the_call_to_learn?utm_campaign=tedspread&utm_medium=referral&utm_source=tedcomshare)
-        
+
         It's going to be a bit like this TED talk by Clifford Stoll
       </section>
 
-      <section data-markdown  class="muchcode">
+      <section data-markdown class="muchcode">
         <textarea data-template>
           # 😅
-          ### Disclaimer: I'm skipping a lot of the ordinary stuff
+          ### I learned JS by trial and error
           
           ---
 
@@ -213,9 +151,23 @@
           ```
 
           <sub><sup>first 5 lines of JS I've written crash Windows 98 up to XP before SP2</sup></sub>
+          
           ---
 
-          ### 2007: Wrote a website that was editable in-place
+          ![](./ilus/favjs.png)
+          
+          ---
+          ### Not constrained by a framework
+
+          Frameworks make you do reasonable things
+          
+          ---
+
+          ## Things I could tell you about
+
+          ---
+
+          ### 2007: a website that's editable in-place
 
           <br>
 
@@ -252,21 +204,29 @@
 
           ---
 
-          ### And turned it into a game
+          ### useful for a space-themed game too
+
+          ![](./ilus/game.png)
+
           [https://naugtur.pl/game/](https://naugtur.pl/game/)
 
           ---
 
 
-          ### 2012: put 150KB of data in GET requests in production
+          ### 2012: 150KB of data in GET requests in production
 
-          Sent LZW compressed user activity data cross-origin to a GET endpoint
+          - Send user activity data cross-origin
+          - CORS not widely supported yet
+          - URL length limit unaffected by compression
+          - Roll my own LZW and heuristic compression
+          
 
           ---
 
-          ### 2013: I leaked 4GB of ram in one tab
+          ### 2013: I leaked 4GB of RAM in one tab
 
-          Got me to learn about GC and heap dumps
+          - Learned about GC and heap snapshots
+          - Replaced some canvases with SVG
           
           ---
 
@@ -278,10 +238,13 @@
           addEventListener("animationstart", (event) => { })
           * { animation-name: 'insertionquery'; animation-duration: 0.001s; }
           ```
+          ---
+
+          ### 2015: almost created a 3D audio game engine
 
           ---
 
-          ### I went to invisible exhibition
+          ### I went to the invisible exhibition
 
           ![](./ilus/invisible.png)
 
@@ -289,16 +252,17 @@
 
           ---
 
-          ### I went to invisible exhibition
+          ### I went to the invisible exhibition
 
           ![](./ilus/invisible.png)
 
           <sub><sup>Me discovering an electric stove is no longer hot</sup></sub>
 
-
           ---
 
-          ### 2014: almost created a 3D audio game engine
+          ### 2015: almost created a 3D audio game engine
+
+             *Did you know blind people play games too?*
 
           Got stuck on how hard it was to test RX.js code 🙈
 
@@ -308,6 +272,11 @@
           <sub><sup>An when you can't see, all collisions are simple sphere collisions 😝</sup></sub>
           ---
 
+          ### 2016: I got into JS security...
+
+          
+          ---
+
           ### We can't continue, because I need time for some deep dives
 
          
@@ -315,18 +284,18 @@
           </textarea>
       </section>
       <section>
-          <h3>
-            Who's that guy?
-          </h3>
+        <h3>
+          Who's that guy?
+        </h3>
 
-          <img src="../../me.avatar.jpg" height="100px">
-          <img src="./ilus/js.svg" height="100px">
-          <img src="../../mjs.svg" height="100px">
-          <img src="./ilus/lm.png" height="100px">
-          <img src="./ilus/mm.svg" height="100px">
+        <img src="../../me.avatar.jpg" height="100px">
+        <img src="./ilus/js.svg" height="100px">
+        <img src="../../mjs.svg" height="100px">
+        <img src="./ilus/lm.png" height="100px">
+        <img src="./ilus/mm.svg" height="100px">
 
 
-        </section>
+      </section>
       <section data-markdown class="muchcode">
         <textarea data-template>
           These days, I'm writing security software that uses `with` statements 
@@ -343,119 +312,66 @@
 
           ---
 
-
-          ```js
-          good(' location.href="https://naugtur.pl/"; ')  // error: location is undefined
-
-          good(' location.href="https://naugtur.pl/"; ', { location })  // redirects
-
-          ```
-
-          ---
-
-          ```js [11|12|22|4-7|3|13-17|2|18-20|2-9]
-          function evaluator() {
-            with (this.scopeGuard) {
-              with (this.evalOnce) {
-                return function () {
-                'use strict';
-                return eval(arguments[0])
-                }
-              }
-            }
-          }
-          exports.good = (sourceCode, globalObject = Object.create(null)) => {
-            const evaluate = evaluator.call({
-            evalOnce: Object.freeze(
-              Object.defineProperty(Object.create(null), 'eval', {
-                get: Array.prototype.pop.bind([eval]),
-              })
-            ),
-            scopeGuard: new Proxy(globalObject, {
-                has: () => true
-              }),
-            })
-            return evaluate.call(globalObject, sourceCode);
-          }
-          ```
-          ---
-
-          ```js [2-4|5|6]
-          exports.lockdown = () => {
+          ```js [15-16|5-6|12-18|8-10|1-3]
           Object.freeze(Object.prototype)
           Object.freeze(Array.prototype)
-          Object.freeze(Promise.prototype)
-          Object.defineProperty(Function.prototype, 'constructor', {
-            get: () => () => () => { throw Error('why so eval?🤡') }
+          Object.freeze(Function.prototype)
+
+          const pretendGlobalObject = { console, location }
+          pretendGlobalObject.globalThis = pretendGlobalObject
+
+          const scopeCeiling = new Proxy(pretendGlobalObject, {
+            has: () => true
           })
+
+          with (scopeCeiling) {
+            (function (){
+              'use strict';
+              console.log(location.href)  // works    
+              document.cookie  // error: document is undefined 
+            }).call(pretendGlobalObject)
           }
           ```
+          <sub><sup> Not exactly how HardenedJS works 😅</sup></sub>
 
+          ---
 
+          ### BTW, please use LavaMoat to protect your apps
 
+          ![](./ilus/lavamoat-logo.png)
 
-            </textarea>
+          Start with `@lavamoat/allow-scripts` 
+
+        </textarea>
       </section>
       <section data-markdown>
         <textarea data-template>
-![](./ilus/trampo.gif)
+          #### Can a function be sync or async depending on how you call it?
 
-#### let's learn trampoliners
+          ---
 
----
+          #### async is contagious
 
-### JS design is good for security?
+          ![](./ilus/asynciscontagious.png)
 
-- Take ECMA + W3C
-- Add Conway's Law
-- Separation between language and APIs
-- Power only reachable through scope
-- Hardened JavaScript controls scope ✅
+          ---
 
----
+          ### What if we could outsource awaiting promises?
 
-  ## Part of the language!
-  #### ( eventually )
+          ---
 
-  https://github.com/tc39/proposal-compartments
+          ![](./ilus/trampo.gif)
 
----
-
-### Object Capability
-
-vs identity based security
-
-- code gets references to capable objects
-- code doesn't "just work on your behalf"
-
-<br><br>
-OCap is a security model that enables <br>Fearless Cooperation.
-
----
-
-### Object Capability
-
-You already know how to use it
-
-```js
-import { lint } from 'some-linter'
-import { readFile } from 'node:fs/promises'
-
-const fs = { readFile }
-
-lint({ fs })
-```
-
----
-
-https://lavamoat.github.io
-
-![lavamoat](./ilus/lm.png)
-
-LavaMoat uses HardenedJS to provide security for JavaScript projects of today and tomorrow.
+          #### let's learn trampolines
 
 
-            </textarea>
+          ---
+          *What I'm trying to say is*
+
+          #### Step outside your opinionated framework and try something weird
+
+
+        </textarea>
       </section>
 
 
