@@ -24,7 +24,6 @@
 
   <link rel="stylesheet" href="../branding/style4x.css" id="branding">
   <style>
-   
     #naugtur pre svg {
       line-height: normal;
     }
@@ -84,11 +83,69 @@
 
 
 
+    .an-container {
+      width: 100%;
+      height: 550px;
+
+    }
+
+    .an-item,
+    .an-start-loc {
+      position: fixed;
+      top: 15%;
+      left: 15%;
+    }
+
+    .an-y {
+      z-index: 11;
+      max-height: none !important;
+    }
+
+    .an-target {
+      position: fixed;
+      top: 326px;
+      right: 8%;
+      width: 40%;
+      z-index: 0;
+
+    }
+
     .reveal section img.clear {
       border: none;
       background: none;
       box-shadow: none;
       max-width: 50%;
+    }
+
+    .an-item {
+      offset-path: path('M100,80 C200,-200 500,0 600,300');
+      offset-rotate: 0deg;
+    }
+
+    .an-item.an-to {
+      animation: move 4444ms infinite ease-in-out;
+    }
+
+    .an-item.an-oops {
+      background-color: rgba(255, 166, 60, 0.9);
+
+      /* animation-play-state: paused !important; */
+      border-radius: 50%;
+      /* offset-path: path('M30,80 C200,-200 500,0 320,200'); */
+      animation: discover 4444ms ease-in-out;
+      animation-fill-mode: forwards;
+      z-index: 10;
+
+    }
+
+    @keyframes move {
+      0% {
+        offset-distance: 0%;
+      }
+
+      100% {
+        offset-distance: 100%;
+      }
     }
 
     #naugtur .moji h1 {
@@ -108,6 +165,7 @@
       border-left: 5px solid #777
     }
   </style>
+  <base target="_blank">
 </head>
 
 <body>
@@ -120,21 +178,48 @@
       <section>
         <br><br>
         <h1>25 years of embracing the weird</h1>
-        a story about why I still enjoy JavaScript
+        a story about JavaScript and joy
         <br>
         <br>
         <small>@naugtur, 2026</small>
       </section>
-      <section data-markdown>
-        [![](./ilus/CliffordStoll_2006-embed.jpg)](https://www.ted.com/talks/clifford_stoll_the_call_to_learn?utm_campaign=tedspread&utm_medium=referral&utm_source=tedcomshare)
+      <section data-markdown class="muchcode">
+        <textarea data-template>
+          [![](./ilus/CliffordStoll_2006-embed.jpg)](https://www.ted.com/talks/clifford_stoll_the_call_to_learn?utm_campaign=tedspread&utm_medium=referral&utm_source=tedcomshare)
 
-        It's going to be a bit like this TED talk by Clifford Stoll
+           It's going to be a bit like this TED talk by Clifford Stoll
+        </textarea>
+      </section>
+      <section>
+        <img src="./naugtur.svg" height="400px">
+        <br>
+        <i>go to naugtur.pl to follow along</i>
+
+      </section>
+
+        <section class="animatedSlide bad">
+
+        <img src="./npm.svg" alt="npm logo" style="width: 25%; margin-top:5%" class=" an-y an-start-loc">
+        <img src="./ilus/cookie.png" alt="gobble" class="an-target an-y">
+        <div class="an-container"></div>
+
+        <small>I normally talk about supply chain security</small>
+
       </section>
 
       <section data-markdown class="muchcode">
         <textarea data-template>
+
+          # 😊
+          > The joy we get from tinkering is what separates us from the machines.
+
+          ---
+
+
           # 😅
-          ### I learned JS by trial and error
+          <br/>
+
+          ### I learned JS by trial and error, often through mad experiments
           
           ---
 
@@ -153,26 +238,27 @@
           }
           a()
           ```
-
-          <sub><sup>first 5 lines of JS I've written crash Windows 98 up to XP before SP2</sup></sub>
+          <sub><sup>first 5 lines of JS I've written</sup></sub>
           
           ---
-
+          
           ![](./ilus/win98.png)
           
           ---
-
-          ![](./ilus/win98done.png)
-
-          ---
-          ### Not constrained by a framework
-
-          Frameworks make you do reasonable things
+          
+          ![](./ilus/win98done.png)  
           
           ---
 
-          ## Things I could tell you about
+          # `¯\_(ツ)_/¯`
 
+          ---
+
+          ### 2002: no progress really
+          
+          <sub><sup>
+            I was really impressed with a girl who knew how to do shadow on text in IE6<br> (I never met her)
+          </sup></sub>
           ---
 
           ### 2007: a website that's editable in-place
@@ -191,6 +277,8 @@
 
           Only time I got paid to write a Java HTTP server 😂
 
+          ---
+          Opera Unite came out in 2009 but I was too noob for an async server
           ---
 
           ### 2011: full-site heatmaps
@@ -221,20 +309,23 @@
           ---
 
 
-          ### 2012: 150KB of data in GET requests in production
+          <!-- ### 2012: 150KB of data in GET requests in production
 
           - Send user activity data cross-origin
           - CORS not widely supported yet
           - URL length limit unaffected by compression
           - Roll my own LZW and heuristic compression
-          
+           -->
+
+          ### 2012: discovered Node.js 
+
+          Socket.io based multiplayer sticky notes on a wall
 
           ---
 
-          ### 2013: I leaked 4GB of RAM in one tab
+          ### 2013: leaked 4GB of RAM in one tab
 
           - Learned about GC and heap snapshots
-          - Replaced some canvases with SVG
           
           ---
 
@@ -268,45 +359,45 @@
 
           ---
 
+          *Did you know people who can't see play games too?*
+
+          ---
           ### 2015: almost created a 3D audio game engine
 
-             *Did you know blind people play games too?*
 
           Got stuck on how hard it was to test RX.js code 🙈
 
           All of the fancy 3D math for binaural sound is in the browser
           [MDN: Web audio spatialization basics](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API/Web_audio_spatialization_basics)
 
-          <sub><sup>An when you can't see, all collisions are simple sphere collisions 😝</sup></sub>
+          <sub><sup>And when you can't see, all collisions are simple sphere collisions 😝</sup></sub>
           ---
 
           ### 2016: I got into JS security...
 
-          
+          And learned my first JS was a Denial of Service attack
           ---
 
-          ### We can't continue, because I need time for some deep dives
+          # ⏳
+
+          how are we on time?
+
+          ---
+
+          ### Have you noticed I never mentioned framewors?
+
+           <br/><br/>
+          Frameworks make you do reasonable things, and where's the fun in that?
+          
 
          
 
           </textarea>
       </section>
-      <section>
-        <h3>
-          Who's that guy?
-        </h3>
 
-        <img src="../../me.avatar.jpg" height="100px">
-        <img src="./ilus/js.svg" height="100px">
-        <img src="../../mjs.svg" height="100px">
-        <img src="./ilus/lm.png" height="100px">
-        <img src="./ilus/mm.svg" height="100px">
-
-
-      </section>
       <section data-markdown class="muchcode">
         <textarea data-template>
-          These days, I'm writing security software that uses `with` statements 
+          ### These days, I'm writing security software that uses `with` statements 
           ---
           ### what's inside?
 
@@ -344,6 +435,18 @@
 
           ---
 
+          Scope Ceiling at TC39 next week 
+
+          ![](./ilus/tcmodules.png)
+
+          ---
+
+          #### 🚀 TIP for getting started with ECMAScript Spec
+
+          [![](./ilus/doom.jpg)](https://www.youtube.com/watch?v=QHRuTYtSbJQ)
+
+          ---
+
           ### BTW, please use LavaMoat to protect your apps
 
           ![](./ilus/lavamoat-logo.png)
@@ -354,6 +457,11 @@
       </section>
       <section data-markdown>
         <textarea data-template>
+          # 🤡
+          ## Let's learn something for the joy of it!
+
+          ---
+
           #### Can a function be sync or async depending on how you call it?
 
           ---
@@ -385,7 +493,7 @@
 
 
       <section>
-        <h4> </h4>
+        <h4> Enjoy! </h4>
 
         <img src="naugtur.svg" style="height:6em" />
 
@@ -452,7 +560,41 @@
     });
 
 
+    function installAnimation(an, icon, delay) {
+      var el = document.createElement('span');
+      el.classList.add('an-item');
+      el.innerHTML = icon;
+      an.appendChild(el)
+      setTimeout(() => el.classList.add('an-to'), delay);
+      return el
+    }
+    Reveal.addEventListener('slidechanged', (event) => {
+      console.log(event.currentSlide)
+      if (event.currentSlide.classList.contains('animatedSlide')) {
+        var an = event.currentSlide.querySelector('.an-container');
+        an.innerHTML = '';
+        var pkgs = '📦,'.repeat(30).split(',')
+        if (event.currentSlide.classList.contains('bad')) {
+          pkgs[4] = '💣';
+          pkgs[10] = '🔥';
+          pkgs[27] = '👿';
+        }
+        pkgs.forEach((icon, index) =>
+          installAnimation(an, icon, 7777 * Math.log10((index) / 3 + 1))
+        )
+      }
 
+      if (event.currentSlide.classList.contains('animatedDependency')) {
+        const dep = document.querySelector('.adependency');
+        const deps = document.querySelector('.dependencies');
+        deps.innerHTML = '';
+        ' '.repeat(8).split('').forEach((_, index) => {
+          setTimeout(() => {
+            deps.appendChild(dep.cloneNode(true));
+          }, (index + 3) * 1000)
+        })
+      }
+    })
 
   </script>
 
